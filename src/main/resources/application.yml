@@ -4,11 +4,11 @@ application:
 
 security:
   jwt:
-    secret-key: veryverysecretkeyitissososososososecretnoonecanguess
+    secret-key: examplesecretkey
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/grapghql_game_list
-    username: viettran
+    username: username
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
