@@ -1,7 +1,6 @@
 package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.LoginResponse;
 import com.game.gamelist.security.JwtIssuer;
 import com.game.gamelist.service.AuthService;
 import lombok.RequiredArgsConstructor;
