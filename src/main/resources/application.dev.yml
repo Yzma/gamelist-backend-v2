@@ -1,0 +1,32 @@
+application:
+  title: GameList
+  version: 1.0.0
+
+security:
+  jwt:
+    secret-key: [JWT_SECRET_HERE]
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  sql:
+    init:
+      mode: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.hibernate.sql: DEBUG
