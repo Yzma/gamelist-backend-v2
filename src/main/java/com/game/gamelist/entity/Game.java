@@ -23,20 +23,24 @@ public class Game {
 
     private String description;
 
-    @Column(name = "imageURL")
+    @Column(name = "`imageURL`")
     private String imageURL;
 
-    @Column(name = "releaseDate")
+    @Column(name = "`releaseDate`")
     private LocalDateTime releaseDate;
 
+    @Column(name = "avg_score")
     private double avgScore;
 
+    @Column(name = "total_rating")
     private int totalRating;
 
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "bannerURL")
+    @Column(name = "`bannerURL`")
     private String bannerURL;
 }
