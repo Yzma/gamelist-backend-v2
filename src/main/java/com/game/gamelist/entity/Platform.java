@@ -1,6 +1,9 @@
 package com.game.gamelist.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,15 +12,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity(name = "platforms")
-@Table(indexes = {
-        @Index(name = "name_index", columnList = "name"),
-})
 public class Platform {
 
     @Id
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     private LocalDateTime createdAt;
