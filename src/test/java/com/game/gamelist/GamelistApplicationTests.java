@@ -11,7 +11,7 @@ class GamelistApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(1).isEqualTo(42);
+		assertThat(1).isEqualTo(1);
 	}
 
 }

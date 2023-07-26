@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
@@ -31,8 +32,18 @@ public class GameListJsonTests {
     }
 
     @Test
-    public void gameJournalSerializationTest() throws IOException {
+    public void gameJournalSerializationTest() throws IOException, IllegalAccessException {
         GameJournal gameJournal = gameJournals[0];
+        System.out.println("GameJournal Print: 👹🤢👹🤢👹🤢👹🤢" + gameJournal);
+
+        Field[] gameJournalFields = gameJournal.getClass().getDeclaredFields();
+
+        for (Field gameJournalField : gameJournalFields) {
+            gameJournalField.setAccessible(true);
+
+            System.out.println("👹🤢👹🤢👹🤢👹🤢" + gameJournalField.get(gameJournal));
+        }
+
         assertThat(json.write(gameJournal)).isStrictlyEqualToJson("gameJournal.json");
         assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.id");
         assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.id")
@@ -41,7 +52,5 @@ public class GameListJsonTests {
         assertThat(json.write(gameJournal)).extractingJsonPathStringValue("@.content")
                 .isEqualTo("Test Content 99");
     }
-
-
 
 }
