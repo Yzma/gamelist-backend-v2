@@ -31,15 +31,17 @@ public class GameListJsonTests {
     }
 
     @Test
-    public void cashCardSerializationTest() throws IOException {
+    public void gameJournalSerializationTest() throws IOException {
         GameJournal gameJournal = gameJournals[0];
         assertThat(json.write(gameJournal)).isStrictlyEqualToJson("gameJournal.json");
         assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.id");
         assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.id")
                 .isEqualTo(99);
-        assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.content");
-        assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.content")
+        assertThat(json.write(gameJournal)).hasJsonPathStringValue("@.content");
+        assertThat(json.write(gameJournal)).extractingJsonPathStringValue("@.content")
                 .isEqualTo("Test Content 99");
     }
+
+
 
 }
