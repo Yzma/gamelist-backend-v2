@@ -12,4 +12,9 @@ public class UserController {
     public String helloWorld() {
         return "Hello World from user";
     }
+
+    @RequestMapping("/game")
+    public String getAllGames() {
+        return "Hello World from user";
+    }
 }
