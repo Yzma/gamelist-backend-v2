@@ -52,4 +52,6 @@ public class GameJournal {
         return this.content;
     }
 
+
+
 }
