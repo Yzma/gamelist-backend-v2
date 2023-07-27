@@ -41,20 +41,25 @@ public class User implements UserDetails {
     @Column(name = "password_digest")
     private String password;
 
+    @Column(name = "banner_picture")
     private String bannerPicture;
 
+    @Column(name = "user_picture")
     private String userPicture;
 
     private String bio;
 
+    @Column(name = "is_active")
     private boolean isActive;
 
     @CreationTimestamp
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "listsOrder")
+    @Column(name = "`listsOrder`")
     private String listsOrder;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
