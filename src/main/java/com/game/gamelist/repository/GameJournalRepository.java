@@ -6,5 +6,4 @@ import com.game.gamelist.entity.GameJournal;
 import java.util.Optional;
 
 public interface GameJournalRepository extends JpaRepository<GameJournal, Long> {
-    Optional<GameJournal> findById(Long id);
 }

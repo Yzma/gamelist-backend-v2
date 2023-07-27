@@ -41,6 +41,7 @@ public class User implements UserDetails {
     @Column(name = "password_digest")
     private String password;
 
+
     private String bannerPicture;
 
     private String userPicture;
