@@ -25,16 +25,22 @@ public class GameListJsonTests {
 
     @BeforeEach
     void setUp() {
-//        gameJournals = Arrays.array(
-//                new GameJournal(99L, "Test Content 99"),
-//                new GameJournal(100L, "Test Content 100"),
-//                new GameJournal(101L, "Test Content 101")
-//        );
 
-        GameJournal gameJournal = GameJournal.builder()
+        GameJournal gameJournal1 = GameJournal.builder()
                 .id(99L)
                 .content("Test Content 99")
                 .build();
+
+        GameJournal gameJournal2 = GameJournal.builder()
+                .id(100L)
+                .content("Test Content 100")
+                .build();
+        GameJournal gameJournal3 = GameJournal.builder()
+                .id(101L)
+                .content("Test Content 101")
+                .build();
+
+        gameJournals = Arrays.array(gameJournal1, gameJournal2, gameJournal3);
 
     }
 
