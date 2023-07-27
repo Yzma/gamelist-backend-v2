@@ -9,8 +9,6 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
@@ -25,12 +23,10 @@ public class GameListJsonTests {
 
     @BeforeEach
     void setUp() {
-
         GameJournal gameJournal1 = GameJournal.builder()
                 .id(99L)
                 .content("Test Content 99")
                 .build();
-
         GameJournal gameJournal2 = GameJournal.builder()
                 .id(100L)
                 .content("Test Content 100")
