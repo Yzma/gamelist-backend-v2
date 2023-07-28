@@ -51,4 +51,9 @@ public class Game {
     @ManyToMany(mappedBy = "games")
     private Set<Tag> tags;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "user_games")
+    private Set<UserGame> userGames;
+
+
 }

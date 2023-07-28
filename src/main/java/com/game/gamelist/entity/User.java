@@ -111,4 +111,8 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @Column(name = "game_journals")
     private List<GameJournal> gameJournals;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "user_games")
+    private Set<UserGame> userGames;
 }
