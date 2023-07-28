@@ -2,5 +2,6 @@
   "id": 99,
   "content": "Test Content 99",
   "createdAt": null,
-  "updatedAt": null
+  "updatedAt": null,
+  "user": null
 }
