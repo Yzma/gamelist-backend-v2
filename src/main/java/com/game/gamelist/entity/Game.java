@@ -1,12 +1,10 @@
 package com.game.gamelist.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -43,4 +41,13 @@ public class Game {
 
     @Column(name = "`bannerURL`")
     private String bannerURL;
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Genre> genres;
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Platform> platforms;
+
+    @ManyToMany(mappedBy = "games")
+    private Set<Tag> tags;
 }
