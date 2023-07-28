@@ -3,6 +3,7 @@ package com.game.gamelist.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,9 +11,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "posts")
 public class Post {
     @Id
