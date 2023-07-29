@@ -33,7 +33,7 @@ public class Tag {
 
     @ManyToMany
     @JoinTable(
-            name = "game_tags",
+            name = "games_tags",
             joinColumns = @JoinColumn(name = "tag_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private Set<Game> games;
