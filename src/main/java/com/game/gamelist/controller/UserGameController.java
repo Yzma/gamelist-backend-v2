@@ -14,8 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -42,17 +44,26 @@ public class UserGameController {
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId) {
         UserGame userGame = userGameRepository.findById(requestedId).orElse(null);
-        System.out.println("UserGame Found: " + userGame);
 
-        Post post = postRepository.findById((long) requestedId).orElse(null);
-        System.out.println("Post Found: " + post.getText());
-        System.out.println("Post Found: " + post);
         if (userGame != null) {
-            System.out.println("UserGame Found: " + userGame);
+            Map<String, Object> responseData = new HashMap<>();
+            Field[] fields = userGame.getClass().getDeclaredFields();
+
+            for (Field field : fields) {
+                field.setAccessible(true);
+                try {
+                    if (field.getName().equals("user") || field.getName().equals("game")) {
+                        continue;
+                    }
+                    responseData.put(field.getName(), field.get(userGame));
+                } catch (IllegalAccessException e) {
+                    // Handle the exception if necessary
+                }
+            }
             return ResponseEntity.ok(
                     HttpResponse.builder()
                             .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("Game", 1) )
+                            .data(Map.of("usergame", responseData))
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .message("UserGame found")
