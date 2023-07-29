@@ -33,7 +33,7 @@ public class Genre {
 
     @ManyToMany
     @JoinTable(
-            name = "game_genres",
+            name = "games_genres",
             joinColumns = @JoinColumn(name = "genre_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private Set<Game> games;
