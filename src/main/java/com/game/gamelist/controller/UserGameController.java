@@ -57,13 +57,14 @@ public class UserGameController {
                     }
                     responseData.put(field.getName(), field.get(userGame));
                 } catch (IllegalAccessException e) {
-                    // Handle the exception if necessary
+                    e.printStackTrace();
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
             return ResponseEntity.ok(
                     HttpResponse.builder()
                             .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("usergame", responseData))
+                            .data(Map.of("userGame", responseData))
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .message("UserGame found")
@@ -71,6 +72,20 @@ public class UserGameController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/")
+    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame) {
+        UserGame newUserGame = userGameRepository.save(userGame);
+
+        return ResponseEntity.created(URI.create("/api/v1/usergames/" + newUserGame.getId())).body(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGame", newUserGame))
+                        .status(HttpStatus.CREATED)
+                        .statusCode(HttpStatus.CREATED.value())
+                        .message("UserGame created")
+                        .build());
     }
 
 
