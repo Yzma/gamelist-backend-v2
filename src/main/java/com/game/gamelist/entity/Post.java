@@ -1,28 +1,25 @@
 package com.game.gamelist.entity;
 
-import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@Entity(name = "game_journals")
-public class GameJournal {
-
+@Entity(name = "posts")
+public class Post {
     @Id
     @GeneratedValue
     private Long id;
 
-    private String content;
+    private String text;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -34,4 +31,6 @@ public class GameJournal {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;}
+    private User user;
+
+}
