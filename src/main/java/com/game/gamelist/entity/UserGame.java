@@ -15,14 +15,19 @@ import java.time.LocalDateTime;
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@Entity(name = "game_games")
+@Entity(name = "user_games")
 public class UserGame {
     @Id
     @GeneratedValue
     private Long id;
 
+//    @Column(name = "game_status")
+//    private GameStatus gameStatus;
+
     @Column(name = "game_status")
+    @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
+
 
     @Column(name = "start_date")
     private LocalDateTime startDate;

@@ -1,9 +1,8 @@
 package com.game.gamelist.repository;
 
+import com.game.gamelist.entity.UserGame;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Map;
 
-public interface UserGameRepository extends JpaRepository<UserGameRepository, Long> {
-    Map<?,?> findUserGameById(Long requestedId);
+public interface UserGameRepository extends JpaRepository<UserGame, Long> {
 }
