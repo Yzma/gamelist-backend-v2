@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
 import java.net.URI;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/usergames")
 public class UserGameController {
     private final UserGameRepository userGameRepository;
-    private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/")
     public ResponseEntity<HttpResponse> sayHello() {
@@ -75,18 +76,23 @@ public class UserGameController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame) {
-        UserGame newUserGame = userGameRepository.save(userGame);
-
-        return ResponseEntity.created(URI.create("/api/v1/usergames/" + newUserGame.getId())).body(
-                HttpResponse.builder()
-                        .timeStamp(LocalDateTime.now().toString())
-                        .data(Map.of("userGame", newUserGame))
-                        .status(HttpStatus.CREATED)
-                        .statusCode(HttpStatus.CREATED.value())
-                        .message("UserGame created")
-                        .build());
+    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame, Principal principal) {
+        System.out.println("principal.getName() = " + principal.getName());
+        User user = userRepository.findByEmail(principal.getName()).orElse(null);
+        if (user != null) {
+            userGame.setUser(user);
+            userGameRepository.save(userGame);
+            return ResponseEntity.created(URI.create("")).body(
+                    HttpResponse.builder()
+                            .timeStamp(LocalDateTime.now().toString())
+                            .data(Map.of("userGame", userGame))
+                            .status(HttpStatus.CREATED)
+                            .statusCode(HttpStatus.CREATED.value())
+                            .message("UserGame created")
+                            .build());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
-
 
 }
