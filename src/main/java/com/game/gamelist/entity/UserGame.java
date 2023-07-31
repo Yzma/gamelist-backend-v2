@@ -1,6 +1,9 @@
 package com.game.gamelist.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +24,6 @@ public class UserGame {
     @GeneratedValue
     private Long id;
 
-//    @Column(name = "game_status")
-//    private GameStatus gameStatus;
-
     @Column(name = "game_status")
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
@@ -43,6 +43,7 @@ public class UserGame {
     @Column(name = "game_note")
     private String gameNote;
 
+
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -58,4 +59,5 @@ public class UserGame {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
+
 }

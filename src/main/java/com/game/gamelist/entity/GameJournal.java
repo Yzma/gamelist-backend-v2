@@ -2,6 +2,7 @@ package com.game.gamelist.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.*;
@@ -33,5 +34,6 @@ public class GameJournal {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnoreProperties("game_journals")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;}

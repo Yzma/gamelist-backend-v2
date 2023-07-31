@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Tag {
     private LocalDateTime updatedAt;
 
     @ManyToMany
+    @JsonIgnoreProperties("tag")
     @JoinTable(
             name = "games_tags",
             joinColumns = @JoinColumn(name = "tag_id"),

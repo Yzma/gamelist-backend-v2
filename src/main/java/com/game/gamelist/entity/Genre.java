@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class Genre {
     private LocalDateTime updatedAt;
 
     @ManyToMany
+    @JsonIgnoreProperties("genre")
     @JoinTable(
             name = "games_genres",
             joinColumns = @JoinColumn(name = "genre_id"),

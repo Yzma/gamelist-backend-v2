@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
@@ -106,13 +107,16 @@ public class User implements UserDetails {
     public boolean isEnabled() {return true;}
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("user")
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     @Column(name = "game_journals")
     private List<GameJournal> gameJournals;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
 }
