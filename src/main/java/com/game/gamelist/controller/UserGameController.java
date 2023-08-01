@@ -8,6 +8,7 @@ import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserGameRepository;
+import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -28,6 +29,8 @@ import java.util.Set;
 public class UserGameController {
     private final UserGameRepository userGameRepository;
     private final GameRepository gameRepository;
+    private final UserGameService userGameService;
+
 
     @GetMapping("/")
     public ResponseEntity<HttpResponse> sayHello() {
@@ -42,10 +45,12 @@ public class UserGameController {
     }
 
 
+
+
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId) {
 
-        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
+        Optional<UserGame> userGameOptional = userGameService.findUserGameById(requestedId);
 
 
         if (userGameOptional.isPresent()) {
@@ -64,8 +69,6 @@ public class UserGameController {
             for (Genre genre : genres) {
                 System.out.println("Genre: " + genre.getName());
             }
-
-
 
             System.out.println("");
             System.out.println("Game found: " + responseData.getGame().getName());
@@ -89,25 +92,29 @@ public class UserGameController {
         System.out.println("User Name: " + principal.getEmail());
 
         System.out.println("IS PRINCIPAL NULL? " + principal);
-
         if (principal != null) {
 
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
-            System.out.println("New Game ID is: " + game);
-//            System.out.println("Game ID is: " + game.getId());
+            UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
-            userGame.setUser(principal);
-            userGame.setGame(game);
-
-            userGameRepository.save(userGame);
-            return ResponseEntity.created(URI.create("")).body(
-                    HttpResponse.builder()
-                            .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("userGame", userGame))
-                            .status(HttpStatus.CREATED)
-                            .statusCode(HttpStatus.CREATED.value())
-                            .message("UserGame created")
-                            .build());
+            if (createdUserGame != null) {
+                return ResponseEntity.created(URI.create("")).body(
+                        HttpResponse.builder()
+                                .timeStamp(LocalDateTime.now().toString())
+                                .data(Map.of("userGame", createdUserGame))
+                                .status(HttpStatus.CREATED)
+                                .statusCode(HttpStatus.CREATED.value())
+                                .message("UserGame created")
+                                .build());
+            } else {
+                // Handle the case when the game is not found or other errors
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                        HttpResponse.builder()
+                                .timeStamp(LocalDateTime.now().toString())
+                                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                .message("Error creating UserGame")
+                                .build());
+            }
         } else {
             return ResponseEntity.notFound().build();
         }

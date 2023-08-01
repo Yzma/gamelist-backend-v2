@@ -32,7 +32,7 @@ public class UserGameServiceImpl implements UserGameService {
         }
 
         // Check if the UserGame already exists in the database
-        UserGame existingUserGame = userGameRepository.findByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
+        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
 
         if (existingUserGame != null) {
 

@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 public interface UserGameRepository extends JpaRepository<UserGame, Long> {
-    UserGame findByUserIdAndGameId(Long userId, Long gameId);
+    UserGame findFirstByUserIdAndGameId(Long userId, Long gameId);
+
 }
