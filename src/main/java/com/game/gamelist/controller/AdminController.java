@@ -2,7 +2,6 @@ package com.game.gamelist.controller;
 
 import com.game.gamelist.entity.User;
 import com.game.gamelist.service.impl.AdminServiceImpl;
-import com.game.gamelist.service.impl.UserServiceImpl;
 import com.game.gamelist.utils.JacksonValueUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/admin")
 public class AdminController {
-    private final UserServiceImpl userServiceImpl;
     private final AdminServiceImpl adminService;
 
     @GetMapping("/hello")
@@ -29,9 +27,8 @@ public class AdminController {
 
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userServiceImpl.getAllUsers();
+        return adminService.getAllUsers();
     }
-
 
     @GetMapping("/user/{id}")
     public ResponseEntity<MappingJacksonValue> getUser(@PathVariable int id) {

@@ -13,7 +13,7 @@ public class JacksonValueUtil {
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(object);
 
         SimpleBeanPropertyFilter filter =
-                SimpleBeanPropertyFilter.filterOutAllExcept("id", "firstName", "lastName", "email_address", "roles");
+                SimpleBeanPropertyFilter.filterOutAllExcept("id", "username", "bannerPicture", "userPicture", "email", "bio", "isActive", "createdAt", "updatedAt", "listsOrder", "roles");
 
         FilterProvider filters =
                 new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
