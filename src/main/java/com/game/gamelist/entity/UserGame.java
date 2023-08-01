@@ -51,7 +51,6 @@ public class UserGame {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-//    @JsonIgnoreProperties("user_games")
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonIgnore

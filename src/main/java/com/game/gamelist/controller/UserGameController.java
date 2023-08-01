@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -106,7 +105,7 @@ public class UserGameController {
                                 .message("UserGame created")
                                 .build());
             } else {
-                // Handle the case when the game is not found or other errors
+//          When the userGame can not be created, return an error message 500
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                         HttpResponse.builder()
                                 .timeStamp(LocalDateTime.now().toString())
@@ -118,6 +117,42 @@ public class UserGameController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PutMapping("/{requestedId}")
+    public ResponseEntity<HttpResponse> updateUserGame(@PathVariable("requestedId") Long requestedId, @RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
+
+            System.out.println("User Name: " + principal.getEmail());
+
+            System.out.println("IS PRINCIPAL NULL? " + principal);
+            if (principal != null) {
+
+                Optional<UserGame> updatedUserGameOptional = userGameService.updateUserGameById(requestedId, userGame, principal);
+
+                if (updatedUserGameOptional.isPresent()) {
+
+                    UserGame updatedUserGame = updatedUserGameOptional.get();
+
+                    return ResponseEntity.created(URI.create("")).body(
+                            HttpResponse.builder()
+                                    .timeStamp(LocalDateTime.now().toString())
+                                    .data(Map.of("userGame", updatedUserGame))
+                                    .status(HttpStatus.NO_CONTENT)
+                                    .statusCode(HttpStatus.NO_CONTENT.value())
+                                    .message("UserGame updated")
+                                    .build());
+                } else {
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                            HttpResponse.builder()
+                                    .timeStamp(LocalDateTime.now().toString())
+                                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                    .message("Error updating UserGame")
+                                    .build());
+                }
+            } else {
+                return ResponseEntity.notFound().build();
+            }
     }
 
 }
