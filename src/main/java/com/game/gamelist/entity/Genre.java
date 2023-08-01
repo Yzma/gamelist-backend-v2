@@ -33,7 +33,6 @@ public class Genre {
     private LocalDateTime updatedAt;
 
     @ManyToMany
-    @JsonIgnoreProperties("genre")
     @JoinTable(
             name = "games_genres",
             joinColumns = @JoinColumn(name = "genre_id"),

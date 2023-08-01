@@ -1,6 +1,7 @@
 package com.game.gamelist.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,7 +32,7 @@ public class Post {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIgnoreProperties({"post", "posts", "user_games", "game_journals", "user_game"})
+    @JsonIgnoreProperties("posts")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

@@ -48,24 +48,13 @@ public class UserGameController {
 
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId) {
-        UserGame userGame = userGameRepository.findById(requestedId).orElse(null);
 
-        if (userGame != null) {
-            Map<String, Object> responseData = new HashMap<>();
-            Field[] fields = userGame.getClass().getDeclaredFields();
+        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
 
-            for (Field field : fields) {
-                field.setAccessible(true);
-                try {
-//                    if (field.getName().equals("user") || field.getName().equals("game")) {
-//                        continue;
-//                    }
-                    responseData.put(field.getName(), field.get(userGame));
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    System.out.println("Error: " + e.getMessage());
-                }
-            }
+
+        if (userGameOptional != null) {
+            UserGame responseData = userGameOptional.get();
+
             return ResponseEntity.ok(
                     HttpResponse.builder()
                             .timeStamp(LocalDateTime.now().toString())
@@ -85,8 +74,6 @@ public class UserGameController {
         System.out.println("User Name: " + principal.getEmail());
 
         if (principal != null) {
-
-
 
             Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
 

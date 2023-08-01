@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -59,6 +60,8 @@ public class Game {
 
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("game")
+    @JsonManagedReference
     @Column(name = "user_games")
     private Set<UserGame> userGames;
 

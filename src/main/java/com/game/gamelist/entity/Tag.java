@@ -33,7 +33,6 @@ public class Tag {
     private LocalDateTime updatedAt;
 
     @ManyToMany
-    @JsonIgnoreProperties("tag")
     @JoinTable(
             name = "games_tags",
             joinColumns = @JoinColumn(name = "tag_id"),
