@@ -1,10 +1,7 @@
 package com.game.gamelist.service.impl;
 
-import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserRepository;
-import com.game.gamelist.service.GameService;
 import com.game.gamelist.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
