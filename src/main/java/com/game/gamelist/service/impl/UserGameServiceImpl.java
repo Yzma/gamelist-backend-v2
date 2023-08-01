@@ -9,8 +9,6 @@ import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -20,8 +18,24 @@ public class UserGameServiceImpl implements UserGameService {
     private final GameRepository gameRepository;
 
     @Override
-    public Optional<UserGame> findUserGameById(Long requestedId) {
-        return userGameRepository.findById(requestedId);
+    public Optional<UserGame> findUserGameById(Long requestedId, User principal) {
+
+        if (principal == null) {
+            return Optional.empty();
+        }
+
+        Optional<UserGame> userGame = userGameRepository.findById(requestedId);
+
+        if (userGame.isPresent()) {
+            UserGame responseData = userGame.get();
+            User user = responseData.getUser();
+
+            if (principal.getId().equals(user.getId())) {
+                return userGame;
+            }
+        }
+
+        return Optional.empty();
     }
 
 
@@ -76,6 +90,11 @@ public class UserGameServiceImpl implements UserGameService {
             return Optional.of(userGameRepository.save(responseData));
         }
 
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserGame> deleteUserGameById(Long requestedId, User principal) {
         return Optional.empty();
     }
 }

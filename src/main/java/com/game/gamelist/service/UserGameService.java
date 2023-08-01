@@ -10,10 +10,12 @@ import java.util.Optional;
 
 
 public interface UserGameService {
-    Optional<UserGame> findUserGameById(Long requestedId);
+    Optional<UserGame> findUserGameById(Long requestedId, User principal);
 
     UserGame createUserGame(UserGame userGame, User principal);
 
     Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal);
+
+    Optional<UserGame> deleteUserGameById(Long requestedId, User principal);
 
 }

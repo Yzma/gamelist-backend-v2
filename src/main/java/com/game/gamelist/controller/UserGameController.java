@@ -47,9 +47,9 @@ public class UserGameController {
 
 
     @GetMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId) {
+    public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
 
-        Optional<UserGame> userGameOptional = userGameService.findUserGameById(requestedId);
+        Optional<UserGame> userGameOptional = userGameService.findUserGameById(requestedId, principal);
 
 
         if (userGameOptional.isPresent()) {
