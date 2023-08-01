@@ -51,4 +51,31 @@ public class UserGameServiceImpl implements UserGameService {
             }
         }
     }
+
+    @Override
+    public Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal) {
+//        Get the UserGame instance needed to be updated
+        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
+
+        if (userGameOptional.isPresent()) {
+            UserGame responseData = userGameOptional.get();
+            Game game = responseData.getGame();
+            User user = responseData.getUser();
+//            check if user id and game id matches
+            if (principal == null || !principal.getId().equals(user.getId()) || !game.getId().equals(userGame.getGame().getId())) {
+                return Optional.empty();
+            }
+
+            responseData.setGameStatus(userGame.getGameStatus());
+            responseData.setGameNote(userGame.getGameNote());
+            responseData.setIsPrivate(userGame.getIsPrivate());
+            responseData.setRating(userGame.getRating());
+            responseData.setCompletedDate(userGame.getCompletedDate());
+            responseData.setUpdatedAt(userGame.getUpdatedAt());
+
+            return Optional.of(userGameRepository.save(responseData));
+        }
+
+        return Optional.empty();
+    }
 }

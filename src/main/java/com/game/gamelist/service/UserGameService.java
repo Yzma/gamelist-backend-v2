@@ -14,4 +14,6 @@ public interface UserGameService {
 
     UserGame createUserGame(UserGame userGame, User principal);
 
+    Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal);
+
 }
