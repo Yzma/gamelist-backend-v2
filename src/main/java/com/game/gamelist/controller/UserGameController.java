@@ -43,18 +43,20 @@ public class UserGameController {
                         .build());
     }
 
-
-
-
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
 
         Optional<UserGame> userGameOptional = userGameService.findUserGameById(requestedId, principal);
 
+        System.out.println("Logged in user: " + principal.getEmail());
+
 
         if (userGameOptional.isPresent()) {
 
             UserGame responseData = userGameOptional.get();
+
+            System.out.println("The UserGame Belows to email: " + responseData.getUser().getEmail());
+
             Game game = responseData.getGame();
 
             Set<Genre> genres = game.getGenres();
@@ -69,7 +71,6 @@ public class UserGameController {
                 System.out.println("Genre: " + genre.getName());
             }
 
-            System.out.println("");
             System.out.println("Game found: " + responseData.getGame().getName());
             System.out.println("Owner found: " + responseData.getUser().getEmail());
             return ResponseEntity.ok(
@@ -153,6 +154,41 @@ public class UserGameController {
             } else {
                 return ResponseEntity.notFound().build();
             }
+    }
+
+    @DeleteMapping("/{requestedId}")
+    public ResponseEntity<HttpResponse> deleteUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
+        System.out.println("User Name: " + principal.getEmail());
+
+        System.out.println("IS PRINCIPAL NULL? " + principal);
+        if (principal != null) {
+
+            Optional<UserGame> deletedUserGameOptional = userGameService.deleteUserGameById(requestedId, principal);
+
+            if (deletedUserGameOptional.isPresent()) {
+
+                UserGame deletedUserGame = deletedUserGameOptional.get();
+
+                return ResponseEntity.created(URI.create("")).body(
+                        HttpResponse.builder()
+                                .timeStamp(LocalDateTime.now().toString())
+                                .data(Map.of("userGame", deletedUserGame))
+                                .status(HttpStatus.NO_CONTENT)
+                                .statusCode(HttpStatus.NO_CONTENT.value())
+                                .message("UserGame deleted")
+                                .build());
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                        HttpResponse.builder()
+                                .timeStamp(LocalDateTime.now().toString())
+                                .status(HttpStatus.NOT_FOUND)
+                                .statusCode(HttpStatus.NOT_FOUND.value())
+                                .message("Error deleting UserGame")
+                                .build());
+            }
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

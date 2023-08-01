@@ -1,6 +1,7 @@
 package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.GameStatus;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.repository.GameRepository;
@@ -95,6 +96,25 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public Optional<UserGame> deleteUserGameById(Long requestedId, User principal) {
+        if(principal == null) return Optional.empty();
+
+        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
+
+        if(userGameOptional.isPresent()) {
+            UserGame responseData = userGameOptional.get();
+            User user = responseData.getUser();
+
+            if(principal.getId().equals(user.getId())) {
+                responseData.setGameStatus(GameStatus.Inactive);
+                responseData.setGameNote(null);
+                responseData.setRating(0);
+                responseData.setCompletedDate(null);
+                responseData.setStartDate(null);
+
+                return Optional.of(userGameRepository.save(responseData));
+            }
+        }
+
         return Optional.empty();
     }
 }
