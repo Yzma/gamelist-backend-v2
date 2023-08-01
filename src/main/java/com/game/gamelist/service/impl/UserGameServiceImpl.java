@@ -27,14 +27,28 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public UserGame createUserGame(UserGame userGame, User principal) {
-        Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
-        if (principal != null && game != null) {
-            userGame.setUser(principal);
-            userGame.setGame(game);
-            return userGameRepository.save(userGame);
+        if (principal == null) {
+            return null;
         }
 
-        return null;
+        // Check if the UserGame already exists in the database
+        UserGame existingUserGame = userGameRepository.findByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
 
+        if (existingUserGame != null) {
+
+            existingUserGame.setGameStatus(userGame.getGameStatus());
+            existingUserGame.setGameNote(userGame.getGameNote());
+            return userGameRepository.save(existingUserGame);
+        } else {
+            // If the UserGame does not exist, create a new instance
+            Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
+            if (game != null) {
+                userGame.setUser(principal);
+                userGame.setGame(game);
+                return userGameRepository.save(userGame);
+            } else {
+                return null;
+            }
+        }
     }
 }
