@@ -1,7 +1,11 @@
 package com.game.gamelist.entity;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+=======
+import com.fasterxml.jackson.annotation.JsonFilter;
+>>>>>>> 9b5cdfd3360be70e2f566ce94dcaef48d95beb88
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
@@ -25,7 +29,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-//@JsonFilter("UserInfoNeeded")
+@JsonFilter("UserInfoNeeded")
 public class User implements UserDetails {
 
     @Id
@@ -71,6 +75,12 @@ public class User implements UserDetails {
     @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Post> posts;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "game_journals")
+    private List<GameJournal> gameJournals;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -106,6 +116,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {return true;}
+<<<<<<< HEAD
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -121,4 +132,6 @@ public class User implements UserDetails {
     @JsonIgnoreProperties("user")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
+=======
+>>>>>>> 9b5cdfd3360be70e2f566ce94dcaef48d95beb88
 }
