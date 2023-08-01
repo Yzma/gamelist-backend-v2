@@ -145,8 +145,8 @@ public class UserGameController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                             HttpResponse.builder()
                                     .timeStamp(LocalDateTime.now().toString())
-                                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                    .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                                    .status(HttpStatus.NOT_FOUND)
+                                    .statusCode(HttpStatus.NOT_FOUND.value())
                                     .message("Error updating UserGame")
                                     .build());
                 }
