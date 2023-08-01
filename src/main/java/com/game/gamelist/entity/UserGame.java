@@ -58,9 +58,9 @@ public class UserGame {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
+    @JsonIgnoreProperties("user_games")
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
 

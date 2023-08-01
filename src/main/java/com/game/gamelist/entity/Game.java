@@ -58,7 +58,6 @@ public class Game {
     @JsonIgnoreProperties("games")
     private Set<Tag> tags;
 
-
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("game")
     @JsonManagedReference

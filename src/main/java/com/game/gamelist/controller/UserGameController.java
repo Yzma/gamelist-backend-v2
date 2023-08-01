@@ -2,29 +2,25 @@ package com.game.gamelist.controller;
 
 
 import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Post;
+import com.game.gamelist.entity.Genre;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.repository.GameRepository;
-import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserGameRepository;
-import com.game.gamelist.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Field;
 import java.net.URI;
-import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,9 +48,28 @@ public class UserGameController {
         Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
 
 
-        if (userGameOptional != null) {
-            UserGame responseData = userGameOptional.get();
+        if (userGameOptional.isPresent()) {
 
+            UserGame responseData = userGameOptional.get();
+            Game game = responseData.getGame();
+
+            Set<Genre> genres = game.getGenres();
+
+            Set<UserGame> userGamesFromGame = game.getUserGames();
+
+            for (UserGame userGame : userGamesFromGame) {
+                System.out.println(userGame.getGameStatus());
+            }
+
+            for (Genre genre : genres) {
+                System.out.println("Genre: " + genre.getName());
+            }
+
+
+
+            System.out.println("");
+            System.out.println("Game found: " + responseData.getGame().getName());
+            System.out.println("Owner found: " + responseData.getUser().getEmail());
             return ResponseEntity.ok(
                     HttpResponse.builder()
                             .timeStamp(LocalDateTime.now().toString())
@@ -73,11 +88,13 @@ public class UserGameController {
 
         System.out.println("User Name: " + principal.getEmail());
 
+        System.out.println("IS PRINCIPAL NULL? " + principal);
+
         if (principal != null) {
 
             Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
-
-            System.out.println("Game ID is: " + game.getId());
+            System.out.println("New Game ID is: " + game);
+//            System.out.println("Game ID is: " + game.getId());
 
             userGame.setUser(principal);
             userGame.setGame(game);
