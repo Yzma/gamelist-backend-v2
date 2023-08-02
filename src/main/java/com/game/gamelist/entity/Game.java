@@ -1,5 +1,8 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,6 +14,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "games")
 public class Game {
     @Id
@@ -43,12 +47,22 @@ public class Game {
     private String bannerURL;
 
     @ManyToMany(mappedBy = "games")
+    @JsonIgnoreProperties("games")
     private Set<Genre> genres;
 
     @ManyToMany(mappedBy = "games")
+    @JsonIgnoreProperties("games")
     private Set<Platform> platforms;
 
     @ManyToMany(mappedBy = "games")
+    @JsonIgnoreProperties("games")
     private Set<Tag> tags;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("game")
+    @JsonManagedReference
+    @Column(name = "user_games")
+    private Set<UserGame> userGames;
+
 
 }
