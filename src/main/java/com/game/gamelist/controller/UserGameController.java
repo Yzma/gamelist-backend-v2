@@ -57,44 +57,38 @@ public class UserGameController {
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
 
-        Optional<UserGame> userGameOptional = userGameService.findUserGameById(requestedId, principal);
+        UserGame userGame = userGameService.findUserGameById(requestedId, principal);
 
         System.out.println("Logged in user: " + principal.getEmail());
 
 
-        if (userGameOptional.isPresent()) {
+            System.out.println("The UserGame Belows to email: " + userGame.getUser().getEmail());
 
-            UserGame responseData = userGameOptional.get();
-
-            System.out.println("The UserGame Belows to email: " + responseData.getUser().getEmail());
-
-            Game game = responseData.getGame();
+            Game game = userGame.getGame();
 
             Set<Genre> genres = game.getGenres();
 
             Set<UserGame> userGamesFromGame = game.getUserGames();
 
-            for (UserGame userGame : userGamesFromGame) {
-                System.out.println(userGame.getGameStatus());
+            for (UserGame userGameInEachGame : userGamesFromGame) {
+                System.out.println(userGameInEachGame.getGameStatus());
             }
 
             for (Genre genre : genres) {
                 System.out.println("Genre: " + genre.getName());
             }
 
-            System.out.println("Game found: " + responseData.getGame().getName());
-            System.out.println("Owner found: " + responseData.getUser().getEmail());
+            System.out.println("Game found: " + userGame.getGame().getName());
+            System.out.println("Owner found: " + userGame.getUser().getEmail());
             return ResponseEntity.ok(
                     HttpResponse.builder()
                             .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("userGame", responseData))
+                            .data(Map.of("userGame", userGame))
                             .status(HttpStatus.OK)
                             .statusCode(HttpStatus.OK.value())
                             .message("UserGame found")
                             .build());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+
     }
 
     @PostMapping("/")

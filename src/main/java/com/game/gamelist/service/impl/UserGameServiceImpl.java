@@ -4,9 +4,12 @@ import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.GameStatus;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
+import com.game.gamelist.exception.InvalidAuthorizationException;
+import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.UserGameService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +23,10 @@ public class UserGameServiceImpl implements UserGameService {
     private final GameRepository gameRepository;
 
     @Override
-    public Optional<UserGame> findUserGameById(Long requestedId, User principal) {
+    public UserGame findUserGameById(Long requestedId, User principal) {
 
         if (principal == null) {
-            return Optional.empty();
+            throw new InvalidTokenException("Invalid token");
         }
 
         Optional<UserGame> userGame = userGameRepository.findById(requestedId);
@@ -33,11 +36,11 @@ public class UserGameServiceImpl implements UserGameService {
             User user = responseData.getUser();
 
             if (principal.getId().equals(user.getId())) {
-                return userGame;
+                return userGame.get();
             }
+            throw new InvalidAuthorizationException("Invalid authorization");
         }
-
-        return Optional.empty();
+        throw new EntityNotFoundException("UserGame not found with ID: " + requestedId);
     }
 
 
