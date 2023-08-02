@@ -6,6 +6,7 @@ import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
+import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.UserGameService;
@@ -40,7 +41,7 @@ public class UserGameServiceImpl implements UserGameService {
             }
             throw new InvalidAuthorizationException("Invalid authorization");
         }
-        throw new EntityNotFoundException("UserGame not found with ID: " + requestedId);
+        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
     }
 
 
@@ -60,7 +61,7 @@ public class UserGameServiceImpl implements UserGameService {
             return userGameRepository.save(existingUserGame);
         } else {
             // If the UserGame does not exist, create a new instance
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new EntityNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
+            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
 
             userGame.setUser(principal);
             userGame.setGame(game);
@@ -70,6 +71,8 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal) {
+
+        if (principal == null) throw new InvalidTokenException("Invalid token");
 //        Get the UserGame instance needed to be updated
         Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
 
@@ -78,8 +81,8 @@ public class UserGameServiceImpl implements UserGameService {
             Game game = responseData.getGame();
             User user = responseData.getUser();
 //            check if user id and game id matches
-            if (principal == null || !principal.getId().equals(user.getId()) || !game.getId().equals(userGame.getGame().getId())) {
-                return Optional.empty();
+            if (!principal.getId().equals(user.getId()) || !game.getId().equals(userGame.getGame().getId())) {
+                throw new InvalidAuthorizationException("Invalid authorization");
             }
 
             responseData.setGameStatus(userGame.getGameStatus());
@@ -92,7 +95,7 @@ public class UserGameServiceImpl implements UserGameService {
             return Optional.of(userGameRepository.save(responseData));
         }
 
-        return Optional.empty();
+        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
     }
 
     @Override
