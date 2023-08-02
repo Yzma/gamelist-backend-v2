@@ -47,7 +47,7 @@ public class UserGameServiceImpl implements UserGameService {
     @Override
     public UserGame createUserGame(UserGame userGame, User principal) {
         if (principal == null) {
-            return null;
+            throw new InvalidTokenException("Invalid token");
         }
 
         // Check if the UserGame already exists in the database
@@ -60,14 +60,11 @@ public class UserGameServiceImpl implements UserGameService {
             return userGameRepository.save(existingUserGame);
         } else {
             // If the UserGame does not exist, create a new instance
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElse(null);
-            if (game != null) {
-                userGame.setUser(principal);
-                userGame.setGame(game);
-                return userGameRepository.save(userGame);
-            } else {
-                return null;
-            }
+            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new EntityNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
+
+            userGame.setUser(principal);
+            userGame.setGame(game);
+            return userGameRepository.save(userGame);
         }
     }
 

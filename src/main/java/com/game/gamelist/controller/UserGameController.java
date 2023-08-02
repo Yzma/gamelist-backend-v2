@@ -97,32 +97,28 @@ public class UserGameController {
         System.out.println("User Name: " + principal.getEmail());
 
         System.out.println("IS PRINCIPAL NULL? " + principal);
-        if (principal != null) {
 
-            UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
+        UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
-            if (createdUserGame != null) {
-                return ResponseEntity.created(URI.create("")).body(
-                        HttpResponse.builder()
-                                .timeStamp(LocalDateTime.now().toString())
-                                .data(Map.of("userGame", createdUserGame))
-                                .status(HttpStatus.CREATED)
-                                .statusCode(HttpStatus.CREATED.value())
-                                .message("UserGame created")
-                                .build());
-            } else {
-//          When the userGame can not be created, return an error message 500
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                        HttpResponse.builder()
-                                .timeStamp(LocalDateTime.now().toString())
-                                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                                .message("Error creating UserGame")
-                                .build());
-            }
+        if (createdUserGame != null) {
+            return ResponseEntity.created(URI.create("")).body(
+                    HttpResponse.builder()
+                            .timeStamp(LocalDateTime.now().toString())
+                            .data(Map.of("userGame", createdUserGame))
+                            .status(HttpStatus.CREATED)
+                            .statusCode(HttpStatus.CREATED.value())
+                            .message("UserGame created")
+                            .build());
         } else {
-            return ResponseEntity.notFound().build();
-        }
+//          When the userGame can not be created, return an error message 500
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                    HttpResponse.builder()
+                            .timeStamp(LocalDateTime.now().toString())
+                            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                            .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                            .message("Error creating UserGame")
+                            .build());
+            }
     }
 
     @PutMapping("/{requestedId}")
