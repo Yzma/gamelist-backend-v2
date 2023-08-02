@@ -62,32 +62,32 @@ public class UserGameController {
         System.out.println("Logged in user: " + principal.getEmail());
 
 
-            System.out.println("The UserGame Belows to email: " + userGame.getUser().getEmail());
+        System.out.println("The UserGame Belows to email: " + userGame.getUser().getEmail());
 
-            Game game = userGame.getGame();
+        Game game = userGame.getGame();
 
-            Set<Genre> genres = game.getGenres();
+        Set<Genre> genres = game.getGenres();
 
-            Set<UserGame> userGamesFromGame = game.getUserGames();
+        Set<UserGame> userGamesFromGame = game.getUserGames();
 
-            for (UserGame userGameInEachGame : userGamesFromGame) {
-                System.out.println(userGameInEachGame.getGameStatus());
-            }
+        for (UserGame userGameInEachGame : userGamesFromGame) {
+            System.out.println(userGameInEachGame.getGameStatus());
+        }
 
-            for (Genre genre : genres) {
-                System.out.println("Genre: " + genre.getName());
-            }
+        for (Genre genre : genres) {
+            System.out.println("Genre: " + genre.getName());
+        }
 
-            System.out.println("Game found: " + userGame.getGame().getName());
-            System.out.println("Owner found: " + userGame.getUser().getEmail());
-            return ResponseEntity.ok(
-                    HttpResponse.builder()
-                            .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("userGame", userGame))
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .message("UserGame found")
-                            .build());
+        System.out.println("Game found: " + userGame.getGame().getName());
+        System.out.println("Owner found: " + userGame.getUser().getEmail());
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGame", userGame))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .message("UserGame found")
+                        .build());
 
     }
 
@@ -118,43 +118,30 @@ public class UserGameController {
                             .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                             .message("Error creating UserGame")
                             .build());
-            }
+        }
     }
 
     @PutMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> updateUserGame(@PathVariable("requestedId") Long requestedId, @RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
 
-            System.out.println("User Name: " + principal.getEmail());
+        System.out.println("User Name: " + principal.getEmail());
 
-            System.out.println("IS PRINCIPAL NULL? " + principal);
-            if (principal != null) {
+        System.out.println("IS PRINCIPAL NULL? " + principal);
 
-                Optional<UserGame> updatedUserGameOptional = userGameService.updateUserGameById(requestedId, userGame, principal);
+        UserGame updatedUserGame = userGameService.updateUserGameById(requestedId, userGame, principal);
 
-                if (updatedUserGameOptional.isPresent()) {
 
-                    UserGame updatedUserGame = updatedUserGameOptional.get();
 
-                    return ResponseEntity.created(URI.create("")).body(
-                            HttpResponse.builder()
-                                    .timeStamp(LocalDateTime.now().toString())
-                                    .data(Map.of("userGame", updatedUserGame))
-                                    .status(HttpStatus.NO_CONTENT)
-                                    .statusCode(HttpStatus.NO_CONTENT.value())
-                                    .message("UserGame updated")
-                                    .build());
-                } else {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                            HttpResponse.builder()
-                                    .timeStamp(LocalDateTime.now().toString())
-                                    .status(HttpStatus.NOT_FOUND)
-                                    .statusCode(HttpStatus.NOT_FOUND.value())
-                                    .message("Error updating UserGame")
-                                    .build());
-                }
-            } else {
-                return ResponseEntity.notFound().build();
-            }
+        return ResponseEntity.created(URI.create("")).body(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGame", updatedUserGame))
+                        .status(HttpStatus.NO_CONTENT)
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("UserGame updated")
+                        .build());
+
+
     }
 
     @DeleteMapping("/{requestedId}")

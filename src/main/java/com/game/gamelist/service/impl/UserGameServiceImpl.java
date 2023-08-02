@@ -70,7 +70,7 @@ public class UserGameServiceImpl implements UserGameService {
     }
 
     @Override
-    public Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal) {
+    public UserGame updateUserGameById(Long requestedId, UserGame userGame, User principal) {
 
         if (principal == null) throw new InvalidTokenException("Invalid token");
 //        Get the UserGame instance needed to be updated
@@ -92,7 +92,7 @@ public class UserGameServiceImpl implements UserGameService {
             responseData.setCompletedDate(userGame.getCompletedDate());
             responseData.setUpdatedAt(userGame.getUpdatedAt());
 
-            return Optional.of(userGameRepository.save(responseData));
+            return userGameRepository.save(responseData);
         }
 
         throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
