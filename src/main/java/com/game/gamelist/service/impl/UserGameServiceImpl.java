@@ -99,8 +99,8 @@ public class UserGameServiceImpl implements UserGameService {
     }
 
     @Override
-    public Optional<UserGame> deleteUserGameById(Long requestedId, User principal) {
-        if(principal == null) return Optional.empty();
+    public UserGame deleteUserGameById(Long requestedId, User principal) {
+        if(principal == null) throw new InvalidTokenException("Invalid token");
 
         Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
 
@@ -115,17 +115,16 @@ public class UserGameServiceImpl implements UserGameService {
                 responseData.setCompletedDate(null);
                 responseData.setStartDate(null);
 
-                return Optional.of(userGameRepository.save(responseData));
+                return userGameRepository.save(responseData);
             }
+            throw new InvalidAuthorizationException("Invalid authorization");
         }
 
-        return Optional.empty();
+        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
     }
 
     @Override
-    public Optional<Set<UserGame>> findAllUserGamesByUserId(User principal) {
-
-        if(principal == null) return Optional.empty();
+    public Set<UserGame> findAllUserGamesByUserId(User principal) {
 
         Optional<Set<UserGame>> optionalUserGames = userGameRepository.findAllByUserId(principal.getId());
 
@@ -140,9 +139,9 @@ public class UserGameServiceImpl implements UserGameService {
                 System.out.println("USERGAME ID: " + userGame.getId());
             }
 
-            return optionalUserGames;
+            return userGames;
         }
 
-        return Optional.empty();
+        throw new ResourceNotFoundException("UserGame not found with ID: " + principal.getId());
     }
 }

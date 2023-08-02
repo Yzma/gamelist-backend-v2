@@ -34,24 +34,19 @@ public class UserGameController {
     @GetMapping("/")
     public ResponseEntity<HttpResponse> getAllUserGameByUserId(@AuthenticationPrincipal User principal) {
 
-        Optional<Set<UserGame>> optionalUserGames = userGameService.findAllUserGamesByUserId(principal);
+        Set<UserGame> userGames = userGameService.findAllUserGamesByUserId(principal);
 
         System.out.println("Logged in user: " + principal.getEmail());
 
-        if (optionalUserGames.isPresent()) {
-            Set<UserGame> userGames = optionalUserGames.get();
-            return ResponseEntity.ok(
-                    HttpResponse.builder()
-                            .timeStamp(LocalDateTime.now().toString())
-                            .data(Map.of("userGames", userGames))
-                            .status(HttpStatus.OK)
-                            .statusCode(HttpStatus.OK.value())
-                            .message("UserGames retrieved successfully")
-                            .build());
-        }
-        return ResponseEntity.ok(
-                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("userGames", null)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("UserGames retrieved successfully").build());
 
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGames", userGames))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .message("UserGames retrieved successfully")
+                        .build());
     }
 
     @GetMapping("/{requestedId}")
@@ -131,7 +126,6 @@ public class UserGameController {
         UserGame updatedUserGame = userGameService.updateUserGameById(requestedId, userGame, principal);
 
 
-
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
@@ -149,34 +143,20 @@ public class UserGameController {
         System.out.println("User Name: " + principal.getEmail());
 
         System.out.println("IS PRINCIPAL NULL? " + principal);
-        if (principal != null) {
 
-            Optional<UserGame> deletedUserGameOptional = userGameService.deleteUserGameById(requestedId, principal);
 
-            if (deletedUserGameOptional.isPresent()) {
+        UserGame deletedUserGame = userGameService.deleteUserGameById(requestedId, principal);
 
-                UserGame deletedUserGame = deletedUserGameOptional.get();
 
-                return ResponseEntity.created(URI.create("")).body(
-                        HttpResponse.builder()
-                                .timeStamp(LocalDateTime.now().toString())
-                                .data(Map.of("userGame", deletedUserGame))
-                                .status(HttpStatus.NO_CONTENT)
-                                .statusCode(HttpStatus.NO_CONTENT.value())
-                                .message("UserGame deleted")
-                                .build());
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                        HttpResponse.builder()
-                                .timeStamp(LocalDateTime.now().toString())
-                                .status(HttpStatus.NOT_FOUND)
-                                .statusCode(HttpStatus.NOT_FOUND.value())
-                                .message("Error deleting UserGame")
-                                .build());
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.created(URI.create("")).body(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGame", deletedUserGame))
+                        .status(HttpStatus.NO_CONTENT)
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("UserGame deleted")
+                        .build());
+
     }
-
 }
+

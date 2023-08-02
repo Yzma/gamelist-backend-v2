@@ -17,8 +17,8 @@ public interface UserGameService {
 
     UserGame updateUserGameById(Long requestedId, UserGame userGame, User principal);
 
-    Optional<UserGame> deleteUserGameById(Long requestedId, User principal);
+    UserGame deleteUserGameById(Long requestedId, User principal);
 
-    Optional<Set<UserGame>> findAllUserGamesByUserId(User principal);
+    Set<UserGame> findAllUserGamesByUserId(User principal);
 
 }
