@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 
 public interface UserGameService {
@@ -17,5 +18,7 @@ public interface UserGameService {
     Optional<UserGame> updateUserGameById(Long requestedId, UserGame userGame, User principal);
 
     Optional<UserGame> deleteUserGameById(Long requestedId, User principal);
+
+    Optional<Set<UserGame>> findAllUserGamesByUserId(User principal);
 
 }

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -113,6 +114,30 @@ public class UserGameServiceImpl implements UserGameService {
 
                 return Optional.of(userGameRepository.save(responseData));
             }
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Set<UserGame>> findAllUserGamesByUserId(User principal) {
+
+        if(principal == null) return Optional.empty();
+
+        Optional<Set<UserGame>> optionalUserGames = userGameRepository.findAllByUserId(principal.getId());
+
+        System.out.println("IS USERGAME PRESENT?： " + optionalUserGames.isPresent());
+        System.out.println("LOGGED IN USER EMAIL: " + principal.getEmail());
+
+        if(optionalUserGames.isPresent()) {
+
+            Set<UserGame> userGames = optionalUserGames.get();
+
+            for (UserGame userGame : userGames) {
+                System.out.println("USERGAME ID: " + userGame.getId());
+            }
+
+            return optionalUserGames;
         }
 
         return Optional.empty();

@@ -32,15 +32,26 @@ public class UserGameController {
 
 
     @GetMapping("/")
-    public ResponseEntity<HttpResponse> sayHello() {
+    public ResponseEntity<HttpResponse> getAllUserGameByUserId(@AuthenticationPrincipal User principal) {
+
+        Optional<Set<UserGame>> optionalUserGames = userGameService.findAllUserGamesByUserId(principal);
+
+        System.out.println("Logged in user: " + principal.getEmail());
+
+        if (optionalUserGames.isPresent()) {
+            Set<UserGame> userGames = optionalUserGames.get();
+            return ResponseEntity.ok(
+                    HttpResponse.builder()
+                            .timeStamp(LocalDateTime.now().toString())
+                            .data(Map.of("userGames", userGames))
+                            .status(HttpStatus.OK)
+                            .statusCode(HttpStatus.OK.value())
+                            .message("UserGames retrieved successfully")
+                            .build());
+        }
         return ResponseEntity.ok(
-                HttpResponse.builder()
-                        .timeStamp(LocalDateTime.now().toString())
-                        .data(Map.of("message", "Hello World"))
-                        .status(HttpStatus.OK)
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Hello World")
-                        .build());
+                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("userGames", null)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("UserGames retrieved successfully").build());
+
     }
 
     @GetMapping("/{requestedId}")
