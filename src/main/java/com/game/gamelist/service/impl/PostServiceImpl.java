@@ -3,11 +3,14 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.exception.InvalidTokenException;
+import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -42,6 +45,16 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Set<Post> findAllPostsByUserId(User principal) {
-        return null;
+        if (principal == null) {
+            throw new InvalidTokenException("Invalid token");
+        }
+
+        Optional<Set<Post>> optionalPosts = postRepository.findAllByUserId(principal.getId());
+
+        if (optionalPosts.isPresent()) {
+            return optionalPosts.get();
+        }
+
+        throw new ResourceNotFoundException("Posts not found for user with ID: " + principal.getId());
     }
 }

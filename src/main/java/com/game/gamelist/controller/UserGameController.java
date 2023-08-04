@@ -26,8 +26,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/usergames")
 public class UserGameController {
-    private final UserGameRepository userGameRepository;
-    private final GameRepository gameRepository;
+
     private final UserGameService userGameService;
 
 
