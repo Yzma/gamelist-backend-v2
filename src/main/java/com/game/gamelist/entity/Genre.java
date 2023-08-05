@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Entity(name = "genres")
 public class Genre {
 
+    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -25,13 +27,16 @@ public class Genre {
     @Column(unique = true)
     private String name;
 
+    @JsonIgnore
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @JsonIgnore
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "games_genres",
             joinColumns = @JoinColumn(name = "genre_id"),
