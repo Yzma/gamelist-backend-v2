@@ -25,7 +25,7 @@ public class PostServiceImpl implements PostService {
         if(principal == null) throw new InvalidTokenException("Invalid token");
 
         Optional<Post> postOptional = postRepository.findById(requestedId);
-        if (!postOptional.isPresent()) {
+        if (postOptional.isEmpty()) {
             throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
         }
 
@@ -42,8 +42,24 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post deletePostById(Long requestedId, User principal) {
-        return null;
+        if(principal == null) throw new InvalidTokenException("Invalid token");
+        Optional<Post> postOptional = postRepository.findById(requestedId);
+        if (postOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
+        }
+
+        Post responseData = postOptional.get();
+        User postOwner = responseData.getUser();
+
+        if (!principal.getId().equals(postOwner.getId())) {
+            throw new InvalidAuthorizationException("Invalid authorization");
+        }
+
+        postRepository.deleteById(requestedId);
+
+        return responseData;
     }
+
 
     @Override
     public List<Post> findAllPosts(User principal) {

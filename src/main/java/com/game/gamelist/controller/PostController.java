@@ -40,7 +40,7 @@ public class PostController {
                         .message("Posts retrieved successfully")
                         .build()
         );
-    };
+    }
 
     @GetMapping("/all")
     public ResponseEntity<HttpResponse> getAllPosts(@AuthenticationPrincipal User principal) {
@@ -56,7 +56,7 @@ public class PostController {
                         .message("Posts retrieved successfully")
                         .build()
         );
-    };
+    }
 
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
@@ -74,7 +74,7 @@ public class PostController {
                         .message("Post retrieved successfully")
                         .build()
         );
-    };
+    }
 
     @PostMapping("/")
     public ResponseEntity<HttpResponse> createPost(@RequestBody Post post, @AuthenticationPrincipal User principal) {
@@ -93,7 +93,7 @@ public class PostController {
                                 .message("Post created successfully")
                                 .build()
                 );
-    };
+    }
 
     @PutMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> updatePost(@PathVariable Long requestedId, @RequestBody Post post, @AuthenticationPrincipal User principal) {
@@ -111,6 +111,24 @@ public class PostController {
                         .message("Post updated successfully")
                         .build()
         );
-    };
+    }
+
+    @DeleteMapping("/{requestedId}")
+    public ResponseEntity<HttpResponse> deletePostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
+
+        postService.deletePostById(requestedId, principal);
+
+        System.out.println("Logged in user: " + principal.getEmail());
+
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of())
+                        .status(HttpStatus.NO_CONTENT)
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("Post deleted successfully")
+                        .build()
+        );
+    }
 
 }
