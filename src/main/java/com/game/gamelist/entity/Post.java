@@ -32,6 +32,7 @@ public class Post {
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     @JsonIgnoreProperties("posts")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

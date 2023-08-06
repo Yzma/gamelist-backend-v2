@@ -10,6 +10,7 @@ import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,18 +30,39 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Set<Post> findAllPosts(User principal) {
-        return null;
+    public List<Post> findAllPosts(User principal) {
+        if (principal == null) throw new InvalidTokenException("Invalid token");
+        List<Post> optionalPosts = postRepository.findAll();
+
+        return optionalPosts;
     }
 
     @Override
     public Post createPost(Post post, User principal) {
-        return null;
+        if(principal == null) throw new InvalidTokenException("Invalid token");
+
+            post.setUser(principal);
+            return postRepository.save(post);
+
     }
 
     @Override
     public Post findPostById(Long requestedId, User principal) {
-        return null;
+        if (principal == null) throw new InvalidTokenException("Invalid token");
+
+        Optional<Post> postOptional = postRepository.findById(requestedId);
+
+        if (postOptional.isPresent()) {
+            Post responseData = postOptional.get();
+            User user = responseData.getUser();
+
+            if (principal.getId().equals(user.getId())) {
+                return postOptional.get();
+            }
+            throw new InvalidTokenException("Invalid token");
+        }
+
+        throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
     }
 
     @Override

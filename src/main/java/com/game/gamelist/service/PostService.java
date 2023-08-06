@@ -3,6 +3,7 @@ package com.game.gamelist.service;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 
+import java.util.List;
 import java.util.Set;
 
 public interface PostService {
@@ -17,5 +18,5 @@ public interface PostService {
 
     Post deletePostById(Long requestedId, User principal);
 
-    Set<Post> findAllPosts(User principal);
+    List<Post> findAllPosts(User principal);
 }
