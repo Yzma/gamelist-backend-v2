@@ -95,5 +95,22 @@ public class PostController {
                 );
     };
 
+    @PutMapping("/{requestedId}")
+    public ResponseEntity<HttpResponse> updatePost(@PathVariable Long requestedId, @RequestBody Post post, @AuthenticationPrincipal User principal) {
+
+        Post updatedPost = postService.updatePostById(requestedId, post, principal);
+
+        System.out.println("Logged in user: " + principal.getEmail());
+
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("post", updatedPost))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Post updated successfully")
+                        .build()
+        );
+    };
 
 }

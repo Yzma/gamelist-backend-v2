@@ -3,6 +3,7 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.PostRepository;
@@ -21,7 +22,22 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post updatePostById(Long requestedId, Post post, User principal) {
-        return null;
+        if(principal == null) throw new InvalidTokenException("Invalid token");
+
+        Optional<Post> postOptional = postRepository.findById(requestedId);
+        if (!postOptional.isPresent()) {
+            throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
+        }
+
+        Post responseData = postOptional.get();
+        User postOwner = responseData.getUser();
+
+        if (!principal.getId().equals(postOwner.getId())) {
+            throw new InvalidAuthorizationException("Invalid authorization");
+        }
+
+        responseData.setText(post.getText());
+        return postRepository.save(responseData);
     }
 
     @Override
