@@ -7,10 +7,10 @@ security:
     secret-key: 3778b167fe18a2cf940a1ee8cfebebd713bef1826b4f12e5b02688418ea18623644d0fc09864b11eb871d9ed857b0d3c336dfcd01018dfe8d76dc593fd3b54b4
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:postgresql://localhost:5432/graphql_game_list_test
+    username: changli
+    password: 941210
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -18,8 +18,13 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    database: postgresql
+  sql:
+    init:
+      mode: never
+
 management:
   endpoints:
     web:
