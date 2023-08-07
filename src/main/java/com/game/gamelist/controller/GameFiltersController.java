@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/gamefilters")
 public class GameFiltersController {
-
     private final GameFilterServiceImpl gameFilterService;
 
     @GetMapping

@@ -19,12 +19,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     private final AdminServiceImpl adminService;
-
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return "Hello World from admin";
-    }
-
+    
     @GetMapping("/users")
     public List<User> getAllUsers() {
         return adminService.getAllUsers();

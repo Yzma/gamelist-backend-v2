@@ -1,19 +1,15 @@
 package com.game.gamelist.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import com.fasterxml.jackson.annotation.JsonFilter;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,15 +32,12 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
-    @Size(min = 2, message = "Username should have at least 2 characters")
     private String username;
 
-    @Email(message = "Email should be valid")
     @JsonProperty("email_address")
     private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotEmpty(message = "Password is required")
     @Column(name = "password_digest")
     private String password;
 
@@ -63,6 +56,7 @@ public class User implements UserDetails {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
@@ -74,6 +68,19 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @Column(name = "posts")
+    private List<Post> posts;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @Column(name = "game_journals")
+    private List<GameJournal> gameJournals;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    @Column(name = "user_games")
+    private Set<UserGame> userGames;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -108,20 +115,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {return true;}
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    @Column(name = "posts")
-    private List<Post> posts;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonIgnore
-    @Column(name = "game_journals")
-    private List<GameJournal> gameJournals;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    @Column(name = "user_games")
-    private Set<UserGame> userGames;
+    public boolean isEnabled() {
+        return true;
+    }
 }

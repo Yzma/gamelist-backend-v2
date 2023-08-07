@@ -26,10 +26,7 @@ public class PostController {
 
     @GetMapping("/")
     public ResponseEntity<HttpResponse> getAllPostsByUser(@AuthenticationPrincipal User principal) {
-
         Set<Post> posts = postService.findAllPostsByUserId(principal);
-
-        System.out.println("Logged in user: " + principal.getEmail());
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -44,7 +41,6 @@ public class PostController {
 
     @GetMapping("/all")
     public ResponseEntity<HttpResponse> getAllPosts(@AuthenticationPrincipal User principal) {
-
         List<Post> posts = postService.findAllPosts(principal);
 
         return ResponseEntity.ok(
@@ -60,10 +56,7 @@ public class PostController {
 
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
-
         Post post = postService.findPostById(requestedId, principal);
-
-        System.out.println("Logged in user: " + principal.getEmail());
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -78,10 +71,7 @@ public class PostController {
 
     @PostMapping("/")
     public ResponseEntity<HttpResponse> createPost(@RequestBody Post post, @AuthenticationPrincipal User principal) {
-
         Post createdPost = postService.createPost(post, principal);
-
-        System.out.println("Logged in user: " + principal.getEmail());
 
         return ResponseEntity.created(URI.create(""))
                 .body(
@@ -97,10 +87,7 @@ public class PostController {
 
     @PutMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> updatePost(@PathVariable Long requestedId, @RequestBody Post post, @AuthenticationPrincipal User principal) {
-
         Post updatedPost = postService.updatePostById(requestedId, post, principal);
-
-        System.out.println("Logged in user: " + principal.getEmail());
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -115,10 +102,7 @@ public class PostController {
 
     @DeleteMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> deletePostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
-
         postService.deletePostById(requestedId, principal);
-
-        System.out.println("Logged in user: " + principal.getEmail());
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
