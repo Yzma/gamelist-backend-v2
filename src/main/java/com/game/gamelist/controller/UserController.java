@@ -43,7 +43,7 @@ public class UserController {
                         .data(userServiceImpl.getUser(principal.getId()))
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
-                        .message("User successfully")
+                        .message("Retrieved user successfully")
                         .build());
     }
 }
