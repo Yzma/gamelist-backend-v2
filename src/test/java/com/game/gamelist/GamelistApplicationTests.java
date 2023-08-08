@@ -1,6 +1,5 @@
 package com.game.gamelist;
 
-import com.game.gamelist.containers.PostgresTestContainer;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.repository.PostRepository;
@@ -9,19 +8,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@ActiveProfiles("test")
 class GamelistApplicationTests {
 
 	@Autowired
@@ -32,7 +28,9 @@ class GamelistApplicationTests {
 
 	static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(
 			"postgres:15-alpine"
-	);
+	).withUsername("changli").withPassword("123456").withDatabaseName("test_db");
+
+
 
 
 	public GamelistApplicationTests() {
@@ -77,6 +75,8 @@ class GamelistApplicationTests {
 	void contextLoads() {
 		System.out.println("Hello World 👹👹👹👹👹");
 		assertThat(1).isEqualTo(1);
+		List<Post> postList = postRepository.findAll();
+		assertThat(postList.size()).isEqualTo(2);
 	}
 
 	@Test
