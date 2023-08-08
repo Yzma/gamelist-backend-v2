@@ -1,15 +1,12 @@
 package com.game.gamelist.containers;
 
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+
 import org.testcontainers.containers.PostgreSQLContainer;
 
 public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestContainer> {
 
-    public static final String IMAGE_VERSION = "postgres:13.2";
-
-    public static final String DATABASE_NAME = "graphql_game_list_test";
-
+    public static final String IMAGE_VERSION = "postgres:15-alpine";
+    public static final String DATABASE_NAME = "test";
     public static PostgreSQLContainer container;
 
     public PostgresTestContainer() {
@@ -18,19 +15,10 @@ public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestConta
 
     public static PostgreSQLContainer getInstance() {
         if (container == null) {
-            container = new PostgresTestContainer().withUsername("changli")
-                    .withPassword("941210").withDatabaseName(DATABASE_NAME);
+            container = new PostgresTestContainer().withDatabaseName(DATABASE_NAME).withReuse(true);
         }
         return container;
     }
-
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.username", container::getUsername);
-        registry.add("spring.datasource.password", container::getPassword);
-    }
-
 
     @Override
     public void start() {
@@ -42,9 +30,6 @@ public class PostgresTestContainer extends PostgreSQLContainer<PostgresTestConta
 
     @Override
     public void stop() {
-        //do nothing, JVM handles shut down
+
     }
-
-
-
 }

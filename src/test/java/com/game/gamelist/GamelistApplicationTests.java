@@ -1,5 +1,6 @@
 package com.game.gamelist;
 
+import com.game.gamelist.containers.PostgresTestContainer;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.repository.PostRepository;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -15,30 +17,23 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Testcontainers
 @SpringBootTest
 class GamelistApplicationTests {
-
-	@Container
-	public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:13.11")
-			.withUsername("changli")
-			.withPassword("941210")
-			.withDatabaseName("graphql_game_list_test");
-
-	@DynamicPropertySource
-	static void properties(DynamicPropertyRegistry registry) {
-		registry.add("spring.datasource.url", container::getJdbcUrl);
-		registry.add("spring.datasource.username", container::getUsername);
-		registry.add("spring.datasource.password", container::getPassword);
-	}
 
 	@Autowired
 	private PostRepository postRepository;
 
 	@Autowired
 	private UserRepository userRepository;
+
+	static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(
+			"postgres:15-alpine"
+	);
+
 
 	public GamelistApplicationTests() {
 		System.out.println("In constructor class instance: " + this);
@@ -50,6 +45,7 @@ class GamelistApplicationTests {
 		user.setUsername("changli");
 		user.setEmail("changli@gmail.com");
 		user.setPassword("123456");
+		user.setUpdatedAt(LocalDateTime.now());
 		userRepository.save(user);
 
 		System.out.println("user ID  👹👹👹👹👹: " + user.getId());
@@ -58,11 +54,15 @@ class GamelistApplicationTests {
 		post1.setText("Hello World");
 		post1.setUser(user);
 		post1.setId(1L);
+		post1.setCreatedAt(LocalDateTime.now());
+		post1.setUpdatedAt(LocalDateTime.now());
 		postRepository.save(post1);
 
 		Post post2 = new Post();
 		post2.setText("Another Post");
 		post2.setUser(user);
+		post2.setCreatedAt(LocalDateTime.now());
+		post2.setUpdatedAt(LocalDateTime.now());
 		post2.setId(2L);
 		postRepository.save(post2);
 
