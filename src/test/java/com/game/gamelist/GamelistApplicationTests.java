@@ -4,6 +4,7 @@ import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,7 @@ class GamelistApplicationTests {
 	}
 
 	@Test
+	@Transactional
 	void contextLoads() {
 		System.out.println("Hello World 👹👹👹👹👹");
 		assertThat(1).isEqualTo(1);
@@ -80,6 +82,7 @@ class GamelistApplicationTests {
 	}
 
 	@Test
+	@Transactional
 	void testPost() {
 		System.out.println("In testPost class instance: " + this);
 		System.out.println("In testPost Container ID: " + container.getContainerId());

@@ -24,8 +24,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 public class PostRepositoryTests {
 
@@ -49,152 +50,150 @@ public class PostRepositoryTests {
 //        userRepository.deleteAll();
 //    }
     @BeforeAll
-    public static void beforeEachMethod() {
+    public static void beforeAllMethod() {
         container.start();
     }
 
     @AfterAll
-    public static void afterEachMethod() {
+    public static void afterAllMethod() {
         container.stop();
     }
-
-
 
     @Test
     @Transactional
     public void whenFindAll_Expect_EmptyList() {
 
-        System.out.println("In test method instance: " + this);
-        System.out.println("In test method instance: " + postRepository.findAll());
         List<Post> postList = postRepository.findAll();
 
         assertEquals(0, postList.size());
 
     }
 
-    @Test
-    @Transactional
-    public void whenFindAll_Expect_ListWithTwo() {
-        List<Post> postListInit = postRepository.findAll();
-        assertEquals(0, postListInit.size());
+    @Nested
+    @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+    class PostRepositoryCRUDTests {
 
-        User user = new User();
-        user.setUsername("changli");
-        user.setEmail("changli@gmail.com");
-        user.setPassword("123456");
-        user.setUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
+        @BeforeEach
+        void beforeEachTest() {
+            User user = new User();
+            user.setUsername("changli");
+            user.setEmail("changli@gmail.com");
+            user.setPassword("123456");
+            user.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(user);
 
-        System.out.println("In test method instance: " + this);
-        Post post1 = new Post();
-        post1.setText("Hello World");
-        post1.setUser(user);
-        post1.setId(1L);
-        post1.setCreatedAt(LocalDateTime.now());
-        post1.setUpdatedAt(LocalDateTime.now());
-        postRepository.save(post1);
+            System.out.println("In test method instance: " + this);
+            Post post1 = new Post();
+            post1.setText("Hello World");
+            post1.setUser(user);
+            post1.setId(1L);
+            post1.setCreatedAt(LocalDateTime.now());
+            post1.setUpdatedAt(LocalDateTime.now());
+            postRepository.save(post1);
 
-        Post post2 = new Post();
-        post2.setText("Another Post");
-        post2.setUser(user);
-        post2.setCreatedAt(LocalDateTime.now());
-        post2.setUpdatedAt(LocalDateTime.now());
-        post2.setId(2L);
-        postRepository.save(post2);
-
-        List<Post> postList = postRepository.findAll();
-
-        assertEquals(2, postList.size());
-    }
-
-    @Test
-    @Transactional
-    public void whenFindById_Expect_Post() {
-
-    User user = new User();
-    user.setUsername("changli");
-    user.setEmail("changli@gmail.com");
-    user.setPassword("123456");
-    user.setUpdatedAt(LocalDateTime.now());
-    userRepository.save(user);
-
-    System.out.println("In test method instance: " + this);
-    Post post1 = new Post();
-    post1.setText("Hello World");
-    post1.setUser(user);
-    post1.setId(5L);
-    post1.setCreatedAt(LocalDateTime.now());
-    post1.setUpdatedAt(LocalDateTime.now());
-    postRepository.save(post1);
-
-    Post post2 = new Post();
-    post2.setText("Another Post");
-    post2.setUser(user);
-    post2.setCreatedAt(LocalDateTime.now());
-    post2.setUpdatedAt(LocalDateTime.now());
-    post2.setId(6L);
-    postRepository.save(post2);
-
-    List<Post> allPosts = postRepository.findAll();
-    assertEquals("Hello World", allPosts.get(0).getText());
-
-        for (Post post : allPosts) {
-            System.out.println(" 👹👹👹👹👹 👹👹👹👹👹Post: " + post.getText());
-            System.out.println(" ������ Post Id: " + post.getId());
+            Post post2 = new Post();
+            post2.setText("Another Post");
+            post2.setUser(user);
+            post2.setCreatedAt(LocalDateTime.now());
+            post2.setUpdatedAt(LocalDateTime.now());
+            post2.setId(2L);
+            postRepository.save(post2);
         }
 
-    System.out.println("First Post: " + postRepository.findById(5L).get().getText());
+        @Test
+        @Order(1)
+        @Transactional
+        public void whenFindAll_Expect_ListWithTwo() {
+            List<Post> postListInit = postRepository.findAll();
+            assertEquals(2, postListInit.size());
 
-    assertEquals(2, postRepository.findAll().size());
+        }
 
-    Optional<Post> optionalPost = postRepository.findById(5L);
-    Post post = optionalPost.get();
+        @Test
+        @Transactional
+        @Order(2)
+        public void whenFindById_Expect_Post() {
 
-    assertEquals("Hello World", post.getText());
-    assertEquals(5L, post.getId());
+            User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
 
-    assertNotEquals(post2.getText(), post.getText());
-    assertNotEquals(6L, post.getId());
-    assertEquals(post2.getUser(), post.getUser());
+            assertEquals("changli", user.getUsername());
+
+            List<Post> allPosts = postRepository.findAll();
+            assertEquals("Hello World", allPosts.get(0).getText());
+            assertEquals("Another Post", allPosts.get(1).getText());
+
+            assertEquals(2, postRepository.findAll().size());
+
+            Optional<Post> optionalPost = postRepository.findById(3L);
+            Post post = optionalPost.get();
+
+            assertEquals("Hello World", post.getText());
+            assertEquals(3L, post.getId());
+
+            Post post2 = postRepository.findById(4L).get();
+
+            assertNotEquals(post2.getText(), post.getText());
+            assertNotEquals(4L, post.getId());
+            assertEquals(post2.getUser(), post.getUser());
+        }
+
+        @Test
+        @Transactional
+        @Order(3)
+        void whenFindAllByUserId_Expect_ListWithTwo() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
+            assertEquals("changli", user.getUsername());
+
+            List<Post> postList = new ArrayList<>(postRepository.findAllByUserId(user.getId()).get());
+
+            assertEquals(2, postList.size());
+
+            Post firstPost = postList.get(0);
+            Post secondPost = postList.get(1);
+            assertEquals("Hello World", firstPost.getText());
+            assertEquals("Another Post", secondPost.getText());
+
+        }
+
+        @Test
+        @Transactional
+        @Order(4)
+        void whenUpdatePost_Expect_PostUpdated() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
+            assertEquals("changli", user.getUsername());
+
+            Post post = postRepository.findById(7L).get();
+
+            assertEquals("Hello World", post.getText());
+            post.setText("Hello World Updated");
+            postRepository.save(post);
+
+            Post postUpdated = postRepository.findById(7L).get();
+            assertEquals("Hello World Updated", postUpdated.getText());
+            assertEquals(post.getId(), postUpdated.getId());
+            assertEquals(post.getUser(), postUpdated.getUser());
+        }
+
+        @Test
+        @Transactional
+        @Order(5)
+        void whenDeletePost_Expect_PostDeleted() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
+            assertEquals("changli", user.getUsername());
+
+            List<Post> postList = postRepository.findAll();
+            assertEquals(2, postList.size());
+            Post firstPost = postList.get(0);
+
+            postRepository.delete(firstPost);
+
+            List<Post> postListAfterDelete = postRepository.findAll();
+            assertEquals(1, postListAfterDelete.size());
+
+            Post post = postListAfterDelete.get(0);
+            assertNotEquals(firstPost.getId(), post.getId());
+            assertNotEquals(firstPost.getText(), post.getText());
+            assertEquals(firstPost.getUser(), post.getUser());
+        }
     }
-
-    @Test
-    @Transactional
-    void whenFindAllByUserId_Expect_ListWithTwo() {
-
-        User user = new User();
-        user.setUsername("changli");
-        user.setEmail("changli@gmail.com");
-        user.setPassword("123456");
-        user.setUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
-
-        System.out.println("In test method instance: " + this);
-        Post post1 = new Post();
-        post1.setText("Hello World");
-        post1.setUser(user);
-        post1.setId(3L);
-        post1.setCreatedAt(LocalDateTime.now());
-        post1.setUpdatedAt(LocalDateTime.now());
-        postRepository.save(post1);
-
-        Post post2 = new Post();
-        post2.setText("Another Post");
-        post2.setUser(user);
-        post2.setCreatedAt(LocalDateTime.now());
-        post2.setUpdatedAt(LocalDateTime.now());
-        post2.setId(4L);
-        postRepository.save(post2);
-
-        List<Post> postList = new ArrayList<>( postRepository.findAllByUserId(user.getId()).get());
-
-        assertEquals(2, postList.size());
-
-        Post firstPost = postList.get(0);
-        Post secondPost = postList.get(1);
-        assertEquals("Hello World", firstPost.getText());
-        assertEquals("Another Post", secondPost.getText());
-
-    }
-
 }
