@@ -2,7 +2,6 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.exception.UserNotFoundException;
 import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.security.JwtIssuer;
 import com.game.gamelist.service.AuthService;
@@ -71,9 +70,5 @@ public class AuthServiceImpl implements AuthService {
         returnedData.put("user", userMap);
 
         return returnedData;
-    }
-
-    public User getUser(int id) {
-        return userRepository.findById((long) id).orElseThrow(() -> new UserNotFoundException("User not found. Id: " + id));
     }
 }

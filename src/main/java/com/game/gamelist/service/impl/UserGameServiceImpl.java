@@ -10,7 +10,6 @@ import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.UserGameService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,6 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public UserGame findUserGameById(Long requestedId, User principal) {
-
         if (principal == null) {
             throw new InvalidTokenException("Invalid token");
         }
@@ -43,7 +41,6 @@ public class UserGameServiceImpl implements UserGameService {
         }
         throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
     }
-
 
     @Override
     public UserGame createUserGame(UserGame userGame, User principal) {
@@ -71,7 +68,6 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public UserGame updateUserGameById(Long requestedId, UserGame userGame, User principal) {
-
         if (principal == null) throw new InvalidTokenException("Invalid token");
 //        Get the UserGame instance needed to be updated
         Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
@@ -100,15 +96,15 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public UserGame deleteUserGameById(Long requestedId, User principal) {
-        if(principal == null) throw new InvalidTokenException("Invalid token");
+        if (principal == null) throw new InvalidTokenException("Invalid token");
 
         Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
 
-        if(userGameOptional.isPresent()) {
+        if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
             User user = responseData.getUser();
 
-            if(principal.getId().equals(user.getId())) {
+            if (principal.getId().equals(user.getId())) {
                 responseData.setGameStatus(GameStatus.Inactive);
                 responseData.setGameNote(null);
                 responseData.setRating(0);
@@ -125,21 +121,10 @@ public class UserGameServiceImpl implements UserGameService {
 
     @Override
     public Set<UserGame> findAllUserGamesByUserId(User principal) {
-
         Optional<Set<UserGame>> optionalUserGames = userGameRepository.findAllByUserId(principal.getId());
 
-        System.out.println("IS USERGAME PRESENT?： " + optionalUserGames.isPresent());
-        System.out.println("LOGGED IN USER EMAIL: " + principal.getEmail());
-
-        if(optionalUserGames.isPresent()) {
-
-            Set<UserGame> userGames = optionalUserGames.get();
-
-            for (UserGame userGame : userGames) {
-                System.out.println("USERGAME ID: " + userGame.getId());
-            }
-
-            return userGames;
+        if (optionalUserGames.isPresent()) {
+            return optionalUserGames.get();
         }
 
         throw new ResourceNotFoundException("UserGame not found with ID: " + principal.getId());

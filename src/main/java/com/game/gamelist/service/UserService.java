@@ -1,7 +1,7 @@
 package com.game.gamelist.service;
 
-import com.game.gamelist.entity.User;
+import java.util.Map;
 
 public interface UserService {
-    User getUser(long id);
+    Map<String, Object> getUser(long id);
 }
