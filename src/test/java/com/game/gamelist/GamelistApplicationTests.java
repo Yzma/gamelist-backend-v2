@@ -19,8 +19,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@TestPropertySource(
+//		locations = "classpath:application-integrationtest.properties")
 @Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = GamelistApplication.class)
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
