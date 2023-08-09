@@ -118,6 +118,21 @@ public class PostRepositoryTests extends ContainersEnvironment {
             User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
             assertEquals("changli", user.getUsername());
 
+            User otherUser = new User();
+            otherUser.setUsername("otherUser");
+            otherUser.setEmail("otherUser@gmail.com");
+            otherUser.setPassword("123456");
+            otherUser.setUpdatedAt(LocalDateTime.now());
+            otherUser.setCreatedAt(LocalDateTime.now());
+            userRepository.save(otherUser);
+
+            Post post = new Post();
+            post.setText("Post from Other User");
+            post.setUser(otherUser);
+            post.setCreatedAt(LocalDateTime.now());
+            post.setUpdatedAt(LocalDateTime.now());
+            postRepository.save(post);
+
             List<Post> postList = new ArrayList<>(postRepository.findAllByUserId(user.getId()).get());
 
             assertEquals(2, postList.size());
@@ -173,5 +188,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
             assertNotEquals(firstPost.getText(), post.getText());
             assertEquals(firstPost.getUser(), post.getUser());
         }
+
+
     }
 }
