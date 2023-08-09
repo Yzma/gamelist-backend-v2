@@ -2,11 +2,9 @@ application:
   title: GameList
   version: 1.0.0
 
-security:
-  jwt:
-    secret-key: 3778b167fe18a2cf940a1ee8cfebebd713bef1826b4f12e5b02688418ea18623644d0fc09864b11eb871d9ed857b0d3c336dfcd01018dfe8d76dc593fd3b54b4
 spring:
   datasource:
+
     url: jdbc:postgresql://localhost:5432/graphql_game_list_test
     username: changli
     password: 941210
@@ -25,12 +23,7 @@ spring:
     init:
       mode: never
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
 
-logging:
-  level:
-    org.hibernate.sql: DEBUG
+#    url: ${DB_URL}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}

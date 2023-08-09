@@ -1,25 +1,30 @@
 package com.game.gamelist;
 
+import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserRepository;
 import jakarta.transaction.Transactional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
+@Transactional
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class GamelistApplicationTests {
+@ExtendWith(SpringExtension.class)
+class GamelistApplicationTests extends ContainersEnvironment {
 
 	@Autowired
 	private PostRepository postRepository;
@@ -27,16 +32,11 @@ class GamelistApplicationTests {
 	@Autowired
 	private UserRepository userRepository;
 
-	static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(
-			"postgres:15-alpine"
-	).withUsername("changli").withPassword("123456").withDatabaseName("test_db");
-
-
-
 
 	public GamelistApplicationTests() {
 		System.out.println("In constructor class instance: " + this);
 	}
+
 
 	@BeforeEach
 	public void beforeEachMethod() {
@@ -65,11 +65,6 @@ class GamelistApplicationTests {
 		post2.setId(2L);
 		postRepository.save(post2);
 
-
-		System.out.println("post ID  👹👹👹👹👹: " + post1.getId());
-		System.out.println("post ID  👹👹👹👹👹: " + post2.getId());
-		System.out.println("In beforeEachMethod class instance: " + this);
-		System.out.println("In beforeEachMethod Container ID: " + container.getContainerId());
 	}
 
 	@Test
@@ -84,8 +79,6 @@ class GamelistApplicationTests {
 	@Test
 	@Transactional
 	void testPost() {
-		System.out.println("In testPost class instance: " + this);
-		System.out.println("In testPost Container ID: " + container.getContainerId());
 		Post post = postRepository.findById(1L).orElseThrow();
 		assertThat(post.getText()).isEqualTo("Hello World");
 		Post post2 = postRepository.findById(2L).orElseThrow();

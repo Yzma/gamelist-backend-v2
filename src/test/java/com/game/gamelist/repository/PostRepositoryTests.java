@@ -1,9 +1,8 @@
-package com.game.gamelist.api.repository;
+package com.game.gamelist.repository;
 
+import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.repository.PostRepository;
-import com.game.gamelist.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
-public class PostRepositoryTests {
+public class PostRepositoryTests extends ContainersEnvironment {
 
     @Autowired
     private PostRepository postRepository;
@@ -36,28 +35,6 @@ public class PostRepositoryTests {
     @Autowired
     private UserRepository userRepository;
 
-    public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>( "postgres:15-alpine").withUsername("changli").withPassword("123456").withDatabaseName("test_db");
-
-    @DynamicPropertySource
-    static void properties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", container::getJdbcUrl);
-        registry.add("spring.datasource.password", container::getPassword);
-        registry.add("spring.datasource.username", container::getUsername);
-    }
-//    @AfterEach
-//    public void afterEachMethod() {
-//        postRepository.deleteAll();
-//        userRepository.deleteAll();
-//    }
-    @BeforeAll
-    public static void beforeAllMethod() {
-        container.start();
-    }
-
-    @AfterAll
-    public static void afterAllMethod() {
-        container.stop();
-    }
 
     @Test
     @Transactional
