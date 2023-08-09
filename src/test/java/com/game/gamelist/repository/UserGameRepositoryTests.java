@@ -1,20 +1,20 @@
 package com.game.gamelist.repository;
 
 
+import com.game.gamelist.config.ContainersEnvironment;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.testcontainers.containers.PostgreSQLContainer;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-@DataJpaTest
-public class UserGameRepositoryTests {
-
-    static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(
-            "postgres:15-alpine"
-    ).withUsername("changli").withPassword("123456").withDatabaseName("test_db");
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
+public class UserGameRepositoryTests extends ContainersEnvironment {
 
     @Autowired
     private UserGameRepository userGameRepository;
