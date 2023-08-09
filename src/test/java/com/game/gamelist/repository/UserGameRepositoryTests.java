@@ -2,6 +2,8 @@ package com.game.gamelist.repository;
 
 
 import com.game.gamelist.config.ContainersEnvironment;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +29,5 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
         assertNotEquals(null, userRepository);
         System.out.println("test");
     }
+
 }
