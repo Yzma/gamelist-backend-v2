@@ -75,7 +75,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
         }
 
         @Test
-        @Order(1)
+        @Order(2)
         @Transactional
         public void whenFindAll_Expect_ListWithTwo() {
             List<Post> postListInit = postRepository.findAll();
@@ -85,7 +85,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
 
         @Test
         @Transactional
-        @Order(2)
+        @Order(1)
         public void whenFindById_Expect_Post() {
 
             User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
@@ -98,13 +98,13 @@ public class PostRepositoryTests extends ContainersEnvironment {
 
             assertEquals(2, postRepository.findAll().size());
 
-            Optional<Post> optionalPost = postRepository.findById(3L);
+            Optional<Post> optionalPost = postRepository.findById(1L);
             Post post = optionalPost.get();
 
             assertEquals("Hello World", post.getText());
-            assertEquals(3L, post.getId());
+            assertEquals(1L, post.getId());
 
-            Post post2 = postRepository.findById(4L).get();
+            Post post2 = postRepository.findById(2L).get();
 
             assertNotEquals(post2.getText(), post.getText());
             assertNotEquals(4L, post.getId());
@@ -117,6 +117,21 @@ public class PostRepositoryTests extends ContainersEnvironment {
         void whenFindAllByUserId_Expect_ListWithTwo() {
             User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
             assertEquals("changli", user.getUsername());
+
+            User otherUser = new User();
+            otherUser.setUsername("otherUser");
+            otherUser.setEmail("otherUser@gmail.com");
+            otherUser.setPassword("123456");
+            otherUser.setUpdatedAt(LocalDateTime.now());
+            otherUser.setCreatedAt(LocalDateTime.now());
+            userRepository.save(otherUser);
+
+            Post post = new Post();
+            post.setText("Post from Other User");
+            post.setUser(otherUser);
+            post.setCreatedAt(LocalDateTime.now());
+            post.setUpdatedAt(LocalDateTime.now());
+            postRepository.save(post);
 
             List<Post> postList = new ArrayList<>(postRepository.findAllByUserId(user.getId()).get());
 
@@ -135,14 +150,18 @@ public class PostRepositoryTests extends ContainersEnvironment {
         void whenUpdatePost_Expect_PostUpdated() {
             User user = userRepository.findByEmail("changli@gmail.com").orElse(null);
             assertEquals("changli", user.getUsername());
+            List<Post> postList = postRepository.findAll();
 
-            Post post = postRepository.findById(7L).get();
+            Post post = postList.get(0);
 
             assertEquals("Hello World", post.getText());
             post.setText("Hello World Updated");
             postRepository.save(post);
 
-            Post postUpdated = postRepository.findById(7L).get();
+            List<Post> postListAfterUpdate = postRepository.findAll();
+
+            Post postUpdated = postRepository.findById(post.getId()).orElse(null);
+            assertNotEquals(null, postUpdated);
             assertEquals("Hello World Updated", postUpdated.getText());
             assertEquals(post.getId(), postUpdated.getId());
             assertEquals(post.getUser(), postUpdated.getUser());
@@ -169,5 +188,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
             assertNotEquals(firstPost.getText(), post.getText());
             assertEquals(firstPost.getUser(), post.getUser());
         }
+
+
     }
 }

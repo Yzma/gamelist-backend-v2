@@ -7,8 +7,7 @@ import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserRepository;
 import jakarta.transaction.Transactional;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,9 +19,12 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@TestPropertySource(
+//		locations = "classpath:application-integrationtest.properties")
 @Transactional
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = GamelistApplication.class)
 @ActiveProfiles("test")
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(SpringExtension.class)
 class GamelistApplicationTests extends ContainersEnvironment {
 
@@ -68,6 +70,7 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	}
 
 	@Test
+	@Order(1)
 	@Transactional
 	void contextLoads() {
 		System.out.println("Hello World 👹👹👹👹👹");
@@ -77,11 +80,16 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	}
 
 	@Test
+	@Order(2)
 	@Transactional
 	void testPost() {
-		Post post = postRepository.findById(1L).orElseThrow();
+		List<Post> postList = postRepository.findAll();
+
+		assertThat(postList.size()).isEqualTo(2);
+
+		Post post = postList.get(0);
 		assertThat(post.getText()).isEqualTo("Hello World");
-		Post post2 = postRepository.findById(2L).orElseThrow();
+		Post post2 = postList.get(1);
 		assertThat(post2.getText()).isEqualTo("Another Post");
 	}
 }
