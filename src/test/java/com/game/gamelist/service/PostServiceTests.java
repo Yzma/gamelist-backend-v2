@@ -19,6 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.Mockito.when;
 
@@ -141,6 +143,39 @@ public class PostServiceTests {
         Assertions.assertThat(foundPosts.get(1).getText()).isEqualTo("Java No.1!");
         Assertions.assertThat(foundPosts.get(2).getUser()).isEqualTo(userToSave);
         Assertions.assertThat(foundPosts.get(2).getId()).isEqualTo(111L);
+    }
+
+    @Test
+    void when_findAllPostsByUserId_return_allPostsBelongToUser() {
+        // Arrange
+        final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var anotherUser = User.builder().id(123L).email("anotherUser@gamil.com").username("anotherUser").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var postToSave1 = Post.builder().id(999L).text("Hello World!").user(userToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var postToSave2 = Post.builder().id(222L).text("Java No.1!").user(userToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var postToSave3 = Post.builder().id(111L).text("Java No.1?").user(userToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var postToSave4 = Post.builder().id(444L).text("Java No.1?").user(anotherUser).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        when(postRepository.findAllByUserId(Mockito.anyLong())).thenReturn(Optional.of(Set.of(postToSave1, postToSave2, postToSave3)));
+
+        // Act
+        Set<Post> foundPosts = postService.findAllPostsByUserId(userToSave);
+
+        // Assert
+
+        Assertions.assertThat(foundPosts).isNotNull();
+        Assertions.assertThat(foundPosts.size()).isEqualTo(3);
+        Assertions.assertThat(foundPosts).contains(postToSave1);
+        Assertions.assertThat(foundPosts).contains(postToSave2);
+        Assertions.assertThat(foundPosts).contains(postToSave3);
+        Assertions.assertThat(foundPosts).doesNotContain(postToSave4);
+
+        Assertions.assertThat(foundPosts.stream().filter(post -> post.getUser().equals(userToSave)).count()).isEqualTo(3);
+
     }
 }
 
