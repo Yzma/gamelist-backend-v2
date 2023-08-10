@@ -1,0 +1,278 @@
+[
+  {
+    "id": 116422,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3h8y.jpg",
+    "first_release_date": 1631750400,
+    "genres": ["Platform", "Role-playing (RPG)", "Adventure", "Indie"],
+    "name": "Tails of Iron",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96k9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96ka.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96kb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96kc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96kd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96ke.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96kf.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc96kg.jpg"
+    ],
+    "slug": "tails-of-iron",
+    "summary": "Tails of Iron is an Adventure RPG-lite game set in a charming and brutal world. Playing as Redgi the Rat, you are heir to the throne when your kingdom is raided by the Iron Frog. Players face challenging, tactical and stunning combat encounters in order to rebuild the Rat Kingdom.",
+    "themes": ["Action", "Fantasy"],
+    "total_rating": 82.1437822969448,
+    "total_rating_count": 16
+  },
+  {
+    "id": 109483,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2hpz.jpg",
+    "first_release_date": 1601942400,
+    "genres": ["Simulator", "Strategy", "Indie"],
+    "name": "Democracy 4",
+    "platforms": ["Linux", "PC (Microsoft Windows)", "Mac"],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8mar.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8mas.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8mat.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8mau.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8mav.jpg"
+    ],
+    "slug": "democracy-4",
+    "summary": "Democracy 4 lets you take the role of President / Prime minister, govern the country (choosing its policies, laws and other actions), and both transform the country as you see fit, while trying to retain enough popularity to get re-elected...",
+    "themes": ["Business"],
+    "total_rating": 68.40611066857295,
+    "total_rating_count": 6
+  },
+  {
+    "id": 134438,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co28og.jpg",
+    "first_release_date": 1599523200,
+    "genres": ["Fighting", "Role-playing (RPG)", "Adventure"],
+    "name": "Kingdoms of Amalur: Re-Reckoning",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq3.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8aq6.jpg"
+    ],
+    "slug": "kingdoms-of-amalur-re-reckoning",
+    "summary": "The hit RPG returns! From the minds of the bestselling author R.A. Salvatore, Spawn creator Todd McFarlane, and Elder Scrolls IV: Oblivion lead designer Ken Rolston, comes Kingdoms of Amalur: Re-Reckoning. Remastered with stunning visuals and refined gameplay Re-Reckoning delivers intense, customizable RPG combat inside a sprawling game world.",
+    "themes": ["Action", "Fantasy"],
+    "total_rating": 73.92599589874985,
+    "total_rating_count": 21
+  },
+  {
+    "id": 36476,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2bwn.jpg",
+    "first_release_date": 1596067200,
+    "genres": ["Role-playing (RPG)", "Adventure", "Indie"],
+    "name": "Hellpoint",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/bo2vc35dxbxiuhmibpzg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/phgct43holathwmybaoh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/f1ngittx3hee2nmce0hz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/n3uj96iv5gwunxcmy1cw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/llz1qj4url4txzjoj414.jpg"
+    ],
+    "slug": "hellpoint",
+    "summary": "Hellpoint is a dark sci fi action RPG set in the aftermath of a massive quantum cataclysm. Every living being quickly lost their mind as their memories and bodies were merged with alternate versions of themselves from parallel universes. The accident also attracted entities of immense power that should have been left alone, in the depth of other dimensions.",
+    "themes": ["Action", "Science fiction", "Horror"],
+    "total_rating": 71.84494867639114,
+    "total_rating_count": 10
+  },
+  {
+    "id": 144270,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2x3u.jpg",
+    "first_release_date": 1614902400,
+    "genres": ["Point-and-click", "Puzzle", "Adventure", "Indie"],
+    "name": "Mitoza",
+    "platforms": ["PC (Microsoft Windows)", "Mac"],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc940b.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc940c.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc940d.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc940e.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc940f.jpg"
+    ],
+    "slug": "mitoza",
+    "summary": "It all starts with a seed. Explore all cycles and prepare yourself to accept the inevitable effects of Mitoza. \n \nMitoza is a surreal choose-your-own-adventure game by Gal Mamalya, published by Second Maze.",
+    "themes": ["Comedy", "Mystery"],
+    "total_rating": 52.89044290428245,
+    "total_rating_count": 6
+  },
+  {
+    "id": 153808,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co4elc.jpg",
+    "first_release_date": 1655942400,
+    "genres": ["Puzzle", "Adventure", "Visual Novel"],
+    "name": "AI: The Somnium Files - Nirvana Initiative",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbtwl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbtwm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbtwn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbtwo.jpg"
+    ],
+    "slug": "ai-the-somnium-files-nirvana-initiative",
+    "summary": "Newly-appointed Special Agent Mizuki and her AI partner Aiba are tasked to solve the bizarre Half Body serial killings in this sequel to the critically acclaimed AI: The Somnium Files.",
+    "themes": ["Action", "Science fiction", "Mystery"],
+    "total_rating": 87.25224133637181,
+    "total_rating_count": 28
+  },
+  {
+    "id": 191270,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co4gi8.jpg",
+    "first_release_date": 1643932800,
+    "genres": ["Card & Board Game"],
+    "name": "Stream Pairs",
+    "platforms": ["Web browser"],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scft9r.jpg"
+    ],
+    "slug": "stream-pairs",
+    "summary": "Stream Pairs is an interactive memory game to play with streaming audience. Use the chat to match pairs by typing the correct position and beat levels by reaching the goals.",
+    "themes": ["Party"],
+    "total_rating": 91.66666666666666,
+    "total_rating_count": 6
+  },
+  {
+    "id": 106822,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1i6c.jpg",
+    "first_release_date": 1582761600,
+    "genres": ["Platform", "Adventure", "Indie", "Arcade"],
+    "name": "Bloodroots",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ot2kbzberuehzkcxwudd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rsrrcukkyq9mgddjkgyr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/kedtakiqlmstsvmwj8s7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/w1kkb6kc7qftm0hp2twm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/m34sfuuvqybgorwrwt1w.jpg"
+    ],
+    "slug": "bloodroots",
+    "summary": "Betrayed by his partners and left for dead, Mr. Wolf is hell-bent on enacting his revenge - alone, and vastly outnumbered. Thankfully for Mr. Wolf, in Bloodroots the world is your weapon. In this relentless action game, you'll choreograph spectacular, ultra-violent combos by making use of everything around you, from hatchets, to ladders, to...carrots? It's improvise or die, as Mr. Wolf fights his way to the center of the mystery: why was he betrayed?",
+    "themes": ["Action"],
+    "total_rating": 81.24854165812205,
+    "total_rating_count": 14
+  },
+  {
+    "id": 158982,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3gbt.jpg",
+    "first_release_date": 1627430400,
+    "genres": ["Role-playing (RPG)"],
+    "name": "Final Fantasy III: Pixel Remaster",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Android",
+      "iOS",
+      "PlayStation 4",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbsk7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbsk8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbsk9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbska.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbskb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbskc.jpg"
+    ],
+    "slug": "final-fantasy-iii-pixel-remaster",
+    "summary": "The original Final Fantasy III comes to life with completely new graphics and audio! A remodeled 2D take on the third game in the world-renowned Final Fantasy series! Enjoy the timeless story told through charming retro graphics.",
+    "themes": ["Fantasy"],
+    "total_rating": 80.38135593220338,
+    "total_rating_count": 7
+  },
+  {
+    "id": 125165,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co69sm.jpg",
+    "first_release_date": 1685664000,
+    "genres": ["Role-playing (RPG)", "Hack and slash/Beat 'em up"],
+    "name": "Diablo IV",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78f9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78fa.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78fb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78fc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc78fd.jpg"
+    ],
+    "slug": "diablo-iv",
+    "summary": "Endless demons to slaughter. Deep customization through Talents, Skill Points, Runes, and Legendary loot. Randomized dungeons contained in a dynamic open world. Survive and conquer darkness—or succumb to the shadows.",
+    "themes": ["Action", "Fantasy", "Horror"],
+    "total_rating": 90.97328838454291,
+    "total_rating_count": 26
+  },
+  {
+    "id": 125,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3ggo.jpg",
+    "first_release_date": 851990400,
+    "genres": ["Role-playing (RPG)", "Strategy"],
+    "name": "Diablo",
+    "platforms": ["PC (Microsoft Windows)", "PlayStation", "Mac"],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/e7jcsiwijzxdt1sqzbvb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/tckn5cydm0w2cf8tjv2l.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884t.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884u.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884v.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884w.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884x.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc884y.jpg"
+    ],
+    "slug": "diablo",
+    "summary": "Diablo is an isometric strategy RPG and one of the most well-known examples of the action-RPG subgenre. Although some of the game mechanics resemble a typical RPG, all actions are done in real-time just like in an action game. The player have to kill hordes of monsters through randomized dungeon levels in order to gain experience points, gold and a variety of equipment to bolster the hero's monster-killing potency.",
+    "themes": ["Action", "Fantasy", "Horror", "Historical"],
+    "total_rating": 83.92196592238405,
+    "total_rating_count": 453
+  }
+]
