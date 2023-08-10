@@ -1,20 +1,16 @@
-application:
-  title: GameList
-  version: 1.0.0
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/test_db
     username: postgres
     password: postgres
+    url: jdbc:postgresql://localhost:5332/game_list_dev
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
-      active: test
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
@@ -22,3 +18,10 @@ spring:
   sql:
     init:
       mode: never
+
+logging:
+  level:
+    org.hibernate.sql: DEBUG
+
+server:
+  port: 8080

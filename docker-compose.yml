@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5332:5432"
+    environment:
+        - POSTGRES_USER=changli
+        - POSTGRES_PASSWORD=941210
+        - POSTGRES_DB=graphql_game_list
