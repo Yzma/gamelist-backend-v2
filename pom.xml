@@ -122,6 +122,18 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!--	plugin for database migrations	-->
+<!--			<plugin>-->
+<!--				<groupId>org.flywaydb</groupId>-->
+<!--				<artifactId>flyway-maven-plugin</artifactId>-->
+<!--				<version>9.17.0</version>-->
+<!--				<configuration>-->
+<!--					<url>jdbc:postgresql://localhost:5332/graphql_game_list</url>-->
+<!--					<user>postgres</user>-->
+<!--					<password>postgres</password>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
