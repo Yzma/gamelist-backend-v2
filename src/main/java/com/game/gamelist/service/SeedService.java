@@ -7,8 +7,7 @@ import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.transaction.Transactional;
-import org.hibernate.cfg.Environment;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +28,9 @@ public class SeedService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
     @Autowired
     private GameRepository gameRepository;
@@ -167,6 +169,33 @@ public class SeedService {
         }
     }
 
+    @PostConstruct
+    public void seedPostsIfEmpty() {
+        System.out.println("�������Seeding posts...");
+        if (postRepository.count() == 0) {
+
+            for (int i = 1; i < 4; i++) {
+                User user = userRepository.findById(Long.valueOf(i)).get();
+                List<Post> posts = new ArrayList<>();
+                for (int j = 0; j < 5; j++) {
+                    try {
+
+                        Post post = new Post();
+                        post.setText("This is a post " + j + " by user " + i + " .");
+                        post.setCreatedAt(LocalDateTime.now());
+                        post.setUpdatedAt(LocalDateTime.now());
+                        post.setUser(user);
+
+                        posts.add(post);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                postRepository.saveAll(posts);
+            }
+
+        }
+    }
 
 }
 

@@ -68,6 +68,7 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @JsonProperty("roles")
     @Enumerated(EnumType.STRING)
     @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;
