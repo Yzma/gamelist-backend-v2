@@ -9,6 +9,7 @@ import com.game.gamelist.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 
@@ -23,34 +24,41 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Profile("dev")
 public class SeedService {
-
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private GameRepository gameRepository;
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final GameRepository gameRepository;
+    private final GenreRepository genreRepository;
+    private final TagRepository tagRepository;
+    private final PlatformRepository platformRepository;
+    private final UserGameRepository userGameRepository;
 
     @Autowired
-    private GenreRepository genreRepository;
-    @Autowired
-    private TagRepository tagRepository;
-    @Autowired
-    private PlatformRepository platformRepository;
-    @Autowired
-    private UserGameRepository userGameRepository;
+    public SeedService(
+            UserRepository userRepository,
+            PostRepository postRepository,
+            GameRepository gameRepository,
+            GenreRepository genreRepository,
+            TagRepository tagRepository,
+            PlatformRepository platformRepository,
+            UserGameRepository userGameRepository
+    ) {
+        this.userRepository = userRepository;
+        this.postRepository = postRepository;
+        this.gameRepository = gameRepository;
+        this.genreRepository = genreRepository;
+        this.tagRepository = tagRepository;
+        this.platformRepository = platformRepository;
+        this.userGameRepository = userGameRepository;
+    }
+
 
     @PostConstruct
     public void seedUsersIfEmpty() {
-        System.out.println("�������Seeding users...");
         if (userRepository.count() == 0 ) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                System.out.println("🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷 Seeding users...");
 
                 InputStream inputStream = getClass().getResourceAsStream("/json/users.json");
                 List<User> users = objectMapper.readValue(inputStream, new TypeReference<List<User>>() {
@@ -64,7 +72,6 @@ public class SeedService {
 
     @PostConstruct
     public void seedGenresIfEmpty() {
-        System.out.println("�������Seeding genres...");
         if (genreRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -81,7 +88,6 @@ public class SeedService {
 
     @PostConstruct
     public void seedTagsIfEmpty() {
-        System.out.println("�������Seeding tags...");
         if (tagRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -99,7 +105,6 @@ public class SeedService {
     @PostConstruct
     public void seedPlatformsIfEmpty() {
 
-        System.out.println("�������Seeding platforms...");
         if (platformRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -115,11 +120,9 @@ public class SeedService {
     }
     @PostConstruct
     public void seedGamesIfEmpty() {
-        System.out.println("�������Seeding games...");
         if (gameRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                System.out.println("🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷 Seeding games...");
 
                 InputStream inputStream = getClass().getResourceAsStream("/json/games.json");
                 List<JsonNode> gameNodes = objectMapper.readValue(inputStream, new TypeReference<List<JsonNode>>() {});
@@ -173,7 +176,6 @@ public class SeedService {
 
     @PostConstruct
     public void seedPostsIfEmpty() {
-        System.out.println("�������Seeding posts...");
         if (postRepository.count() == 0) {
 
             for (int i = 1; i < 4; i++) {
@@ -201,7 +203,6 @@ public class SeedService {
 
     @PostConstruct
     public void seedUserGamesIfEmpty() {
-        System.out.println("�������Seeding user games...");
         if (userGameRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
                 User user = userRepository.findById(Long.valueOf(i)).get();
@@ -218,7 +219,6 @@ public class SeedService {
                         userGame.setRating(5);
                         userGame.setGameNote("This is a review for game " + j + " by user " + i + " .");
 
-                        System.out.println("🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷Game Name: " + userGame.getGame().getName());
                         userGames.add(userGame);
                     } catch (Exception e) {
                         e.printStackTrace();

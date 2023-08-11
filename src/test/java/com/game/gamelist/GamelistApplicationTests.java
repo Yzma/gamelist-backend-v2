@@ -19,8 +19,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@TestPropertySource(
-//		locations = "classpath:application-integrationtest.properties")
+
 @Transactional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = GamelistApplication.class)
 @ActiveProfiles("test")
@@ -34,12 +33,6 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Autowired
 	private UserRepository userRepository;
 
-
-	public GamelistApplicationTests() {
-		System.out.println("In constructor class instance: " + this);
-	}
-
-
 	@BeforeEach
 	public void beforeEachMethod() {
 		User user = new User();
@@ -48,8 +41,6 @@ class GamelistApplicationTests extends ContainersEnvironment {
 		user.setPassword("123456");
 		user.setUpdatedAt(LocalDateTime.now());
 		userRepository.save(user);
-
-		System.out.println("user ID  👹👹👹👹👹: " + user.getId());
 
 		Post post1 = new Post();
 		post1.setText("Hello World");
@@ -73,7 +64,6 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Order(1)
 	@Transactional
 	void contextLoads() {
-		System.out.println("Hello World 👹👹👹👹👹");
 		assertThat(1).isEqualTo(1);
 		List<Post> postList = postRepository.findAll();
 		assertThat(postList.size()).isEqualTo(2);
