@@ -41,6 +41,8 @@ public class SeedService {
     private TagRepository tagRepository;
     @Autowired
     private PlatformRepository platformRepository;
+    @Autowired
+    private UserGameRepository userGameRepository;
 
     @PostConstruct
     public void seedUsersIfEmpty() {
@@ -194,6 +196,36 @@ public class SeedService {
                 postRepository.saveAll(posts);
             }
 
+        }
+    }
+
+    @PostConstruct
+    public void seedUserGamesIfEmpty() {
+        System.out.println("�������Seeding user games...");
+        if (userGameRepository.count() == 0) {
+            for (int i = 1; i < 4; i++) {
+                User user = userRepository.findById(Long.valueOf(i)).get();
+                List<UserGame> userGames = new ArrayList<>();
+                for (int j = 0; j < 5; j++) {
+                    try {
+                        UserGame userGame = new UserGame();
+                        userGame.setCreatedAt(LocalDateTime.now());
+                        userGame.setUpdatedAt(LocalDateTime.now());
+                        userGame.setGameStatus(GameStatus.values()[j % 3]);
+                        userGame.setIsPrivate(false);
+                        userGame.setUser(user);
+                        userGame.setGame(gameRepository.findAllGamesOrderedById().get(i));
+                        userGame.setRating(5);
+                        userGame.setGameNote("This is a review for game " + j + " by user " + i + " .");
+
+                        System.out.println("🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷🐷Game Name: " + userGame.getGame().getName());
+                        userGames.add(userGame);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                userGameRepository.saveAll(userGames);
+            }
         }
     }
 
