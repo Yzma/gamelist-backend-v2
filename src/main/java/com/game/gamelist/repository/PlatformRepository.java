@@ -10,4 +10,6 @@ public interface PlatformRepository extends JpaRepository<Platform, Long> {
 
     @Query("SELECT name FROM platforms")
     List<String> getAllNames();
+
+    Platform findByName(String platformName);
 }

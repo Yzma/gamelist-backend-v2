@@ -9,5 +9,3 @@ services:
         - POSTGRES_USER=changli
         - POSTGRES_PASSWORD=941210
         - POSTGRES_DB=graphql_game_list
-    volumes:
-      - ./seed-data:/docker-entrypoint-initdb.d

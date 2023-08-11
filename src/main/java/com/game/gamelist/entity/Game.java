@@ -19,12 +19,12 @@ import java.util.Set;
 @Entity(name = "games")
 public class Game {
     @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
     @Column(length = 2000)
+    @JsonProperty("summary")
     private String description;
 
     @Column(name = "`imageURL`")
