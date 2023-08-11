@@ -5,13 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
-import com.game.gamelist.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,10 +50,19 @@ public class SeedService {
         this.userGameRepository = userGameRepository;
     }
 
-
     @PostConstruct
+    public void seedDatabase() {
+        seedUsersIfEmpty();
+        seedGenresIfEmpty();
+        seedTagsIfEmpty();
+        seedPlatformsIfEmpty();
+        seedGamesIfEmpty();
+        seedPostsIfEmpty();
+        seedUserGamesIfEmpty();
+    }
+
     public void seedUsersIfEmpty() {
-        if (userRepository.count() == 0 ) {
+        if (userRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
 
@@ -70,7 +76,6 @@ public class SeedService {
         }
     }
 
-    @PostConstruct
     public void seedGenresIfEmpty() {
         if (genreRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -86,7 +91,6 @@ public class SeedService {
         }
     }
 
-    @PostConstruct
     public void seedTagsIfEmpty() {
         if (tagRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -102,9 +106,8 @@ public class SeedService {
         }
     }
 
-    @PostConstruct
-    public void seedPlatformsIfEmpty() {
 
+    public void seedPlatformsIfEmpty() {
         if (platformRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
@@ -118,14 +121,15 @@ public class SeedService {
 
         }
     }
-    @PostConstruct
+
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
 
                 InputStream inputStream = getClass().getResourceAsStream("/json/games.json");
-                List<JsonNode> gameNodes = objectMapper.readValue(inputStream, new TypeReference<List<JsonNode>>() {});
+                List<JsonNode> gameNodes = objectMapper.readValue(inputStream, new TypeReference<List<JsonNode>>() {
+                });
 
                 List<Game> games = new ArrayList<>();
 
@@ -167,14 +171,12 @@ public class SeedService {
                 }
 
                 gameRepository.saveAll(games);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    @PostConstruct
     public void seedPostsIfEmpty() {
         if (postRepository.count() == 0) {
 
@@ -201,7 +203,6 @@ public class SeedService {
         }
     }
 
-    @PostConstruct
     public void seedUserGamesIfEmpty() {
         if (userGameRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
@@ -228,7 +229,4 @@ public class SeedService {
             }
         }
     }
-
 }
-
-
