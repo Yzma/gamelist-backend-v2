@@ -6,6 +6,6 @@ services:
     ports:
       - "5332:5432"
     environment:
-        - POSTGRES_USER=changli
-        - POSTGRES_PASSWORD=941210
-        - POSTGRES_DB=graphql_game_list
+      - POSTGRES_USER=${DOCKER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOCKER_POSTGRES_DB}
