@@ -3,6 +3,7 @@ package com.game.gamelist.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,23 +19,28 @@ import java.util.Set;
 @Entity(name = "games")
 public class Game {
     @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
 
+    @Column(length = 2000)
+    @JsonProperty("summary")
     private String description;
 
     @Column(name = "`imageURL`")
+    @JsonProperty("cover")
     private String imageURL;
 
     @Column(name = "`releaseDate`")
+    @JsonProperty("first_release_date")
     private LocalDateTime releaseDate;
 
     @Column(name = "avg_score")
+    @JsonProperty("total_rating")
     private double avgScore;
 
     @Column(name = "total_rating")
+    @JsonProperty("total_rating_count")
     private int totalRating;
 
     @Column(name = "created_at")
@@ -44,6 +50,7 @@ public class Game {
     private LocalDateTime updatedAt;
 
     @Column(name = "`bannerURL`")
+    @JsonProperty("screenshots")
     private String bannerURL;
 
     @ManyToMany(mappedBy = "games")

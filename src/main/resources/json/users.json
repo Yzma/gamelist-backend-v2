@@ -1,0 +1,33 @@
+[
+  {
+    "username": "Vv",
+    "email_address": "v@gmail.com",
+    "password": "$2a$12$1TDLltpIO0eadhi8kJDqJOIlDUlLaYmTIV8uAg4tzos5YKEgvq5z2",
+    "banner_picture": "https://images.igdb.com/igdb/image/upload/t_screenshot_big/kky41w6g87pnw8omnoff.jpg",
+    "user_picture": "https://avatoon.me/wp-content/uploads/2021/09/Cartoon-Pic-Ideas-for-DP-Profile-01.png",
+    "bio": "I'm a admin",
+    "is_active": true,
+    "listsOrder": "planning,playing,completed,paused,dropped,justAdded",
+    "roles": ["ROLE_ADMIN"]
+  }, {
+    "username": "Chang",
+    "email_address": "chang@gmail.com",
+    "password": "$2a$12$1TDLltpIO0eadhi8kJDqJOIlDUlLaYmTIV8uAg4tzos5YKEgvq5z2",
+    "banner_picture": "https://images.igdb.com/igdb/image/upload/t_screenshot_big/kky41w6g87pnw8omnoff.jpg",
+    "user_picture": "https://robohash.org/chang.png?size=100x100&set=set1",
+    "bio": "I'm a user",
+    "is_active": true,
+    "listsOrder": "planning,playing,completed,paused,dropped,justAdded",
+    "roles": ["ROLE_USER"]
+  }, {
+    "username": "Andrew",
+    "email_address": "andrew@gmail.com",
+    "password": "$2a$12$1TDLltpIO0eadhi8kJDqJOIlDUlLaYmTIV8uAg4tzos5YKEgvq5z2",
+    "banner_picture": "https://images.igdb.com/igdb/image/upload/t_screenshot_big/kky41w6g87pnw8omnoff.jpg",
+    "user_picture": "https://robohash.org/andrew.png?size=100x100&set=set1",
+    "bio": "I'm a admin",
+    "is_active": true,
+    "listsOrder": "planning,playing,completed,paused,dropped,justAdded",
+    "roles": ["ROLE_ADMIN"]
+  }
+]

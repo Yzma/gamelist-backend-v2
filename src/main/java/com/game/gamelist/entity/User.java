@@ -42,14 +42,17 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "banner_picture")
+    @JsonProperty("banner_picture")
     private String bannerPicture;
 
     @Column(name = "user_picture")
+    @JsonProperty("user_picture")
     private String userPicture;
 
     private String bio;
 
     @Column(name = "is_active")
+    @JsonProperty("is_active")
     private boolean isActive;
 
     @CreationTimestamp
@@ -65,6 +68,7 @@ public class User implements UserDetails {
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @JsonProperty("roles")
     @Enumerated(EnumType.STRING)
     @RoleSubset(anyOf = {Role.ROLE_USER, Role.ROLE_ADMIN})
     private Set<Role> roles;

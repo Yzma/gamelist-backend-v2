@@ -1,0 +1,16 @@
+application:
+  title: GameList
+  version: 1.0.0
+
+security:
+  jwt:
+    secret-key: [JWT_SECRET_HERE]
+spring:
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

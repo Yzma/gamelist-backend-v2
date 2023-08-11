@@ -56,7 +56,6 @@ public class PostRepositoryTests extends ContainersEnvironment {
             user.setUpdatedAt(LocalDateTime.now());
             userRepository.save(user);
 
-            System.out.println("In test method instance: " + this);
             Post post1 = new Post();
             post1.setText("Hello World");
             post1.setUser(user);

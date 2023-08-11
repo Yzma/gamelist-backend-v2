@@ -3,11 +3,9 @@ package com.game.gamelist.service;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.repository.PostRepository;
-import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.service.impl.PostServiceImpl;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -33,12 +31,6 @@ public class PostServiceTests {
 
     @Mock
     private PostRepository postRepository;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @BeforeEach
-
 
     @Test
     void when_createPost_shouldReturn_onePost() {

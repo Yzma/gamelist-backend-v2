@@ -10,4 +10,6 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     @Query("SELECT name FROM genres")
     List<String> getAllNames();
+
+    Genre findByName(String genreName);
 }
