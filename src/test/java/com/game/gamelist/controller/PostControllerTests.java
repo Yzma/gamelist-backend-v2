@@ -54,13 +54,35 @@ public class PostControllerTests {
     void contextLoads() {
         Assertions.assertNotNull(postController);
     }
-    @Test
-    void shouldReturn_NewPost_When_sendPostRequest() throws Exception {
-        User principal = User.builder().id(999L).username("testuser").password("testuser").email("testuser@gmail.com").userPicture("testuser").bio("testuser").bannerPicture("testuser").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
+
+    User principal;
+    User notPrincipal;
+    Post notPrincipalPost;
+    Post mockPost;
+    Post mockPost2;
+    Post mockPost3;
+
+    @BeforeEach
+    void beforeEachTest() {
+         principal = User.builder().id(999L).username("testuser").password("testuser").email("testuser@gmail.com").userPicture("testuser").bio("testuser").bannerPicture("testuser").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
+
+         notPrincipal = User.builder().id(998L).username("testuser2").password("testuser2").email("testuser2@gmail.com").userPicture("testuser2").bio("testuser2").bannerPicture("testuser2").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
+
+         notPrincipalPost = Post.builder().id(65L).text("Not a Post Belongs to Principal!").user(notPrincipal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        Post mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+         mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+         mockPost2 = Post.builder().id(67L).text("MockPost 2!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+         mockPost3 = Post.builder().id(68L).text("MockPost 3!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+    }
+
+    @Test
+    void shouldReturn_NewPost_When_sendPostRequest() throws Exception {
+
+        auth0JwtTestUtils.mockAuthentication(principal);
 
         when(postService.createPost(Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(mockPost);
 
@@ -75,19 +97,6 @@ public class PostControllerTests {
 
     @Test
     void shouldReturn_allPost_when_sendGetRequest() throws Exception {
-        User principal = User.builder().id(999L).username("testuser").password("testuser").email("testuser@gmail.com").userPicture("testuser").bio("testuser").bannerPicture("testuser").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
-
-        User notPrincipal = User.builder().id(998L).username("testuser2").password("testuser2").email("testuser2@gmail.com").userPicture("testuser2").bio("testuser2").bannerPicture("testuser2").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
-
-        Post notPrincipalPost = Post.builder().id(65L).text("Not a Post Belongs to Principal!").user(notPrincipal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-
-        auth0JwtTestUtils.mockAuthentication(principal);
-
-        Post mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-
-        Post mockPost2 = Post.builder().id(67L).text("MockPost 2!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-
-        Post mockPost3 = Post.builder().id(68L).text("MockPost 3!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         Set<Post> mockPostsSet = Set.of(mockPost, mockPost2, mockPost3);
         List<Post> mockPostsList = new ArrayList<>(mockPostsSet);
@@ -104,5 +113,25 @@ public class PostControllerTests {
                 .andExpect(jsonPath("$.data.posts[2].id").value(mockPostsList.get(2).getId()))
                 .andExpect(jsonPath("$.data.posts[2].text").value(mockPostsList.get(2).getText()))
                 .andExpect(jsonPath("$.data.posts[3]").doesNotExist());
+    }
+
+    @Test
+    void shouldReturn_AllPost_when_sentGetAllRequest() throws Exception {
+        List<Post> allPostList = List.of(notPrincipalPost, mockPost, mockPost2, mockPost3);
+
+        when(postService.findAllPosts(principal)).thenReturn(allPostList);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/all")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.posts[0].id").value(allPostList.get(0).getId()))
+                .andExpect(jsonPath("$.data.posts[0].text").value(allPostList.get(0).getText()))
+                .andExpect(jsonPath("$.data.posts[1].id").value(allPostList.get(1).getId()))
+                .andExpect(jsonPath("$.data.posts[1].text").value(allPostList.get(1).getText()))
+                .andExpect(jsonPath("$.data.posts[2].id").value(allPostList.get(2).getId()))
+                .andExpect(jsonPath("$.data.posts[2].text").value(allPostList.get(2).getText()))
+                .andExpect(jsonPath("$.data.posts[3].id").value(allPostList.get(3).getId()))
+                .andExpect(jsonPath("$.data.posts[3].text").value(allPostList.get(3).getText()))
+                .andExpect(jsonPath("$.data.posts[4]").doesNotExist());
     }
 }
