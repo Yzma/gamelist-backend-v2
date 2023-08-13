@@ -90,6 +90,7 @@ public class PostControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(mockPost)))
                 .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.message").value("Post created successfully"))
                 .andExpect(jsonPath("$.data.post.id").value(66L))
                 .andExpect(jsonPath("$.data.post.text").value("Hello World!"));
 
@@ -133,5 +134,39 @@ public class PostControllerTests {
                 .andExpect(jsonPath("$.data.posts[3].id").value(allPostList.get(3).getId()))
                 .andExpect(jsonPath("$.data.posts[3].text").value(allPostList.get(3).getText()))
                 .andExpect(jsonPath("$.data.posts[4]").doesNotExist());
+    }
+
+    @Test
+    void shouldReturn_post_when_sendGetByIdRequest() throws Exception {
+
+        when(postService.findPostById(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(mockPost);
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/66")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.post.id").value(66L))
+                .andExpect(jsonPath("$.data.post.text").value("Hello World!"));
+    }
+
+    @Test
+    void shouldReturn_post_when_sendPutRequestById() throws Exception {
+
+        Post updatedPost = Post.builder().id(66L).text("Post Got Updated").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+            when(postService.updatePostById(Mockito.anyLong(), Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(updatedPost);
+            mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/posts/66")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(mockPost)))
+                    .andExpect(status().isOk()).andExpect(jsonPath("$.message").value("Post updated successfully"))
+                    .andExpect(jsonPath("$.data.post.id").value(66L))
+                    .andExpect(jsonPath("$.data.post.text").value("Post Got Updated"));
+    }
+
+    @Test
+    void shouldReturn_NO_CONTENT_when_sendDeleteRequestById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/posts/66")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.message").value("Post deleted successfully"))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.data").doesNotExist()).andExpect(jsonPath("$.statusCode").value(204));
     }
 }
