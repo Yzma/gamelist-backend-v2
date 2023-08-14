@@ -4,11 +4,10 @@ package com.game.gamelist.repository;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.*;
 import jakarta.transaction.Transactional;
+import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -36,9 +35,9 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
     void loadContext() {
         assertNotEquals(null, userGameRepository);
         assertNotEquals(null, userRepository);
-
-        System.out.println("test");
     }
+
+
 
     @Test
     @Transactional
@@ -62,37 +61,19 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
 
             userRepository.save(owner);
 
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79Owner name: " + owner.getUsername());
-
             game1 = Game.builder().name("testgame").description("testgame").imageURL("testImage").bannerURL("testGameBanner").build();
-            game1.setId(10L);
-            game2 = Game.builder().name("testgame2").description("testgame2").imageURL("testImage").build();
-            game2.setId(11L);
-            game3 = Game.builder().name("testgame3").description("testgame3").imageURL("testImage").build();
-            game3.setId(12L);
 
+            game2 = Game.builder().name("testgame2").description("testgame2").imageURL("testImage").build();
+            game3 = Game.builder().name("testgame3").description("testgame3").imageURL("testImage").build();
 
             gameRepository.save(game1);
             gameRepository.save(game2);
             gameRepository.save(game3);
 
-            Game savedGame1 = gameRepository.findById(10L).get();
-
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 savedGame ID: " +savedGame1.getId());
-
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 savedGame name: " +savedGame1.getName());
-
-
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 Game name: " + game1.getName());
-
 
             User savedOwner = userRepository.findByEmail(owner.getEmail()).get();
 
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 Owner name: " + savedOwner.getId());
-
-            UserGame userGame1 = UserGame.builder().gameNote("testNote").rating(5).gameStatus(GameStatus.Paused).user(owner).game(savedGame1).build();
-
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 UserGame note: " + userGame1.getGameNote());
+            UserGame userGame1 = UserGame.builder().gameNote("testNote").rating(5).gameStatus(GameStatus.Paused).user(owner).game(game1).build();
 
             userGameRepository.save(userGame1);
 
@@ -114,12 +95,7 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
 
             Set<UserGame> userGamesSet = (userGameRepository.findAllByUserId(owner.getId()).get());
 
-            for (UserGame userGame : userGamesSet) {
-                System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 UserGame note: " + userGame.getGameNote());
-            }
             UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
-
-            System.out.println("\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79\uD83D\uDC79 UserGame note: " + onlyUserGame.getGameNote());
 
             Assertions.assertEquals("testNote", onlyUserGame.getGameNote());
 

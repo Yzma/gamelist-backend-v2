@@ -19,7 +19,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.mockito.Mockito.when;
 
@@ -140,5 +143,76 @@ public class UserGameServiceTests {
                 .hasMessageContaining("Invalid authorization");
     }
 
-    
+    @Test
+    void when_findUserGameById_by_non_existing_userGame_throw_ResourceNotFoundException() {
+        final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+
+        Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, userToSave))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessageContaining("UserGame not found");
+    }
+
+    @Test
+    void when_updateUserGameById_should_return_updatedUserGame() {
+        final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var userGamePassed = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
+
+        UserGame updatedUserGame = userGameService.updateUserGameById(999L, userGamePassed, userToSave);
+
+        Assertions.assertThat(updatedUserGame.getId()).isNotNull();
+        Assertions.assertThat(updatedUserGame.getId()).isEqualTo(999L);
+        Assertions.assertThat(updatedUserGame.getGame()).isEqualTo(gameToSave);
+        Assertions.assertThat(updatedUserGame.getUser()).isEqualTo(userToSave);
+        Assertions.assertThat(updatedUserGame.getGameStatus()).isEqualTo(GameStatus.Completed);
+        Assertions.assertThat(updatedUserGame.getGameNote()).isEqualTo("GameNote from userGameUpdated");
+    }
+
+    @Test
+    void when_deleteUserGameById_should_return_deletedUserGame() {
+        final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var userGameInactive = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote(null).gameStatus(GameStatus.Inactive).rating(0).completedDate(null).createdAt(null).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGameInactive);
+
+        UserGame deletedUserGame = userGameService.deleteUserGameById(999L, userToSave);
+
+        Assertions.assertThat(deletedUserGame.getId()).isNotNull();
+        Assertions.assertThat(deletedUserGame.getId()).isEqualTo(999L);
+        Assertions.assertThat(deletedUserGame.getGame()).isEqualTo(gameToSave);
+        Assertions.assertThat(deletedUserGame.getUser()).isEqualTo(userToSave);
+        Assertions.assertThat(deletedUserGame.getGameStatus()).isEqualTo(GameStatus.Inactive);
+        Assertions.assertThat(deletedUserGame.getGameNote()).isNull();
+    }
+
+    @Test
+    void when_findAllUserGamesByUserId_should_return_Set_of_userGames() {
+        final var gameExisting1 = Game.builder().id(11L).name("Game1").build();
+        final var gameExisting2 = Game.builder().id(12L).name("Game2").build();
+        final var gameExisting3 = Game.builder().id(13L).name("Game3").build();
+
+        final var userGameExisting1 = UserGame.builder().id(996L).game(gameExisting1).user(userToSave).gameNote("GameNote from userGameExisting1").gameStatus(GameStatus.Completed).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        final var userGameExisting2 = UserGame.builder().id(998L).game(gameExisting2).user(userToSave).gameNote("GameNote from userGameExisting2").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        final var userGameExisting3 = UserGame.builder().id(997L).game(gameExisting3).user(userToSave).gameNote("GameNote from userGameExisting3").gameStatus(GameStatus.Planning).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        Set<UserGame> userGameSet = Set.of(userGameExisting1, userGameExisting2, userGameExisting3);
+
+        List<UserGame> userGameList = new ArrayList<>(userGameSet);
+
+        when(userGameRepository.findAllByUserId(Mockito.anyLong())).thenReturn(Optional.of(userGameSet));
+
+        Set<UserGame> userGameSetFromService = userGameService.findAllUserGamesByUserId(userToSave);
+
+        Assertions.assertThat(userGameSetFromService).isNotNull();
+        Assertions.assertThat(userGameSetFromService).isNotEmpty();
+        Assertions.assertThat(userGameSetFromService).hasSize(3);
+        Assertions.assertThat(userGameSetFromService).contains(userGameExisting1, userGameExisting2, userGameExisting3);
+    }
 }
