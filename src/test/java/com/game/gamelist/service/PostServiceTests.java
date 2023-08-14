@@ -33,7 +33,7 @@ public class PostServiceTests {
     private PostRepository postRepository;
 
     @Test
-    void when_createPost_shouldReturn_onePost() {
+    void when_createPost_should_return_one_post() {
         // Arrange
         final var userToSave = User.builder().email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
@@ -50,7 +50,7 @@ public class PostServiceTests {
     }
 
     @Test
-    void when_findPostById_shouldReturn_onePost() {
+    void when_findPostById_should_return_one_post() {
         // Arrange
         final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
@@ -68,7 +68,7 @@ public class PostServiceTests {
     }
 
     @Test
-    void when_updatePosyById_shouldReturn_updatedPost() {
+    void when_updatePosyById_should_return_updated_post() {
         // Arrange
         final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
@@ -91,7 +91,7 @@ public class PostServiceTests {
         Assertions.assertThat(updatedPost.getUser()).isNotEqualTo(userToSave);
     }
     @Test
-    void when_deletePostById_shouldReturn_deletedPost() {
+    void when_deletePostById_should_return_deleted_post() {
         // Arrange
         final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
@@ -110,7 +110,7 @@ public class PostServiceTests {
     }
 
     @Test
-    void when_findAllPosts_shouldReturn_allPosts() {
+    void when_findAllPosts_should_return_all_posts() {
         // Arrange
         final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 

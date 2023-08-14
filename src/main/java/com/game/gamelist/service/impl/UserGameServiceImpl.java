@@ -32,6 +32,7 @@ public class UserGameServiceImpl implements UserGameService {
 
         if (userGame.isPresent()) {
             UserGame responseData = userGame.get();
+
             User user = responseData.getUser();
 
             if (principal.getId().equals(user.getId())) {
@@ -51,8 +52,13 @@ public class UserGameServiceImpl implements UserGameService {
         // Check if the UserGame already exists in the database
         UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
 
-        if (existingUserGame != null) {
 
+        if (existingUserGame != null) {
+            // If the UserGame already exists, update the existing instance
+            existingUserGame.setIsPrivate(userGame.getIsPrivate());
+            existingUserGame.setRating(userGame.getRating());
+            existingUserGame.setStartDate(userGame.getStartDate());
+            existingUserGame.setCompletedDate(userGame.getCompletedDate());
             existingUserGame.setGameStatus(userGame.getGameStatus());
             existingUserGame.setGameNote(userGame.getGameNote());
             return userGameRepository.save(existingUserGame);
