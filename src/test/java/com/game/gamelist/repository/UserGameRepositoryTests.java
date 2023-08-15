@@ -4,7 +4,6 @@ package com.game.gamelist.repository;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.*;
 import jakarta.transaction.Transactional;
-import net.minidev.json.JSONUtil;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

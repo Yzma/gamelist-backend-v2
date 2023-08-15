@@ -19,8 +19,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -99,7 +97,6 @@ public class UserGameServiceTests {
 
     @Test
     void when_createUserGame_with_nullGame_should_throw_ResourceNotFoundException() {
-        final var gameNotExisting = Game.builder().id(999L).name("Game 1").description("Game 1 Description").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
@@ -145,7 +142,6 @@ public class UserGameServiceTests {
 
     @Test
     void when_findUserGameById_by_non_existing_userGame_throw_ResourceNotFoundException() {
-        final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
 
@@ -204,8 +200,6 @@ public class UserGameServiceTests {
 
         Set<UserGame> userGameSet = Set.of(userGameExisting1, userGameExisting2, userGameExisting3);
 
-        List<UserGame> userGameList = new ArrayList<>(userGameSet);
-
         when(userGameRepository.findAllByUserId(Mockito.anyLong())).thenReturn(Optional.of(userGameSet));
 
         Set<UserGame> userGameSetFromService = userGameService.findAllUserGamesByUserId(userToSave);
@@ -214,5 +208,6 @@ public class UserGameServiceTests {
         Assertions.assertThat(userGameSetFromService).isNotEmpty();
         Assertions.assertThat(userGameSetFromService).hasSize(3);
         Assertions.assertThat(userGameSetFromService).contains(userGameExisting1, userGameExisting2, userGameExisting3);
+        Assertions.assertThat(userGameSetFromService).containsExactlyInAnyOrderElementsOf(userGameSet);
     }
 }
