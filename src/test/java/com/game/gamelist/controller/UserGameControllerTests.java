@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.service.UserGameService;
+import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,8 +18,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
@@ -103,5 +105,63 @@ public class UserGameControllerTests {
                 .andExpect(status().isOk()).andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1"))).andExpect(jsonPath("$.data.userGame.gameNote").value("GameNote from usergame of user1 and game1"));
     }
 
+    @Test
+    void when_send_post_request_should_return_userGame_created() throws Exception {
+        auth0JwtTestUtils.mockAuthentication(principal);
 
+        UserGame userGameBody = UserGame.builder().user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(3).startDate(LocalDateTime.now()).build();
+
+        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
+                .andExpect(status().isCreated())
+                .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
+                .andExpect(jsonPath("$.data.userGame.gameNote").value("GameNote from usergame of user1 and game1"));
+    }
+
+    @Test
+    void when_send_post_request_with_null_body_should_return_exception() throws Exception {
+        auth0JwtTestUtils.mockAuthentication(principal);
+
+        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void when_send_put_request_with_id_should_return_userGame_updated() throws Exception {
+        auth0JwtTestUtils.mockAuthentication(principal);
+
+        UserGame userGameById = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(3).startDate(LocalDateTime.now()).build();
+
+
+        UserGame userGameBody = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1 Just get updated. ").gameStatus(GameStatus.Paused).rating(5).startDate(LocalDateTime.now()).build();
+
+        when(userGameService.updateUserGameById(Mockito.anyLong(), Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames/1")
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
+                .andExpect(jsonPath("$.data.userGame.gameNote").value("GameNote from usergame of user1 and game1 Just get updated. ")).andExpect(jsonPath("$.data.userGame.rating").value(5));
+    }
+
+    @Test
+    void when_send_delete_request_with_id_should_return_no_content() throws Exception {
+        auth0JwtTestUtils.mockAuthentication(principal);
+
+        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(0).completedDate(null).startDate(null).build();
+
+        when(userGameService.deleteUserGameById(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/usergames/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.message").value("UserGame deleted"))
+                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.rating").value(0));
+    }
 }

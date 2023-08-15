@@ -67,6 +67,7 @@ public class UserGameController {
                             .message("UserGame created")
                             .build());
         } else {
+
 //          When the userGame can not be created, return an error message 500
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     HttpResponse.builder()
