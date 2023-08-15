@@ -1,11 +1,21 @@
 version: '3.8'
 
 services:
-  db:
+  dev_db:
     image: postgres:15-alpine
     ports:
       - "5332:5432"
     environment:
       - POSTGRES_USER=${DOCKER_POSTGRES_USER}
       - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
-      - POSTGRES_DB=${DOCKER_POSTGRES_DB}
+      - POSTGRES_DB=${DOCKER_POSTGRES_DB_DEV}
+
+
+  test_db:
+    image: postgres:15-alpine
+    ports:
+      - "5333:5432"
+    environment:
+      - POSTGRES_USER=${DOCKER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOCKER_POSTGRES_DB_TEST}

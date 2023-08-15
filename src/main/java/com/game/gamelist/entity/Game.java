@@ -19,6 +19,7 @@ import java.util.Set;
 @Entity(name = "games")
 public class Game {
     @Id
+    @GeneratedValue
     private Long id;
 
     private String name;

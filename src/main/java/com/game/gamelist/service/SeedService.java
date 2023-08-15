@@ -183,7 +183,7 @@ public class SeedService {
             for (int i = 1; i < 4; i++) {
                 User user = userRepository.findById(Long.valueOf(i)).get();
                 List<Post> posts = new ArrayList<>();
-                for (int j = 0; j < 5; j++) {
+                for (int j = 1; j < 6; j++) {
                     try {
 
                         Post post = new Post();
@@ -208,15 +208,16 @@ public class SeedService {
             for (int i = 1; i < 4; i++) {
                 User user = userRepository.findById(Long.valueOf(i)).get();
                 List<UserGame> userGames = new ArrayList<>();
-                for (int j = 0; j < 5; j++) {
+                for (int j = 1; j < 6; j++) {
                     try {
+
                         UserGame userGame = new UserGame();
                         userGame.setCreatedAt(LocalDateTime.now());
                         userGame.setUpdatedAt(LocalDateTime.now());
                         userGame.setGameStatus(GameStatus.values()[j % 3]);
                         userGame.setIsPrivate(false);
                         userGame.setUser(user);
-                        userGame.setGame(gameRepository.findAllGamesOrderedById().get(i));
+                        userGame.setGame(gameRepository.findAllGamesOrderedById().get(j - 1));
                         userGame.setRating(5);
                         userGame.setGameNote("This is a review for game " + j + " by user " + i + " .");
 
