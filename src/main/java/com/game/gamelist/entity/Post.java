@@ -10,13 +10,15 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "posts")
-public class Post {
+public class Post implements LikeableEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -36,5 +38,9 @@ public class Post {
     @JsonIgnoreProperties("posts")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("post")
+    private List<LikeEntity> likes = new ArrayList<>();
 
 }
