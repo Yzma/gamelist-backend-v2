@@ -1,6 +1,7 @@
 package com.game.gamelist.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.LikeableEntity;
 import com.game.gamelist.entity.User;
@@ -25,12 +26,13 @@ import java.util.Map;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/")
-    public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal, @RequestBody LikeableEntity likeableEntity) {
-        LikeEntity like = likeService.createLike(principal, likeableEntity);
-
-        return ResponseEntity.created(URI.create("")).body(
-                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("like", like)).status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).message("Like created successfully").build()
-        );
-    }
+//    @PostMapping("/")
+//    public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal,     @RequestBody LikeableEntity likeableEntity
+//    ) {
+//        LikeEntity like = likeService.createLike(principal, likeableEntity);
+//
+//        return ResponseEntity.created(URI.create("")).body(
+//                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("like", like)).status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).message("Like created successfully").build()
+//        );
+//    }
 }

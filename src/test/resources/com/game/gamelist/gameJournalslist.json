@@ -1,13 +1,11 @@
 [
   {
-    "id": 99,
     "content": "Test Content 99",
     "createdAt": null,
     "updatedAt": null,
     "user": null
   },
   {
-    "id": 100,
     "content": "Test Content 100",
     "createdAt": null,
     "updatedAt": null,
@@ -15,7 +13,6 @@
 
   },
   {
-    "id": 101,
     "content": "Test Content 101",
     "createdAt": null,
     "updatedAt": null,

@@ -18,10 +18,8 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "posts")
-public class Post implements LikeableEntity {
-    @Id
-    @GeneratedValue
-    private Long id;
+@DiscriminatorValue("post_type")
+public class Post extends InteractiveEntity {
 
     private String text;
 
@@ -39,8 +37,14 @@ public class Post implements LikeableEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("post")
-    private List<LikeEntity> likes = new ArrayList<>();
+    public Long getPostId() {
+        return super.getId();
+    }
+
+    public void setPostId(Long id) {
+        super.setId(id);
+    }
+
+
 
 }

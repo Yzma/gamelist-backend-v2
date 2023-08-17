@@ -62,7 +62,7 @@ public class PostServiceTests {
 
         // Assert
         Assertions.assertThat(foundPost).isNotNull();
-        Assertions.assertThat(foundPost.getId()).isEqualTo(999L);
+        Assertions.assertThat(foundPost.getPostId()).isEqualTo(999L);
         Assertions.assertThat(foundPost.getText()).isEqualTo("Hello World!");
         Assertions.assertThat(foundPost.getUser()).isEqualTo(userToSave);
     }
@@ -85,7 +85,7 @@ public class PostServiceTests {
 
         // Assert
         Assertions.assertThat(updatedPost).isNotNull();
-        Assertions.assertThat(updatedPost.getId()).isEqualTo(999L);
+        Assertions.assertThat(updatedPost.getPostId()).isEqualTo(999L);
         Assertions.assertThat(updatedPost.getText()).isEqualTo("An Updated Post");
         Assertions.assertThat(updatedPost.getUser()).isEqualTo(updatedUser);
         Assertions.assertThat(updatedPost.getUser()).isNotEqualTo(userToSave);
@@ -104,7 +104,7 @@ public class PostServiceTests {
 
         // Assert
         Assertions.assertThat(deletedPost).isNotNull();
-        Assertions.assertThat(deletedPost.getId()).isEqualTo(999L);
+        Assertions.assertThat(deletedPost.getPostId()).isEqualTo(999L);
         Assertions.assertThat(deletedPost.getText()).isEqualTo("Hello World!");
         Assertions.assertThat(deletedPost.getUser()).isEqualTo(userToSave);
     }
@@ -127,14 +127,14 @@ public class PostServiceTests {
 
         Assertions.assertThat(foundPosts).isNotNull();
         Assertions.assertThat(foundPosts.size()).isEqualTo(3);
-        Assertions.assertThat(foundPosts.get(0).getId()).isEqualTo(999L);
+        Assertions.assertThat(foundPosts.get(0).getPostId()).isEqualTo(999L);
         Assertions.assertThat(foundPosts.get(0).getText()).isEqualTo("Hello World!");
         Assertions.assertThat(foundPosts.get(0).getUser()).isEqualTo(userToSave);
 
-        Assertions.assertThat(foundPosts.get(1).getId()).isEqualTo(222L);
+        Assertions.assertThat(foundPosts.get(1).getPostId()).isEqualTo(222L);
         Assertions.assertThat(foundPosts.get(1).getText()).isEqualTo("Java No.1!");
         Assertions.assertThat(foundPosts.get(2).getUser()).isEqualTo(userToSave);
-        Assertions.assertThat(foundPosts.get(2).getId()).isEqualTo(111L);
+        Assertions.assertThat(foundPosts.get(2).getPostId()).isEqualTo(111L);
     }
 
     @Test

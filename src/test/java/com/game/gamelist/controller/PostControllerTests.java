@@ -107,11 +107,11 @@ public class PostControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.posts[0].id").value(mockPostsList.get(0).getId()))
+                .andExpect(jsonPath("$.data.posts[0].id").value(mockPostsList.get(0).getPostId()))
                 .andExpect(jsonPath("$.data.posts[0].text").value(mockPostsList.get(0).getText()))
-                .andExpect(jsonPath("$.data.posts[1].id").value(mockPostsList.get(1).getId()))
+                .andExpect(jsonPath("$.data.posts[1].id").value(mockPostsList.get(1).getPostId()))
                 .andExpect(jsonPath("$.data.posts[1].text").value(mockPostsList.get(1).getText()))
-                .andExpect(jsonPath("$.data.posts[2].id").value(mockPostsList.get(2).getId()))
+                .andExpect(jsonPath("$.data.posts[2].id").value(mockPostsList.get(2).getPostId()))
                 .andExpect(jsonPath("$.data.posts[2].text").value(mockPostsList.get(2).getText()))
                 .andExpect(jsonPath("$.data.posts[3]").doesNotExist());
     }
@@ -125,13 +125,13 @@ public class PostControllerTests {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/all")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.data.posts[0].id").value(allPostList.get(0).getId()))
+                .andExpect(jsonPath("$.data.posts[0].id").value(allPostList.get(0).getPostId()))
                 .andExpect(jsonPath("$.data.posts[0].text").value(allPostList.get(0).getText()))
-                .andExpect(jsonPath("$.data.posts[1].id").value(allPostList.get(1).getId()))
+                .andExpect(jsonPath("$.data.posts[1].id").value(allPostList.get(1).getPostId()))
                 .andExpect(jsonPath("$.data.posts[1].text").value(allPostList.get(1).getText()))
-                .andExpect(jsonPath("$.data.posts[2].id").value(allPostList.get(2).getId()))
+                .andExpect(jsonPath("$.data.posts[2].id").value(allPostList.get(2).getPostId()))
                 .andExpect(jsonPath("$.data.posts[2].text").value(allPostList.get(2).getText()))
-                .andExpect(jsonPath("$.data.posts[3].id").value(allPostList.get(3).getId()))
+                .andExpect(jsonPath("$.data.posts[3].id").value(allPostList.get(3).getPostId()))
                 .andExpect(jsonPath("$.data.posts[3].text").value(allPostList.get(3).getText()))
                 .andExpect(jsonPath("$.data.posts[4]").doesNotExist());
     }

@@ -59,7 +59,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
             Post post1 = new Post();
             post1.setText("Hello World");
             post1.setUser(user);
-            post1.setId(1L);
+            post1.setPostId(1L);
             post1.setCreatedAt(LocalDateTime.now());
             post1.setUpdatedAt(LocalDateTime.now());
             postRepository.save(post1);
@@ -69,7 +69,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
             post2.setUser(user);
             post2.setCreatedAt(LocalDateTime.now());
             post2.setUpdatedAt(LocalDateTime.now());
-            post2.setId(2L);
+            post2.setPostId(2L);
             postRepository.save(post2);
         }
 
@@ -101,12 +101,12 @@ public class PostRepositoryTests extends ContainersEnvironment {
             Post post = optionalPost.get();
 
             assertEquals("Hello World", post.getText());
-            assertEquals(1L, post.getId());
+            assertEquals(1L, post.getPostId());
 
             Post post2 = postRepository.findById(2L).get();
 
             assertNotEquals(post2.getText(), post.getText());
-            assertNotEquals(4L, post.getId());
+            assertNotEquals(4L, post.getPostId());
             assertEquals(post2.getUser(), post.getUser());
         }
 
@@ -159,10 +159,10 @@ public class PostRepositoryTests extends ContainersEnvironment {
 
             List<Post> postListAfterUpdate = postRepository.findAll();
 
-            Post postUpdated = postRepository.findById(post.getId()).orElse(null);
+            Post postUpdated = postRepository.findById(post.getPostId()).orElse(null);
             assertNotEquals(null, postUpdated);
             assertEquals("Hello World Updated", postUpdated.getText());
-            assertEquals(post.getId(), postUpdated.getId());
+            assertEquals(post.getPostId(), postUpdated.getPostId());
             assertEquals(post.getUser(), postUpdated.getUser());
         }
 
@@ -183,7 +183,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
             assertEquals(1, postListAfterDelete.size());
 
             Post post = postListAfterDelete.get(0);
-            assertNotEquals(firstPost.getId(), post.getId());
+            assertNotEquals(firstPost.getPostId(), post.getPostId());
             assertNotEquals(firstPost.getText(), post.getText());
             assertEquals(firstPost.getUser(), post.getUser());
         }

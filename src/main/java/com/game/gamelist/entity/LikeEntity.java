@@ -30,14 +30,9 @@ public class LikeEntity implements Like {
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "interactive_entity_id")
     @JsonIgnore
-    private Post post;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "game_journal_id")
-    @JsonIgnore
-    private GameJournal gameJournal;
+    private InteractiveEntity interactiveEntity;
 
     @CreationTimestamp
     @Column(name = "created_at")

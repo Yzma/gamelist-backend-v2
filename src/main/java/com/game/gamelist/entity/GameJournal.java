@@ -17,11 +17,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "game_journals")
-public class GameJournal implements LikeableEntity {
-
-    @Id
-    @GeneratedValue
-    private Long id;
+@DiscriminatorValue("game_journal_type")
+public class GameJournal extends InteractiveEntity {
 
     private String content;
 
@@ -37,11 +34,5 @@ public class GameJournal implements LikeableEntity {
     @JsonIgnoreProperties("game_journals")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
-    @OneToMany(mappedBy = "gameJournal", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("gameJournal")
-    private List<LikeEntity> likes = new ArrayList<>();
-
-
 
 }

@@ -5,7 +5,7 @@ import com.game.gamelist.entity.LikeableEntity;
 import com.game.gamelist.entity.User;
 
 public interface LikeService {
-    LikeEntity createLike(User principle, LikeableEntity likeableEntity);
-
-    void deleteLike(User principle, LikeableEntity likeableEntity);
+//    LikeEntity createLike(User principle, LikeableEntity likeableEntity);
+//
+//    void deleteLike(User principle, LikeableEntity likeableEntity);
 }

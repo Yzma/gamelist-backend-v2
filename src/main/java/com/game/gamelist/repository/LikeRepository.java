@@ -8,6 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface LikeRepository extends JpaRepository<LikeEntity, Long> {
 
-    @Query("SELECT l FROM like_entities l WHERE l.user = :user AND (l.post = :likeableEntity OR l.gameJournal = :likeableEntity)")
+//    @Query("SELECT l FROM like_entities l WHERE l.user = :user AND (l.post = :likeableEntity OR l.gameJournal = :likeableEntity)")
     LikeEntity findByUserAndLikeable(User user, LikeableEntity likeableEntity);
 }

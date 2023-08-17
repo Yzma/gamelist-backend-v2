@@ -24,15 +24,12 @@ public class GameListJsonTests {
     @BeforeEach
     void setUp() {
         GameJournal gameJournal1 = GameJournal.builder()
-                .id(99L)
                 .content("Test Content 99")
                 .build();
         GameJournal gameJournal2 = GameJournal.builder()
-                .id(100L)
                 .content("Test Content 100")
                 .build();
         GameJournal gameJournal3 = GameJournal.builder()
-                .id(101L)
                 .content("Test Content 101")
                 .build();
 
@@ -45,9 +42,6 @@ public class GameListJsonTests {
         GameJournal gameJournal = gameJournals[0];
 
         assertThat(json.write(gameJournal)).isStrictlyEqualToJson("gameJournal.json");
-        assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.id");
-        assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.id")
-                .isEqualTo(99);
         assertThat(json.write(gameJournal)).hasJsonPathStringValue("@.content");
         assertThat(json.write(gameJournal)).extractingJsonPathStringValue("@.content")
                 .isEqualTo("Test Content 99");
