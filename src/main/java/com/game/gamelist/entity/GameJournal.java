@@ -35,4 +35,11 @@ public class GameJournal extends InteractiveEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    public Long getId() {
+        return super.getId();
+    }
+
+    public void setId(Long id) {
+        super.setId(id);
+    }
 }
