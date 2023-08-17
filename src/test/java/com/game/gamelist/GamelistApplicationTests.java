@@ -45,7 +45,7 @@ class GamelistApplicationTests extends ContainersEnvironment {
 		Post post1 = new Post();
 		post1.setText("Hello World");
 		post1.setUser(user);
-		post1.setPostId(1L);
+		post1.setId(1L);
 		post1.setCreatedAt(LocalDateTime.now());
 		post1.setUpdatedAt(LocalDateTime.now());
 		postRepository.save(post1);
@@ -55,7 +55,7 @@ class GamelistApplicationTests extends ContainersEnvironment {
 		post2.setUser(user);
 		post2.setCreatedAt(LocalDateTime.now());
 		post2.setUpdatedAt(LocalDateTime.now());
-		post2.setPostId(2L);
+		post2.setId(2L);
 		postRepository.save(post2);
 
 	}

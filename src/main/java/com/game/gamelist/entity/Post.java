@@ -37,11 +37,11 @@ public class Post extends InteractiveEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public Long getPostId() {
+    public Long getId() {
         return super.getId();
     }
 
-    public void setPostId(Long id) {
+    public void setId(Long id) {
         super.setId(id);
     }
 

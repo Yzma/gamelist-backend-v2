@@ -1,24 +1,24 @@
-package com.game.gamelist.service.impl;
-
-import com.game.gamelist.entity.*;
-import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.repository.GameJournalRepository;
-import com.game.gamelist.repository.LikeRepository;
-import com.game.gamelist.repository.PostRepository;
-import com.game.gamelist.service.LikeService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-@Service
-@RequiredArgsConstructor
-public class LikeServiceImpl implements LikeService {
-
-    private final LikeRepository likeRepository;
-
-    private final PostRepository postRepository;
-
-    private final GameJournalRepository gameJournalRepository;
+//package com.game.gamelist.service.impl;
+//
+//import com.game.gamelist.entity.*;
+//import com.game.gamelist.exception.ResourceNotFoundException;
+//import com.game.gamelist.repository.GameJournalRepository;
+//import com.game.gamelist.repository.LikeRepository;
+//import com.game.gamelist.repository.PostRepository;
+//import com.game.gamelist.service.LikeService;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//@RequiredArgsConstructor
+//public class LikeServiceImpl implements LikeService {
+//
+//    private final LikeRepository likeRepository;
+//
+//    private final PostRepository postRepository;
+//
+//    private final GameJournalRepository gameJournalRepository;
 
 //    Sending Post or GameJournal as a parameter and check if they are instance of Post or GameJournal
 //    @Override
@@ -61,4 +61,4 @@ public class LikeServiceImpl implements LikeService {
 //            likeRepository.delete(existingLike);
 //        }
 //    }
-}
+//}
