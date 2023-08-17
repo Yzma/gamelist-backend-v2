@@ -3,7 +3,7 @@ package com.game.gamelist.entity;
 
 import java.util.List;
 
-public interface LikeableEntity {
+public interface Likeable {
     Long getId();
-    List<LikeEntity> getLikes();
+    List<Like> getLikes();
 }
