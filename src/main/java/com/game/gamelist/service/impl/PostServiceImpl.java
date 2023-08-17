@@ -82,7 +82,7 @@ public class PostServiceImpl implements PostService {
     public Post findPostById(Long requestedId, User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
 
-        Optional<Post> postOptional = postRepository.findById(requestedId);
+        Optional<Post> postOptional = postRepository.findPostWithLikesById(requestedId);
 
         if (postOptional.isPresent()) {
             Post responseData = postOptional.get();
