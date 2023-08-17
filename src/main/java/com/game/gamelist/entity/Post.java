@@ -18,7 +18,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "posts")
-public class Post implements Likeable {
+public class Post implements LikeableEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -41,6 +41,6 @@ public class Post implements Likeable {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("post")
-    private List<Like> likes = new ArrayList<>();
+    private List<LikeEntity> likes = new ArrayList<>();
 
 }

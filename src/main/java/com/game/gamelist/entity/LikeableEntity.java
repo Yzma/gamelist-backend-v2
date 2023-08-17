@@ -1,9 +1,10 @@
 package com.game.gamelist.entity;
 
 
+
 import java.util.List;
 
-public interface Likeable {
+public interface LikeableEntity {
     Long getId();
-    List<Like> getLikes();
+    List<LikeEntity> getLikes();
 }

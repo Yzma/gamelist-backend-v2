@@ -17,7 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "game_journals")
-public class GameJournal implements Likeable {
+public class GameJournal implements LikeableEntity {
 
     @Id
     @GeneratedValue
@@ -40,7 +40,8 @@ public class GameJournal implements Likeable {
 
     @OneToMany(mappedBy = "gameJournal", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("gameJournal")
-    private List<Like> likes = new ArrayList<>();
+    private List<LikeEntity> likes = new ArrayList<>();
+
 
 
 }
