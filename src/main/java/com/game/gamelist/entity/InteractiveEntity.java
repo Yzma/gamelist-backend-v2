@@ -24,15 +24,15 @@ public abstract class InteractiveEntity {
     @JsonIgnoreProperties("interactiveEntity")
     private final List<LikeEntity> likes = new ArrayList<>();
 
-    Long getId() {
+    protected Long getId() {
         return id;
     }
 
-    protected void setId(Long id) {
+     protected void setId(Long id) {
         this.id = id;
     }
 
-    public List<LikeEntity> getLikes() {
+    protected List<LikeEntity> getLikes() {
         return likes;
     }
 }

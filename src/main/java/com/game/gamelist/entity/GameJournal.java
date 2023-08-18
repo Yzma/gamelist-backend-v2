@@ -42,4 +42,8 @@ public class GameJournal extends InteractiveEntity {
     public void setId(Long id) {
         super.setId(id);
     }
+
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
+    }
 }

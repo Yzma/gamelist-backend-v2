@@ -2,15 +2,16 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.repository.GameJournalRepository;
-import com.game.gamelist.repository.InteractiveEntityRepository;
-import com.game.gamelist.repository.LikeRepository;
-import com.game.gamelist.repository.PostRepository;
+import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -18,24 +19,29 @@ import java.util.Optional;
 public class LikeServiceImpl implements LikeService {
 
     private final LikeRepository likeRepository;
-
     private final PostRepository postRepository;
-
+    private final UserRepository userRepository;
     private final GameJournalRepository gameJournalRepository;
-
     private final InteractiveEntityRepository interactiveEntityRepository;
 
 //    Sending Post or GameJournal as a parameter and check if they are instance of Post or GameJournal
     @Override
+    @Transactional
     public LikeEntity createLike(User principle, Long interactiveEntityId) {
         System.out.println("Liked User Name👹👹👹👹👹👹👹: " + principle.getUsername());
+
+//        System.out.println("Liked User Name👹👹👹👹👹👹👹: " + owner.getUsername());
+//
+//        System.out.println("Principle Id: ??👹👹👹👹👹👹👹: " + principle.getId());
+        User owner = userRepository.findById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
         LikeEntity like = new LikeEntity();
 
         Optional<InteractiveEntity> interactiveEntityOptional = interactiveEntityRepository.findById(interactiveEntityId);
 
-        System.out.println("Liked User Name👹👹👹👹👹👹👹: " + like.getUser().getUsername());
+        System.out.println("Principle User Name👹👹👹👹👹👹👹: " + principle.getUsername());
 
-        like.setUser(principle);
+        like.setUser(owner);        //        System.out.println("Liked User Name👹👹👹👹👹👹👹: " + like.getUser().getUsername());
 
         System.out.println("Liked User Name👹👹👹👹👹👹👹: " + like.getUser().getUsername());
 //
@@ -65,6 +71,9 @@ public class LikeServiceImpl implements LikeService {
         }
 
         System.out.println("Liked Post text👹👹👹👹👹👹👹: " + ((Post) like.getInteractiveEntity()).getText());
+
+        like.setCreatedAt(LocalDateTime.now());
+        like.setUpdatedAt(LocalDateTime.now());
 
         return likeRepository.save(like);
     }

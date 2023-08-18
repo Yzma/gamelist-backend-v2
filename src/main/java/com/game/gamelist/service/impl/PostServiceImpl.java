@@ -80,6 +80,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findPostById(Long requestedId, User principal) {
+
+        System.out.println("👹👹👹👹👹👹👹👹👹👹👹👹👹👹User principal username: " + principal.getEmail());
         if (principal == null) throw new InvalidTokenException("Invalid token");
 
         Optional<Post> postOptional = postRepository.findPostWithLikesById(requestedId);

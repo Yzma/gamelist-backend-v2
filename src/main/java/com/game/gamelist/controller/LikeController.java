@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +28,12 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/")
+    @Transactional
     public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal,@RequestBody Long interactiveEntityId
     ) {
         LikeEntity like = likeService.createLike(principal, interactiveEntityId);
+
+        System.out.println("Liked User Email👹👹👹👹👹👹👹: " + like.getUser().getEmail());
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("like", like)).status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).message("Like created successfully").build()
