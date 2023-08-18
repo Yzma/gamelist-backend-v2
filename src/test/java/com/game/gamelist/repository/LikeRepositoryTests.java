@@ -6,6 +6,8 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,6 +40,8 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
     @Autowired
     private InteractiveEntityRepository interactiveEntityRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Test
     @Transactional
@@ -109,8 +113,13 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             assertEquals(likeEntity1.getId(), likeEntity.getId());
             assertEquals(likeEntity1.getUser(), likeEntity.getUser());
             assertEquals(likeEntity1.getInteractiveEntity(), likeEntity.getInteractiveEntity());
-            Post postRefreshed = postRepository.findById(1L).get();
-            assertEquals(1, postRefreshed.getLikes().size());
+            entityManager.refresh(post);
+
+            LikeEntity likeEntityFromPost = post.getLikes().get(0);
+            assertEquals(1, post.getLikes().size());
+
+            assertEquals(likeEntityFromPost.getId(), likeEntity.getId());
+            assertEquals(likeEntityFromPost.getUser(), likeEntity.getUser());
         }
 
     }
