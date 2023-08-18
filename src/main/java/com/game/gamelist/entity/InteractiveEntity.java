@@ -24,7 +24,7 @@ public abstract class InteractiveEntity {
     @JsonIgnoreProperties("interactiveEntity")
     private final List<LikeEntity> likes = new ArrayList<>();
 
-    protected Long getId() {
+    Long getId() {
         return id;
     }
 
