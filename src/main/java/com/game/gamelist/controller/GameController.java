@@ -24,10 +24,7 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<HttpResponse> getGames(@RequestBody(required = false) GameQueryFilters gameQueryFilters) {
-        System.out.println("Game Filters: " + gameQueryFilters);
-        //Stream<String> games = gameService.getAllGames(gameQueryFilters).stream().map(Game::getName);
         List<Game> games = gameService.getAllGames(gameQueryFilters);
-
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())

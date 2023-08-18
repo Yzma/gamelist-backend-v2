@@ -20,32 +20,7 @@ public class GameSpecification implements Specification<Game> {
     @Override
     public Predicate toPredicate(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
-/*
-        1 ITEM SELECTED:
 
-        SELECT DISTINCT "games".* FROM "games"
-        INNER JOIN "games_genres" ON "games_genres"."game_id" = "games"."id"
-        INNER JOIN "genres" ON "genres"."id" = "games_genres"."genre_id"
-        WHERE "genres"."name" = $1
-        GROUP BY "games"."id"
-        HAVING (COUNT(DISTINCT genres.name) = 1)
-        ORDER BY "games"."name" ASC
-        LIMIT $2
-        OFFSET $3  [["name", "Fighting"], ["LIMIT", 20], ["OFFSET", 0]]
-
-        2 ITEMS SELECTED:
-
-        SELECT DISTINCT "games".* FROM "games"
-        INNER JOIN "games_genres" ON "games_genres"."game_id" = "games"."id"
-        INNER JOIN "genres" ON "genres"."id" = "games_genres"."genre_id"
-        WHERE "genres"."name" IN ($1, $2)
-        GROUP BY "games"."id"
-        HAVING (COUNT(DISTINCT genres.name) = 2)
-        ORDER BY "games"."name" ASC
-        LIMIT $3
-        OFFSET $4
-        [["name", "Fighting"], ["name", "Shooter"], ["LIMIT", 20], ["OFFSET", 0]]
-*/
         // Inclusion
         if(gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
             predicates.add(cb.and(genreJoin(root).get("name").in(gameQueryFilters.getGenres())));
@@ -61,44 +36,16 @@ public class GameSpecification implements Specification<Game> {
 
         // Exclusion
         if(gameQueryFilters.getExcludedGenres() != null && !gameQueryFilters.getExcludedGenres().isEmpty()) {
-//            Subquery<Long> subquery = query.subquery(Long.class);
-//            Root<Game> subqueryGameRoot = subquery.from(Game.class);
-//            Join<Game, Genre> genreJoin = subqueryGameRoot.join("genres");
-//
-//            subquery.select(subqueryGameRoot.get("id"))
-//                    .where(genreJoin.get("name").in(gameQueryFilters.getExcludedGenres()));
-//
-//            Predicate notInExcludedGenres = cb.not(root.get("id").in(subquery));
-//            predicates.add(notInExcludedGenres);
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedGenres(), "genres"));
         }
 
         if(gameQueryFilters.getExcludedPlatforms() != null && !gameQueryFilters.getExcludedPlatforms().isEmpty()) {
-//            Subquery<Long> subquery = query.subquery(Long.class);
-//            Root<Game> subqueryGameRoot = subquery.from(Game.class);
-//            Join<Game, Platform> platformJoin = subqueryGameRoot.join("platforms");
-//
-//            subquery.select(subqueryGameRoot.get("id"))
-//                    .where(platformJoin.get("name").in(gameQueryFilters.getExcludedPlatforms()));
-//
-//            Predicate notInExcludedPlatforms = cb.not(root.get("id").in(subquery));
-//            predicates.add(notInExcludedPlatforms);
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedPlatforms(), "platforms"));
         }
 
         if(gameQueryFilters.getExcludedTags() != null && !gameQueryFilters.getExcludedTags().isEmpty()) {
-//            Subquery<Long> subquery = query.subquery(Long.class);
-//            Root<Game> subqueryGameRoot = subquery.from(Game.class);
-//            Join<Game, Tag> platformJoin = subqueryGameRoot.join("tags");
-//
-//            subquery.select(subqueryGameRoot.get("id"))
-//                    .where(platformJoin.get("name").in(gameQueryFilters.getExcludedTags()));
-//
-//            Predicate notInExcludedTags = cb.not(root.get("id").in(subquery));
-//            predicates.add(notInExcludedTags);
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedTags(), "tags"));
         }
-        // games_table.joins(table_type).where(table_type => { column_name => value }).having("COUNT(DISTINCT #{table_type}.#{column_name}) = ?", value.length).group("games.id")
 
         if(gameQueryFilters.getSearch() != null) {
             predicates.add(cb.like(root.get("name"), "%" + gameQueryFilters.getSearch() + "%"));
@@ -121,19 +68,6 @@ public class GameSpecification implements Specification<Game> {
 
         return cb.and(predicates.toArray(new Predicate[0]));
     }
-
-//            if(gameQueryFilters.getExcludedPlatforms() != null && !gameQueryFilters.getExcludedPlatforms().isEmpty()) {
-//        Subquery<Long> subquery = query.subquery(Long.class);
-//        Root<Game> subqueryGameRoot = subquery.from(Game.class);
-//        Join<Game, Platform> platformJoin = subqueryGameRoot.join("platforms");
-//
-//        subquery.select(subqueryGameRoot.get("id"))
-//                .where(platformJoin.get("name").in(gameQueryFilters.getExcludedPlatforms()));
-//
-//        Predicate notInExcludedPlatforms = cb.not(root.get("id").in(subquery));
-//        predicates.add(notInExcludedPlatforms);
-//    }
-
 
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
