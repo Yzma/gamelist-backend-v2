@@ -6,6 +6,7 @@ import com.game.gamelist.entity.Platform;
 import com.game.gamelist.entity.Tag;
 import com.game.gamelist.model.GameQueryFilters;
 import jakarta.persistence.criteria.*;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -18,7 +19,7 @@ public class GameSpecification implements Specification<Game> {
     private final GameQueryFilters gameQueryFilters;
 
     @Override
-    public Predicate toPredicate(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+    public Predicate toPredicate(@NonNull Root<Game> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         // Inclusion

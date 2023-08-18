@@ -29,8 +29,9 @@ public class GameServiceImpl implements GameService {
             return gameRepository.findAll(Pageable.ofSize(20)).getContent();
         }
 
-        Specification<Game> ds = new GameSpecification(gameQueryFilters);
-        return gameRepository.findAll(ds);
+        Specification<Game> gameSpecification = new GameSpecification(gameQueryFilters);
+        Pageable pageable = Pageable.ofSize(clampLimit(gameQueryFilters.getLimit())).withPage(gameQueryFilters.getOffset());
+        return gameRepository.findAll(gameSpecification, pageable).getContent();
     }
 
     private int clampLimit(int limit) {
