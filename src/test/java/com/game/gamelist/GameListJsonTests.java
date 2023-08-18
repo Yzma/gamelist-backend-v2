@@ -25,12 +25,15 @@ public class GameListJsonTests {
     void setUp() {
         GameJournal gameJournal1 = GameJournal.builder()
                 .content("Test Content 99")
+                .id(1L)
                 .build();
         GameJournal gameJournal2 = GameJournal.builder()
                 .content("Test Content 100")
+                .id(2L)
                 .build();
         GameJournal gameJournal3 = GameJournal.builder()
                 .content("Test Content 101")
+                .id(3L)
                 .build();
 
         gameJournals = Arrays.array(gameJournal1, gameJournal2, gameJournal3);
@@ -49,6 +52,13 @@ public class GameListJsonTests {
 
     @Test
     void gameJournalsListSerializationTest() throws IOException {
+        for (GameJournal gameJournal : gameJournals) {
+            System.out.println(gameJournal.getContent());
+            System.out.println(gameJournal.getCreatedAt());
+            System.out.println(gameJournal.getUpdatedAt());
+            System.out.println(gameJournal.getId());
+            System.out.println(gameJournal.getLikes());
+        }
         assertThat(jsonList.write(gameJournals)).isStrictlyEqualToJson("gameJournalslist.json");
     }
 

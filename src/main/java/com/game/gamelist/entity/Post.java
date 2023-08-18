@@ -45,6 +45,9 @@ public class Post extends InteractiveEntity {
         super.setId(id);
     }
 
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
+    }
 
 
 }

@@ -1,6 +1,8 @@
 {
+    "id": 1,
   "content": "Test Content 99",
   "createdAt": null,
   "updatedAt": null,
-  "user": null
+  "user": null,
+  "likes": []
 }

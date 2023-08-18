@@ -1,21 +1,26 @@
 [
   {
+    "id": 1,
     "content": "Test Content 99",
     "createdAt": null,
     "updatedAt": null,
-    "user": null
+    "user": null,
+    "likes": []
   },
   {
+    "id": 2,
     "content": "Test Content 100",
     "createdAt": null,
     "updatedAt": null,
-    "user": null
-
+    "user": null,
+    "likes": []
   },
   {
+    "id": 3,
     "content": "Test Content 101",
     "createdAt": null,
     "updatedAt": null,
-    "user": null
+    "user": null,
+    "likes": []
   }
 ]

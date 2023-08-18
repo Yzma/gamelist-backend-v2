@@ -13,7 +13,7 @@ import java.util.List;
 @Entity(name = "interactive_entities")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
-public abstract class InteractiveEntity implements LikeableEntity {
+public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -30,5 +30,9 @@ public abstract class InteractiveEntity implements LikeableEntity {
 
     protected void setId(Long id) {
         this.id = id;
+    }
+
+    public List<LikeEntity> getLikes() {
+        return likes;
     }
 }
