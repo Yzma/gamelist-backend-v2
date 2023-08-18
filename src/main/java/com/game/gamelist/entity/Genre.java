@@ -1,6 +1,6 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,5 +37,4 @@ public class Genre {
 
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
-
 }

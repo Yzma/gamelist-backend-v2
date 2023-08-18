@@ -34,6 +34,8 @@ public class Tag {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+
     @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
+
 }
