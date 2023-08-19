@@ -18,7 +18,7 @@ public abstract class InteractiveEntity {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<LikeEntity> likes = new ArrayList<>();
 
     protected Long getId() {

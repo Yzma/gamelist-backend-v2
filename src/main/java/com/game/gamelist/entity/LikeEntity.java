@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {"user_id", "interactive_entity_id"})
 })
-public class LikeEntity implements Like {
+public class LikeEntity {
     @Id
     @GeneratedValue
     private Long id;
