@@ -4,12 +4,10 @@ import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -56,10 +54,16 @@ public class LikeServiceImpl implements LikeService {
     }
 
     @Override
-    public void deleteLike(User principle, Long interactiveEntityId) {
-//        LikeEntity existingLike = likeRepository.findByUserAndLikeable(principle, likeableEntity);
-//        if (existingLike != null) {
-//            likeRepository.delete(existingLike);
-//        }
+    @Transactional
+    public void deleteLikeById(User principle, Long interactiveEntityId) {
+
+        boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
+
+        if (!alreadyLiked) {
+            throw new IllegalStateException("The like on this entity does not exist.");
+        }
+
+        likeRepository.deleteByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
+
     }
 }

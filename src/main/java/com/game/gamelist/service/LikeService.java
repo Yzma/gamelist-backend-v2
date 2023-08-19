@@ -7,5 +7,5 @@ import com.game.gamelist.entity.User;
 public interface LikeService {
     LikeEntity createLike(User principle, Long interactiveEntityId);
 
-    void deleteLike(User principle, Long interactiveEntityId);
+    void deleteLikeById(User principle, Long interactiveEntityId);
 }
