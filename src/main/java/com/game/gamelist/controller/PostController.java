@@ -58,8 +58,6 @@ public class PostController {
     public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
         Post post = postService.findPostById(requestedId, principal);
 
-        System.out.println("Post Likes: 👹👹👹👹👹👹👹👹👹👹👹👹👹" + post.getLikes().size());
-
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())

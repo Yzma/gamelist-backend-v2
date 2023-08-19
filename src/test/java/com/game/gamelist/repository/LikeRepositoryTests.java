@@ -184,13 +184,9 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             LikeEntity likeEntity = new LikeEntity();
             likeEntity.setUser(user);
             likeEntity.setInteractiveEntity(post);
-            System.out.println("??👹👹👹👹👹👹👹👹👹likes text: "+ ((Post)likeEntity.getInteractiveEntity()).getText());
 
             likeRepository.save(likeEntity);
             entityManager.refresh(post);
-//            entityManager.refresh(likeEntity);
-
-            System.out.println("??👹👹👹👹👹👹👹👹👹likes id: "+ likeEntity.getId());
 
             post.getLikes().add(likeEntity);
 

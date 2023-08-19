@@ -45,10 +45,6 @@ public class GameListJsonTests {
     public void gameJournalSerializationTest() throws IOException, IllegalAccessException {
         GameJournal gameJournal = gameJournals[0];
 
-        System.out.println(gameJournal.getContent());
-        System.out.println(gameJournal.getCreatedAt());
-        System.out.println(gameJournal.getUpdatedAt());
-
         assertThat(json.write(gameJournal)).isStrictlyEqualToJson("gameJournal.json");
         assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.id");
         assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.id")
