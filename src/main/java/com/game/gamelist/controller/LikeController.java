@@ -33,8 +33,6 @@ public class LikeController {
     ) {
         LikeEntity like = likeService.createLike(principal, interactiveEntityId);
 
-        System.out.println("Liked User Email👹👹👹👹👹👹👹: " + like.getUser().getEmail());
-
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("like", like)).status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).message("Like created successfully").build()
         );

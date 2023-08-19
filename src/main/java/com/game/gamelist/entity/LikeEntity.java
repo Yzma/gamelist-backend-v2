@@ -19,12 +19,15 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "like_entities")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "interactive_entity_id"})
+})
 public class LikeEntity implements Like {
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;

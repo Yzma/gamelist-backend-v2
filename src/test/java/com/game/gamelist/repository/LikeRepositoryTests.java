@@ -2,6 +2,7 @@ package com.game.gamelist.repository;
 
 
 import com.game.gamelist.config.ContainersEnvironment;
+import com.game.gamelist.entity.InteractiveEntity;
 import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
@@ -38,8 +39,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
     @Autowired
     private PostRepository postRepository;
 
-    @Autowired
-    private InteractiveEntityRepository interactiveEntityRepository;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -87,9 +86,9 @@ public class LikeRepositoryTests extends ContainersEnvironment {
         @Order(1)
         @Transactional
         public void whenFindById_Expect_LikeEntity() {
-            User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:" ));
+            User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:"));
 
-            Post post = postRepository.findById(1L).get();
+            Post post = postRepository.findAll().get(0);
 
             assertEquals(0, post.getLikes().size());
 
@@ -109,7 +108,7 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             LikeEntity likeEntity1 = likeRepository.findById(1L).get();
 
             assertEquals("changli", likeEntity1.getUser().getUsername());
-            assertEquals("Hello World", ((Post)likeEntity1.getInteractiveEntity()).getText());
+            assertEquals("Hello World", ((Post) likeEntity1.getInteractiveEntity()).getText());
             assertEquals(likeEntity1.getId(), likeEntity.getId());
             assertEquals(likeEntity1.getUser(), likeEntity.getUser());
             assertEquals(likeEntity1.getInteractiveEntity(), likeEntity.getInteractiveEntity());
@@ -120,6 +119,98 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
             assertEquals(likeEntityFromPost.getId(), likeEntity.getId());
             assertEquals(likeEntityFromPost.getUser(), likeEntity.getUser());
+        }
+
+        @Test
+        @Order(2)
+        @Transactional
+        public void when_existsByUserAndInteractiveEntityId_Expect_True() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:"));
+
+            Post post = postRepository.findAll().get(0);
+
+            LikeEntity likeEntity = new LikeEntity();
+            likeEntity.setUser(user);
+            likeEntity.setInteractiveEntity(post);
+            likeEntity.setCreatedAt(LocalDateTime.now());
+            likeEntity.setUpdatedAt(LocalDateTime.now());
+
+            likeRepository.save(likeEntity);
+
+            assertEquals(1, likeRepository.findAll().size());
+            boolean isExists = likeRepository.existsByUserIdAndInteractiveEntityId(user.getId(), post.getId());
+
+            assertEquals(true, isExists);
+
+        }
+
+        @Test
+        @Order(3)
+        @Transactional
+        public void when_findByUserIdAndInteractiveEntityId_Expect_LikeEntity() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:"));
+
+            Post post = postRepository.findAll().get(0);
+
+            LikeEntity likeEntity = new LikeEntity();
+            likeEntity.setUser(user);
+            likeEntity.setInteractiveEntity(post);
+            likeEntity.setCreatedAt(LocalDateTime.now());
+            likeEntity.setUpdatedAt(LocalDateTime.now());
+
+            likeRepository.save(likeEntity);
+
+            assertEquals(1, likeRepository.findAll().size());
+
+
+            LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).get();
+
+            entityManager.refresh(post);
+            entityManager.refresh(likeEntity);
+
+            assertEquals(likeEntityFromDB.getId(), likeEntity.getId());
+            assertEquals(likeEntityFromDB.getUser(), likeEntity.getUser());
+            assertEquals(likeEntityFromDB.getInteractiveEntity(), likeEntity.getInteractiveEntity());
+        }
+
+        @Test
+        @Order(4)
+        @Transactional
+        public void when_deleteByUserIdAndInteractiveEntityId_Expect_EmptyList() {
+            User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:"));
+
+            Post post = postRepository.findAll().get(0);
+
+            LikeEntity likeEntity = new LikeEntity();
+            likeEntity.setUser(user);
+            likeEntity.setInteractiveEntity(post);
+            System.out.println("??👹👹👹👹👹👹👹👹👹likes text: "+ ((Post)likeEntity.getInteractiveEntity()).getText());
+
+            likeRepository.save(likeEntity);
+            entityManager.refresh(post);
+//            entityManager.refresh(likeEntity);
+
+            System.out.println("??👹👹👹👹👹👹👹👹👹likes id: "+ likeEntity.getId());
+
+            post.getLikes().add(likeEntity);
+
+            assertEquals(1, post.getLikes().size());
+
+            assertEquals(1, likeRepository.findAll().size());
+
+            likeRepository.deleteByUserIdAndInteractiveEntityId(user.getId(), post.getId());
+
+            post.getLikes().remove(likeEntity);
+
+            assertEquals(0, post.getLikes().size());
+
+            assertEquals(0, likeRepository.findAll().size());
+
+            entityManager.flush();
+
+            LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).orElse(null);
+
+            assertEquals(null, likeEntityFromDB);
         }
 
     }

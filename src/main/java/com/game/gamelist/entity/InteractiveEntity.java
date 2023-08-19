@@ -18,11 +18,8 @@ public abstract class InteractiveEntity {
     @GeneratedValue
     private Long id;
 
-
-
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("interactiveEntity")
-    private final List<LikeEntity> likes = new ArrayList<>();
+    private List<LikeEntity> likes = new ArrayList<>();
 
     protected Long getId() {
         return id;

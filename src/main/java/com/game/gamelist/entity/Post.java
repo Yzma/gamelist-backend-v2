@@ -50,5 +50,4 @@ public class Post extends InteractiveEntity {
         return super.getLikes();
     }
 
-
 }
