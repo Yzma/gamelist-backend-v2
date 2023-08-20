@@ -1,13 +1,14 @@
 package com.game.gamelist.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.game.gamelist.entity.Views;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
 import java.util.Map;
-
 
 @Getter
 @Setter

@@ -26,11 +26,12 @@ import java.time.LocalDateTime;
 public class LikeEntity {
     @Id
     @GeneratedValue
+    @JsonView({Views.InteractiveView.class})
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonView(Views.Public.class)
+    @JsonView({Views.InteractiveView.class})
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -7,14 +7,18 @@ import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.Views;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.PostService;
+import com.game.gamelist.utils.JacksonValueUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -56,20 +60,45 @@ public class PostController {
         );
     }
 
+//    @GetMapping("/{requestedId}")
+//    @JsonView(Views.InteractiveView.class)
+//    public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
+//        Post post = postService.findPostById(requestedId, principal);
+//
+//        System.out.println(post.getText());
+//
+//        return ResponseEntity.ok(
+//                HttpResponse.builder()
+//                        .timeStamp(LocalDateTime.now().toString())
+//                        .data(Map.of("post", post))
+//                        .status(HttpStatus.OK)
+//                        .statusCode(HttpStatus.OK.value())
+//                        .message("Post retrieved successfully")
+//                        .build()
+//        );
+//    }
+
     @GetMapping("/{requestedId}")
-    @JsonView(Views.Public.class)
-    public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
+    @JsonView(Views.InteractiveView.class)
+    public ResponseEntity<Object> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal, @RequestParam(required = false, defaultValue = "false") boolean applyFilter
+    ) {
         Post post = postService.findPostById(requestedId, principal);
 
-        return ResponseEntity.ok(
-                HttpResponse.builder()
-                        .timeStamp(LocalDateTime.now().toString())
-                        .data(Map.of("post", post))
-                        .status(HttpStatus.OK)
-                        .statusCode(HttpStatus.OK.value())
-                        .message("Post retrieved successfully")
-                        .build()
-        );
+        System.out.println("??👹👹👹👹👹👹👹User Id: " + post.getLikes().get(1).getUser().getBio());
+
+        MappingJacksonValue mappingJacksonValue = JacksonValueUtil.getMappingJacksonValue(post.getLikes().get(1).getUser(), applyFilter);
+
+//        System.out.println("??👹👹👹👹👹👹👹User Id: " + ((Post)mappingJacksonValue.getValue()).getLikes().get(1).getUser().getBio());
+
+
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("timeStamp", LocalDateTime.now().toString());
+        responseBody.put("statusCode", HttpStatus.OK.value());
+        responseBody.put("status", HttpStatus.OK);
+        responseBody.put("message", "Post retrieved successfully");
+        responseBody.put("data", mappingJacksonValue);
+
+        return ResponseEntity.ok(responseBody);
     }
 
     @PostMapping("/")
