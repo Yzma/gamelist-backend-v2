@@ -1,8 +1,10 @@
 package com.game.gamelist.controller;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.entity.Views;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +57,7 @@ public class PostController {
     }
 
     @GetMapping("/{requestedId}")
+    @JsonView(Views.Public.class)
     public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
         Post post = postService.findPostById(requestedId, principal);
 

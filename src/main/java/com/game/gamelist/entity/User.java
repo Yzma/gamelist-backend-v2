@@ -1,10 +1,7 @@
 package com.game.gamelist.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,8 +27,10 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
+    @JsonView(value = {Views.Public.class, Views.InteractiveView.class})
     private Long id;
 
+    @JsonView(value = {Views.InteractiveView.class})
     private String username;
 
     @JsonProperty("email_address")
@@ -43,9 +42,11 @@ public class User implements UserDetails {
 
     @Column(name = "banner_picture")
     @JsonProperty("banner_picture")
+    @JsonView(value = {Views.InteractiveView.class})
     private String bannerPicture;
 
     @Column(name = "user_picture")
+    @JsonView(value={Views.InteractiveView.class})
     @JsonProperty("user_picture")
     private String userPicture;
 

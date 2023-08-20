@@ -1,6 +1,7 @@
 package com.game.gamelist.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -16,9 +17,11 @@ import java.util.List;
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
+    @JsonView({Views.InteractiveView.class})
     private Long id;
 
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonView({Views.InteractiveView.class})
     private List<LikeEntity> likes = new ArrayList<>();
 
     protected Long getId() {

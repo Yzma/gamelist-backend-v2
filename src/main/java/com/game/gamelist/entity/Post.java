@@ -3,6 +3,7 @@ package com.game.gamelist.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -21,14 +22,17 @@ import java.util.List;
 @DiscriminatorValue("post_type")
 public class Post extends InteractiveEntity {
 
+    @JsonView({Views.InteractiveView.class})
     private String text;
 
     @CreationTimestamp
     @Column(name = "created_at")
+    @JsonView({Views.InteractiveView.class})
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
+    @JsonView({Views.InteractiveView.class})
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
