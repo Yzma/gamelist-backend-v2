@@ -60,46 +60,45 @@ public class PostController {
         );
     }
 
-//    @GetMapping("/{requestedId}")
-//    @JsonView(Views.InteractiveView.class)
-//    public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
-//        Post post = postService.findPostById(requestedId, principal);
-//
-//        System.out.println(post.getText());
-//
-//        return ResponseEntity.ok(
-//                HttpResponse.builder()
-//                        .timeStamp(LocalDateTime.now().toString())
-//                        .data(Map.of("post", post))
-//                        .status(HttpStatus.OK)
-//                        .statusCode(HttpStatus.OK.value())
-//                        .message("Post retrieved successfully")
-//                        .build()
-//        );
-//    }
-
     @GetMapping("/{requestedId}")
-    @JsonView(Views.InteractiveView.class)
-    public ResponseEntity<Object> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal, @RequestParam(required = false, defaultValue = "false") boolean applyFilter
-    ) {
+    public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
         Post post = postService.findPostById(requestedId, principal);
 
-        System.out.println("??👹👹👹👹👹👹👹User Id: " + post.getLikes().get(1).getUser().getBio());
+        System.out.println(post.getText());
 
-        MappingJacksonValue mappingJacksonValue = JacksonValueUtil.getMappingJacksonValue(post.getLikes().get(1).getUser(), applyFilter);
-
-//        System.out.println("??👹👹👹👹👹👹👹User Id: " + ((Post)mappingJacksonValue.getValue()).getLikes().get(1).getUser().getBio());
-
-
-        Map<String, Object> responseBody = new HashMap<>();
-        responseBody.put("timeStamp", LocalDateTime.now().toString());
-        responseBody.put("statusCode", HttpStatus.OK.value());
-        responseBody.put("status", HttpStatus.OK);
-        responseBody.put("message", "Post retrieved successfully");
-        responseBody.put("data", mappingJacksonValue);
-
-        return ResponseEntity.ok(responseBody);
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("post", post))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Post retrieved successfully")
+                        .build()
+        );
     }
+
+//    @GetMapping("/{requestedId}")
+//    @JsonView(Views.InteractiveView.class)
+//    public ResponseEntity<Object> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal, @RequestParam(required = false, defaultValue = "false") boolean applyFilter
+//    ) {
+//        Post post = postService.findPostById(requestedId, principal);
+//
+//        System.out.println("??👹👹👹👹👹👹👹User Id: " + post.getLikes().get(1).getUser().getBio());
+//
+//        MappingJacksonValue mappingJacksonValue = JacksonValueUtil.getMappingJacksonValue(post.getLikes().get(1).getUser(), applyFilter);
+//
+////        System.out.println("??👹👹👹👹👹👹👹User Id: " + ((Post)mappingJacksonValue.getValue()).getLikes().get(1).getUser().getBio());
+//
+//
+//        Map<String, Object> responseBody = new HashMap<>();
+//        responseBody.put("timeStamp", LocalDateTime.now().toString());
+//        responseBody.put("statusCode", HttpStatus.OK.value());
+//        responseBody.put("status", HttpStatus.OK);
+//        responseBody.put("message", "Post retrieved successfully");
+//        responseBody.put("data", mappingJacksonValue);
+//
+//        return ResponseEntity.ok(responseBody);
+//    }
 
     @PostMapping("/")
     public ResponseEntity<HttpResponse> createPost(@RequestBody Post post, @AuthenticationPrincipal User principal) {
