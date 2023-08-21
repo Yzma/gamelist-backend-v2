@@ -11,7 +11,7 @@ public interface LikeRepository extends JpaRepository<LikeEntity, Long> {
 
     Optional<LikeEntityView> findLikeEntityViewById(Long id);
 
-    List<LikeEntityView> findAllByInteractiveEntityId(Long interactiveEntityId);
+    LikeEntityView findProjectedById(Long likeEntityId, Class<LikeEntityView> likeEntityViewClass);
 
     boolean existsByUserIdAndInteractiveEntityId(Long userId, Long interactiveEntityId);
 
