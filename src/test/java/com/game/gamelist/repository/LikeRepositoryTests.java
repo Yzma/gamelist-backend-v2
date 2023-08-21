@@ -2,11 +2,11 @@ package com.game.gamelist.repository;
 
 
 import com.game.gamelist.config.ContainersEnvironment;
-import com.game.gamelist.entity.InteractiveEntity;
 import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.model.LikeEntityView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -19,10 +19,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -62,6 +60,8 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             user.setUsername("changli");
             user.setEmail("changli@gmail.com");
             user.setPassword("123456");
+            user.setUserPicture("User Picture URL");
+            user.setBannerPicture("Banner Picture URL");
             user.setUpdatedAt(LocalDateTime.now());
             userRepository.save(user);
 
@@ -90,6 +90,7 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
             Post post = postRepository.findAll().get(0);
 
+
             assertEquals(0, post.getLikes().size());
 
             assertEquals("Hello World", post.getText());
@@ -106,6 +107,11 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             assertEquals(1, likeRepository.findAll().size());
 
             LikeEntity likeEntity1 = likeRepository.findById(1L).get();
+
+            LikeEntityView likeEntityView = likeRepository.findLikeEntityViewById(1L).orElseThrow(() -> new ResourceNotFoundException("Can not find like entity with id: " + 1L));
+
+            assertEquals("changli", likeEntityView.getUser().getUsername());
+            assertEquals("User Picture URL", likeEntityView.getUser().getUserPicture());
 
             assertEquals("changli", likeEntity1.getUser().getUsername());
             assertEquals("Hello World", ((Post) likeEntity1.getInteractiveEntity()).getText());

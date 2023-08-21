@@ -10,7 +10,7 @@ public interface LikeEntityView {
 
     UserBasicView getUser();
 
-    InteractiveEntityView getInteractiveEntity();
+//    InteractiveEntityView getInteractiveEntity();
 
     LocalDateTime getUpdatedAt();
 
