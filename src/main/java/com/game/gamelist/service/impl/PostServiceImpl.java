@@ -1,6 +1,7 @@
 package com.game.gamelist.service.impl;
 
 
+import com.game.gamelist.entity.InteractiveEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.InvalidAuthorizationException;
@@ -65,7 +66,6 @@ public class PostServiceImpl implements PostService {
         return responseData;
     }
 
-
     @Override
     public List<Post> findAllPosts(User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
@@ -90,15 +90,13 @@ public class PostServiceImpl implements PostService {
     public Post findPostById(Long requestedId, User principal) {
 
         if (principal == null) throw new InvalidTokenException("Invalid token");
-
-        Optional<Post> postOptional = postRepository.findPostWithLikesById(requestedId);
-
+            Optional<Post> postOptional = postRepository.findById(requestedId);
         if (postOptional.isPresent()) {
             Post responseData = postOptional.get();
             User user = responseData.getUser();
 
             if (principal.getId().equals(user.getId())) {
-                return postOptional.get();
+                return responseData;
             }
             throw new InvalidTokenException("Invalid token");
         }
