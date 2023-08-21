@@ -16,11 +16,5 @@ public class GamelistApplication {
 		SpringApplication.run(GamelistApplication.class, args);
 	}
 
-	@Bean
-	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		converter.setObjectMapper(objectMapper);
-		return converter;
-	}
 
 }

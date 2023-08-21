@@ -28,6 +28,6 @@ public class AdminController {
     @GetMapping("/user/{id}")
     public ResponseEntity<MappingJacksonValue> getUser(@PathVariable int id) {
         User user = adminService.getUser(id);
-        return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(user, true), HttpStatus.OK);
+        return new ResponseEntity<>(JacksonValueUtil.getMappingJacksonValue(user), HttpStatus.OK);
     }
 }

@@ -22,17 +22,14 @@ import java.util.List;
 @DiscriminatorValue("post_type")
 public class Post extends InteractiveEntity {
 
-    @JsonView({Views.InteractiveView.class})
     private String text;
 
     @CreationTimestamp
     @Column(name = "created_at")
-    @JsonView({Views.InteractiveView.class})
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    @JsonView({Views.InteractiveView.class})
     private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

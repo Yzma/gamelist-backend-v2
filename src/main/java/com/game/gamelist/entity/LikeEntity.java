@@ -26,7 +26,6 @@ import java.time.LocalDateTime;
 public class LikeEntity {
     @Id
     @GeneratedValue
-    @JsonView({Views.InteractiveView.class})
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})

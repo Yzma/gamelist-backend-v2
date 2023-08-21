@@ -9,21 +9,14 @@ public class JacksonValueUtil {
     private JacksonValueUtil() {
         throw new UnsupportedOperationException("Utility class");
     }
-    public static MappingJacksonValue getMappingJacksonValue(Object object, boolean isFilterApply) {
+    public static MappingJacksonValue getMappingJacksonValue(Object object) {
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(object);
 
-        if (isFilterApply) {
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "username", "bannerPicture", "userPicture", "email", "bio", "isActive", "createdAt", "updatedAt", "listsOrder", "roles");
 
-            SimpleBeanPropertyFilter filter =
-                    SimpleBeanPropertyFilter.filterOutAllExcept("id", "username", "bannerPicture", "userPicture", "email", "bio", "isActive", "createdAt", "updatedAt", "listsOrder", "roles");
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
 
-            FilterProvider filters =
-                    new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
-
-            mappingJacksonValue.setFilters(filters);
-
-        }
-
+        mappingJacksonValue.setFilters(filters);
         return mappingJacksonValue;
     }
 }

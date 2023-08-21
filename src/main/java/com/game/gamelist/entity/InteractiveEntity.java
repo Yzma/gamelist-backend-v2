@@ -17,11 +17,9 @@ import java.util.List;
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
-    @JsonView({Views.InteractiveView.class})
     private Long id;
 
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonView({Views.InteractiveView.class})
     private List<LikeEntity> likes = new ArrayList<>();
 
     protected Long getId() {

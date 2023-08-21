@@ -27,10 +27,8 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    @JsonView(value = {Views.Public.class, Views.InteractiveView.class})
     private Long id;
 
-    @JsonView(value = {Views.InteractiveView.class})
     private String username;
 
     @JsonProperty("email_address")
@@ -42,11 +40,9 @@ public class User implements UserDetails {
 
     @Column(name = "banner_picture")
     @JsonProperty("banner_picture")
-    @JsonView(value = {Views.InteractiveView.class})
     private String bannerPicture;
 
     @Column(name = "user_picture")
-    @JsonView(value={Views.InteractiveView.class})
     @JsonProperty("user_picture")
     private String userPicture;
 
