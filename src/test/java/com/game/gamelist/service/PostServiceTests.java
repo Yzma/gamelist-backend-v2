@@ -55,10 +55,10 @@ public class PostServiceTests {
         final var userToSave = User.builder().id(123L).email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         final var postToSave = Post.builder().id(999L).text("Hello World!").user(userToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-        when(postRepository.findById(Mockito.anyLong())).thenReturn(java.util.Optional.of(postToSave));
+        when(postRepository.findPostWithLikesById(Mockito.anyLong())).thenReturn(java.util.Optional.of(postToSave));
 
         // Act
-        Post foundPost = postService.findPostById(231L, userToSave);
+        Post foundPost = postService.findPostById(999L, userToSave);
 
         // Assert
         Assertions.assertThat(foundPost).isNotNull();

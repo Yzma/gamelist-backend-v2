@@ -12,14 +12,11 @@ public class JacksonValueUtil {
     public static MappingJacksonValue getMappingJacksonValue(Object object) {
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(object);
 
-        SimpleBeanPropertyFilter filter =
-                SimpleBeanPropertyFilter.filterOutAllExcept("id", "username", "bannerPicture", "userPicture", "email", "bio", "isActive", "createdAt", "updatedAt", "listsOrder", "roles");
+        SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("id", "username", "bannerPicture", "userPicture", "email", "bio", "isActive", "createdAt", "updatedAt", "listsOrder", "roles");
 
-        FilterProvider filters =
-                new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
+        FilterProvider filters = new SimpleFilterProvider().addFilter("UserInfoNeeded", filter);
 
         mappingJacksonValue.setFilters(filters);
-
         return mappingJacksonValue;
     }
 }

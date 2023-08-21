@@ -30,6 +30,7 @@ public class SeedService {
     private final TagRepository tagRepository;
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
+    private final GameJournalRepository gameJournalRepository;
 
     @Autowired
     public SeedService(
@@ -39,7 +40,8 @@ public class SeedService {
             GenreRepository genreRepository,
             TagRepository tagRepository,
             PlatformRepository platformRepository,
-            UserGameRepository userGameRepository
+            UserGameRepository userGameRepository,
+            GameJournalRepository gameJournalRepository
     ) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -48,6 +50,7 @@ public class SeedService {
         this.tagRepository = tagRepository;
         this.platformRepository = platformRepository;
         this.userGameRepository = userGameRepository;
+        this.gameJournalRepository = gameJournalRepository;
     }
 
     @PostConstruct
@@ -59,6 +62,7 @@ public class SeedService {
         seedGamesIfEmpty();
         seedPostsIfEmpty();
         seedUserGamesIfEmpty();
+        seedGameJournalsIfEmpty();
     }
 
     public void seedUsersIfEmpty() {
@@ -173,6 +177,30 @@ public class SeedService {
                 gameRepository.saveAll(games);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void seedGameJournalsIfEmpty() {
+        if (gameJournalRepository.count() == 0) {
+            for (int i = 1; i < 4; i++) {
+                User user = userRepository.findById(Long.valueOf(i)).get();
+                List<GameJournal> gameJournals = new ArrayList<>();
+                for (int j = 1; j < 6; j++) {
+                    try {
+
+                        GameJournal gameJournal = new GameJournal();
+                        gameJournal.setContent("This is the body of game journal " + j + " by user " + i + " .");
+                        gameJournal.setCreatedAt(LocalDateTime.now());
+                        gameJournal.setUpdatedAt(LocalDateTime.now());
+                        gameJournal.setUser(user);
+
+                        gameJournals.add(gameJournal);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                gameJournalRepository.saveAll(gameJournals);
             }
         }
     }

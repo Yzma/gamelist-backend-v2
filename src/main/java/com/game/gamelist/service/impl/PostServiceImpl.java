@@ -4,6 +4,7 @@ package com.game.gamelist.service.impl;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.InvalidAuthorizationException;
+import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.PostRepository;
@@ -30,6 +31,10 @@ public class PostServiceImpl implements PostService {
         }
 
         Post responseData = postOptional.get();
+
+        if(post.getText() == null || post.getText().isEmpty()) {
+            throw new InvalidInputException("Text input value is invalid");
+        }
         User postOwner = responseData.getUser();
 
         if (!principal.getId().equals(postOwner.getId())) {
@@ -73,6 +78,9 @@ public class PostServiceImpl implements PostService {
     public Post createPost(Post post, User principal) {
         if(principal == null) throw new InvalidTokenException("Invalid token");
 
+        if(post.getText() == null || post.getText().isEmpty()) {
+            throw new InvalidInputException("Text input value is invalid");
+        }
             post.setUser(principal);
             return postRepository.save(post);
 
@@ -80,9 +88,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post findPostById(Long requestedId, User principal) {
+
         if (principal == null) throw new InvalidTokenException("Invalid token");
 
-        Optional<Post> postOptional = postRepository.findById(requestedId);
+        Optional<Post> postOptional = postRepository.findPostWithLikesById(requestedId);
 
         if (postOptional.isPresent()) {
             Post responseData = postOptional.get();

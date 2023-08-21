@@ -1,10 +1,7 @@
 package com.game.gamelist.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonFilter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
 import lombok.*;

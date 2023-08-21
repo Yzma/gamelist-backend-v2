@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 @JsonTest
@@ -24,16 +25,16 @@ public class GameListJsonTests {
     @BeforeEach
     void setUp() {
         GameJournal gameJournal1 = GameJournal.builder()
-                .id(99L)
                 .content("Test Content 99")
+                .id(1L).likes(new ArrayList<>())
                 .build();
         GameJournal gameJournal2 = GameJournal.builder()
-                .id(100L)
                 .content("Test Content 100")
+                .id(2L).likes(new ArrayList<>())
                 .build();
         GameJournal gameJournal3 = GameJournal.builder()
-                .id(101L)
                 .content("Test Content 101")
+                .id(3L).likes(new ArrayList<>())
                 .build();
 
         gameJournals = Arrays.array(gameJournal1, gameJournal2, gameJournal3);
@@ -47,14 +48,16 @@ public class GameListJsonTests {
         assertThat(json.write(gameJournal)).isStrictlyEqualToJson("gameJournal.json");
         assertThat(json.write(gameJournal)).hasJsonPathNumberValue("@.id");
         assertThat(json.write(gameJournal)).extractingJsonPathNumberValue("@.id")
-                .isEqualTo(99);
+                .isEqualTo(1);
         assertThat(json.write(gameJournal)).hasJsonPathStringValue("@.content");
+
         assertThat(json.write(gameJournal)).extractingJsonPathStringValue("@.content")
                 .isEqualTo("Test Content 99");
     }
 
     @Test
     void gameJournalsListSerializationTest() throws IOException {
+
         assertThat(jsonList.write(gameJournals)).isStrictlyEqualToJson("gameJournalslist.json");
     }
 

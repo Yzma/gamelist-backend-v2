@@ -52,7 +52,6 @@ public class UserGameServiceImpl implements UserGameService {
         // Check if the UserGame already exists in the database
         UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
 
-
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
             existingUserGame.setIsPrivate(userGame.getIsPrivate());

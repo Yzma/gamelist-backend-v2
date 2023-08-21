@@ -2,6 +2,7 @@ package com.game.gamelist.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
+import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
@@ -72,7 +73,7 @@ public class PostControllerTests {
 
         auth0JwtTestUtils.mockAuthentication(principal);
 
-         mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+         mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
 
          mockPost2 = Post.builder().id(67L).text("MockPost 2!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 

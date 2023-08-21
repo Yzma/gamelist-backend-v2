@@ -8,6 +8,9 @@ security:
 spring:
   profiles:
     active: dev
+  jackson:
+    mapper:
+      default-view-inclusion: false
 
 management:
   endpoints:

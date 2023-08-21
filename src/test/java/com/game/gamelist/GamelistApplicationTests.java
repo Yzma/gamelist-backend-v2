@@ -11,8 +11,11 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -82,4 +85,5 @@ class GamelistApplicationTests extends ContainersEnvironment {
 		Post post2 = postList.get(1);
 		assertThat(post2.getText()).isEqualTo("Another Post");
 	}
+
 }
