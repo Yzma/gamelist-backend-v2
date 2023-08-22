@@ -11,7 +11,7 @@ import java.util.Set;
 @Service
 public interface PostService {
 
-    Set<PostView> findAllPostsByUserId(User principal);
+    List<PostView> findAllPostsByUserId(User principal);
 
     PostView findPostById(Long requestedId, User principal);
 
@@ -19,7 +19,7 @@ public interface PostService {
 
     PostView updatePostById(Long requestedId, Post post, User principal);
 
-    PostView deletePostById(Long requestedId, User principal);
+    void deletePostById(Long requestedId, User principal);
 
     List<PostView> findAllPosts(User principal);
 }

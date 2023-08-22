@@ -38,7 +38,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
     @Transactional
     public void whenFindAll_Expect_EmptyList() {
 
-        List<PostView> postList = postRepository.findAll();
+        List<Post> postList = postRepository.findAll();
 
         assertEquals(0, postList.size());
 
@@ -78,9 +78,8 @@ public class PostRepositoryTests extends ContainersEnvironment {
         @Order(2)
         @Transactional
         public void whenFindAll_Expect_ListWithTwo() {
-            List<PostView> postListInit = postRepository.findAll();
+            List<PostView> postListInit = postRepository.findAllPosts();
             assertEquals(2, postListInit.size());
-
         }
 
         @Test
@@ -105,10 +104,15 @@ public class PostRepositoryTests extends ContainersEnvironment {
             assertEquals(1L, post.getId());
 
             Post post2 = postRepository.findById(2L).get();
+            PostView postView = postRepository.findProjectedById(1L).get();
 
             assertNotEquals(post2.getText(), post.getText());
             assertNotEquals(4L, post.getId());
             assertEquals(post2.getUser(), post.getUser());
+
+            assertEquals(postView.getText(), "Hello World");
+            assertEquals(postView.getId(), 1L);
+            assertEquals(postView.getUser().getId(), post.getUser().getId());
         }
 
         @Test
@@ -133,12 +137,12 @@ public class PostRepositoryTests extends ContainersEnvironment {
             post.setUpdatedAt(LocalDateTime.now());
             postRepository.save(post);
 
-            List<Post> postList = new ArrayList<>(postRepository.findAllByUserId(user.getId()).get());
+            List<PostView> postList = postRepository.findAllProjectedByUserId(user.getId()).get();
 
             assertEquals(2, postList.size());
 
-            Post firstPost = postList.get(0);
-            Post secondPost = postList.get(1);
+            PostView firstPost = postList.get(0);
+            PostView secondPost = postList.get(1);
             assertEquals("Hello World", firstPost.getText());
             assertEquals("Another Post", secondPost.getText());
 

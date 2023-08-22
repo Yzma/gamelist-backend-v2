@@ -69,7 +69,7 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Transactional
 	void contextLoads() {
 		assertThat(1).isEqualTo(1);
-		List<PostView> postList = postRepository.findAll();
+		List<Post> postList = postRepository.findAll();
 		assertThat(postList.size()).isEqualTo(2);
 	}
 
@@ -77,13 +77,13 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Order(2)
 	@Transactional
 	void testPost() {
-		List<PostView> postList = postRepository.findAll();
+		List<Post> postList = postRepository.findAll();
 
 		assertThat(postList.size()).isEqualTo(2);
 
-		PostView post = postList.get(0);
+		Post post = postList.get(0);
 		assertThat(post.getText()).isEqualTo("Hello World");
-		PostView post2 = postList.get(1);
+		Post post2 = postList.get(1);
 		assertThat(post2.getText()).isEqualTo("Another Post");
 	}
 

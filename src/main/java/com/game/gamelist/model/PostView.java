@@ -1,5 +1,6 @@
 package com.game.gamelist.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PostView {
@@ -8,6 +9,8 @@ public interface PostView {
     UserBasicView getUser();
 
     String getText();
+
+    LocalDateTime getCreatedAt();
 
     List<LikeEntityView> getLikes();
 

@@ -13,15 +13,16 @@ import java.util.Set;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Optional<Set<Post>> findAllByUserId(Long userId);
+//    Optional<Set<Post>> findAllByUserId(Long userId);
 
-    Optional<Set<PostView>> findAllProjectedByUserId(Long userId);
+//    TODO: Change type
+    Optional<List<PostView>> findAllProjectedByUserId(Long userId);
 
-    Optional<PostView> findProjectedById(Long postId, Class<PostView> postViewClass);
+    Optional<PostView> findProjectedById(Long postId);
 
     @Query("SELECT p FROM posts p LEFT JOIN FETCH p.likes l WHERE p.id = :postId")
     Optional<Post> findPostWithLikesById(@Param("postId") Long postId);
 
     @Query("SELECT p FROM posts p LEFT JOIN FETCH p.likes l")
-    List<PostView> findAllPosts(Class<PostView> postViewClass);
+    List<PostView> findAllPosts();
 }
