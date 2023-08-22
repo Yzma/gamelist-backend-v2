@@ -42,7 +42,7 @@ public class PostController {
 
     @GetMapping("/all")
     public ResponseEntity<HttpResponse> getAllPosts(@AuthenticationPrincipal User principal) {
-        List<Post> posts = postService.findAllPosts(principal);
+        List<PostVie> posts = postService.findAllPosts(principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()

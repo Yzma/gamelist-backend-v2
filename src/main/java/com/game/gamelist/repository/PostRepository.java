@@ -17,11 +17,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     Optional<Set<PostView>> findAllProjectedByUserId(Long userId);
 
-//    List<PostView> findAllProjected();
-
     Optional<PostView> findProjectedById(Long postId, Class<PostView> postViewClass);
 
     @Query("SELECT p FROM posts p LEFT JOIN FETCH p.likes l WHERE p.id = :postId")
     Optional<Post> findPostWithLikesById(@Param("postId") Long postId);
 
+    @Query("SELECT p FROM posts p LEFT JOIN FETCH p.likes l")
+    List<PostView> findAllPosts(Class<PostView> postViewClass);
 }

@@ -21,5 +21,5 @@ public interface PostService {
 
     PostView deletePostById(Long requestedId, User principal);
 
-    List<Post> findAllPosts(User principal);
+    List<PostView> findAllPosts(User principal);
 }

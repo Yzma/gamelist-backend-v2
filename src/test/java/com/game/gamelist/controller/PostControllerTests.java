@@ -2,7 +2,6 @@ package com.game.gamelist.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
-import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;

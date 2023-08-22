@@ -82,10 +82,10 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> findAllPosts(User principal) {
+    public List<PostView> findAllPosts(User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
 
-        return postRepository.findAll();
+        return postRepository.findAllPosts(PostView.class);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.game.gamelist.repository;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.PostView;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +38,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
     @Transactional
     public void whenFindAll_Expect_EmptyList() {
 
-        List<Post> postList = postRepository.findAll();
+        List<PostView> postList = postRepository.findAll();
 
         assertEquals(0, postList.size());
 
@@ -77,7 +78,7 @@ public class PostRepositoryTests extends ContainersEnvironment {
         @Order(2)
         @Transactional
         public void whenFindAll_Expect_ListWithTwo() {
-            List<Post> postListInit = postRepository.findAll();
+            List<PostView> postListInit = postRepository.findAll();
             assertEquals(2, postListInit.size());
 
         }

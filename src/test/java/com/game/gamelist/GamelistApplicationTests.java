@@ -3,6 +3,7 @@ package com.game.gamelist;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.PostView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -68,7 +69,7 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Transactional
 	void contextLoads() {
 		assertThat(1).isEqualTo(1);
-		List<Post> postList = postRepository.findAll();
+		List<PostView> postList = postRepository.findAll();
 		assertThat(postList.size()).isEqualTo(2);
 	}
 
@@ -76,13 +77,13 @@ class GamelistApplicationTests extends ContainersEnvironment {
 	@Order(2)
 	@Transactional
 	void testPost() {
-		List<Post> postList = postRepository.findAll();
+		List<PostView> postList = postRepository.findAll();
 
 		assertThat(postList.size()).isEqualTo(2);
 
-		Post post = postList.get(0);
+		PostView post = postList.get(0);
 		assertThat(post.getText()).isEqualTo("Hello World");
-		Post post2 = postList.get(1);
+		PostView post2 = postList.get(1);
 		assertThat(post2.getText()).isEqualTo("Another Post");
 	}
 
