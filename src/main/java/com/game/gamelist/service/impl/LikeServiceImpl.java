@@ -2,6 +2,7 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.model.LikeEntityView;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class LikeServiceImpl implements LikeService {
 
 //    Sending ID as a parameter and check if they are instance of Post or GameJournal
     @Override
-    public LikeEntity createLike(User principle, Long interactiveEntityId) {
+    public LikeEntityView createLike(User principle, Long interactiveEntityId) {
 
         // Check if the user has already liked the InteractiveEntity
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
@@ -50,7 +51,11 @@ public class LikeServiceImpl implements LikeService {
             throw new RuntimeException("Invalid likeable entity");
         }
 
-        return likeRepository.save(like);
+        like = likeRepository.save(like);
+
+        LikeEntityView likeEntityView = likeRepository.findProjectedById(like.getId(), LikeEntityView.class);
+
+        return likeEntityView;
     }
 
     @Override

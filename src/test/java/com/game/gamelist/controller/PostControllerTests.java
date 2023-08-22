@@ -2,10 +2,13 @@ package com.game.gamelist.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
-import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.MockPostView;
+import com.game.gamelist.model.MockUserBasicView;
+import com.game.gamelist.model.PostView;
+import com.game.gamelist.model.UserBasicView;
 import com.game.gamelist.service.PostService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,26 +61,32 @@ public class PostControllerTests {
 
     User principal;
     User notPrincipal;
-    Post notPrincipalPost;
-    Post mockPost;
-    Post mockPost2;
-    Post mockPost3;
+    MockUserBasicView mockPrincipal;
+    MockUserBasicView mockNonPrincipal;
+    MockPostView notPrincipalPost;
+    MockPostView mockPost;
+    MockPostView mockPost2;
+    MockPostView mockPost3;
 
     @BeforeEach
     void beforeEachTest() {
          principal = User.builder().id(999L).username("testuser").password("testuser").email("testuser@gmail.com").userPicture("testuser").bio("testuser").bannerPicture("testuser").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
 
+        mockPrincipal = MockUserBasicView.builder().id(999L).username("testuser").userPicture("testuser").build();
+
          notPrincipal = User.builder().id(998L).username("testuser2").password("testuser2").email("testuser2@gmail.com").userPicture("testuser2").bio("testuser2").bannerPicture("testuser2").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
 
-         notPrincipalPost = Post.builder().id(65L).text("Not a Post Belongs to Principal!").user(notPrincipal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+         mockNonPrincipal = MockUserBasicView.builder().id(998L).username("testuser2").userPicture("testuser2").build();
+
+         notPrincipalPost = MockPostView.builder().id(65L).text("Not Principal Post").user(mockNonPrincipal).createdAt(LocalDateTime.now()).build();
 
         auth0JwtTestUtils.mockAuthentication(principal);
 
-         mockPost = Post.builder().id(66L).text("Hello World!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
+         mockPost = MockPostView.builder().id(66L).text("Hello World!").user(mockPrincipal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
 
-         mockPost2 = Post.builder().id(67L).text("MockPost 2!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+         mockPost2 = MockPostView.builder().id(67L).text("MockPost 2!").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
 
-         mockPost3 = Post.builder().id(68L).text("MockPost 3!").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+         mockPost3 = MockPostView.builder().id(68L).text("MockPost 3!").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
     }
 
     @Test
@@ -85,25 +94,26 @@ public class PostControllerTests {
 
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        when(postService.createPost(Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(mockPost);
+        Post createdPost = Post.builder().id(69L).text("New Created Post").user(principal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
+
+        when(postService.createPost(Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(createdPost);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/posts/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(mockPost)))
+                        .content(objectMapper.writeValueAsString(createdPost)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value("Post created successfully"))
-                .andExpect(jsonPath("$.data.post.id").value(66L))
-                .andExpect(jsonPath("$.data.post.text").value("Hello World!"));
+                .andExpect(jsonPath("$.data.post.id").value(69L))
+                .andExpect(jsonPath("$.data.post.text").value("New Created Post"));
 
     }
 
     @Test
     void shouldReturn_allPost_when_sendGetRequest() throws Exception {
 
-        Set<Post> mockPostsSet = Set.of(mockPost, mockPost2, mockPost3);
-        List<Post> mockPostsList = new ArrayList<>(mockPostsSet);
+        List<PostView> mockPostsList = List.of(mockPost, mockPost2, mockPost3);
 
-        when(postService.findAllPostsByUserId(Mockito.any(User.class))).thenReturn(mockPostsSet);
+        when(postService.findAllPostsByUserId(Mockito.any(User.class))).thenReturn(mockPostsList);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -119,7 +129,7 @@ public class PostControllerTests {
 
     @Test
     void shouldReturn_AllPost_when_sentGetAllRequest() throws Exception {
-        List<Post> allPostList = List.of(notPrincipalPost, mockPost, mockPost2, mockPost3);
+        List<PostView> allPostList = List.of(notPrincipalPost, mockPost, mockPost2, mockPost3);
 
         when(postService.findAllPosts(principal)).thenReturn(allPostList);
 
@@ -151,7 +161,7 @@ public class PostControllerTests {
     @Test
     void shouldReturn_post_when_sendPutRequestById() throws Exception {
 
-        Post updatedPost = Post.builder().id(66L).text("Post Got Updated").user(principal).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        PostView updatedPost = MockPostView.builder().id(66L).text("Post Got Updated").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
 
             when(postService.updatePostById(Mockito.anyLong(), Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(updatedPost);
             mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/posts/66")
