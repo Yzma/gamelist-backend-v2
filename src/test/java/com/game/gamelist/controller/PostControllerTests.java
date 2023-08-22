@@ -6,6 +6,7 @@ import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.MockPostView;
+import com.game.gamelist.model.MockUserBasicView;
 import com.game.gamelist.model.PostView;
 import com.game.gamelist.model.UserBasicView;
 import com.game.gamelist.service.PostService;
@@ -60,30 +61,32 @@ public class PostControllerTests {
 
     User principal;
     User notPrincipal;
+    MockUserBasicView mockPrincipal;
+    MockUserBasicView mockNonPrincipal;
     MockPostView notPrincipalPost;
     MockPostView mockPost;
     MockPostView mockPost2;
     MockPostView mockPost3;
 
-
-
-
-
     @BeforeEach
     void beforeEachTest() {
          principal = User.builder().id(999L).username("testuser").password("testuser").email("testuser@gmail.com").userPicture("testuser").bio("testuser").bannerPicture("testuser").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
 
+        mockPrincipal = MockUserBasicView.builder().id(999L).username("testuser").userPicture("testuser").build();
+
          notPrincipal = User.builder().id(998L).username("testuser2").password("testuser2").email("testuser2@gmail.com").userPicture("testuser2").bio("testuser2").bannerPicture("testuser2").isActive(true).roles(Set.of(Role.ROLE_USER)).build();
 
-         notPrincipalPost = MockPostView.builder().id(65L).text("Not Principal Post").user((UserBasicView) notPrincipal).createdAt(LocalDateTime.now()).build();
+         mockNonPrincipal = MockUserBasicView.builder().id(998L).username("testuser2").userPicture("testuser2").build();
+
+         notPrincipalPost = MockPostView.builder().id(65L).text("Not Principal Post").user(mockNonPrincipal).createdAt(LocalDateTime.now()).build();
 
         auth0JwtTestUtils.mockAuthentication(principal);
 
-         mockPost = MockPostView.builder().id(66L).text("Hello World!").user((UserBasicView) principal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
+         mockPost = MockPostView.builder().id(66L).text("Hello World!").user(mockPrincipal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
 
-         mockPost2 = MockPostView.builder().id(67L).text("MockPost 2!").user((UserBasicView)principal).createdAt(LocalDateTime.now()).build();
+         mockPost2 = MockPostView.builder().id(67L).text("MockPost 2!").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
 
-         mockPost3 = MockPostView.builder().id(68L).text("MockPost 3!").user((UserBasicView)principal).createdAt(LocalDateTime.now()).build();
+         mockPost3 = MockPostView.builder().id(68L).text("MockPost 3!").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
     }
 
     @Test
@@ -97,11 +100,11 @@ public class PostControllerTests {
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/posts/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(mockPost)))
+                        .content(objectMapper.writeValueAsString(createdPost)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.message").value("Post created successfully"))
-                .andExpect(jsonPath("$.data.post.id").value(66L))
-                .andExpect(jsonPath("$.data.post.text").value("Hello World!"));
+                .andExpect(jsonPath("$.data.post.id").value(69L))
+                .andExpect(jsonPath("$.data.post.text").value("New Created Post"));
 
     }
 
@@ -158,7 +161,7 @@ public class PostControllerTests {
     @Test
     void shouldReturn_post_when_sendPutRequestById() throws Exception {
 
-        PostView updatedPost = MockPostView.builder().id(66L).text("Post Got Updated").user((UserBasicView) principal).createdAt(LocalDateTime.now()).build();
+        PostView updatedPost = MockPostView.builder().id(66L).text("Post Got Updated").user(mockPrincipal).createdAt(LocalDateTime.now()).build();
 
             when(postService.updatePostById(Mockito.anyLong(), Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(updatedPost);
             mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/posts/66")
