@@ -4,6 +4,7 @@ package com.game.gamelist.controller;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.HttpResponse;
+import com.game.gamelist.model.PostView;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class PostController {
 
     @GetMapping("/")
     public ResponseEntity<HttpResponse> getAllPostsByUser(@AuthenticationPrincipal User principal) {
-        Set<Post> posts = postService.findAllPostsByUserId(principal);
+        Set<PostView> posts = postService.findAllPostsByUserId(principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -56,7 +57,7 @@ public class PostController {
 
     @GetMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> findPostById(@PathVariable Long requestedId, @AuthenticationPrincipal User principal) {
-        Post post = postService.findPostById(requestedId, principal);
+        PostView post = postService.findPostById(requestedId, principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -87,7 +88,7 @@ public class PostController {
 
     @PutMapping("/{requestedId}")
     public ResponseEntity<HttpResponse> updatePost(@PathVariable Long requestedId, @RequestBody Post post, @AuthenticationPrincipal User principal) {
-        Post updatedPost = postService.updatePostById(requestedId, post, principal);
+        PostView updatedPost = postService.updatePostById(requestedId, post, principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()

@@ -2,20 +2,27 @@ package com.game.gamelist.service.impl;
 
 
 import com.game.gamelist.entity.InteractiveEntity;
+import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.model.PostDto;
+import com.game.gamelist.model.PostView;
+import com.game.gamelist.model.UserBasicView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,55 +30,62 @@ public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
     @Override
-    public Post updatePostById(Long requestedId, Post post, User principal) {
+    public PostView updatePostById(Long requestedId, Post post, User principal) {
         if(principal == null) throw new InvalidTokenException("Invalid token");
 
-        Optional<Post> postOptional = postRepository.findById(requestedId);
+        Optional<PostView> postOptional = postRepository.findProjectedById(requestedId, PostView.class);
         if (postOptional.isEmpty()) {
             throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
         }
 
-        Post responseData = postOptional.get();
+        PostView responseData = postOptional.get();
 
         if(post.getText() == null || post.getText().isEmpty()) {
             throw new InvalidInputException("Text input value is invalid");
         }
-        User postOwner = responseData.getUser();
+        UserBasicView postOwner = responseData.getUser();
 
         if (!principal.getId().equals(postOwner.getId())) {
             throw new InvalidAuthorizationException("Invalid authorization");
         }
 
+        Optional<Post> postFromDB = postRepository.findById(responseData.getId());
+
+        Post updatedPost = postFromDB.get();
+        updatedPost.setText(post.getText());
         responseData.setText(post.getText());
-        return postRepository.save(responseData);
-    }
-
-    @Override
-    public Post deletePostById(Long requestedId, User principal) {
-        if(principal == null) throw new InvalidTokenException("Invalid token");
-        Optional<Post> postOptional = postRepository.findById(requestedId);
-        if (postOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
-        }
-
-        Post responseData = postOptional.get();
-        User postOwner = responseData.getUser();
-
-        if (!principal.getId().equals(postOwner.getId())) {
-            throw new InvalidAuthorizationException("Invalid authorization");
-        }
-
-        postRepository.deleteById(requestedId);
+        updatedPost.setUpdatedAt(LocalDateTime.now());
+        postRepository.save(updatedPost);
 
         return responseData;
     }
 
     @Override
+    public PostView deletePostById(Long requestedId, User principal) {
+        if(principal == null) throw new InvalidTokenException("Invalid token");
+        Optional<Post> postOptional = postRepository.findById(requestedId);
+        if (postOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Post not found with ID: " + requestedId);
+        }
+
+        Post responseData = postOptional.get();
+        User postOwner = responseData.getUser();
+
+        if (!principal.getId().equals(postOwner.getId())) {
+            throw new InvalidAuthorizationException("Invalid authorization");
+        }
+        PostView postView = postRepository.findProjectedById(requestedId, PostView.class).get();
+
+        postRepository.deleteById(requestedId);
+
+        return postView;
+    }
+
+    @Override
     public List<Post> findAllPosts(User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
-        List<Post> optionalPosts = postRepository.findAll();
 
-        return optionalPosts;
+        return postRepository.findAll();
     }
 
     @Override
@@ -87,13 +101,14 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post findPostById(Long requestedId, User principal) {
+    public PostView findPostById(Long requestedId, User principal) {
 
-        if (principal == null) throw new InvalidTokenException("Invalid token");
-            Optional<Post> postOptional = postRepository.findById(requestedId);
+        if (principal == null) {throw new InvalidTokenException("Invalid token");}
+        Optional<PostView> postOptional = postRepository.findProjectedById(requestedId, PostView.class);
+
         if (postOptional.isPresent()) {
-            Post responseData = postOptional.get();
-            User user = responseData.getUser();
+            PostView responseData = postOptional.get();
+            UserBasicView user = responseData.getUser();
 
             if (principal.getId().equals(user.getId())) {
                 return responseData;
@@ -105,12 +120,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Set<Post> findAllPostsByUserId(User principal) {
+    public Set<PostView> findAllPostsByUserId(User principal) {
         if (principal == null) {
             throw new InvalidTokenException("Invalid token");
         }
 
-        Optional<Set<Post>> optionalPosts = postRepository.findAllByUserId(principal.getId());
+        Optional<Set<PostView>> optionalPosts = postRepository.findAllProjectedByUserId(principal.getId());
 
         if (optionalPosts.isPresent()) {
             return optionalPosts.get();

@@ -32,12 +32,11 @@ public class Post extends InteractiveEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JsonIgnore
     @JsonIgnoreProperties("posts")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
-
 
     public Long getId() {
         return super.getId();

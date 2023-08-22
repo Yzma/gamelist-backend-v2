@@ -2,6 +2,7 @@ package com.game.gamelist.service;
 
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.PostView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.service.impl.PostServiceImpl;
 
@@ -58,7 +59,7 @@ public class PostServiceTests {
         when(postRepository.findPostWithLikesById(Mockito.anyLong())).thenReturn(java.util.Optional.of(postToSave));
 
         // Act
-        Post foundPost = postService.findPostById(999L, userToSave);
+        PostView foundPost = postService.findPostById(999L, userToSave);
 
         // Assert
         Assertions.assertThat(foundPost).isNotNull();
@@ -81,14 +82,14 @@ public class PostServiceTests {
         when(postRepository.save(Mockito.any(Post.class))).thenReturn(postToUpdate);
 
         // Act
-        Post updatedPost = postService.updatePostById(999L, postToUpdate, userToSave);
+        PostView updatedPost = postService.updatePostById(999L, postToUpdate, userToSave);
 
         // Assert
         Assertions.assertThat(updatedPost).isNotNull();
         Assertions.assertThat(updatedPost.getId()).isEqualTo(999L);
         Assertions.assertThat(updatedPost.getText()).isEqualTo("An Updated Post");
         Assertions.assertThat(updatedPost.getUser()).isEqualTo(updatedUser);
-        Assertions.assertThat(updatedPost.getUser()).isNotEqualTo(userToSave);
+        Assertions.assertThat(updatedPost.getUser().getId()).isNotEqualTo(userToSave.getId());
     }
     @Test
     void when_deletePostById_should_return_deleted_post() {
@@ -100,7 +101,7 @@ public class PostServiceTests {
         when(postRepository.findById(Mockito.anyLong())).thenReturn(java.util.Optional.of(postToSave));
 
         // Act
-        Post deletedPost = postService.deletePostById(999L, userToSave);
+        PostView deletedPost = postService.deletePostById(999L, userToSave);
 
         // Assert
         Assertions.assertThat(deletedPost).isNotNull();
@@ -129,11 +130,11 @@ public class PostServiceTests {
         Assertions.assertThat(foundPosts.size()).isEqualTo(3);
         Assertions.assertThat(foundPosts.get(0).getId()).isEqualTo(999L);
         Assertions.assertThat(foundPosts.get(0).getText()).isEqualTo("Hello World!");
-        Assertions.assertThat(foundPosts.get(0).getUser()).isEqualTo(userToSave);
+        Assertions.assertThat(foundPosts.get(0).getUser().getId()).isEqualTo(userToSave.getId());
 
         Assertions.assertThat(foundPosts.get(1).getId()).isEqualTo(222L);
         Assertions.assertThat(foundPosts.get(1).getText()).isEqualTo("Java No.1!");
-        Assertions.assertThat(foundPosts.get(2).getUser()).isEqualTo(userToSave);
+        Assertions.assertThat(foundPosts.get(2).getUser().getId()).isEqualTo(userToSave.getId());
         Assertions.assertThat(foundPosts.get(2).getId()).isEqualTo(111L);
     }
 
@@ -155,7 +156,7 @@ public class PostServiceTests {
         when(postRepository.findAllByUserId(Mockito.anyLong())).thenReturn(Optional.of(Set.of(postToSave1, postToSave2, postToSave3)));
 
         // Act
-        Set<Post> foundPosts = postService.findAllPostsByUserId(userToSave);
+        Set<PostView> foundPosts = postService.findAllPostsByUserId(userToSave);
 
         // Assert
 
