@@ -1,7 +1,9 @@
 package com.game.gamelist.entity;
 
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.game.gamelist.validator.RoleSubset;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,7 +24,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "users")
-@JsonFilter("UserInfoNeeded")
 public class User implements UserDetails {
 
     @Id
@@ -72,15 +73,14 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    @Column(name = "posts")
     private List<Post> posts;
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
-    @Column(name = "game_journals")
     private List<GameJournal> gameJournals;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
-    @Column(name = "user_games")
     private Set<UserGame> userGames;
 
     @Override

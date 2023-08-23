@@ -3,7 +3,6 @@ package com.game.gamelist.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +26,6 @@ public class UserGame {
     @Column(name = "game_status")
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
-
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -59,7 +57,6 @@ public class UserGame {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonBackReference
-    @JsonIgnoreProperties("user_games")
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
 

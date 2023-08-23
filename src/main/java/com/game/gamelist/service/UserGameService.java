@@ -1,5 +1,6 @@
 package com.game.gamelist.service;
 
+import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
 
@@ -17,4 +18,5 @@ public interface UserGameService {
 
     Set<UserGame> findAllUserGamesByUserId(User principal);
 
+    UserGamesSummaryDTO findAllUserGamesByUserIdByStatus(User principal);
 }
