@@ -1,6 +1,7 @@
 package com.game.gamelist.controller;
 
 
+import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.model.HttpResponse;
@@ -32,6 +33,20 @@ public class UserGameController {
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
                         .data(Map.of("userGames", userGames))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .message("UserGames retrieved successfully")
+                        .build());
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<HttpResponse> getAllUserGameByUserIdByStatus(@AuthenticationPrincipal User principal) {
+        UserGamesSummaryDTO userGames = userGameService.findAllUserGamesByUserIdByStatus(principal);
+
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("userGamesByStatus", userGames))
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
                         .message("UserGames retrieved successfully")
