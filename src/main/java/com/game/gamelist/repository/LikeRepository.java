@@ -4,7 +4,6 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.model.LikeEntityView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface LikeRepository extends JpaRepository<LikeEntity, Long> {
