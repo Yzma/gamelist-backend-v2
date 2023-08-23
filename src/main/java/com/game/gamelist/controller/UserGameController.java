@@ -20,6 +20,7 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/usergames")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserGameController {
 
     private final UserGameService userGameService;
@@ -39,10 +40,9 @@ public class UserGameController {
                         .build());
     }
 
-    @GetMapping("/types")
+    @GetMapping("/status")
     public ResponseEntity<HttpResponse> getAllUserGameByUserIdByStatus(@AuthenticationPrincipal User principal) {
         UserGamesSummaryDTO userGames = userGameService.findAllUserGamesByUserIdByStatus(principal);
-
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())

@@ -19,16 +19,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     private final GameServiceImpl gameServiceImpl;
     private final UserServiceImpl userServiceImpl;
-
-    @RequestMapping("/hello")
-    public String helloWorld(@AuthenticationPrincipal User principal) {
-        return "Hello World from user";
-    }
 
     @RequestMapping("/games")
     public List<Game> getAllGames() {
