@@ -53,7 +53,7 @@ public class LikeServiceImpl implements LikeService {
 
         like = likeRepository.save(like);
 
-        LikeEntityView likeEntityView = likeRepository.findProjectedById(like.getId(), LikeEntityView.class);
+        LikeEntityView likeEntityView = likeRepository.findProjectedById(like.getId());
 
         return likeEntityView;
     }
