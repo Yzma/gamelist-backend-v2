@@ -31,6 +31,7 @@ public class SeedService {
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
     private final GameJournalRepository gameJournalRepository;
+    private final StatusUpdateRepository statusUpdateRepository;
 
     @Autowired
     public SeedService(
@@ -41,7 +42,8 @@ public class SeedService {
             TagRepository tagRepository,
             PlatformRepository platformRepository,
             UserGameRepository userGameRepository,
-            GameJournalRepository gameJournalRepository
+            GameJournalRepository gameJournalRepository,
+            StatusUpdateRepository statusUpdateRepository
     ) {
         this.userRepository = userRepository;
         this.postRepository = postRepository;
@@ -51,6 +53,7 @@ public class SeedService {
         this.platformRepository = platformRepository;
         this.userGameRepository = userGameRepository;
         this.gameJournalRepository = gameJournalRepository;
+        this.statusUpdateRepository = statusUpdateRepository;
     }
 
     @PostConstruct
@@ -236,6 +239,7 @@ public class SeedService {
             for (int i = 1; i < 4; i++) {
                 User user = userRepository.findById(Long.valueOf(i)).get();
                 List<UserGame> userGames = new ArrayList<>();
+                List<StatusUpdate> statusUpdates = new ArrayList<>();
                 for (int j = 1; j < 6; j++) {
                     try {
 
@@ -248,13 +252,20 @@ public class SeedService {
                         userGame.setGame(gameRepository.findAllGamesOrderedById().get(j - 1));
                         userGame.setRating(5);
                         userGame.setGameNote("This is a review for game " + j + " by user " + i + " .");
-
                         userGames.add(userGame);
+
+                        StatusUpdate statusUpdate = new StatusUpdate();
+                        statusUpdate.setUserGame(userGame);
+                        statusUpdate.setCreatedAt(LocalDateTime.now());
+                        statusUpdate.setUpdatedAt(LocalDateTime.now());
+                        statusUpdate.setGameStatus(userGame.getGameStatus());
+                        statusUpdates.add(statusUpdate);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 userGameRepository.saveAll(userGames);
+                statusUpdateRepository.saveAll(statusUpdates);
             }
         }
     }
