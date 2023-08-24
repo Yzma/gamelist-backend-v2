@@ -2,15 +2,13 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.dto.GameDTO;
 import com.game.gamelist.dto.UserGamesSummaryDTO;
-import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.GameStatus;
-import com.game.gamelist.entity.User;
-import com.game.gamelist.entity.UserGame;
+import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.repository.GameRepository;
+import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.service.UserGameService;
@@ -27,6 +25,7 @@ public class UserGameServiceImpl implements UserGameService {
     private final UserRepository userRepository;
     private final UserGameRepository userGameRepository;
     private final GameRepository gameRepository;
+    private final StatusUpdateRepository statusUpdateRepository;
     private final GameMapper gameMapper;
 
     @Override
@@ -58,7 +57,8 @@ public class UserGameServiceImpl implements UserGameService {
 
         // Check if the UserGame already exists in the database
         UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
-
+        StatusUpdate statusUpdate = new StatusUpdate();
+        UserGame userGameResponse = new UserGame();
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
             existingUserGame.setIsPrivate(userGame.getIsPrivate());
@@ -67,14 +67,25 @@ public class UserGameServiceImpl implements UserGameService {
             existingUserGame.setCompletedDate(userGame.getCompletedDate());
             existingUserGame.setGameStatus(userGame.getGameStatus());
             existingUserGame.setGameNote(userGame.getGameNote());
-            return userGameRepository.save(existingUserGame);
+            userGameRepository.save(existingUserGame);
+
+            statusUpdate.setUserGame(existingUserGame);
+            statusUpdate.setGameStatus(existingUserGame.getGameStatus());
+            statusUpdateRepository.save(statusUpdate);
+
+            return existingUserGame;
         } else {
             // If the UserGame does not exist, create a new instance
             Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
 
             userGame.setUser(principal);
             userGame.setGame(game);
-            return userGameRepository.save(userGame);
+
+            statusUpdate.setUserGame(userGame);
+            statusUpdate.setGameStatus(userGame.getGameStatus());
+            userGameRepository.save(userGame);
+            statusUpdateRepository.save(statusUpdate);
+            return userGame;
         }
     }
 
@@ -93,6 +104,7 @@ public class UserGameServiceImpl implements UserGameService {
                 throw new InvalidAuthorizationException("Invalid authorization");
             }
 
+            StatusUpdate statusUpdate = new StatusUpdate();
             responseData.setGameStatus(userGame.getGameStatus());
             responseData.setGameNote(userGame.getGameNote());
             responseData.setIsPrivate(userGame.getIsPrivate());
@@ -100,6 +112,9 @@ public class UserGameServiceImpl implements UserGameService {
             responseData.setCompletedDate(userGame.getCompletedDate());
             responseData.setUpdatedAt(userGame.getUpdatedAt());
 
+            statusUpdate.setUserGame(responseData);
+            statusUpdate.setGameStatus(responseData.getGameStatus());
+            statusUpdateRepository.save(statusUpdate);
             return userGameRepository.save(responseData);
         }
 
@@ -123,6 +138,10 @@ public class UserGameServiceImpl implements UserGameService {
                 responseData.setCompletedDate(null);
                 responseData.setStartDate(null);
 
+                StatusUpdate statusUpdate = new StatusUpdate();
+                statusUpdate.setUserGame(responseData);
+                statusUpdate.setGameStatus(responseData.getGameStatus());
+                statusUpdateRepository.save(statusUpdate);
                 return userGameRepository.save(responseData);
             }
             throw new InvalidAuthorizationException("Invalid authorization");
