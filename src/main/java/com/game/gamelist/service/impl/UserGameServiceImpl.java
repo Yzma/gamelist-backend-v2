@@ -1,5 +1,7 @@
 package com.game.gamelist.service.impl;
 
+import com.game.gamelist.dto.GameDTO;
+import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.GameStatus;
 import com.game.gamelist.entity.User;
@@ -7,20 +9,25 @@ import com.game.gamelist.entity.UserGame;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.UserGameRepository;
+import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class UserGameServiceImpl implements UserGameService {
+    private final UserRepository userRepository;
     private final UserGameRepository userGameRepository;
     private final GameRepository gameRepository;
+    private final GameMapper gameMapper;
 
     @Override
     public UserGame findUserGameById(Long requestedId, User principal) {
@@ -133,5 +140,43 @@ public class UserGameServiceImpl implements UserGameService {
         }
 
         throw new ResourceNotFoundException("UserGame not found with ID: " + principal.getId());
+    }
+
+    @Override
+    public UserGamesSummaryDTO findAllUserGamesByUserIdByStatus(User principal) {
+        List<Game> playingGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Playing);
+        List<GameDTO> playingGameDTOs = gameMapper.gamesToGameDTOs(playingGames);
+        List<Game> completedGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Completed);
+        List<GameDTO> completedGameDTOs = gameMapper.gamesToGameDTOs(completedGames);
+        List<Game> pausedGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Paused);
+        List<GameDTO> pausedGameDTOs = gameMapper.gamesToGameDTOs(pausedGames);
+        List<Game> planningGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Planning);
+        List<GameDTO> planningGameDTOs = gameMapper.gamesToGameDTOs(planningGames);
+        List<Game> dropGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Dropped);
+        List<GameDTO> dropGameDTOs = gameMapper.gamesToGameDTOs(dropGames);
+        List<Game> inactiveGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Inactive);
+        List<GameDTO> inactiveGameDTOs = gameMapper.gamesToGameDTOs(inactiveGames);
+
+        UserGamesSummaryDTO userGamesSummary = new UserGamesSummaryDTO();
+        userGamesSummary.setPlaying(playingGameDTOs);
+        userGamesSummary.setPlayingCount(playingGameDTOs.size());
+        userGamesSummary.setCompleted(completedGameDTOs);
+        userGamesSummary.setCompletedCount(completedGameDTOs.size());
+        userGamesSummary.setPaused(pausedGameDTOs);
+        userGamesSummary.setPausedCount(pausedGameDTOs.size());
+        userGamesSummary.setPlanning(planningGameDTOs);
+        userGamesSummary.setPlanningCount(planningGameDTOs.size());
+        userGamesSummary.setDropped(dropGameDTOs);
+        userGamesSummary.setDroppedCount(dropGameDTOs.size());
+        userGamesSummary.setInactive(inactiveGameDTOs);
+        userGamesSummary.setInactiveCount(inactiveGameDTOs.size());
+
+        int totalCount = playingGameDTOs.size() + completedGameDTOs.size() + pausedGameDTOs.size() + planningGameDTOs.size() + dropGameDTOs.size() + inactiveGameDTOs.size();
+        userGamesSummary.setTotalCount(totalCount);
+
+        String listsOrder = userRepository.findListsOrderById(principal.getId());
+        userGamesSummary.setListsOrder(listsOrder);
+
+        return userGamesSummary;
     }
 }
