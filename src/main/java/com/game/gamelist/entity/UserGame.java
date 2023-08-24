@@ -41,7 +41,6 @@ public class UserGame {
     @Column(name = "game_note")
     private String gameNote;
 
-
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -59,5 +58,4 @@ public class UserGame {
     @JsonBackReference
     @JoinColumn(name = "game_id", referencedColumnName = "id")
     private Game game;
-
 }
