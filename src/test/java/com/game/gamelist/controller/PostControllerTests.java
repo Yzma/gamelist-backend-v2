@@ -8,7 +8,6 @@ import com.game.gamelist.entity.User;
 import com.game.gamelist.model.MockPostView;
 import com.game.gamelist.model.MockUserBasicView;
 import com.game.gamelist.model.PostView;
-import com.game.gamelist.model.UserBasicView;
 import com.game.gamelist.service.PostService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,8 +90,6 @@ public class PostControllerTests {
 
     @Test
     void shouldReturn_NewPost_When_sendPostRequest() throws Exception {
-
-        auth0JwtTestUtils.mockAuthentication(principal);
 
         Post createdPost = Post.builder().id(69L).text("New Created Post").user(principal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
 
