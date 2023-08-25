@@ -2,11 +2,13 @@ package com.game.gamelist.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
+@ToString
 public class GameQueryFilters {
 
     private List<String> genres;
