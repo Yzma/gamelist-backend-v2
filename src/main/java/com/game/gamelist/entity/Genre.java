@@ -39,7 +39,7 @@ public class Genre {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "games_genres",
             joinColumns = @JoinColumn(name = "genre_id"),

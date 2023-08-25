@@ -150,39 +150,40 @@ public class SeedService {
                     game.setTotalRating(gameNode.get("total_rating_count").asInt());
                     game.setBannerURL("https:" + gameNode.get("screenshots").get(0).asText());
 
-                    Set<String> genreNames = new HashSet<>(gameNode.get("genres").findValuesAsText("name"));
+                    JsonNode genresNode = gameNode.get("genres");
 
-                    System.out.println("���         " + genreNames);
+                    System.out.println("���         " + genresNode);
+                    gameRepository.save(game);
 
-                    for (String genreName : genreNames) {
-                        System.out.println("👹👹👹👹👹👹👹👹👹👹👹genreName = " + genreName);
-                        Genre genre = genreRepository.findByName(genreName);
+                    for (JsonNode genreNode : genresNode) {
+
+                        Genre genre = genreRepository.findByName(genreNode.asText());
                         if (genre != null) {
-
                             game.getGenres().add(genre);
                         }
-//                        Set<Genre> genres = game.getGenres();
-//                        genres.add(genre);
-//                        game.setGenres(genres);
                     }
+                    gameRepository.save(game);
 
-                    Set<String> tagNames = new HashSet<>(gameNode.get("themes").findValuesAsText("name"));
+                    JsonNode tagsNode = gameNode.get("themes");
 
-                    for (String tagName : tagNames) {
-                        Tag tag = tagRepository.findByName(tagName);
+                    for (JsonNode tagNode : tagsNode) {
+                        Tag tag = tagRepository.findByName(tagNode.asText());
                         game.getTags().add(tag);
                     }
 
-                    Set<String> platformNames = new HashSet<>(gameNode.get("platforms").findValuesAsText("name"));
+                    JsonNode platformsNode = gameNode.get("genres");
 
-                    for (String platformName : platformNames) {
-                        Platform platform = platformRepository.findByName(platformName);
+//                    Set<String> platformNames = new HashSet<>(gameNode.get("platforms").findValuesAsText("name"));
+
+                    for (JsonNode platformNode : platformsNode) {
+                        Platform platform = platformRepository.findByName(platformNode.asText());
                         game.getPlatforms().add(platform);
                     }
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 
                     games.add(game);
+
                 }
 
                 gameRepository.saveAll(games);

@@ -77,8 +77,9 @@ public class GameRepositoryTest extends ContainersEnvironment {
         @Test
         @Order(1)
         @Transactional
-        public void whenFindAll_Expect_ListWithOne() {
+        public void whenFindAll_Expect_ListWithOneGame() {
             List<Game> gameListInit = gameRepository.findAll();
+            Genre genre = genreRepository.findByName("genre1");
             assertEquals(1, gameListInit.size());
 
             Game game = gameListInit.get(0);
@@ -87,7 +88,7 @@ public class GameRepositoryTest extends ContainersEnvironment {
             assertEquals(5, game.getAvgScore());
             assertEquals(55, game.getTotalRating());
             assertEquals(2, game.getGenres().size());
-            assertEquals("genre1", game.getGenres().stream().findFirst().get().getName());
+            assertEquals(true, game.getGenres().contains(genre));
         }
     }
 }

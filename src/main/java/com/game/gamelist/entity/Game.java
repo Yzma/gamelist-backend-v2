@@ -67,5 +67,4 @@ public class Game {
     @Column(name = "user_games")
     private Set<UserGame> userGames;
 
-
 }
