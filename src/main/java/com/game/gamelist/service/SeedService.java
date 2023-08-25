@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.Set;
 
 @Service
 @Profile("dev")
+@RequiredArgsConstructor
 public class SeedService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
@@ -32,30 +35,9 @@ public class SeedService {
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
     private final GameJournalRepository gameJournalRepository;
-
-    @Autowired
-    public SeedService(
-            UserRepository userRepository,
-            PostRepository postRepository,
-            GameRepository gameRepository,
-            GenreRepository genreRepository,
-            TagRepository tagRepository,
-            PlatformRepository platformRepository,
-            UserGameRepository userGameRepository,
-            GameJournalRepository gameJournalRepository
-    ) {
-        this.userRepository = userRepository;
-        this.postRepository = postRepository;
-        this.gameRepository = gameRepository;
-        this.genreRepository = genreRepository;
-        this.tagRepository = tagRepository;
-        this.platformRepository = platformRepository;
-        this.userGameRepository = userGameRepository;
-        this.gameJournalRepository = gameJournalRepository;
-    }
+    private final EntityManager entityManager;
 
     @PostConstruct
-    @Transactional
     public void seedDatabase() {
         seedUsersIfEmpty();
         seedGenresIfEmpty();
@@ -96,7 +78,7 @@ public class SeedService {
 
         }
     }
-    @Transactional
+//    @Transactional
     public void seedTagsIfEmpty() {
         if (tagRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -153,37 +135,30 @@ public class SeedService {
                     JsonNode genresNode = gameNode.get("genres");
 
                     System.out.println("���         " + genresNode);
-                    gameRepository.save(game);
-
                     for (JsonNode genreNode : genresNode) {
-
                         Genre genre = genreRepository.findByName(genreNode.asText());
-                        if (genre != null) {
-                            game.getGenres().add(genre);
-                        }
+                        System.out.println("👹👹👹👹👹👹👹👹 genres name: " + genre.getName());
+                        game.addGenre(genre);
                     }
-                    gameRepository.save(game);
 
                     JsonNode tagsNode = gameNode.get("themes");
 
                     for (JsonNode tagNode : tagsNode) {
                         Tag tag = tagRepository.findByName(tagNode.asText());
-                        game.getTags().add(tag);
+                        game.addTag(tag);
                     }
 
                     JsonNode platformsNode = gameNode.get("genres");
 
-//                    Set<String> platformNames = new HashSet<>(gameNode.get("platforms").findValuesAsText("name"));
-
                     for (JsonNode platformNode : platformsNode) {
                         Platform platform = platformRepository.findByName(platformNode.asText());
-                        game.getPlatforms().add(platform);
+                        game.addPlatform(platform);
                     }
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 
                     games.add(game);
-
+//                    entityManager.flush();
                 }
 
                 gameRepository.saveAll(games);

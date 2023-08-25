@@ -38,7 +38,7 @@ public class Platform {
     private LocalDateTime updatedAt;
 
     @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "games_platforms",
             joinColumns = @JoinColumn(name = "platform_id"),

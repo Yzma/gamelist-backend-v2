@@ -38,11 +38,14 @@ public class Genre {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "games_genres",
-            joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Game> games = new HashSet<>();
+
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "games_genres",
+//            joinColumns = @JoinColumn(name = "genre_id"),
+//            inverseJoinColumns = @JoinColumn(name = "game_id"))
+//    private Set<Game> games = new HashSet<>();
 }

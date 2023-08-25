@@ -65,7 +65,8 @@ public class GameRepositoryTest extends ContainersEnvironment {
             game1.setName("game1");
             game1.setDescription("game1 description");
             game1.setReleaseDate(LocalDateTime.now());
-            game1.setGenres(Set.of(genreFromDB, genre2FromDB));
+            game1.addGenre(genreFromDB);
+            game1.addGenre(genre2FromDB);
 
             game1.setUpdatedAt(LocalDateTime.now());
             game1.setCreatedAt(LocalDateTime.now());
