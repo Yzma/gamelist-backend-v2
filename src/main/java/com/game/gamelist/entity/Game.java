@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -53,13 +54,13 @@ public class Game {
     private String bannerURL;
 
     @ManyToMany(mappedBy = "games")
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToMany(mappedBy = "games")
-    private Set<Platform> platforms;
+    private Set<Platform> platforms = new HashSet<>();
 
     @ManyToMany(mappedBy = "games")
-    private Set<Tag> tags;
+    private Set<Tag> tags = new HashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference

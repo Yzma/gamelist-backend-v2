@@ -9,6 +9,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,6 +55,7 @@ public class SeedService {
     }
 
     @PostConstruct
+    @Transactional
     public void seedDatabase() {
         seedUsersIfEmpty();
         seedGenresIfEmpty();
@@ -64,7 +66,7 @@ public class SeedService {
         seedUserGamesIfEmpty();
         seedGameJournalsIfEmpty();
     }
-
+    @Transactional
     public void seedUsersIfEmpty() {
         if (userRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -79,7 +81,7 @@ public class SeedService {
             }
         }
     }
-
+    @Transactional
     public void seedGenresIfEmpty() {
         if (genreRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -94,7 +96,7 @@ public class SeedService {
 
         }
     }
-
+    @Transactional
     public void seedTagsIfEmpty() {
         if (tagRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -110,7 +112,7 @@ public class SeedService {
         }
     }
 
-
+    @Transactional
     public void seedPlatformsIfEmpty() {
         if (platformRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -125,7 +127,7 @@ public class SeedService {
 
         }
     }
-
+    @Transactional
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -150,9 +152,18 @@ public class SeedService {
 
                     Set<String> genreNames = new HashSet<>(gameNode.get("genres").findValuesAsText("name"));
 
+                    System.out.println("���         " + genreNames);
+
                     for (String genreName : genreNames) {
+                        System.out.println("👹👹👹👹👹👹👹👹👹👹👹genreName = " + genreName);
                         Genre genre = genreRepository.findByName(genreName);
-                        game.getGenres().add(genre);
+                        if (genre != null) {
+
+                            game.getGenres().add(genre);
+                        }
+//                        Set<Genre> genres = game.getGenres();
+//                        genres.add(genre);
+//                        game.setGenres(genres);
                     }
 
                     Set<String> tagNames = new HashSet<>(gameNode.get("themes").findValuesAsText("name"));
@@ -180,7 +191,7 @@ public class SeedService {
             }
         }
     }
-
+    @Transactional
     public void seedGameJournalsIfEmpty() {
         if (gameJournalRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
@@ -204,7 +215,7 @@ public class SeedService {
             }
         }
     }
-
+    @Transactional
     public void seedPostsIfEmpty() {
         if (postRepository.count() == 0) {
 
@@ -230,7 +241,7 @@ public class SeedService {
 
         }
     }
-
+    @Transactional
     public void seedUserGamesIfEmpty() {
         if (userGameRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
