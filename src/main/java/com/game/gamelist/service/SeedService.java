@@ -7,6 +7,7 @@ import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
@@ -35,7 +36,8 @@ public class SeedService {
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
     private final GameJournalRepository gameJournalRepository;
-    private final EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @PostConstruct
     @Transactional
@@ -134,17 +136,16 @@ public class SeedService {
                     game.setTotalRating(gameNode.get("total_rating_count").asInt());
                     game.setBannerURL("https:" + gameNode.get("screenshots").get(0).asText());
 
+                    List<Genre> genres = new ArrayList<>();
                     JsonNode genresNode = gameNode.get("genres");
-
-                    System.out.println("���         " + genresNode);
                     for (JsonNode genreNode : genresNode) {
                         Genre genre = genreRepository.findByName(genreNode.asText());
-                        System.out.println("👹👹👹👹👹👹👹👹 genres name: " + genre.getName());
-                        game.addGenre(genre);
+                        genres.add(genre);
                     }
+                    game.setGenres(new HashSet<>(genres));
 
+                    List<Tag> tags = new ArrayList<>();
                     JsonNode tagsNode = gameNode.get("themes");
-
                     for (JsonNode tagNode : tagsNode) {
                         Tag tag = tagRepository.findByName(tagNode.asText());
                         if (tag == null) {
@@ -152,27 +153,34 @@ public class SeedService {
                             tag.setName(tagNode.asText());
                             tagRepository.save(tag);
                         }
-                        System.out.println("??👹👹👹👹👹👹👹 tag name: " + tagNode.asText());
-                        game.addTag(tag);
+                        tags.add(tag);
                     }
+                    game.setTags(new HashSet<>(tags));
 
+//                    JsonNode platformsNode = gameNode.get("platforms");
+//                    for (JsonNode platformNode : platformsNode) {
+//                        Platform platform = platformRepository.findByName(platformNode.asText());
+//                        if (platform == null) {
+//                            platform = new Platform();
+//                            platform.setName(platformNode.asText());
+//                            platformRepository.save(platform);
+//                        }
+//                        game.addPlatform(platform);
+//                    }
+
+                    List<Platform> platforms = new ArrayList<>();
                     JsonNode platformsNode = gameNode.get("platforms");
-
                     for (JsonNode platformNode : platformsNode) {
-                        System.out.println("??👹👹👹👹👹👹👹 platform name:" + platformNode.asText()+"hello");
                         Platform platform = platformRepository.findByName(platformNode.asText());
-                        System.out.println("??👹👹👹👹👹👹👹 platform null? " + (platform == null));
                         if (platform == null) {
-                            System.out.println("??👹👹👹👹👹👹👹 platform name:" + platformNode.asText());
                             platform = new Platform();
                             platform.setName(platformNode.asText());
                             platformRepository.save(platform);
                         }
-
-                        System.out.println("??👹👹👹👹👹👹👹 platform name: " + platform.getName());
-
-                        game.addPlatform(platform);
+                        platforms.add(platform);
                     }
+                    game.setPlatforms(new HashSet<>(platforms));
+                    
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 

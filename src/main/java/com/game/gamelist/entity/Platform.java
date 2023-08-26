@@ -35,14 +35,6 @@ public class Platform {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @ManyToMany(mappedBy = "platforms", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "platforms", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
-
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "games_platforms",
-//            joinColumns = @JoinColumn(name = "platform_id"),
-//            inverseJoinColumns = @JoinColumn(name = "game_id"))
-//    private Set<Game> games;
 }
