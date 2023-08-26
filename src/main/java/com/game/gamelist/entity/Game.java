@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -60,7 +61,7 @@ public class Game {
                     name = "genre_id", referencedColumnName = "id"
             )
     )
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -72,7 +73,7 @@ public class Game {
                     name = "platform_id", referencedColumnName = "id"
             )
     )
-    private Set<Platform> platforms;
+    private Set<Platform> platforms = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -84,7 +85,7 @@ public class Game {
                     name = "tag_id", referencedColumnName = "id"
             )
     )
-    private Set<Tag> tags;
+    private Set<Tag> tags = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
