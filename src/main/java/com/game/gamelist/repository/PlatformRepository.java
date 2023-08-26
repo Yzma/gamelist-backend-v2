@@ -11,5 +11,6 @@ public interface PlatformRepository extends JpaRepository<Platform, Long> {
     @Query("SELECT name FROM platforms")
     List<String> getAllNames();
 
+    @Query("SELECT p FROM platforms p WHERE p.name = ?1")
     Platform findByName(String platformName);
 }

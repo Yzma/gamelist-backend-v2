@@ -38,17 +38,17 @@ public class SeedService {
     private final EntityManager entityManager;
 
     @PostConstruct
+    @Transactional
     public void seedDatabase() {
-        seedUsersIfEmpty();
+        seedPlatformsIfEmpty();
         seedGenresIfEmpty();
         seedTagsIfEmpty();
-        seedPlatformsIfEmpty();
+        seedUsersIfEmpty();
         seedGamesIfEmpty();
         seedPostsIfEmpty();
         seedUserGamesIfEmpty();
         seedGameJournalsIfEmpty();
     }
-    @Transactional
     public void seedUsersIfEmpty() {
         if (userRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -61,36 +61,6 @@ public class SeedService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-    }
-    @Transactional
-    public void seedGenresIfEmpty() {
-        if (genreRepository.count() == 0) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                InputStream inputStream = getClass().getResourceAsStream("/json/genres.json");
-                List<Genre> genres = objectMapper.readValue(inputStream, new TypeReference<List<Genre>>() {
-                });
-                genreRepository.saveAll(genres);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-//    @Transactional
-    public void seedTagsIfEmpty() {
-        if (tagRepository.count() == 0) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                InputStream inputStream = getClass().getResourceAsStream("/json/tags.json");
-                List<Tag> tags = objectMapper.readValue(inputStream, new TypeReference<List<Tag>>() {
-                });
-                tagRepository.saveAll(tags);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
@@ -109,6 +79,38 @@ public class SeedService {
 
         }
     }
+    @Transactional
+    public void seedGenresIfEmpty() {
+        if (genreRepository.count() == 0) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                InputStream inputStream = getClass().getResourceAsStream("/json/genres.json");
+                List<Genre> genres = objectMapper.readValue(inputStream, new TypeReference<List<Genre>>() {
+                });
+                genreRepository.saveAll(genres);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+    @Transactional
+    public void seedTagsIfEmpty() {
+        if (tagRepository.count() == 0) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                InputStream inputStream = getClass().getResourceAsStream("/json/tags.json");
+                List<Tag> tags = objectMapper.readValue(inputStream, new TypeReference<List<Tag>>() {
+                });
+                tagRepository.saveAll(tags);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
     @Transactional
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
@@ -145,20 +147,36 @@ public class SeedService {
 
                     for (JsonNode tagNode : tagsNode) {
                         Tag tag = tagRepository.findByName(tagNode.asText());
+                        if (tag == null) {
+                            tag = new Tag();
+                            tag.setName(tagNode.asText());
+                            tagRepository.save(tag);
+                        }
+                        System.out.println("??👹👹👹👹👹👹👹 tag name: " + tagNode.asText());
                         game.addTag(tag);
                     }
 
-                    JsonNode platformsNode = gameNode.get("genres");
+                    JsonNode platformsNode = gameNode.get("platforms");
 
                     for (JsonNode platformNode : platformsNode) {
+                        System.out.println("??👹👹👹👹👹👹👹 platform name:" + platformNode.asText()+"hello");
                         Platform platform = platformRepository.findByName(platformNode.asText());
+                        System.out.println("??👹👹👹👹👹👹👹 platform null? " + (platform == null));
+                        if (platform == null) {
+                            System.out.println("??👹👹👹👹👹👹👹 platform name:" + platformNode.asText());
+                            platform = new Platform();
+                            platform.setName(platformNode.asText());
+                            platformRepository.save(platform);
+                        }
+
+                        System.out.println("??👹👹👹👹👹👹👹 platform name: " + platform.getName());
+
                         game.addPlatform(platform);
                     }
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 
                     games.add(game);
-//                    entityManager.flush();
                 }
 
                 gameRepository.saveAll(games);

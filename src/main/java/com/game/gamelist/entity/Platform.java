@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,7 +20,6 @@ import java.util.Set;
 @Entity(name = "platforms")
 public class Platform {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -27,21 +27,22 @@ public class Platform {
     @Column(unique = true)
     private String name;
 
-    @JsonIgnore
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @JsonIgnore
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "games_platforms",
-            joinColumns = @JoinColumn(name = "platform_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> games;
+    @ManyToMany(mappedBy = "platforms", fetch = FetchType.EAGER)
+    private Set<Game> games = new HashSet<>();
+
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "games_platforms",
+//            joinColumns = @JoinColumn(name = "platform_id"),
+//            inverseJoinColumns = @JoinColumn(name = "game_id"))
+//    private Set<Game> games;
 }

@@ -64,10 +64,26 @@ public class Game {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+//    @ManyToMany(mappedBy = "games")
+//    private Set<Platform> platforms = new HashSet<>();
+//
+//    @ManyToMany(mappedBy = "games")
+//    private Set<Tag> tags = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_platforms",
+            joinColumns = {@JoinColumn(name = "game_id")},
+            inverseJoinColumns = {@JoinColumn(name = "platform_id")}
+    )
     private Set<Platform> platforms = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_tags",
+            joinColumns = {@JoinColumn(name = "game_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
     private Set<Tag> tags = new HashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
