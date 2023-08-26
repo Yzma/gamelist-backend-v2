@@ -60,7 +60,7 @@ public class UserGameControllerTests {
         game3 = Game.builder().name("game3").description("description of game3").build();
         game4 = Game.builder().name("game4").description("description of game4").build();
 
-        principal = User.builder().id(1L).roles(Set.of(Role.ROLE_ADMIN)).username("principal").email("principal@gmail.com").build();
+        principal = User.builder().id(1L).roles(Set.of(Role.ROLE_USER)).username("principal").email("principal@gmail.com").build();
 
         notPrincipal = User.builder().id(2L).roles(Set.of(Role.ROLE_USER)).username("notPrincipal").email("notprincipal@gmail.com").build();
 

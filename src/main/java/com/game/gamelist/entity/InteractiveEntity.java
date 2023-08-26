@@ -1,15 +1,11 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.game.gamelist.model.LikeEntityView;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SuperBuilder
 @NoArgsConstructor

@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -29,12 +28,10 @@ public class LikeEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonIgnore
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "interactive_entity_id")
-    @JsonIgnore
     private InteractiveEntity interactiveEntity;
 
     @CreationTimestamp
@@ -44,5 +41,4 @@ public class LikeEntity {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
 }

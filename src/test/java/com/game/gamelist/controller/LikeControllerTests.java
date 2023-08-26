@@ -63,8 +63,6 @@ public class LikeControllerTests {
         MockLikeEntitiyView mockLike = MockLikeEntitiyView.builder().id(1L).user(mockPrincipleBasic).build();
         LikeEntity like = LikeEntity.builder().id(1L).user(principal).interactiveEntity(post).build();
 
-        System.out.println("principle: " + principal == null);
-
         auth0JwtTestUtils.mockAuthentication(principal);
 
         when(likeService.createLike(Mockito.any(User.class), Mockito.anyLong())).thenReturn(mockLike);
