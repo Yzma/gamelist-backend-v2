@@ -9,30 +9,32 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "status_updates")
-public class StatusUpdate {
-    @Id
-    @GeneratedValue
-    private Long id;
+@DiscriminatorValue("status_update_type")
+public class StatusUpdate extends InteractiveEntity {
 
     @Column(name = "game_status")
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_game_id", referencedColumnName = "id")
     private UserGame userGame;
+    public Long getId() {
+        return super.getId();
+    }
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    public void setId(Long id) {
+        super.setId(id);
+    }
 
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
+    }
 }

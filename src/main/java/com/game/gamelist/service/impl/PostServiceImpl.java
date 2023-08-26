@@ -48,7 +48,6 @@ public class PostServiceImpl implements PostService {
         Post updatedPost = postFromDB.get();
         updatedPost.setText(post.getText());
         responseData.setText(post.getText());
-        updatedPost.setUpdatedAt(LocalDateTime.now());
         postRepository.save(updatedPost);
 
         return responseData;

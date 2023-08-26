@@ -38,9 +38,6 @@ public class SeedService {
     private final GameJournalRepository gameJournalRepository;
     private final StatusUpdateRepository statusUpdateRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @PostConstruct
     @Transactional
     public void seedDatabase() {
@@ -49,8 +46,8 @@ public class SeedService {
         seedTagsIfEmpty();
         seedUsersIfEmpty();
         seedGamesIfEmpty();
-        seedPostsIfEmpty();
         seedUserGamesIfEmpty();
+        seedPostsIfEmpty();
         seedGameJournalsIfEmpty();
     }
     public void seedUsersIfEmpty() {
@@ -191,16 +188,15 @@ public class SeedService {
 
                         GameJournal gameJournal = new GameJournal();
                         gameJournal.setContent("This is the body of game journal " + j + " by user " + i + " .");
-                        gameJournal.setCreatedAt(LocalDateTime.now());
-                        gameJournal.setUpdatedAt(LocalDateTime.now());
                         gameJournal.setUser(user);
+                        gameJournalRepository.save(gameJournal);
 
-                        gameJournals.add(gameJournal);
+//                        gameJournals.add(gameJournal);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                gameJournalRepository.saveAll(gameJournals);
+//                gameJournalRepository.saveAll(gameJournals);
             }
         }
     }
@@ -216,16 +212,15 @@ public class SeedService {
 
                         Post post = new Post();
                         post.setText("This is a post " + j + " by user " + i + " .");
-                        post.setCreatedAt(LocalDateTime.now());
-                        post.setUpdatedAt(LocalDateTime.now());
                         post.setUser(user);
+                        postRepository.save(post);
 
                         posts.add(post);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                postRepository.saveAll(posts);
+//                postRepository.saveAll(posts);
             }
 
         }
@@ -248,21 +243,21 @@ public class SeedService {
                         userGame.setUser(user);
                         userGame.setGame(gameRepository.findAllGamesOrderedById().get(j - 1));
                         userGame.setRating(5);
-                        userGame.setGameNote("This is a review for game " + j + " by user " + i + " .");
-                        userGames.add(userGame);
+                        userGame.setGameNote("This is a game review for game " + j + " by user " + i + " .");
+                        userGameRepository.save(userGame);
+//                        userGames.add(userGame);
 
                         StatusUpdate statusUpdate = new StatusUpdate();
                         statusUpdate.setUserGame(userGame);
-                        statusUpdate.setCreatedAt(LocalDateTime.now());
-                        statusUpdate.setUpdatedAt(LocalDateTime.now());
                         statusUpdate.setGameStatus(userGame.getGameStatus());
-                        statusUpdates.add(statusUpdate);
+//                        statusUpdates.add(statusUpdate);
+                        statusUpdateRepository.save(statusUpdate);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                userGameRepository.saveAll(userGames);
-                statusUpdateRepository.saveAll(statusUpdates);
+//                userGameRepository.saveAll(userGames);
+//                statusUpdateRepository.saveAll(statusUpdates);
             }
         }
     }

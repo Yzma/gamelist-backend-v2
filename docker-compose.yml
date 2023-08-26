@@ -10,7 +10,6 @@ services:
       - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
       - POSTGRES_DB=${DOCKER_POSTGRES_DB_DEV}
 
-
   test_db:
     image: postgres:15-alpine
     ports:

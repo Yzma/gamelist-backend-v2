@@ -23,15 +23,7 @@ public class GameJournal extends InteractiveEntity {
 
     private String content;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties("game_journals")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
