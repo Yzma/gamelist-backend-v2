@@ -1,6 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -61,7 +60,7 @@ public class Game {
     private Set<Genre> genres = new HashSet<>();
 
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "games_platforms",
             joinColumns = {@JoinColumn(name = "game_id")},
@@ -69,7 +68,7 @@ public class Game {
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "games_tags",
             joinColumns = {@JoinColumn(name = "game_id")},
