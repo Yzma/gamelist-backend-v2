@@ -62,7 +62,7 @@ public class Game {
     private Set<Genre> genres = new HashSet<>();
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "games_platforms",
             joinColumns = {@JoinColumn(name = "game_id")},
@@ -70,7 +70,7 @@ public class Game {
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "games_tags",
             joinColumns = {@JoinColumn(name = "game_id")},
@@ -82,13 +82,4 @@ public class Game {
     @JsonManagedReference
     @Column(name = "user_games")
     private Set<UserGame> userGames;
-
-    public void addPlatform(Platform platform) {
-        platforms.add(platform);
-        platform.getGames().add(this);
-    }
-    public void removePlatform(Platform platform) {
-        platforms.remove(platform);
-        platform.getGames().remove(this);
-    }
 }

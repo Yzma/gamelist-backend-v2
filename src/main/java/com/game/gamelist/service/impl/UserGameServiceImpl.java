@@ -146,6 +146,8 @@ public class UserGameServiceImpl implements UserGameService {
     public UserGamesSummaryDTO findAllUserGamesByUserIdByStatus(User principal) {
         List<Game> playingGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Playing);
         List<GameDTO> playingGameDTOs = gameMapper.gamesToGameDTOs(playingGames);
+        System.out.println("👹👹👹👹👹👹👹👹👹👹👹👹👹");
+
         List<Game> completedGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Completed);
         List<GameDTO> completedGameDTOs = gameMapper.gamesToGameDTOs(completedGames);
         List<Game> pausedGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Paused);

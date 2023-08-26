@@ -78,7 +78,6 @@ public class SeedService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
     @Transactional
@@ -93,7 +92,6 @@ public class SeedService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
     @Transactional
@@ -156,17 +154,6 @@ public class SeedService {
                         tags.add(tag);
                     }
                     game.setTags(new HashSet<>(tags));
-
-//                    JsonNode platformsNode = gameNode.get("platforms");
-//                    for (JsonNode platformNode : platformsNode) {
-//                        Platform platform = platformRepository.findByName(platformNode.asText());
-//                        if (platform == null) {
-//                            platform = new Platform();
-//                            platform.setName(platformNode.asText());
-//                            platformRepository.save(platform);
-//                        }
-//                        game.addPlatform(platform);
-//                    }
 
                     List<Platform> platforms = new ArrayList<>();
                     JsonNode platformsNode = gameNode.get("platforms");
