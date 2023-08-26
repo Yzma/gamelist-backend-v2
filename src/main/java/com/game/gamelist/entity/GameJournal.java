@@ -39,4 +39,17 @@ public class GameJournal extends InteractiveEntity {
     public List<LikeEntity> getLikes() {
         return super.getLikes();
     }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        super.setUpdatedAt(updatedAt);
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        super.setCreatedAt(createdAt);
+    }
+    public LocalDateTime getCreatedAt() {
+        return super.getCreatedAt();
+    }
+    public LocalDateTime getUpdatedAt() {
+        return super.getUpdatedAt();
+    }
 }

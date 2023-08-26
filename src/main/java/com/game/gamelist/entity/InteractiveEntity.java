@@ -42,4 +42,17 @@ public abstract class InteractiveEntity {
     protected List<LikeEntity> getLikes() {
         return likes;
     }
+
+    protected void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    protected LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+    protected void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+    protected LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }
