@@ -6,9 +6,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
 import jakarta.annotation.PostConstruct;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,6 +26,7 @@ import java.util.Set;
 
 @Service
 @Profile("dev")
+@RequiredArgsConstructor
 public class SeedService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
@@ -31,6 +36,7 @@ public class SeedService {
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
     private final GameJournalRepository gameJournalRepository;
+<<<<<<< HEAD
     private final StatusUpdateRepository statusUpdateRepository;
 
     @Autowired
@@ -55,19 +61,23 @@ public class SeedService {
         this.gameJournalRepository = gameJournalRepository;
         this.statusUpdateRepository = statusUpdateRepository;
     }
+=======
+    @PersistenceContext
+    private EntityManager entityManager;
+>>>>>>> b983414f7f9f5ddd0b2c352da7b2770d403e939e
 
     @PostConstruct
+    @Transactional
     public void seedDatabase() {
-        seedUsersIfEmpty();
+        seedPlatformsIfEmpty();
         seedGenresIfEmpty();
         seedTagsIfEmpty();
-        seedPlatformsIfEmpty();
+        seedUsersIfEmpty();
         seedGamesIfEmpty();
         seedPostsIfEmpty();
         seedUserGamesIfEmpty();
         seedGameJournalsIfEmpty();
     }
-
     public void seedUsersIfEmpty() {
         if (userRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -83,6 +93,21 @@ public class SeedService {
         }
     }
 
+    @Transactional
+    public void seedPlatformsIfEmpty() {
+        if (platformRepository.count() == 0) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                InputStream inputStream = getClass().getResourceAsStream("/json/platforms.json");
+                List<Platform> platforms = objectMapper.readValue(inputStream, new TypeReference<List<Platform>>() {
+                });
+                platformRepository.saveAll(platforms);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    @Transactional
     public void seedGenresIfEmpty() {
         if (genreRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -94,10 +119,9 @@ public class SeedService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
-
+    @Transactional
     public void seedTagsIfEmpty() {
         if (tagRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -112,23 +136,7 @@ public class SeedService {
 
         }
     }
-
-
-    public void seedPlatformsIfEmpty() {
-        if (platformRepository.count() == 0) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                InputStream inputStream = getClass().getResourceAsStream("/json/platforms.json");
-                List<Platform> platforms = objectMapper.readValue(inputStream, new TypeReference<List<Platform>>() {
-                });
-                platformRepository.saveAll(platforms);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    }
-
+    @Transactional
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -151,26 +159,40 @@ public class SeedService {
                     game.setTotalRating(gameNode.get("total_rating_count").asInt());
                     game.setBannerURL("https:" + gameNode.get("screenshots").get(0).asText());
 
-                    Set<String> genreNames = new HashSet<>(gameNode.get("genres").findValuesAsText("name"));
-
-                    for (String genreName : genreNames) {
-                        Genre genre = genreRepository.findByName(genreName);
-                        game.getGenres().add(genre);
+                    List<Genre> genres = new ArrayList<>();
+                    JsonNode genresNode = gameNode.get("genres");
+                    for (JsonNode genreNode : genresNode) {
+                        Genre genre = genreRepository.findByName(genreNode.asText());
+                        genres.add(genre);
                     }
+                    game.setGenres(new HashSet<>(genres));
 
-                    Set<String> tagNames = new HashSet<>(gameNode.get("themes").findValuesAsText("name"));
-
-                    for (String tagName : tagNames) {
-                        Tag tag = tagRepository.findByName(tagName);
-                        game.getTags().add(tag);
+                    List<Tag> tags = new ArrayList<>();
+                    JsonNode tagsNode = gameNode.get("themes");
+                    for (JsonNode tagNode : tagsNode) {
+                        Tag tag = tagRepository.findByName(tagNode.asText());
+                        if (tag == null) {
+                            tag = new Tag();
+                            tag.setName(tagNode.asText());
+                            tagRepository.save(tag);
+                        }
+                        tags.add(tag);
                     }
+                    game.setTags(new HashSet<>(tags));
 
-                    Set<String> platformNames = new HashSet<>(gameNode.get("platforms").findValuesAsText("name"));
-
-                    for (String platformName : platformNames) {
-                        Platform platform = platformRepository.findByName(platformName);
-                        game.getPlatforms().add(platform);
+                    List<Platform> platforms = new ArrayList<>();
+                    JsonNode platformsNode = gameNode.get("platforms");
+                    for (JsonNode platformNode : platformsNode) {
+                        Platform platform = platformRepository.findByName(platformNode.asText());
+                        if (platform == null) {
+                            platform = new Platform();
+                            platform.setName(platformNode.asText());
+                            platformRepository.save(platform);
+                        }
+                        platforms.add(platform);
                     }
+                    game.setPlatforms(new HashSet<>(platforms));
+                    
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 
@@ -183,7 +205,7 @@ public class SeedService {
             }
         }
     }
-
+    @Transactional
     public void seedGameJournalsIfEmpty() {
         if (gameJournalRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
@@ -207,7 +229,7 @@ public class SeedService {
             }
         }
     }
-
+    @Transactional
     public void seedPostsIfEmpty() {
         if (postRepository.count() == 0) {
 
@@ -233,7 +255,7 @@ public class SeedService {
 
         }
     }
-
+    @Transactional
     public void seedUserGamesIfEmpty() {
         if (userGameRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {

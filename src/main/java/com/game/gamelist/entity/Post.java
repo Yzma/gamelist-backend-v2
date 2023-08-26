@@ -2,8 +2,6 @@ package com.game.gamelist.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,7 +31,6 @@ public class Post extends InteractiveEntity {
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JsonIgnore
-    @JsonIgnoreProperties("posts")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

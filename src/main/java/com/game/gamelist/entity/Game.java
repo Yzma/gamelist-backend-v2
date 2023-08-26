@@ -1,12 +1,12 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -14,7 +14,6 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "games")
 public class Game {
     @Id
@@ -52,19 +51,33 @@ public class Game {
     @JsonProperty("screenshots")
     private String bannerURL;
 
-    @ManyToMany(mappedBy = "games")
-    private Set<Genre> genres;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_genres",
+            joinColumns = {@JoinColumn(name = "game_id")},
+            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+    )
+    private Set<Genre> genres = new HashSet<>();
 
-    @ManyToMany(mappedBy = "games")
-    private Set<Platform> platforms;
 
-    @ManyToMany(mappedBy = "games")
-    private Set<Tag> tags;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_platforms",
+            joinColumns = {@JoinColumn(name = "game_id")},
+            inverseJoinColumns = {@JoinColumn(name = "platform_id")}
+    )
+    private Set<Platform> platforms = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "games_tags",
+            joinColumns = {@JoinColumn(name = "game_id")},
+            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+    )
+    private Set<Tag> tags = new HashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     @Column(name = "user_games")
     private Set<UserGame> userGames;
-
-
 }

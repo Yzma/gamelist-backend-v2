@@ -1,6 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,7 +19,6 @@ import java.util.Set;
 @Entity(name = "tags")
 public class Tag {
 
-    @JsonIgnore
     @Id
     @GeneratedValue
     private Long id;
@@ -27,19 +26,14 @@ public class Tag {
     @Column(unique = true)
     private String name;
 
-    @JsonIgnore
     @CreationTimestamp
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @JsonIgnore
     @UpdateTimestamp
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "games_tags",
-            joinColumns = @JoinColumn(name = "tag_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> games;
+    @ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
+    private Set<Game> games = new HashSet<>();
 }
