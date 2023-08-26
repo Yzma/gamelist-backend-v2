@@ -25,39 +25,24 @@ public class GameSpecification implements Specification<Game> {
 
         // Inclusion
         if(gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
-            Join<Game, Genre> join = root.join("genres", JoinType.INNER);
-
-            /// This works!!!!
-//            Join<Game, UserGame> join = root.join("userGames", JoinType.INNER);
-//            join.alias("userGamess"); // Provide an alias for the join
-//            query.multiselect(join.get("gameNote"));
-
-            ////
-
-
-            query.multiselect(root, join.get("name"));
-      predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
-
-//            Join<Game, Genre> join = root.join("genres", JoinType.INNER);
-//            join.alias("genre_alias"); // Provide an alias for the join
-//            query.multiselect(join.get("name").alias("genreName"));
-//            query.select(join.get("name"));
-//            predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
-            // Select the 'name' column from the 'genres' table with alias
-
-
-            //root.fetch("genres");
-//            query.multiselect(join.get("name").alias("firstName"));
-            //predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
-
+//            Join<Game, Genre> genreJoin = root.join("genres", JoinType.INNER);
+//            query.multiselect(root, genreJoin.get("name"));
+//            predicates.add(genreJoin.get("name").in(gameQueryFilters.getGenres()));
+            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getGenres(), "genres"));
         }
 
         if(gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
-            predicates.add(platformJoin(root).get("name").in(gameQueryFilters.getPlatforms()));
+//            Join<Game, Genre> platformJoin = root.join("platforms", JoinType.INNER);
+//            query.multiselect(root, platformJoin.get("name"));
+//            predicates.add(platformJoin.get("name").in(gameQueryFilters.getPlatforms()));
+            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getPlatforms(), "platforms"));
         }
 
         if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-            predicates.add(tagJoin(root).get("name").in(gameQueryFilters.getTags()));
+//            Join<Game, Genre> tagJoin = root.join("tags", JoinType.INNER);
+//            query.multiselect(root, tagJoin.get("name"));
+//            predicates.add(tagJoin.get("name").in(gameQueryFilters.getTags()));
+            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
         }
 
         // Exclusion
@@ -95,26 +80,21 @@ public class GameSpecification implements Specification<Game> {
         return cb.and(predicates.toArray(Predicate[]::new));
     }
 
+    private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, List<String> toInclude, String tableName) {
+        Join<Game, Genre> tableJoin = root.join(tableName, JoinType.INNER);
+        query.multiselect(root, tableJoin.get("name"));
+        return tableJoin.get("name").in(toInclude);
+    }
+
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryGameRoot = subquery.from(Game.class);
         Join<Game, ?> tableJoin = subqueryGameRoot.join(tableName);
 
+        query.multiselect(root, tableJoin.get("name"));
         subquery.select(subqueryGameRoot.get("id"))
                 .where(tableJoin.get("name").in(toExclude));
 
         return cb.not(root.get("id").in(subquery));
-    }
-
-    private Join<Game,Genre> genreJoin(Root<Game> root){
-        return root.join("genres");
-    }
-
-    private Join<Game, Platform> platformJoin(Root<Game> root){
-        return root.join("platforms");
-    }
-
-    private Join<Game, Tag> tagJoin(Root<Game> root){
-        return root.join("tags");
     }
 }
