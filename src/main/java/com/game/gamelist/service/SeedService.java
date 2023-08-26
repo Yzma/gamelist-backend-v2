@@ -109,8 +109,6 @@ public class SeedService {
 
         }
     }
-
-
     @Transactional
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
