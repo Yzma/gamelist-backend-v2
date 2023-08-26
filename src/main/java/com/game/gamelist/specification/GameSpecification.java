@@ -1,14 +1,15 @@
 package com.game.gamelist.specification;
 
-import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Genre;
-import com.game.gamelist.entity.Platform;
-import com.game.gamelist.entity.Tag;
+import com.game.gamelist.entity.*;
 import com.game.gamelist.model.GameQueryFilters;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,15 +25,39 @@ public class GameSpecification implements Specification<Game> {
 
         // Inclusion
         if(gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
-            predicates.add(cb.and(genreJoin(root).get("name").in(gameQueryFilters.getGenres())));
+            Join<Game, Genre> join = root.join("genres", JoinType.INNER);
+
+            /// This works!!!!
+//            Join<Game, UserGame> join = root.join("userGames", JoinType.INNER);
+//            join.alias("userGamess"); // Provide an alias for the join
+//            query.multiselect(join.get("gameNote"));
+
+            ////
+
+
+            query.multiselect(root, join.get("name"));
+      predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
+
+//            Join<Game, Genre> join = root.join("genres", JoinType.INNER);
+//            join.alias("genre_alias"); // Provide an alias for the join
+//            query.multiselect(join.get("name").alias("genreName"));
+//            query.select(join.get("name"));
+//            predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
+            // Select the 'name' column from the 'genres' table with alias
+
+
+            //root.fetch("genres");
+//            query.multiselect(join.get("name").alias("firstName"));
+            //predicates.add(join.get("name").in(gameQueryFilters.getGenres()));
+
         }
 
         if(gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
-            predicates.add(cb.and(platformJoin(root).get("name").in(gameQueryFilters.getPlatforms())));
+            predicates.add(platformJoin(root).get("name").in(gameQueryFilters.getPlatforms()));
         }
 
         if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-            predicates.add(cb.and(tagJoin(root).get("name").in(gameQueryFilters.getTags())));
+            predicates.add(tagJoin(root).get("name").in(gameQueryFilters.getTags()));
         }
 
         // Exclusion
@@ -67,7 +92,7 @@ public class GameSpecification implements Specification<Game> {
             }
         }
 
-        return cb.and(predicates.toArray(new Predicate[0]));
+        return cb.and(predicates.toArray(Predicate[]::new));
     }
 
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
