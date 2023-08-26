@@ -25,23 +25,14 @@ public class GameSpecification implements Specification<Game> {
 
         // Inclusion
         if(gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
-//            Join<Game, Genre> genreJoin = root.join("genres", JoinType.INNER);
-//            query.multiselect(root, genreJoin.get("name"));
-//            predicates.add(genreJoin.get("name").in(gameQueryFilters.getGenres()));
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getGenres(), "genres"));
         }
 
         if(gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
-//            Join<Game, Genre> platformJoin = root.join("platforms", JoinType.INNER);
-//            query.multiselect(root, platformJoin.get("name"));
-//            predicates.add(platformJoin.get("name").in(gameQueryFilters.getPlatforms()));
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getPlatforms(), "platforms"));
         }
 
         if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-//            Join<Game, Genre> tagJoin = root.join("tags", JoinType.INNER);
-//            query.multiselect(root, tagJoin.get("name"));
-//            predicates.add(tagJoin.get("name").in(gameQueryFilters.getTags()));
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
         }
 
