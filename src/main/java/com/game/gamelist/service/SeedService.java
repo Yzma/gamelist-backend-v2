@@ -36,35 +36,10 @@ public class SeedService {
     private final PlatformRepository platformRepository;
     private final UserGameRepository userGameRepository;
     private final GameJournalRepository gameJournalRepository;
-<<<<<<< HEAD
     private final StatusUpdateRepository statusUpdateRepository;
 
-    @Autowired
-    public SeedService(
-            UserRepository userRepository,
-            PostRepository postRepository,
-            GameRepository gameRepository,
-            GenreRepository genreRepository,
-            TagRepository tagRepository,
-            PlatformRepository platformRepository,
-            UserGameRepository userGameRepository,
-            GameJournalRepository gameJournalRepository,
-            StatusUpdateRepository statusUpdateRepository
-    ) {
-        this.userRepository = userRepository;
-        this.postRepository = postRepository;
-        this.gameRepository = gameRepository;
-        this.genreRepository = genreRepository;
-        this.tagRepository = tagRepository;
-        this.platformRepository = platformRepository;
-        this.userGameRepository = userGameRepository;
-        this.gameJournalRepository = gameJournalRepository;
-        this.statusUpdateRepository = statusUpdateRepository;
-    }
-=======
     @PersistenceContext
     private EntityManager entityManager;
->>>>>>> b983414f7f9f5ddd0b2c352da7b2770d403e939e
 
     @PostConstruct
     @Transactional
