@@ -1,6 +1,6 @@
 package com.game.gamelist.controller;
 
-import com.game.gamelist.entity.Game;
+import com.game.gamelist.dto.GameDTO;
 import com.game.gamelist.model.GameQueryFilters;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.impl.GameServiceImpl;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,7 +23,7 @@ public class GameController {
 
     @PostMapping
     public ResponseEntity<HttpResponse> getGames(@RequestBody(required = false) GameQueryFilters gameQueryFilters) {
-        List<Game> games = gameService.getAllGames(gameQueryFilters);
+        List<GameDTO> games = gameService.getAllGames(gameQueryFilters);
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())

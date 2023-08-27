@@ -1,6 +1,8 @@
 package com.game.gamelist.service.impl;
 
+import com.game.gamelist.dto.GameDTO;
 import com.game.gamelist.entity.Game;
+import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.service.GameService;
@@ -21,9 +23,10 @@ public class GameServiceImpl implements GameService {
     private static final int MIN_QUERY_LIMIT = 1;
     private static final int MAX_QUERY_LIMIT = 35;
     private final GameRepository gameRepository;
+    private final GameMapper gameMapper;
 
     @Override
-    public List<Game> getAllGames(GameQueryFilters gameQueryFilters) {
+    public List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters) {
         if (gameQueryFilters == null) {
             gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setLimit(DEFAULT_QUERY_LIMIT);
@@ -35,7 +38,9 @@ public class GameServiceImpl implements GameService {
 
         Specification<Game> gameSpecification = new GameSpecification(gameQueryFilters);
         Pageable pageable = Pageable.ofSize(clampLimit(gameQueryFilters.getLimit())).withPage(gameQueryFilters.getOffset());
-        return gameRepository.findAll(gameSpecification, pageable).getContent();
+        List<Game> foundGames = gameRepository.findAll(gameSpecification, pageable).getContent();
+
+        return gameMapper.gamesToGameDTOs(foundGames);
     }
 
     private int clampLimit(int limit) {
