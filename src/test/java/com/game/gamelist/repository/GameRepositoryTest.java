@@ -1,9 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.config.ContainersEnvironment;
-import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Genre;
-import com.game.gamelist.entity.Platform;
+import com.game.gamelist.entity.*;
 import com.game.gamelist.entity.Tag;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,6 +39,8 @@ public class GameRepositoryTest extends ContainersEnvironment {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserGameRepository userGameRepository;
 
     @Test
     public void whenFindAll_Expect_EmptyList() {
@@ -100,7 +100,7 @@ public class GameRepositoryTest extends ContainersEnvironment {
         @Test
         @Order(1)
         @Transactional
-        public void whenFindAll_Expect_ListWithOneGame() {
+        public void when_FindAll_Expect_ListWithOneGame() {
             List<Game> gameListInit = gameRepository.findAll();
             Genre genre = genreRepository.findByName("genre1");
             Platform platform = platformRepository.findByName("platform1");
@@ -143,6 +143,77 @@ public class GameRepositoryTest extends ContainersEnvironment {
             assertEquals(7, gameListInit.size());
             assertEquals("game1", gameListInit.get(0).getName());
             assertEquals("game0", gameListInit.get(1).getName());
+            assertEquals("game1", gameListInit.get(2).getName());
+            assertEquals("game2", gameListInit.get(3).getName());
+            assertTrue(gameListInit.get(1).getAvgScore() < gameListInit.get(5).getAvgScore());
         }
+    }
+
+    @Test
+    @Order(3)
+    @Transactional
+    public void when_findGamesByUserIdAndStatus_returnListOfGames_byStatus() {
+        List<Game> gameList = new ArrayList<>();
+        User owner = User.builder().username("owner").password("owner").email("owner@gmail.com").build();
+        userRepository.save(owner);
+        List<UserGame> userGameList = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            Game game = new Game();
+            game.setName("game" + i);
+            game.setDescription("game" + i + " description");
+            game.setReleaseDate(LocalDateTime.now());
+            game.setUpdatedAt(LocalDateTime.now());
+            game.setCreatedAt(LocalDateTime.now());
+            game.setAvgScore(5+i);
+            game.setTotalRating(55+i);
+            gameList.add(game);
+
+            UserGame userGame = new UserGame();
+            userGame.setGame(game);
+            userGame.setUser(owner);
+            userGame.setGameStatus(GameStatus.values()[i]);
+            userGame.setGameNote("note" + i);
+            userGameList.add(userGame);
+        }
+
+        gameRepository.saveAll(gameList);
+        userGameRepository.saveAll(userGameList);
+
+        List<Game> gameListInit = gameRepository.findAllGamesOrderedById();
+        assertEquals(6, gameListInit.size());
+        assertEquals("game0", gameListInit.get(0).getName());
+        assertEquals("game1", gameListInit.get(1).getName());
+        assertEquals("game2", gameListInit.get(2).getName());
+        assertEquals("game3", gameListInit.get(3).getName());
+        assertTrue(gameListInit.get(1).getAvgScore() < gameListInit.get(5).getAvgScore());
+
+        List<Game> gameListByStatus = gameRepository.findGamesByUserIdAndStatus(owner.getId(), GameStatus.Playing);
+        assertEquals(1, gameListByStatus.size());
+        assertEquals("game0", gameListByStatus.get(0).getName());
+    }
+
+    @Test
+    @Order(4)
+    @Transactional
+    public void when_getFurthestYear_returnYearInt() {
+        List<Game> gameList = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            Game game = new Game();
+            game.setName("game" + i);
+            game.setDescription("game" + i + " description");
+            game.setReleaseDate(LocalDateTime.of(2021-i, 1, 1, 1, 1, 1));
+            game.setUpdatedAt(LocalDateTime.now());
+            game.setCreatedAt(LocalDateTime.now());
+            game.setAvgScore(5+i);
+            game.setTotalRating(55+i);
+            gameList.add(game);
+        }
+
+        gameRepository.saveAll(gameList);
+        int furthestYear = gameRepository.getFurthestYear();
+        System.out.println("Furthest Year: " + furthestYear);
+        assertEquals(2021, furthestYear);
     }
 }
