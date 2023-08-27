@@ -35,9 +35,8 @@ public class Platform {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-
-//    @JsonManagedReference
-@JsonBackReference
+    
+    @JsonBackReference
     @ManyToMany(mappedBy = "platforms", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
 }

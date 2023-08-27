@@ -33,7 +33,6 @@ public class Genre {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    //@JsonManagedReference
     @JsonBackReference
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();

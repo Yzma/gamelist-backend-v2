@@ -50,7 +50,6 @@ public class Game {
     @JsonProperty("screenshots")
     private String bannerURL;
 
-    //@JsonBackReference
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -64,7 +63,6 @@ public class Game {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    //@JsonBackReference
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
@@ -78,7 +76,6 @@ public class Game {
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    //@JsonBackReference
     @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
