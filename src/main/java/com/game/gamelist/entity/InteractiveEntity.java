@@ -31,9 +31,12 @@ public abstract class InteractiveEntity {
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<LikeEntity> likes = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 
+    protected List<Comment> getComments() {
+        return comments;
+    }
     protected Long getId() {
         return id;
     }

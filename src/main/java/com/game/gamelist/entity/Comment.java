@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,6 +21,10 @@ public class Comment extends InteractiveEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interactive_entity_id", referencedColumnName = "id")
+    private InteractiveEntity interactiveEntity;
 
     public Long getId() {
         return super.getId();
@@ -39,5 +44,9 @@ public class Comment extends InteractiveEntity {
     }
     public LocalDateTime getUpdatedAt() {
         return super.getUpdatedAt();
+    }
+
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
     }
 }
