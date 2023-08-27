@@ -213,7 +213,6 @@ public class GameRepositoryTest extends ContainersEnvironment {
 
         gameRepository.saveAll(gameList);
         int furthestYear = gameRepository.getFurthestYear();
-        System.out.println("Furthest Year: " + furthestYear);
         assertEquals(2021, furthestYear);
     }
 }
