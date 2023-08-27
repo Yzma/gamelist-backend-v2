@@ -13,7 +13,6 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity(name = "games")
 public class Game {
     @Id
@@ -51,7 +50,9 @@ public class Game {
     @JsonProperty("screenshots")
     private String bannerURL;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JsonBackReference
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_genres",
             joinColumns = @JoinColumn(
@@ -63,7 +64,9 @@ public class Game {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JsonBackReference
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_platforms",
             joinColumns = @JoinColumn(
@@ -75,7 +78,9 @@ public class Game {
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JsonBackReference
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_tags",
             joinColumns = @JoinColumn(

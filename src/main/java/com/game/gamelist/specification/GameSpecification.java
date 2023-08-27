@@ -18,7 +18,6 @@ import java.util.List;
 public class GameSpecification implements Specification<Game> {
 
     private final GameQueryFilters gameQueryFilters;
-
     @Override
     public Predicate toPredicate(@NonNull Root<Game> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
@@ -31,10 +30,10 @@ public class GameSpecification implements Specification<Game> {
         if(gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getPlatforms(), "platforms"));
         }
-
-        if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
-        }
+//
+//        if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
+//            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
+//        }
 
         // Exclusion
         if(gameQueryFilters.getExcludedGenres() != null && !gameQueryFilters.getExcludedGenres().isEmpty()) {
@@ -67,13 +66,24 @@ public class GameSpecification implements Specification<Game> {
                 case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")));
             }
         }
-
         return cb.and(predicates.toArray(Predicate[]::new));
     }
 
     private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, List<String> toInclude, String tableName) {
-        Join<Game, Genre> tableJoin = root.join(tableName, JoinType.INNER);
-        query.multiselect(root, tableJoin.get("name"));
+//        Join<Game, Genre> tableJoin = root.join(tableName, JoinType.INNER);
+//        if(query.getSelection() != null) {
+//            System.out.println("getSelection is not null");
+//            query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
+//            query.multiselect(query.getSelection().getCompoundSelectionItems());
+//        } else {
+//            System.out.println("getSelection is null");
+//            query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
+//        }
+//        list.add(root);
+//        list.add(tableJoin.get("name").alias(tableName + "_" + "name"));
+//        return tableJoin.get("name").in(toInclude);
+                Join<Game, Genre> tableJoin = root.join(tableName);
+//        query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
         return tableJoin.get("name").in(toInclude);
     }
 
