@@ -1,26 +1,23 @@
 package com.game.gamelist.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@Entity(name = "posts")
-@DiscriminatorValue("post_type")
-public class Post extends InteractiveEntity {
-
+@Entity(name = "comments")
+@DiscriminatorValue("comment_type")
+public class Comment extends InteractiveEntity {
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
@@ -31,11 +28,6 @@ public class Post extends InteractiveEntity {
     public void setId(Long id) {
         super.setId(id);
     }
-
-    public List<LikeEntity> getLikes() {
-        return super.getLikes();
-    }
-
     public void setUpdatedAt(LocalDateTime updatedAt) {
         super.setUpdatedAt(updatedAt);
     }
