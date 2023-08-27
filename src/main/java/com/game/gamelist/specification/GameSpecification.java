@@ -2,12 +2,9 @@ package com.game.gamelist.specification;
 
 import com.game.gamelist.entity.*;
 import com.game.gamelist.model.GameQueryFilters;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 
 
@@ -18,46 +15,47 @@ import java.util.List;
 public class GameSpecification implements Specification<Game> {
 
     private final GameQueryFilters gameQueryFilters;
+
     @Override
     public Predicate toPredicate(@NonNull Root<Game> root, @NonNull CriteriaQuery<?> query, @NonNull CriteriaBuilder cb) {
         List<Predicate> predicates = new ArrayList<>();
 
         // Inclusion
-        if(gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
+        if (gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getGenres(), "genres"));
         }
 
-        if(gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
+        if (gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
             predicates.add(createInclusionFilter(root, query, gameQueryFilters.getPlatforms(), "platforms"));
         }
-//
-//        if(gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-//            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
-//        }
+
+        if (gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
+            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
+        }
 
         // Exclusion
-        if(gameQueryFilters.getExcludedGenres() != null && !gameQueryFilters.getExcludedGenres().isEmpty()) {
+        if (gameQueryFilters.getExcludedGenres() != null && !gameQueryFilters.getExcludedGenres().isEmpty()) {
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedGenres(), "genres"));
         }
 
-        if(gameQueryFilters.getExcludedPlatforms() != null && !gameQueryFilters.getExcludedPlatforms().isEmpty()) {
+        if (gameQueryFilters.getExcludedPlatforms() != null && !gameQueryFilters.getExcludedPlatforms().isEmpty()) {
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedPlatforms(), "platforms"));
         }
 
-        if(gameQueryFilters.getExcludedTags() != null && !gameQueryFilters.getExcludedTags().isEmpty()) {
+        if (gameQueryFilters.getExcludedTags() != null && !gameQueryFilters.getExcludedTags().isEmpty()) {
             predicates.add(createExclusionFilter(root, query, cb, gameQueryFilters.getExcludedTags(), "tags"));
         }
 
-        if(gameQueryFilters.getSearch() != null) {
+        if (gameQueryFilters.getSearch() != null) {
             predicates.add(cb.like(root.get("name"), "%" + gameQueryFilters.getSearch() + "%"));
         }
 
-        if(gameQueryFilters.getYear() != 0) {
+        if (gameQueryFilters.getYear() != 0) {
             Expression<Integer> year = cb.function("DATE_PART", Integer.class, cb.literal("YEAR"), root.get("releaseDate"));
             predicates.add(cb.equal(year, gameQueryFilters.getYear()));
         }
 
-        if(gameQueryFilters.getSortBy() != null) {
+        if (gameQueryFilters.getSortBy() != null) {
             switch (gameQueryFilters.getSortBy()) {
                 case "name" -> query.orderBy(cb.asc(root.get("name")));
                 case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")));
@@ -70,20 +68,7 @@ public class GameSpecification implements Specification<Game> {
     }
 
     private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, List<String> toInclude, String tableName) {
-//        Join<Game, Genre> tableJoin = root.join(tableName, JoinType.INNER);
-//        if(query.getSelection() != null) {
-//            System.out.println("getSelection is not null");
-//            query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
-//            query.multiselect(query.getSelection().getCompoundSelectionItems());
-//        } else {
-//            System.out.println("getSelection is null");
-//            query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
-//        }
-//        list.add(root);
-//        list.add(tableJoin.get("name").alias(tableName + "_" + "name"));
-//        return tableJoin.get("name").in(toInclude);
-                Join<Game, Genre> tableJoin = root.join(tableName);
-//        query.multiselect(root, tableJoin.get("name").alias(tableName + "_" + "name"));
+        Join<Game, Genre> tableJoin = root.join(tableName);
         return tableJoin.get("name").in(toInclude);
     }
 
