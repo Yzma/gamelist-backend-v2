@@ -21,15 +21,7 @@ public class Post extends InteractiveEntity {
 
     private String text;
 
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
-
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
@@ -46,4 +38,16 @@ public class Post extends InteractiveEntity {
         return super.getLikes();
     }
 
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        super.setUpdatedAt(updatedAt);
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        super.setCreatedAt(createdAt);
+    }
+    public LocalDateTime getCreatedAt() {
+        return super.getCreatedAt();
+    }
+    public LocalDateTime getUpdatedAt() {
+        return super.getUpdatedAt();
+    }
 }

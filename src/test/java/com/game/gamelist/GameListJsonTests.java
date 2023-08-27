@@ -26,15 +26,17 @@ public class GameListJsonTests {
     void setUp() {
         GameJournal gameJournal1 = GameJournal.builder()
                 .content("Test Content 99")
-                .id(1L).likes(new ArrayList<>())
+                .id(1L).createdAt(null).updatedAt(null).likes(new ArrayList<>())
                 .build();
+
         GameJournal gameJournal2 = GameJournal.builder()
                 .content("Test Content 100")
-                .id(2L).likes(new ArrayList<>())
+                .id(2L).likes(new ArrayList<>()).createdAt(null).updatedAt(null)
                 .build();
+
         GameJournal gameJournal3 = GameJournal.builder()
                 .content("Test Content 101")
-                .id(3L).likes(new ArrayList<>())
+                .id(3L).likes(new ArrayList<>()).createdAt(null).updatedAt(null)
                 .build();
 
         gameJournals = Arrays.array(gameJournal1, gameJournal2, gameJournal3);

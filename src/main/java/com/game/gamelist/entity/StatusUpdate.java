@@ -1,6 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,22 +11,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
-@Entity(name = "game_journals")
-@DiscriminatorValue("game_journal_type")
-public class GameJournal extends InteractiveEntity {
+@Entity(name = "status_updates")
+@DiscriminatorValue("status_update_type")
+public class StatusUpdate extends InteractiveEntity {
 
-    private String content;
+    @Column(name = "game_status")
+    @Enumerated(EnumType.STRING)
+    private GameStatus gameStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("game_journals")
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
-
+    @JoinColumn(name = "user_game_id", referencedColumnName = "id")
+    private UserGame userGame;
     public Long getId() {
         return super.getId();
     }

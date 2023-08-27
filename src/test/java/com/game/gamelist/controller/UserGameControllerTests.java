@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.service.UserGameService;
-import jakarta.validation.constraints.NotNull;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -63,7 +62,6 @@ public class UserGameControllerTests {
         principal = User.builder().id(1L).roles(Set.of(Role.ROLE_USER)).username("principal").email("principal@gmail.com").build();
 
         notPrincipal = User.builder().id(2L).roles(Set.of(Role.ROLE_USER)).username("notPrincipal").email("notprincipal@gmail.com").build();
-
     }
 
     @Test

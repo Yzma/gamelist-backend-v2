@@ -1,13 +1,11 @@
 package com.game.gamelist.service;
 
-import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.GameStatus;
-import com.game.gamelist.entity.User;
-import com.game.gamelist.entity.UserGame;
+import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.repository.GameRepository;
+import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.impl.UserGameServiceImpl;
 import org.assertj.core.api.Assertions;
@@ -35,6 +33,8 @@ public class UserGameServiceTests {
     private UserGameRepository userGameRepository;
     @Mock
     private GameRepository gameRepository;
+    @Mock
+    private StatusUpdateRepository statusUpdateRepository;
 
     private User userToSave;
     private Game gameToSave;
@@ -52,8 +52,11 @@ public class UserGameServiceTests {
 
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
+        StatusUpdate statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Completed).userGame(userGameExisting).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
         when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(userGameExisting);
         when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
+        when(statusUpdateRepository.save(Mockito.any(StatusUpdate.class))).thenReturn(statusUpdate);
 
         // Act
         UserGame createdUserGame = userGameService.createUserGame(userGamePassed, userToSave);
@@ -70,10 +73,12 @@ public class UserGameServiceTests {
         // Arrange
         final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
+        final var statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Completed).userGame(userGamePassed).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
+        when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
         when(gameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(gameToSave));
         when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
+        when(statusUpdateRepository.save(Mockito.any(StatusUpdate.class))).thenReturn(statusUpdate);
 
         // Act
         UserGame createdUserGame = userGameService.createUserGame(userGamePassed, userToSave);
