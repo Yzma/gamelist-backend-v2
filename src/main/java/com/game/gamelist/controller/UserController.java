@@ -1,6 +1,5 @@
 package com.game.gamelist.controller;
 
-import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.impl.GameServiceImpl;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,11 +22,6 @@ import java.util.List;
 public class UserController {
     private final GameServiceImpl gameServiceImpl;
     private final UserServiceImpl userServiceImpl;
-
-    @RequestMapping("/games")
-    public List<Game> getAllGames() {
-        return gameServiceImpl.getAllGames();
-    }
 
     @GetMapping("/userinfo")
     public ResponseEntity<HttpResponse> getUser(@AuthenticationPrincipal User principal) {

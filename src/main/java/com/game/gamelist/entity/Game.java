@@ -1,7 +1,6 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -51,33 +50,49 @@ public class Game {
     @JsonProperty("screenshots")
     private String bannerURL;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_genres",
-            joinColumns = {@JoinColumn(name = "game_id")},
-            inverseJoinColumns = {@JoinColumn(name = "genre_id")}
+            joinColumns = @JoinColumn(
+                    name = "game_id", referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "genre_id", referencedColumnName = "id"
+            )
     )
     private Set<Genre> genres = new HashSet<>();
 
-
-    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_platforms",
-            joinColumns = {@JoinColumn(name = "game_id")},
-            inverseJoinColumns = {@JoinColumn(name = "platform_id")}
+            joinColumns = @JoinColumn(
+                    name = "game_id", referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "platform_id", referencedColumnName = "id"
+            )
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_tags",
-            joinColumns = {@JoinColumn(name = "game_id")},
-            inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+            joinColumns = @JoinColumn(
+                    name = "game_id", referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "tag_id", referencedColumnName = "id"
+            )
     )
     private Set<Tag> tags = new HashSet<>();
 
-    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("game")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
+
 }

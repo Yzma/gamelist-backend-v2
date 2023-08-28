@@ -3,12 +3,13 @@ package com.game.gamelist.repository;
 import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.GameStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface GameRepository extends JpaRepository<Game, Long> {
+public interface GameRepository extends JpaRepository<Game, Long>, JpaSpecificationExecutor<Game> {
 
     @Query("SELECT EXTRACT(YEAR FROM MAX(releaseDate)) FROM games")
     int getFurthestYear();

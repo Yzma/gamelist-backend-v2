@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .exceptionHandling(h -> h.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/", "/actuator", "/gamefilters", "/auth/**").permitAll()
+                        requests.requestMatchers("/", "/actuator", "/gamefilters", "/auth/**", "/games").permitAll()
                                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/api/v1/user/**", "/api/v1/usergames/**").hasRole("USER")
                                 .anyRequest().authenticated());
