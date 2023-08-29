@@ -37,7 +37,6 @@ public class SeedService {
     @PostConstruct
     @Transactional
     public void seedDatabase() {
-
         seedPlatformsIfEmpty();
         seedGenresIfEmpty();
         seedTagsIfEmpty();
@@ -54,7 +53,7 @@ public class SeedService {
             try {
 
                 InputStream inputStream = getClass().getResourceAsStream("/json/users.json");
-                List<User> users = objectMapper.readValue(inputStream, new TypeReference<List<User>>() {
+                List<User> users = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
                 userRepository.saveAll(users);
             } catch (IOException e) {
@@ -69,7 +68,7 @@ public class SeedService {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 InputStream inputStream = getClass().getResourceAsStream("/json/platforms.json");
-                List<Platform> platforms = objectMapper.readValue(inputStream, new TypeReference<List<Platform>>() {
+                List<Platform> platforms = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
                 platformRepository.saveAll(platforms);
             } catch (IOException e) {
@@ -84,7 +83,7 @@ public class SeedService {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 InputStream inputStream = getClass().getResourceAsStream("/json/genres.json");
-                List<Genre> genres = objectMapper.readValue(inputStream, new TypeReference<List<Genre>>() {
+                List<Genre> genres = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
                 genreRepository.saveAll(genres);
             } catch (IOException e) {
@@ -99,7 +98,7 @@ public class SeedService {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 InputStream inputStream = getClass().getResourceAsStream("/json/tags.json");
-                List<Tag> tags = objectMapper.readValue(inputStream, new TypeReference<List<Tag>>() {
+                List<Tag> tags = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
                 tagRepository.saveAll(tags);
             } catch (IOException e) {
@@ -116,7 +115,7 @@ public class SeedService {
             try {
 
                 InputStream inputStream = getClass().getResourceAsStream("/json/games.json");
-                List<JsonNode> gameNodes = objectMapper.readValue(inputStream, new TypeReference<List<JsonNode>>() {
+                List<JsonNode> gameNodes = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
 
                 List<Game> games = new ArrayList<>();
@@ -183,7 +182,7 @@ public class SeedService {
     public void seedGameJournalsIfEmpty() {
         if (gameJournalRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
-                User user = userRepository.findById(Long.valueOf(i)).get();
+                User user = userRepository.findById((long) i).get();
                 List<GameJournal> gameJournals = new ArrayList<>();
                 for (int j = 1; j < 6; j++) {
                     try {
@@ -208,7 +207,7 @@ public class SeedService {
         if (postRepository.count() == 0) {
 
             for (int i = 1; i < 4; i++) {
-                User user = userRepository.findById(Long.valueOf(i)).get();
+                User user = userRepository.findById((long) i).get();
                 List<Post> posts = new ArrayList<>();
                 for (int j = 1; j < 6; j++) {
                     try {
@@ -233,7 +232,7 @@ public class SeedService {
     public void seedUserGamesIfEmpty() {
         if (userGameRepository.count() == 0) {
             for (int i = 1; i < 4; i++) {
-                User user = userRepository.findById(Long.valueOf(i)).get();
+                User user = userRepository.findById((long) i).get();
                 List<UserGame> userGames = new ArrayList<>();
                 List<StatusUpdate> statusUpdates = new ArrayList<>();
                 for (int j = 1; j < 6; j++) {

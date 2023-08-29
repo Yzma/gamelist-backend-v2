@@ -551,5 +551,2222 @@
     ],
     "total_rating": 66.48729475492412,
     "total_rating_count": 98
+  },
+  {
+    "id": 27324,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/geovgtecshgrr1ksmzyy.jpg",
+    "first_release_date": 1537401600,
+    "genres": [
+      "Puzzle",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "The Gardens Between",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "Android",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pkqiy7uaidt5vytsq7u7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/f0alv462ro9ieqj4pu6x.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wuqj8yuuesbtxuuwiicm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/jmehn0fqjw4ai5d9jesz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/xrabklof55vmkpmywcpq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/d4ppcplbivxpspuopkeg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/eeb5hsdl4e97f4ei5ygc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ziuesuikoeevshoei5on.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mfhq49ql8zn6i8hgr9nt.jpg"
+    ],
+    "slug": "the-gardens-between",
+    "summary": "The Gardens Between is a surreal puzzle adventure through memory, moments and time that follows best friends, Arina and Frendt, as they fall into a mysterious world of beautiful garden islands. The player can traverse back and forwards in time to discover each garden's secrets and, along the way, reveal a story about friendship, childhood and growing up.",
+    "tags": [
+      "Fantasy",
+      "Mystery"
+    ],
+    "total_rating": 79.74153316498969,
+    "total_rating_count": 80
+  },
+  {
+    "id": 146851,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co53ld.jpg",
+    "first_release_date": 1632441600,
+    "genres": [
+      "Role-playing (RPG)",
+      "Hack and slash/Beat 'em up",
+      "Adventure"
+    ],
+    "name": "Lost Judgment",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9hud.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9hue.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9huf.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9hug.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9huh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9hui.jpg"
+    ],
+    "slug": "lost-judgment",
+    "summary": "Lost Judgment once again puts players in the sneakers of lawyer turned street-fighting detective Takayuki Yagami. Joined by his partner, ex-yakuza Masaharu Kaito, the crime-fighting duo is called on to investigate a seemingly perfect crime whose lead suspect has an airtight alibi. What starts out as a tale of revenge reveals a tangled web of conspiracy involving several unlikely factions taking advantage of a broken law system. But as victims pile up and Yagami unravels the truth, he must choose between defending the law or exacting justice.",
+    "tags": [
+      "Action",
+      "Drama",
+      "Mystery"
+    ],
+    "total_rating": 84.08577057631445,
+    "total_rating_count": 32
+  },
+  {
+    "id": 37059,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1rdy.jpg",
+    "first_release_date": 1519084800,
+    "genres": [
+      "Real Time Strategy (RTS)",
+      "Simulator",
+      "Strategy",
+      "Adventure"
+    ],
+    "name": "Age of Empires: Definitive Edition",
+    "platforms": [
+      "PC (Microsoft Windows)"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pkabxbpedeyxx4qpmduz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/unmohfzpkwwgkuzczlw4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zihqudsgebdbqjvvc8ha.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/cfljzllfisnonrrgyt1n.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pctgyzsckqk78yciiody.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9888.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9889.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc988a.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc988b.jpg"
+    ],
+    "slug": "age-of-empires-definitive-edition",
+    "summary": "Age of Empires, the pivotal RTS that launched a 20-year legacy returns in definitive form for Windows 10 PCs. Bringing together all of the officially released content with modernized gameplay, all-new visuals and a host of other new features, Age of Empires: Definitive Edition is the complete RTS package. Engage in over 40 hours of updated campaign content with new narration and pacing, jump online in up to 8-player battles with new competitive features and modes, experience 4K HD visuals with overhauled animations, get creative with the scenario builder and share your creations with easy mod support. There’s never been a better time to jump in to Age of Empires. Welcome back to history.",
+    "tags": [
+      "Action",
+      "Historical",
+      "Warfare"
+    ],
+    "total_rating": 76.9470646883542,
+    "total_rating_count": 50
+  },
+  {
+    "id": 55029,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co39tg.jpg",
+    "first_release_date": 1635379200,
+    "genres": [
+      "Real Time Strategy (RTS)",
+      "Strategy"
+    ],
+    "name": "Age of Empires IV",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98hn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98hp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98hq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98hr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98hs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ht.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98t8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98t9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ta.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98tb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98tc.jpg"
+    ],
+    "slug": "age-of-empires-iv",
+    "summary": "One of the most beloved real-time strategy games returns to glory with Age of Empires IV, putting you at the center of epic historical battles that shaped the world. Featuring both familiar and innovative new ways to expand your empire in vast landscapes with stunning 4K visual fidelity, Age of Empires IV brings an evolved real-time strategy game to a new generation.",
+    "tags": [
+      "Historical",
+      "Warfare"
+    ],
+    "total_rating": 78.0827572945912,
+    "total_rating_count": 52
+  },
+  {
+    "id": 117717,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1kxq.jpg",
+    "first_release_date": 1572912000,
+    "genres": [
+      "Simulator",
+      "Strategy"
+    ],
+    "name": "Planet Zoo",
+    "platforms": [
+      "PC (Microsoft Windows)"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ev5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ev6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ev7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lio.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lip.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6liq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lir.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lis.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lit.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6liu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6liv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc762v.jpg"
+    ],
+    "slug": "planet-zoo",
+    "summary": "Build a world for wildlife in Planet Zoo. From the creators of Planet Coaster and Zoo Tycoon comes the ultimate zoo sim. Construct detailed habitats, manage your zoo, and meet authentic living animals who think, feel and explore the world you create around them.",
+    "tags": [
+      "Business",
+      "Sandbox"
+    ],
+    "total_rating": 77.6565399437396,
+    "total_rating_count": 41
+  },
+  {
+    "id": 146761,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3wbp.jpg",
+    "first_release_date": 1632787200,
+    "genres": [
+      "Puzzle",
+      "Simulator",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Outer Wilds: Echoes of the Eye",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scclly.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sccllz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scclm0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scclm1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scclm2.jpg"
+    ],
+    "slug": "outer-wilds-echoes-of-the-eye",
+    "summary": "The Hearthian space program has detected an anomaly that canʼt be attributed to any known location in the solar system. Grab your flashlight and prepare to illuminate the darkest secrets of the Outer Wilds in it's first and only DLC, Outer Wilds: Echoes of the Eye.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Drama",
+      "Open world",
+      "Mystery"
+    ],
+    "total_rating": 88.02673827681659,
+    "total_rating_count": 31
+  },
+  {
+    "id": 104786,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2muf.jpg",
+    "first_release_date": 1550534400,
+    "genres": [
+      "Puzzle",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Devotion",
+    "platforms": [
+      "PC (Microsoft Windows)"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630o.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630p.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630q.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630r.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630s.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630t.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630u.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc630v.jpg"
+    ],
+    "slug": "devotion",
+    "summary": "‘Devotion’ is a first-person atmospheric horror game set in the 1980s Taiwan.\n\nThe story centers around a seemingly ordinary family of three that lived in an old apartment complex. Explore the nostalgic house in the 80s where religion plays a significant role in their daily life. When one day the same house that once filled with joy and love had turned into a hell-like nightmare, and by venturing in the haunted and confined space, each puzzle leads you closer to the mysteries nested deep inside.",
+    "tags": [
+      "Horror"
+    ],
+    "total_rating": 88.01283429202135,
+    "total_rating_count": 32
+  },
+  {
+    "id": 28337,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2uls.jpg",
+    "first_release_date": 1574899200,
+    "genres": [
+      "Simulator",
+      "Strategy",
+      "Tactical",
+      "Adventure"
+    ],
+    "name": "13 Sentinels: Aegis Rim",
+    "platforms": [
+      "PlayStation 4",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hhnjujaeqjwyuayr8u1y.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/jpf7ujdcjyvazvnudop0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/oztowdoy3i3f2fnhqtht.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc760n.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgxgy.jpg"
+    ],
+    "slug": "13-sentinels-aegis-rim",
+    "summary": "Uncover the truth and delve into a 2D sidescrolling adventure featuring gorgeous art and environments. Then, battle the kaiju in fast-paced, top-down combat. Customize the Sentinels with an arsenal of mechsuit weaponry, and fight to defend humanity!",
+    "tags": [
+      "Science fiction",
+      "Drama"
+    ],
+    "total_rating": 88.2925677277756,
+    "total_rating_count": 74
+  },
+  {
+    "id": 134071,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co26zi.jpg",
+    "first_release_date": 1589846400,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Mafia II: Definitive Edition",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88ve.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vf.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vi.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc88vn.jpg"
+    ],
+    "slug": "mafia-ii-definitive-edition",
+    "summary": "Remastered in stunning HD detail, live the life of a gangster during the Golden-era of organized crime. War hero Vito Scaletta becomes entangled with the mob in hopes of paying his father’s debts. Alongside his buddy Joe, Vito works to prove himself, climbing the family ladder with crimes of larger reward, status and consequence.\n\nIt includes the DLCs released for the original game (\"The Betrayal of Jimmy\", \"Jimmy's Vendetta\", and \"Joe's Adventures\").",
+    "tags": [
+      "Action",
+      "Drama",
+      "Open world"
+    ],
+    "total_rating": 64.64368925544613,
+    "total_rating_count": 47
+  },
+  {
+    "id": 103301,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co21by.jpg",
+    "first_release_date": 1564012800,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Wolfenstein: Youngblood",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6djy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6djz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk3.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dk6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r7f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r7g.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r7h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r7i.jpg"
+    ],
+    "slug": "wolfenstein-youngblood",
+    "summary": "Wolfenstein: Youngblood is a brand-new co-op experience from MachineGames, the award-winning studio that developed the critically acclaimed Wolfenstein II: The New Colossus.\n\nSet in 1980, 19 years after BJ Blazkowicz ignited the second American Revolution, Wolfenstein: Youngblood introduces the next Blazkowicz generation to the fight against the Nazis. Play as one of BJ’s twin daughters, Jess and Soph, as you search for your missing father in Nazi-occupied Paris.",
+    "tags": [
+      "Action",
+      "Science fiction"
+    ],
+    "total_rating": 66.18245074223911,
+    "total_rating_count": 108
+  },
+  {
+    "id": 103204,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1z9s.jpg",
+    "first_release_date": 1536019200,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Destiny 2: Forsaken",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 3",
+      "PlayStation 4",
+      "Xbox One",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/tijemg60wht0wes2bnsa.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nk4xmllxbox7jxqdcf9t.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mle6me4skhrhfoh5hco1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ok2ftm3zwrubr3xjp50k.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gabgd5fxcwx6cepaornc.jpg"
+    ],
+    "slug": "destiny-2-forsaken",
+    "summary": "Take justice into your own hands as you venture into a new frontier filled with enemies, allies, untold mysteries, and treasures waiting to be uncovered.",
+    "tags": [
+      "Action",
+      "Science fiction"
+    ],
+    "total_rating": 82.60050326721314,
+    "total_rating_count": 45
+  },
+  {
+    "id": 26226,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3byy.jpg",
+    "first_release_date": 1516838400,
+    "genres": [
+      "Platform",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Celeste",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fwjvpiu2ircdq5afkm1o.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/e9lk3alqutkrciksfque.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wjw3vnaclj29fqtziwsr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hisxvydbpgrg9thupnlg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/vahss8soe3tginavzmzp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/kzx2bmkvwre0ndfgvvho.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fkbchtayhzmfnljfusel.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/loakfrjghok9fxnh59lt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zr67hixr4lsfbtg9rlwk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rougracf4aao1ebhxxy9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/vqkql8qivpvzyzj2ciy3.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pr8fjt1cpd5wcwbkgd2r.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsr7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsr8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsr9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsra.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsrb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsrc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsrd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjsre.jpg"
+    ],
+    "slug": "celeste",
+    "summary": "Help Madeline survive her inner demons on her journey to the top of Celeste Mountain, in this super-tight platformer from the creators of TowerFall. Brave hundreds of hand-crafted challenges, uncover devious secrets, and piece together the mystery of the mountain.",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 89.5560280432779,
+    "total_rating_count": 860
+  },
+  {
+    "id": 113114,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2eew.jpg",
+    "first_release_date": 1571961600,
+    "genres": [
+      "Shooter",
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "The Outer Worlds",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r8b.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68vz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68w0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68w1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc68w2.jpg"
+    ],
+    "slug": "the-outer-worlds",
+    "summary": "The Outer Worlds is a new single-player sci-fi RPG from Obsidian Entertainment and Private Division. As you explore the furthest reaches of space and encounter a host of factions all vying for power, who you decide to become will determine the fate of everyone in Halcyon. In the corporate equation for the colony, you are the unplanned variable.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Open world"
+    ],
+    "total_rating": 82.55737375618662,
+    "total_rating_count": 437
+  },
+  {
+    "id": 35282,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co28wy.jpg",
+    "first_release_date": 1537401600,
+    "genres": [
+      "Puzzle",
+      "Role-playing (RPG)",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "CrossCode",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gnzqnapjhpdv9bmdinfp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hucy77fzdtspai1oa9cb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/yifho1oiofgdirnstquk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nkvqpqs3zdzc8a1o6ktk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mn2ms5qfvodma5fubgrp.jpg"
+    ],
+    "slug": "crosscode",
+    "summary": "A retro-inspired 2D Action RPG set in the distant future. CrossCode combines 16-bit SNES-style graphics with butter-smooth physics, a fast-paced combat system, and engaging puzzle mechanics, served with a gripping sci-fi story.",
+    "tags": [
+      "Action",
+      "Science fiction"
+    ],
+    "total_rating": 89.10096276498707,
+    "total_rating_count": 65
+  },
+  {
+    "id": 25901,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co4a5h.jpg",
+    "first_release_date": 1560988800,
+    "genres": [
+      "Shooter",
+      "Platform",
+      "Adventure",
+      "Indie",
+      "Arcade"
+    ],
+    "name": "My Friend Pedro",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pfyb8natr0dxjza95fm4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/poovlblpzjwtokxnupa5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ytvuge8o0dzn6hhgmpuk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pg6sp7f4k7xfbqidkhus.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/s4dk9sahjvq4aorivwgn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fyfrhozx50zagh8zqnck.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ipwq1qzjr2uez6x5f8lg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wu9eman9hgi9zlfbzyxv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/lxyyezlwzwjpxfyhfdxj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ia39vfiqr9nyxdkpfqie.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/cndbd1hjjkgshbwwnkbm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/d2yxoevo9qtjuok1t3dp.jpg"
+    ],
+    "slug": "my-friend-pedro",
+    "summary": "My Friend Pedro is a violent ballet about friendship and imagination where players strategically bounce bullets off frying pans and jump through windows in slow motion.",
+    "tags": [
+      "Action"
+    ],
+    "total_rating": 74.19507470245152,
+    "total_rating_count": 143
+  },
+  {
+    "id": 119257,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2g6j.jpg",
+    "first_release_date": 1595894400,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Destroy All Humans!",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6d.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6e.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6g.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6i.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6j.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6k.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6l.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6m.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6r6n.jpg"
+    ],
+    "slug": "destroy-all-humans--1",
+    "summary": "The cult-classic returns! Terrorize the people of 1950s Earth in the role of the evil alien Crypto-137. Harvest DNA and bring down the US government in the remake of the legendary alien invasion action adventure. Annihilate puny humans using an assortment of alien weaponry and psychic abilities. Reduce their cities to rubble with your flying Saucer. One giant step on mankind!",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Comedy",
+      "Open world"
+    ],
+    "total_rating": 68.91137136465449,
+    "total_rating_count": 55
+  },
+  {
+    "id": 27384,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1w53.jpg",
+    "first_release_date": 1534291200,
+    "genres": [
+      "Strategy",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Graveyard Keeper",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "Android",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/uzcpzxaq0fccdwm4h4ci.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/a3hlyrgptuwgkbnrzimh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rkgfcscnr7nzycsugydt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/d5hdfmhneb1tvqn5pdyp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/iuyfa46qcnca99f4w9kd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rm9i63fdcdtcasmue3vk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/uahceaduzjy5h9mhvnkx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gr5k1me8qjtz2rsneqaj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fpjn2ni6xof6wwbgzeio.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/lyub4tc71fmxrektxy9b.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/d5ogrcnilmzgvox1xnzv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hnhbmp1ilyjsivbo9mtt.jpg"
+    ],
+    "slug": "graveyard-keeper",
+    "summary": "Graveyard Keeper is the most inaccurate medieval cemetery management sim of the year. Build & manage your own graveyard while finding shortcuts to cut costs, expand into entertainment with witch-burning festivals, and scare nearby villagers into attending church. This is a game of capitalism and doing whatever it takes to build a thriving business.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Business",
+      "Mystery"
+    ],
+    "total_rating": 73.69528072717463,
+    "total_rating_count": 51
+  },
+  {
+    "id": 204350,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co5xex.jpg",
+    "first_release_date": 1661990400,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "The Last of Us Part I",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 5"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcg6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcg7.jpg"
+    ],
+    "slug": "the-last-of-us-part-i",
+    "summary": "Experience the emotional storytelling and unforgettable characters of Joel and Ellie in The Last of Us, winner of over 200 Game of the Year awards and now rebuilt for PlayStation 5.\n\nEnjoy a total overhaul of the original experience, faithfully reproduced but incorporating modernized gameplay, improved controls and expanded accessibility options. Plus, feel immersed with improved effects and enhanced exploration and combat.\n\nIt also includes the Left Behind story DLC.",
+    "tags": [
+      "Action",
+      "Horror",
+      "Survival",
+      "Stealth"
+    ],
+    "total_rating": 87.53214864115363,
+    "total_rating_count": 100
+  },
+  {
+    "id": 55984,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co61er.jpg",
+    "first_release_date": 1572912000,
+    "genres": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "name": "Blacksad: Under the Skin",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewo.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ewr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc7fjc.jpg",
+      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scknjq.jpg",
+      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scknjr.jpg",
+      "https://images.igdb.com/igdb/image/upload/t_screenshot_big/scknjs.jpg"
+    ],
+    "slug": "blacksad-under-the-skin",
+    "summary": "BLACKSAD: Under the Skin - A dark corruption scandal in the heart of the New York City's underworld for charismatic detective John Blacksad!\n\nBased on the noir comic series by the same name. The game features a noir detective story about a PI by the name of Blacksad that gets dragged into the case of a murdered boxing club. The game feature an interactive system much reminiscent of Grim Fandango where you have direct control of the character and only things that catch his gaze is interactable.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Thriller",
+      "Drama",
+      "Mystery"
+    ],
+    "total_rating": 72.68486860805262,
+    "total_rating_count": 46
+  },
+  {
+    "id": 134606,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2kj9.jpg",
+    "first_release_date": 1605139200,
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "Demon's Souls",
+    "platforms": [
+      "PlayStation 5"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bl4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bl5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bl6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bl7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bl8.jpg"
+    ],
+    "slug": "demons-souls",
+    "summary": "Entirely rebuilt from the ground up and masterfully enhanced, Demon's Souls is a remake of the 2009 release that introduces the horrors of a fog-laden, dark fantasy land to a whole new generation of gamers. Those who’ve faced its trials and tribulations before, can once again challenge the darkness in stunning visual quality with incredible performance. The remake features improved graphics and animations, sound and lighting tweaks and a reimagining of many of the visual, musical and mechanical aspects of the original game.",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 89.0611704406039,
+    "total_rating_count": 110
+  },
+  {
+    "id": 28380,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1qqk.jpg",
+    "first_release_date": 1543276800,
+    "genres": [
+      "Role-playing (RPG)",
+      "Hack and slash/Beat 'em up",
+      "Adventure"
+    ],
+    "name": "Darksiders III",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pbiodcvr1grkmzf5u1eq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zqsqziiy2gvexo7ig82r.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/z43tnr86e1bpwrilnlqx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/c4cppsgmpdr3s7gknxwu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/trnvbppbl5ues5cxejwg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/vryvmdr21vv96dcs0z8e.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/minmiu3vhtblxsxtapex.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/s3cbzapy9sjhbefxcdwz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/xhwy0nupqzocjwvpjdsd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/uxnk6xsbr1n1sblbbx3k.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nmv3ev2epxh79czg5g4a.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/c3k7phtjc8yduwrqwspo.jpg"
+    ],
+    "slug": "darksiders-iii",
+    "summary": "Return to an apocalyptic planet Earth in Darksiders III, a hack-n-slash action adventure where players take on the role of FURY in her quest to hunt down and dispose of the Seven Deadly Sins. The Charred Council calls upon Fury to battle from the heights of heaven down through the depths of hell in a quest to restore humanity and prove that she is the most powerful of the Horsemen. As a mage, FURY relies on her whip and magic to restore the balance between good and evil. The expansive, Darksiders III game world is presented as an open-ended, living, free-form planet Earth that is dilapidated by war and decay, and overrun by nature. FURY will move back and forth between environments to uncover secrets while advancing the Darksiders III story.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Open world"
+    ],
+    "total_rating": 68.09372856787627,
+    "total_rating_count": 111
+  },
+  {
+    "id": 139090,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co401c.jpg",
+    "first_release_date": 1634601600,
+    "genres": [
+      "Puzzle",
+      "Strategy",
+      "Adventure",
+      "Indie",
+      "Card & Board Game"
+    ],
+    "name": "Inscryption",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lex.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8ley.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lez.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lf0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lf1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lf2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lf3.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8lf4.jpg"
+    ],
+    "slug": "inscryption",
+    "summary": "Inscryption is an inky black card-based odyssey that blends the deckbuilding roguelike, escape-room style puzzles, and psychological horror into a blood-laced smoothie. Darker still are the secrets inscrybed upon the cards...",
+    "tags": [
+      "Horror",
+      "Mystery"
+    ],
+    "total_rating": 85.89625003340973,
+    "total_rating_count": 133
+  },
+  {
+    "id": 113113,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2wvy.jpg",
+    "first_release_date": 1561075200,
+    "genres": [
+      "Racing",
+      "Arcade"
+    ],
+    "name": "Crash Team Racing Nitro-Fueled",
+    "platforms": [
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r8f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r8g.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r8h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r8i.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc62ls.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc62lt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc62lu.jpg"
+    ],
+    "slug": "crash-team-racing-nitro-fueled",
+    "summary": "Crash Team Racing Nitro-Fueled is a kart racing game developed by Beenox and published by Activision. It is a remaster of Crash Team Racing, which was originally developed by Naughty Dog for the PlayStation.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Comedy",
+      "Party"
+    ],
+    "total_rating": 84.08110006300362,
+    "total_rating_count": 76
+  },
+  {
+    "id": 134595,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co29lt.jpg",
+    "first_release_date": 1611100800,
+    "genres": [
+      "Shooter",
+      "Tactical",
+      "Adventure"
+    ],
+    "name": "Hitman 3",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bi7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8bkk.jpg"
+    ],
+    "slug": "hitman-3",
+    "summary": "Hitman 3 is the dramatic conclusion to the World of Assassination trilogy. Become Agent 47, a legendary assassin and use creativity and improvisation to execute the most ingenious and spectacular eliminations, in sprawling sandbox locations all around the globe.",
+    "tags": [
+      "Action",
+      "Thriller",
+      "Stealth",
+      "Sandbox"
+    ],
+    "total_rating": 85.68236188075527,
+    "total_rating_count": 97
+  },
+  {
+    "id": 119388,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co5vmg.jpg",
+    "first_release_date": 1683849600,
+    "genres": [
+      "Adventure"
+    ],
+    "name": "The Legend of Zelda: Tears of the Kingdom",
+    "platforms": [
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lnr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaoj6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaoj7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaoj8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaoj9.jpg"
+    ],
+    "slug": "the-legend-of-zelda-tears-of-the-kingdom",
+    "summary": "The Legend of Zelda: Tears of the Kingdom is the sequel to The Legend of Zelda: Breath of the Wild. The setting for Link’s adventure has been expanded to include the skies above the vast lands of Hyrule.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Science fiction",
+      "Open world"
+    ],
+    "total_rating": 96.80842738736537,
+    "total_rating_count": 60
+  },
+  {
+    "id": 152242,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co5pwb.jpg",
+    "first_release_date": 1666051200,
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "A Plague Tale: Requiem",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9lu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9lv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9lw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9lx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9ly.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9lz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9m0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9m1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scg9m2.jpg"
+    ],
+    "slug": "a-plague-tale-requiem",
+    "summary": "A Plague Tale: Requiem is an action-adventure game similar to its predecessor. The player assumes control of Amicia and must face against both soldiers from the French Inquisition and hordes of rats that are spreading the black plague. Gameplay is largely similar to the first game, though the combat system is significantly expanded. The game features a progression system in which the player will be awarded additional skills and abilities. Stealth players will unlock skills that allow them to sneak around more efficiently, while those who prefer a more lethal approach will unlock additional combat skills. Locations are also larger, giving players additional options to progress.",
+    "tags": [
+      "Action",
+      "Historical",
+      "Stealth",
+      "Drama",
+      "Mystery"
+    ],
+    "total_rating": 86.13700702093647,
+    "total_rating_count": 92
+  },
+  {
+    "id": 19164,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co20r3.jpg",
+    "first_release_date": 1568332800,
+    "genres": [
+      "Shooter",
+      "Role-playing (RPG)"
+    ],
+    "name": "Borderlands 3",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6cys.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6cyt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6lcz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6ld0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc762x.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc762y.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc762z.jpg"
+    ],
+    "slug": "borderlands-3",
+    "summary": "The original shooter-looter returns, packing bazillions of guns and a mayhem-fueled adventure! Blast through new worlds and enemies as one of four new Vault Hunters. Play solo or with friends to take on insane enemies, score loads of loot and save your home from the most ruthless cult leaders in the galaxy.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Comedy",
+      "Open world"
+    ],
+    "total_rating": 79.9033961924174,
+    "total_rating_count": 281
+  },
+  {
+    "id": 119305,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co28yb.jpg",
+    "first_release_date": 1649116800,
+    "genres": [
+      "Puzzle",
+      "Adventure"
+    ],
+    "name": "LEGO Star Wars: The Skywalker Saga",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vzy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vzz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6w00.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6w01.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6w02.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6w04.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iw8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iw9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iwa.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iwb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iwc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8iwd.jpg"
+    ],
+    "slug": "lego-star-wars-the-skywalker-saga",
+    "summary": "Lego Star Wars: The Skywalker Saga is a third-person action-adventure with an open world hub. Unlike previous Lego games in which players had to advance through the story in a linear order, players can now choose to start the game from any of the main Skywalker Saga episodes and complete them in any order they wish. Each episode has their own hub filled with planets featured prominently in each respective film that can be visited and explored. Each episode will have five story missions each, a total of 45 levels.\n\nCombat has also been revamped, such as lightsaber fights now involving a variety of combos with light attacks, heavy attacks, and Force moves, and blaster characters having an over-the-shoulder camera angle featured in many third-person shooter games.\n\nRandom encounters will also happen in the game's hub. For example, an Imperial Star Destroyer will suddenly jump out of hyperspace and send a fleet of TIE Fighters after the player. Players can choose to engage in dogfights with them or continue onward to progress the story. The game will have more than 200 playable characters, though TT Games has said that number will change.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Comedy"
+    ],
+    "total_rating": 80.88364160251038,
+    "total_rating_count": 55
+  },
+  {
+    "id": 140617,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2kj0.jpg",
+    "first_release_date": 1634860800,
+    "genres": [
+      "Adventure"
+    ],
+    "name": "The Dark Pictures Anthology: House of Ashes",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sca4sg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sca4sh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sca4si.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sca4sj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbuch.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbuci.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbucj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbuck.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbucl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbucm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scbucn.jpg"
+    ],
+    "slug": "the-dark-pictures-anthology-house-of-ashes",
+    "summary": "House of Ashes is the third game in the The Dark Pictures Anthology and a series of standalone, cinematic branching horror games where the decisions you make in the game determine the story and the outcome you receive. At the close of the Iraq War, Special Forces hunting for weapons of mass destruction unearth something far deadlier – a buried Sumerian temple containing a nest of unearthly creatures. To survive the night below, they must forge a brotherhood with their enemies from the world above.",
+    "tags": [
+      "Horror",
+      "Thriller",
+      "Survival"
+    ],
+    "total_rating": 75.61467863904774,
+    "total_rating_count": 76
+  },
+  {
+    "id": 95062,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2adp.jpg",
+    "first_release_date": 1585612800,
+    "genres": [
+      "Shooter"
+    ],
+    "name": "Call of Duty: Modern Warfare 2 Campaign Remastered",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc83b4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc83b5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc83b6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc83b7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc83b8.jpg"
+    ],
+    "slug": "call-of-duty-modern-warfare-2-campaign-remastered",
+    "summary": "The Call of Duty: Modern Warfare 2 Campaign has been fully remastered with improved textures, animations, physically based rendering, high-dynamic range lighting, and much more.  Experience classic missions including Cliffhanger, The Gulag, and Whiskey Hotel as you join Soap, Price, Ghost and the rest of Task Force 141 in the globe-spanning fight to restore order to the world.",
+    "tags": [
+      "Action",
+      "Warfare"
+    ],
+    "total_rating": 76.49028607442156,
+    "total_rating_count": 54
+  },
+  {
+    "id": 89354,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2yys.jpg",
+    "first_release_date": 1554422400,
+    "genres": [
+      "Platform",
+      "Puzzle",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Supraland",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/p97sqe0rkwlal2dnugwb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/qqliwbh9olgprc5nvgx2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/u4vqr0dngyg1va0hlaag.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mtii3nh2uikdvndzro5d.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gjyyg0fs7fus0cddghne.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gwu6ip6kbk29pc1aatk7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kyp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kyq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kyr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kys.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kyt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kyu.jpg"
+    ],
+    "slug": "supraland",
+    "summary": "Supraland is a first-person metroidvania puzzle game. Explore, solve puzzles, beat up monsters, find secret upgrades and new abilities that help you reach new places.",
+    "tags": [
+      "Action",
+      "Comedy",
+      "Open world"
+    ],
+    "total_rating": 80.42539313079689,
+    "total_rating_count": 37
+  },
+  {
+    "id": 110474,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co233r.jpg",
+    "first_release_date": 1590451200,
+    "genres": [
+      "Role-playing (RPG)",
+      "Hack and slash/Beat 'em up",
+      "Adventure"
+    ],
+    "name": "Minecraft Dungeons",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc82ob.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2l.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2m.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2n.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2o.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2p.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2q.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc9d2r.jpg"
+    ],
+    "slug": "minecraft-dungeons",
+    "summary": "\"Brave the dungeons alone, or team up with friends! Up to four players can battle together through action-packed, treasure-stuffed, wildly varied levels, all in an epic quest to save the villagers and take down the evil Arch-Illager!\n\nDiscover new weapons and items that will help you defeat a ruthless swarm of new-and-nasty mobs. Fight or flee through canyons, swamps and – of course – mines! Any adventurer brave or foolish enough (or a bit-of-both!) to explore this blocky and beautiful world will need to come prepared. So quickly, gear up!\"",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 71.42759107190162,
+    "total_rating_count": 101
+  },
+  {
+    "id": 133306,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2ir4.jpg",
+    "first_release_date": 1607385600,
+    "genres": [
+      "Puzzle",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Call of the Sea",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7b.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7c.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7d.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7e.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7g.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8g7i.jpg"
+    ],
+    "slug": "call-of-the-sea",
+    "summary": "Call of the Sea is a first-person adventure puzzle game set in the 1930's that tells the story of Norah, a woman on the trail of her missing husband's expedition. The search takes place on a strange but beautiful island in the South Pacific, filled with secrets waiting to be unearthed. It’s an otherworldly tale of mystery, adventure, and self-discovery.",
+    "tags": [
+      "Historical",
+      "Mystery"
+    ],
+    "total_rating": 72.80605391712444,
+    "total_rating_count": 72
+  },
+  {
+    "id": 9047,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3wfc.jpg",
+    "first_release_date": 1581984000,
+    "genres": [
+      "Puzzle",
+      "Simulator",
+      "Strategy",
+      "Indie"
+    ],
+    "name": "Besiege",
+    "platforms": [
+      "Linux",
+      "PC (Microsoft Windows)",
+      "Mac",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zbrpig12rhx1lngt2teu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gyyxudbhp6qjfmxfikff.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/iiijs9d1kerodijyeoo0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/e6smrotrkpjtf5rhytnn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wdwpmd3zdkqe8gjg3o1n.jpg"
+    ],
+    "slug": "besiege",
+    "summary": "Besiege is a physics based building game in which you construct medieval siege engines and lay waste to immense fortresses and peaceful hamlets.\n\nBuild a machine which can crush windmills, wipe out battalions of brave soldiers and transport valuable resources, defending your creation against cannons, archers and whatever else the desperate enemies have at their disposal.",
+    "tags": [
+      "Action",
+      "Historical",
+      "Sandbox",
+      "Warfare"
+    ],
+    "total_rating": 80.16299506376905,
+    "total_rating_count": 56
+  },
+  {
+    "id": 3239,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1n1d.jpg",
+    "first_release_date": 1551312000,
+    "genres": [
+      "Shooter",
+      "Simulator",
+      "Strategy",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Space Engineers",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rve6heczmfnqyxq5j1nz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/uxpprted30putrgyjvrk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/a7dxw3tnukeiviegq2um.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/s0qc18xqdeeeopxqu16j.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nk7hdpjvhjtzsxyht3cv.jpg"
+    ],
+    "slug": "space-engineers",
+    "summary": "Space Engineers is a sandbox game about engineering, construction and maintenance of space works. Players build space ships and space stations of various sizes and utilization (civil and military), pilot ships and perform asteroid mining.\n\nSpace Engineers utilizes a realistic volumetric-based physics engine: all objects can be assembled, disassembled, damaged and destroyed.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Sandbox"
+    ],
+    "total_rating": 71.59176082848509,
+    "total_rating_count": 35
+  },
+  {
+    "id": 36911,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1nih.jpg",
+    "first_release_date": 1516924800,
+    "genres": [
+      "Fighting"
+    ],
+    "name": "Dragon Ball FighterZ",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wkrofjc1r5gtzkotditg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/eosoj6qdxyabrltnnpvj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/evdmwdivj5ehvdlnoguy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/serpe4nefmeivhnmfb1h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/bck3mlmmk5ocfcozpxjb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/vl7bdqzq2uhuhhivg9ob.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ouszuft78bmy4ajnsmai.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ifjqb57ogathsp9jdoqs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/lb4rbneoidprk3nih1ik.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fwspovkrzh2wmynysc8f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pfg836d4jrkbdxjakdyh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/twxiugwlw4ienkwd4tkx.jpg"
+    ],
+    "slug": "dragon-ball-fighterz",
+    "summary": "Dragon Ball FighterZ is born from what makes the Dragon Ball series so loved and famous: endless spectacular fights with its all-powerful fighters.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Science fiction"
+    ],
+    "total_rating": 85.68638000558653,
+    "total_rating_count": 173
+  },
+  {
+    "id": 152061,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co390m.jpg",
+    "first_release_date": 1648166400,
+    "genres": [
+      "Shooter",
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "Tiny Tina's Wonderlands",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaghr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scaghs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgpwf.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgpwg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgpwh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgpwi.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scgpwj.jpg"
+    ],
+    "slug": "tiny-tinas-wonderlands",
+    "summary": "Embark on an epic adventure full of whimsy, wonder, and high-powered weaponry! Bullets, magic, and broadswords collide across this chaotic fantasy world brought to life by the unpredictable Tiny Tina.",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 74.31911354352307,
+    "total_rating_count": 37
+  },
+  {
+    "id": 114283,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1nic.jpg",
+    "first_release_date": 1572480000,
+    "genres": [
+      "Role-playing (RPG)",
+      "Turn-based strategy (TBS)",
+      "Adventure"
+    ],
+    "name": "Persona 5 Royal",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vps.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpx.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vpz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vq0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vq1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6vq2.jpg"
+    ],
+    "slug": "persona-5-royal",
+    "summary": "An enhanced version of Persona 5 with some new characters and a third semester added to the game. Released Internationally in 2020.",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 95.4455852296376,
+    "total_rating_count": 260
+  },
+  {
+    "id": 142803,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co3gbk.jpg",
+    "first_release_date": 1632268800,
+    "genres": [
+      "Role-playing (RPG)",
+      "Hack and slash/Beat 'em up",
+      "Adventure"
+    ],
+    "name": "Diablo II: Resurrected",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92is.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92it.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92iu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92iv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92iw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc92ix.jpg"
+    ],
+    "slug": "diablo-ii-resurrected",
+    "summary": "Diablo II: Resurrected breathes new life into Blizzard Entertainment’s acclaimed ARPG and its expansion, Diablo II: Lord of Destruction, from beginning to end. Return to fight for Sanctuary and discover the fate of the mysterious Dark Wanderer rebuilt in all-new 3D graphics, brand-new cinematics, remastered audio… and the same classic Diablo II gameplay you remember.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Horror",
+      "Party"
+    ],
+    "total_rating": 85.86481097692041,
+    "total_rating_count": 55
+  },
+  {
+    "id": 18020,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1h7d.jpg",
+    "first_release_date": 1603929600,
+    "genres": [
+      "Puzzle",
+      "Simulator",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Visage",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rtr96upwospgudrmhffn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/bosdhkll8o1mrt8k1zer.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nh6njtvsumz2jbn0u0up.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/lfd1acmciklanfnksaea.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/kfyswmqx1syr1dnlqqam.jpg"
+    ],
+    "slug": "visage",
+    "summary": "Each death has its visage. How will you face them?\nVisage is a first-person psychological horror game. Explore a mysterious ever-changing house in a slow-paced, atmospheric world that combines both uncannily comforting and horrifyingly realistic environments, and enjoy a genuinely terrifying experience.",
+    "tags": [
+      "Action",
+      "Horror"
+    ],
+    "total_rating": 84.60493951987469,
+    "total_rating_count": 37
+  },
+  {
+    "id": 125166,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co38x1.jpg",
+    "first_release_date": 1622505600,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Battlefield 2042",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scafyd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scafye.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scafyf.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scafyg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scafyh.jpg"
+    ],
+    "slug": "battlefield-2042",
+    "summary": "Battlefield 2042 marks the return to the iconic all-out warfare of the franchise. Adapt and overcome dynamically-changing battlegrounds with the help of your squad and a cutting-edge arsenal. With support for 128 players, prepare for unprecedented scale on vast environments. Take on massive experiences, from updated multiplayer modes like Conquest and Breakthrough to the all-new Hazard Zone.",
+    "tags": [
+      "Action",
+      "Warfare"
+    ],
+    "total_rating": 63.31146651005058,
+    "total_rating_count": 45
+  },
+  {
+    "id": 167611,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co65aa.jpg",
+    "first_release_date": 1633392000,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Alan Wake Remastered",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scd71r.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scd71s.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scd71t.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scd71u.jpg"
+    ],
+    "slug": "alan-wake-remastered",
+    "summary": "In this award-winning cinematic action-thriller, troubled author Alan Wake embarks on a desperate search for his missing wife, Alice. Alan Wake Remastered offers the complete experience, with the main game and its two story expansions - The Signal and The Writer - with stunning new 4K visuals.",
+    "tags": [
+      "Action",
+      "Horror",
+      "Thriller",
+      "Survival"
+    ],
+    "total_rating": 79.54073581567275,
+    "total_rating_count": 36
+  },
+  {
+    "id": 43165,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/fkgei0bjlkkv8psmcrb1.jpg",
+    "first_release_date": 1547510400,
+    "genres": [
+      "Role-playing (RPG)",
+      "Simulator",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "My Time at Portia",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "Android",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gy0iq8qtxhkxzyf6sdan.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/jnc20jtxxfvd6rprt7lw.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/p2lg7lbgi6lxjlzuta4w.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zxv1gttw8sdm0hglgpgp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/thvie882swr9aruzh3ir.jpg"
+    ],
+    "slug": "my-time-at-portia",
+    "summary": "Start a new life in the enchanting town of Portia! Restore your Pa's neglected workshop to its former glory by fulfilling commissions, growing crops, raising animals, and befriending the quirky inhabitants of this charming post-apocalyptic land!",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Survival",
+      "Sandbox",
+      "Open world"
+    ],
+    "total_rating": 77.08005072360393,
+    "total_rating_count": 83
+  },
+  {
+    "id": 121760,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1p7d.jpg",
+    "first_release_date": 1612915200,
+    "genres": [
+      "Platform",
+      "Puzzle",
+      "Adventure"
+    ],
+    "name": "Little Nightmares II",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wcs.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wct.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wcv.jpg"
+    ],
+    "slug": "little-nightmares-ii",
+    "summary": "Little Nightmares II is a suspense-adventure game in which you play as Mono, a young boy trapped in a world that has been distorted by the humming transmission of a distant tower. With Six, the girl in a yellow raincoat, as his guide, Mono sets out to discover the dark secrets of The Signal Tower and save Six from her terrible fate; but their journey will not be straightforward as Mono and Six will face a gallery of new threats from the terrible residents of this world.\n\nWill you dare to face this collection of new, little nightmares?",
+    "tags": [
+      "Action",
+      "Horror",
+      "Stealth",
+      "Mystery"
+    ],
+    "total_rating": 82.3458570108426,
+    "total_rating_count": 148
+  },
+  {
+    "id": 103261,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co27or.jpg",
+    "first_release_date": 1543881600,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Just Cause 4",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/jsqbqfe5vmluekvcz4d0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zk2hw7novnuid54zsgnb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/if4zbxkf72ph9j4vcftk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mqgp1cklhdo7uxfv5ulp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/peacztvh4u20dlfpfgcv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/toceok15xsvphias6ezd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hlaisbleevysldnefpwz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ukbdj9aq7cbl9sdnp364.jpg"
+    ],
+    "slug": "just-cause-4",
+    "summary": "Set in the fictional South American world of Solis, JUST CAUSE 4 takes the series incredible destruction and unique physics to a whole new level with the introduction of tornadoes and other Extreme Weather events. JUST CAUSE 4 has four distinct biomes: Rainforest, Grasslands, Alpine & Desert. With each biome offering its own individual, fully simulated weather event, players will have a truly unique experience as they traverse this deep, diverse world.\n\nRico Rodriguez returns in JUST CAUSE 4 with his trademark parachute, wingsuit and, of course his grapple hook, now enhanced with new functionality and fully customisable. Making it the most powerful and creative tool the player has ever had.",
+    "tags": [
+      "Action",
+      "Sandbox",
+      "Open world"
+    ],
+    "total_rating": 67.30698686865485,
+    "total_rating_count": 108
+  },
+  {
+    "id": 55163,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2zpu.jpg",
+    "first_release_date": 1620259200,
+    "genres": [
+      "Shooter",
+      "Adventure"
+    ],
+    "name": "Resident Evil Village",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Google Stadia",
+      "PlayStation VR2"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc8zrh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99km.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99ko.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99ks.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99kt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc99ku.jpg"
+    ],
+    "slug": "resident-evil-village",
+    "summary": "Resident Evil Village is a first person survival horror and the sequel to Resident Evil 7: Biohazard. The game maintains elements from previous Resident Evil games with players having to scavenge environments for items and manage their resources. However, it adds more action-oriented gameplay, with higher enemy counts and a greater emphasis on combat.",
+    "tags": [
+      "Action",
+      "Horror",
+      "Survival"
+    ],
+    "total_rating": 85.51864874126412,
+    "total_rating_count": 225
+  },
+  {
+    "id": 90099,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1xrm.jpg",
+    "first_release_date": 1552608000,
+    "genres": [
+      "Shooter",
+      "Role-playing (RPG)",
+      "Tactical",
+      "Adventure"
+    ],
+    "name": "Tom Clancy's The Division 2",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/pibpdtallkxr1lacqvlu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/yoyigwdunnqpbcgkdnzj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/yugj6cvnpzr1yj5y38zy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/fsnfdgjs23qkg60bgwmh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/brcmomrwgyupamtnsjfr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/bp9wfiygdruro0wrgdlg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/md0sjijgtwaosmzghdoc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ihzdhryjhtdiu0sfsuk6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ccdr2ui236xfj2sn4nxq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/opgmvvgk66vixephpdv1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5qr5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5qr6.jpg"
+    ],
+    "slug": "tom-clancys-the-division-2",
+    "summary": "The Division 2 is an action-shooter RPG set in an open-world. Play in co-op and PvP modes that offer more variety in missions and challenges, new progression systems with unique twists and surprises, and fresh gaming innovations to engage players for years to come.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Open world"
+    ],
+    "total_rating": 81.09567253939684,
+    "total_rating_count": 173
+  },
+  {
+    "id": 27367,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co26hb.jpg",
+    "first_release_date": 1527552000,
+    "genres": [
+      "Platform",
+      "Puzzle",
+      "Pinball",
+      "Adventure",
+      "Indie",
+      "Arcade"
+    ],
+    "name": "Yoku's Island Express",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gdqbfqorhyyuavpi1bog.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/tjjhywz2s8p6m1piqwff.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/l0y84utoyrg0cgir6ejz.jpg"
+    ],
+    "slug": "yokus-island-express",
+    "summary": "Yoku’s Island Express is an open world/metroidvania-style pinball adventure, Seamlessly blending platform navigation with pinball mechanics across a large open world. Yoku the dung beetle sets foot on the beach of Mokumana Island, ready to take on the duties as the new postman. But the ancient island God is trapped in a restless sleep and the islanders are plagued by quakes and storms brought forth by its nightmares. Yoku's Island Express is a unique and quirky adventure with handcrafted visuals, where you'll soar through the air, vacuum explosive snails, fight a Screetch, feed starving lemurs, discover the mystery of the Fruit Altar, wake an old god, and hopefully help tiny Yoku rebuild the island post-office.",
+    "tags": [
+      "Action",
+      "Fantasy"
+    ],
+    "total_rating": 83.88821209170409,
+    "total_rating_count": 83
+  },
+  {
+    "id": 10760,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co5qgf.jpg",
+    "first_release_date": 1560816000,
+    "genres": [
+      "Platform",
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "Bloodstained: Ritual of the Night",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/gdwdpejbkfajukfbyaf4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/wkyizzyxr3c0tiqrvty0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/liovkpwhdzcae6dazgrh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nfjsb9mcpmx6u9wm75zu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mwmrw9ysvic7btm4hhpd.jpg"
+    ],
+    "slug": "bloodstained-ritual-of-the-night",
+    "summary": "Bloodstained: Ritual of the Night is a gothic horror action side-scrolling RPG set in 19th century England. A paranormal force has summoned a demon-infested castle, revealing crystal shards infused with tremendous magical power.\n\nPlay as Miriam, an orphan scarred by an alchemist's curse which slowly crystallizes her body. To save humanity, and herself in the process, Miriam must fight through the castle and defeat the summoner, Gebel.\n\nCollect, craft and unlock a vast array of weapons, equipment and loot to defeat the countless minions and bosses of hell that await!",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Horror"
+    ],
+    "total_rating": 84.24972925846657,
+    "total_rating_count": 142
+  },
+  {
+    "id": 204618,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co67qo.jpg",
+    "first_release_date": 1670889600,
+    "genres": [
+      "Shooter"
+    ],
+    "name": "High on Life",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Xbox One",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schdmm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schdmn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schdmo.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schdmp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schdmq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scifai.jpg"
+    ],
+    "slug": "high-on-life",
+    "summary": "From the mind of Justin Roiland (Rick and Morty, Solar Opposites) comes High On Life. Humanity is being threatened by an alien cartel who wants to use them as drugs. It’s up to you to rescue and partner with charismatic, talking guns, take down Garmantuous and his gang, and save the world!",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Comedy"
+    ],
+    "total_rating": 69.84623517951972,
+    "total_rating_count": 79
+  },
+  {
+    "id": 119161,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co209t.jpg",
+    "first_release_date": 1573171200,
+    "genres": [
+      "Racing",
+      "Sport",
+      "Adventure"
+    ],
+    "name": "Need for Speed: Heat",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6w6h.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wdg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wdh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6wdi.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98i7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98i8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98i9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ia.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ib.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ic.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98id.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc98ie.jpg"
+    ],
+    "slug": "need-for-speed-heat",
+    "summary": "Hustle by day and risk it all at night in Need for Speed Heat, a white-knuckle street racer, where the lines of the law fade as the sun starts to set. By day, Palm City hosts the Speedhunter Showdown, a sanctioned competition where you earn Bank to customize and upgrade your high-performance cars. At night, ramp up the intensity in illicit street races that build your reputation, getting you access to bigger races and better parts. But stay ready – cops are waiting and not all of them play fair",
+    "tags": [
+      "Action",
+      "Open world"
+    ],
+    "total_rating": 70.53168923954473,
+    "total_rating_count": 132
+  },
+  {
+    "id": 112732,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1i02.jpg",
+    "first_release_date": 1543881600,
+    "genres": [
+      "Adventure"
+    ],
+    "name": "Assassin's Creed Odyssey: Legacy of the First Blade",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7k.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7l.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7m.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7n.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7o.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7p.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5r7q.jpg"
+    ],
+    "slug": "assassins-creed-odyssey-legacy-of-the-first-blade",
+    "summary": "The expansion introduces players to the first person to ever use the Hidden Blade and will reveal more about the history that ultimately led to the formation of the Assassins.",
+    "tags": [
+      "Action",
+      "Historical"
+    ],
+    "total_rating": 71.26160741494137,
+    "total_rating_count": 35
+  },
+  {
+    "id": 113118,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2hm5.jpg",
+    "first_release_date": 1605139200,
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "The Pathless",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbk.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbm.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6dbo.jpg"
+    ],
+    "slug": "the-pathless",
+    "summary": "The Pathless is a mythic adventure where you play as the Hunter, a skilled archer who explores a mysterious cursed island with an eagle companion. Your goal is to lift an unnatural shroud of darkness that plagues the world. As you bound acrobatically through dense forests, you will hunt prey, discover ancient ruins, and form a deep bond with your eagle. But beware: dangerous spirits also lurk in the woods. If you aren't careful, you may become the hunted yourself.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Open world",
+      "Mystery"
+    ],
+    "total_rating": 79.6479541533271,
+    "total_rating_count": 41
+  },
+  {
+    "id": 26298,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1m4m.jpg",
+    "first_release_date": 1562284800,
+    "genres": [
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Sea of Solitude",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ejatf1zoipgi5twompah.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/a77nsjv8f5b6zmyqqaji.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/phucl8guhodjsyovssea.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/odhrxedyiu0sh4nblopl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/byu56vfeqcawwibrb0iu.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hvqse5m1zyxn6cs3kgqn.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kx7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kx8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc6kx9.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc77wb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc77wc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc77wd.jpg"
+    ],
+    "slug": "sea-of-solitude",
+    "summary": "When humans get too lonely, they turn into monsters…\n\nSea of Solitude takes you on a personal journey of a young woman’s loneliness. Set sail across a beautiful and evolving world where nothing is quite what it seems. Meet fantastical creatures and monsters, learn their stories, and solve challenges. Explore a flooded city by boat, on foot, or by swimming through the water itself. Dare to look what lies beneath the surface, in a haunting struggle of darkness and light, and discover what it truly means to be human.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Drama"
+    ],
+    "total_rating": 68.83917170417142,
+    "total_rating_count": 54
+  },
+  {
+    "id": 28512,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2eu7.jpg",
+    "first_release_date": 1553731200,
+    "genres": [
+      "Shooter",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "Risk of Rain 2",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "Google Stadia"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/s5vgkfxndl2mjg4yad0s.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5rob.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5roc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5rod.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5roe.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5rof.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5rog.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5roh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5roi.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5roj.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sc5rok.jpg"
+    ],
+    "slug": "risk-of-rain-2",
+    "summary": "The classic multiplayer roguelike, Risk of Rain, returns with an extra dimension and more challenging action. No run will ever be the same with randomized stages, enemies, bosses, and items. Play solo, or team up with up to four friends to fight your way through hordes of monsters, unlock new loot, and find a way to escape the planet.",
+    "tags": [
+      "Action",
+      "Science fiction",
+      "Survival"
+    ],
+    "total_rating": 84.6787672153523,
+    "total_rating_count": 108
+  },
+  {
+    "id": 136625,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2gn3.jpg",
+    "first_release_date": 1675987200,
+    "genres": [
+      "Role-playing (RPG)",
+      "Adventure"
+    ],
+    "name": "Hogwarts Legacy",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo0z.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo10.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo11.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo12.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo13.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo14.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo15.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo16.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/sclo17.jpg"
+    ],
+    "slug": "hogwarts-legacy",
+    "summary": "Hogwarts Legacy is an immersive, open-world action RPG set in the world first introduced in the Harry Potter books. Now you can take control of the action and be at the center of your own adventure in the wizarding world. Embark on a journey through familiar and new locations as you explore and discover fantastic beasts, customize your character and craft potions, master spell casting, upgrade talents, and become the wizard you want to be. Discover the feeling of living at Hogwarts as you make allies, battle Dark wizards, and ultimately decide the fate of the wizarding world. Your legacy is what you make of it.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Open world"
+    ],
+    "total_rating": 83.81140711960465,
+    "total_rating_count": 139
+  },
+  {
+    "id": 76885,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co1x6j.jpg",
+    "first_release_date": 1539820800,
+    "genres": [
+      "Fighting"
+    ],
+    "name": "SoulCalibur VI",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mlpcfu8wd8ypwdirqtzy.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/axeem2fadgjhqqf2mdjo.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ic2bersxofcccocq8ogb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zl9wg4rsxibxuac5aanl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/vs2h74xltiklvsnmg3gv.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hgkg5peezzzcmpkjalnl.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/dkziclj2a9b6r4b8sc4r.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/exwn8hhd0hehrtgyllkc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/rc94ixh9dvmeqtfxl2hc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/nlllxyjgju1qw00qxhdt.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/smzy6e5qm20vonnxammq.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/xte50eh0nocmobugfvit.jpg"
+    ],
+    "slug": "soulcalibur-vi",
+    "summary": "SOULCALIBUR VI represents the latest entry in the premier weapons-based, head-to-head fighting series and continues the epic struggle of warriors searching for the legendary Soul Swords. Taking place in the 16th century, revisit the events of the original SOULCALIBUR to uncover hidden truths.",
+    "tags": [
+      "Action"
+    ],
+    "total_rating": 82.97656442437506,
+    "total_rating_count": 93
+  },
+  {
+    "id": 200165,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co4sbw.jpg",
+    "first_release_date": 1666915200,
+    "genres": [
+      "Shooter"
+    ],
+    "name": "Call of Duty: Modern Warfare II",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "PlayStation 4",
+      "Xbox One",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schckz.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcl0.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcl1.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcl2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/schcl3.jpg"
+    ],
+    "slug": "call-of-duty-modern-warfare-ii",
+    "summary": "Call of Duty: Modern Warfare II drops players into an unprecedented global conflict that features the return of the iconic Operators of Task Force 141.",
+    "tags": [
+      "Action",
+      "Warfare"
+    ],
+    "total_rating": 77.77441599729623,
+    "total_rating_count": 45
+  },
+  {
+    "id": 19520,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co27qa.jpg",
+    "first_release_date": 1526515200,
+    "genres": [
+      "Platform",
+      "Puzzle",
+      "Simulator",
+      "Adventure",
+      "Indie"
+    ],
+    "name": "FAR: Lone Sails",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "Android",
+      "iOS",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/iihbreyhn2ec3dmpyhwh.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/hkg6qus4ktllwzg725sp.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/aqdnprykf2utwpooanxr.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/yusewuwpvybrbtvr2qss.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/h4urxrrp2xo6etdpo6td.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/izepmyb9r5z2c84wo0py.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/w8ydgarm20zpgbtsvnoc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/micp00vy2fyizmbcycx6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/ktqimjkxjvxpi4bidctg.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/mnjadavcaxqnhxksckpd.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/c5kuwnmzbyo3965lms2f.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/eyifqoqmusb3is1r5dta.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq3.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq4.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq5.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq6.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq7.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq8.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/scjzq9.jpg"
+    ],
+    "slug": "far-lone-sails",
+    "summary": "FAR: Lone Sails is a vehicle adventure game. The player needs to maintain and upgrade their unique vessel to traverse a dried-out sea, with the remains of a decaying civilization scattered out on the seabed. Keep your unique vessel going, overcome numerous obstacles and withstand the hazardous weather conditions.",
+    "tags": [
+      "Action",
+      "Fantasy",
+      "Survival",
+      "Kids",
+      "Mystery"
+    ],
+    "total_rating": 77.19509243298813,
+    "total_rating_count": 82
+  },
+  {
+    "id": 29144,
+    "cover": "//images.igdb.com/igdb/image/upload/t_cover_big/co2m9a.jpg",
+    "first_release_date": 1571788800,
+    "genres": [
+      "Racing",
+      "Simulator",
+      "Sport",
+      "Indie",
+      "Arcade"
+    ],
+    "name": "Lonely Mountains: Downhill",
+    "platforms": [
+      "PC (Microsoft Windows)",
+      "Mac",
+      "PlayStation 4",
+      "Xbox One",
+      "Nintendo Switch"
+    ],
+    "screenshots": [
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/aui1pwulfubkaartc142.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/trgoneepypyn7epirxp2.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/zdwkwjwdknyopvn3wcmb.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/lrywlumssdnqf7n713hc.jpg",
+      "//images.igdb.com/igdb/image/upload/t_screenshot_big/l0rzjpudqvosbnbgwytr.jpg"
+    ],
+    "slug": "lonely-mountains-downhill",
+    "summary": "Just you and your bike - take it on a thrilling ride down an unspoiled mountain landscape. Make your way through thick forests, narrow trails and wild rivers. Race, jump, slide and try not to crash - all the way from the peak to the valley!",
+    "tags": [
+      "Action"
+    ],
+    "total_rating": 79.35712196014313,
+    "total_rating_count": 36
   }
 ]
