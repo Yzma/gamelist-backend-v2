@@ -1,6 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,7 +32,6 @@ public class Genre {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @JsonBackReference
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
 }

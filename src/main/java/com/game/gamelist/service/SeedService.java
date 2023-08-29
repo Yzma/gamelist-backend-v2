@@ -6,10 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.repository.*;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +19,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @Profile("dev")
@@ -41,15 +37,17 @@ public class SeedService {
     @PostConstruct
     @Transactional
     public void seedDatabase() {
+
         seedPlatformsIfEmpty();
         seedGenresIfEmpty();
         seedTagsIfEmpty();
-        seedUsersIfEmpty();
         seedGamesIfEmpty();
+        seedUsersIfEmpty();
         seedUserGamesIfEmpty();
         seedPostsIfEmpty();
         seedGameJournalsIfEmpty();
     }
+
     public void seedUsersIfEmpty() {
         if (userRepository.count() == 0) {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -79,6 +77,7 @@ public class SeedService {
             }
         }
     }
+
     @Transactional
     public void seedGenresIfEmpty() {
         if (genreRepository.count() == 0) {
@@ -93,6 +92,7 @@ public class SeedService {
             }
         }
     }
+
     @Transactional
     public void seedTagsIfEmpty() {
         if (tagRepository.count() == 0) {
@@ -108,6 +108,7 @@ public class SeedService {
 
         }
     }
+
     @Transactional
     public void seedGamesIfEmpty() {
         if (gameRepository.count() == 0) {
@@ -140,7 +141,7 @@ public class SeedService {
                     game.setGenres(new HashSet<>(genres));
 
                     List<Tag> tags = new ArrayList<>();
-                    JsonNode tagsNode = gameNode.get("themes");
+                    JsonNode tagsNode = gameNode.get("tags");
                     for (JsonNode tagNode : tagsNode) {
                         Tag tag = tagRepository.findByName(tagNode.asText());
                         if (tag == null) {
@@ -164,7 +165,7 @@ public class SeedService {
                         platforms.add(platform);
                     }
                     game.setPlatforms(new HashSet<>(platforms));
-                    
+
                     game.setCreatedAt(LocalDateTime.now());
                     game.setUpdatedAt(LocalDateTime.now());
 
@@ -177,6 +178,7 @@ public class SeedService {
             }
         }
     }
+
     @Transactional
     public void seedGameJournalsIfEmpty() {
         if (gameJournalRepository.count() == 0) {
@@ -200,6 +202,7 @@ public class SeedService {
             }
         }
     }
+
     @Transactional
     public void seedPostsIfEmpty() {
         if (postRepository.count() == 0) {
@@ -225,6 +228,7 @@ public class SeedService {
 
         }
     }
+
     @Transactional
     public void seedUserGamesIfEmpty() {
         if (userGameRepository.count() == 0) {

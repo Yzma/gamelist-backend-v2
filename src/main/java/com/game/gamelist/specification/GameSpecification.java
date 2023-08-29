@@ -1,12 +1,12 @@
 package com.game.gamelist.specification;
 
-import com.game.gamelist.entity.*;
+import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.Genre;
 import com.game.gamelist.model.GameQueryFilters;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-
 
 import java.util.ArrayList;
 import java.util.List;
