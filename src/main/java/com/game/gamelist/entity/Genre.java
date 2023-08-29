@@ -1,11 +1,8 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity(name = "genres")
 public class Genre {
 
@@ -35,7 +33,7 @@ public class Genre {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
-
 }
