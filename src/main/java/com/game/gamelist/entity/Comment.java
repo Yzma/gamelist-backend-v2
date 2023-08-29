@@ -8,13 +8,14 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+//@DiscriminatorValue("comment_type")
 
 @Getter
 @Setter
 @SuperBuilder
+@PrimaryKeyJoinColumn(name = "comment_id")
 @NoArgsConstructor
 @Entity(name = "comments")
-@DiscriminatorValue("comment_type")
 public class Comment extends InteractiveEntity {
     private String text;
 

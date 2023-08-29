@@ -9,12 +9,14 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//@DiscriminatorValue("post_type")
+
 @Getter
 @Setter
 @SuperBuilder
+@PrimaryKeyJoinColumn(name = "post_id")
 @NoArgsConstructor
 @Entity(name = "posts")
-@DiscriminatorValue("post_type")
 public class Post extends InteractiveEntity {
 
     private String text;

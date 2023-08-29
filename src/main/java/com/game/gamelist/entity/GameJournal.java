@@ -6,19 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+//@DiscriminatorValue("game_journal_type")
 
 
 @Getter
 @Setter
 @SuperBuilder
+@PrimaryKeyJoinColumn(name = "game_journal_id")
 @NoArgsConstructor
 @Entity(name = "game_journals")
-@DiscriminatorValue("game_journal_type")
+
 public class GameJournal extends InteractiveEntity {
 
     private String content;
@@ -52,4 +53,8 @@ public class GameJournal extends InteractiveEntity {
     public LocalDateTime getUpdatedAt() {
         return super.getUpdatedAt();
     }
+    public List<Comment> getComments() {
+        return super.getComments();
+    }
 }
+

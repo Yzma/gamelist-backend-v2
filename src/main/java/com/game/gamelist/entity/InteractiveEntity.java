@@ -10,11 +10,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "interactive_entities")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
