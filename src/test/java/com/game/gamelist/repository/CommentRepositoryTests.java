@@ -168,19 +168,56 @@ public class CommentRepositoryTests extends ContainersEnvironment {
             assertEquals("This is a comment", ((Comment)commentOfCommentFromDB.getInteractiveEntity()).getText());
 
         }
-//
-//        @Test
-//        @Transactional
-//        public void whenUpdate_Expect_Success() {
-//            Comment comment = new Comment();
-//            comment.setComment("This is a comment");
-//            comment.setPost(postRepository.findById(1L).get());
-//            commentRepository.save(comment);
-//            Comment comment1 = commentRepository.findById(1L).get();
-//            comment1.setComment("This is a new comment");
-//            commentRepository.save(comment1);
-//            assertEquals("This is a new comment", comment1.getComment());
-//        }
+
+        @Test
+        @Order(4)
+        @Transactional
+        public void when_getAllCommentByInteractiveEntityId_Expect_allComments() {
+            assertEquals(0, commentRepository.findAll().size());
+            Post post = postRepository.findAll().get(0);
+            User owner = userRepository.findAll().get(0);
+
+            Post newPost = Post.builder().text("new post").user(owner).build();
+            postRepository.save(newPost);
+
+            Comment comment1 = new Comment();
+            comment1.setText("This is a comment1");
+            comment1.setInteractiveEntity(post);
+            comment1.setUser(owner);
+
+            Comment comment2 = new Comment();
+            comment2.setText("This is a comment2");
+            comment2.setInteractiveEntity(post);
+            comment2.setUser(owner);
+
+            Comment comment3 = new Comment();
+            comment3.setText("This is a comment3");
+            comment3.setInteractiveEntity(post);
+            comment3.setUser(owner);
+
+            Comment comment4 = new Comment();
+            comment4.setText("This is a comment4");
+            comment4.setInteractiveEntity(newPost);
+            comment4.setUser(owner);
+
+            commentRepository.save(comment1);
+            commentRepository.save(comment2);
+            commentRepository.save(comment3);
+            commentRepository.save(comment4);
+            entityManager.refresh(post);
+
+            User commentOnCommentOwner = User.builder().username("commentOnCommentOwner").email("commentowner@gmail.com").password("123456").bannerPicture("banner picture").userPicture("user picture").build();
+            userRepository.save(commentOnCommentOwner);
+
+            Comment commentOfComment = new Comment();
+            commentOfComment.setText("This is a comment of comment");
+            commentOfComment.setUser(commentOnCommentOwner);
+            commentOfComment.setInteractiveEntity(comment1);
+            commentRepository.save(commentOfComment);
+
+            List<Comment> commentList = commentRepository.findAllByInteractiveEntityId(post.getId());
+            assertEquals(3, commentList.size());
+        }
 //
 //        @Test
 //        @Transactional
