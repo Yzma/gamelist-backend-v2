@@ -1,6 +1,8 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -50,7 +52,6 @@ public class Game {
     @JsonProperty("screenshots")
     private String bannerURL;
 
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_genres",
@@ -63,7 +64,6 @@ public class Game {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_platforms",
@@ -76,7 +76,6 @@ public class Game {
     )
     private Set<Platform> platforms = new HashSet<>();
 
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "games_tags",
@@ -94,5 +93,5 @@ public class Game {
     @JsonIgnoreProperties("game")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
-
+    
 }

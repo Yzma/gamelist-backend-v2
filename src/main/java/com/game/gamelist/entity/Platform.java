@@ -1,7 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,8 +33,7 @@ public class Platform {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    
-    @JsonBackReference
+
     @ManyToMany(mappedBy = "platforms", fetch = FetchType.LAZY)
     private Set<Game> games = new HashSet<>();
 }
