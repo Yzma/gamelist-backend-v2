@@ -47,7 +47,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
          List<LikeEntity> likeEntityList = likeRepository.findAll();
 
          assertEquals(0, likeEntityList.size());
-
     }
 
     @Nested
@@ -89,7 +88,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             User user = userRepository.findByEmail("changli@gmail.com").orElseThrow(() -> new ResourceNotFoundException("Can not find user with email:"));
 
             Post post = postRepository.findAll().get(0);
-
 
             assertEquals(0, post.getLikes().size());
 
@@ -171,9 +169,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
             LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).get();
 
-            entityManager.refresh(post);
-            entityManager.refresh(likeEntity);
-
             assertEquals(likeEntityFromDB.getId(), likeEntity.getId());
             assertEquals(likeEntityFromDB.getUser(), likeEntity.getUser());
             assertEquals(likeEntityFromDB.getInteractiveEntity(), likeEntity.getInteractiveEntity());
@@ -192,7 +187,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             likeEntity.setInteractiveEntity(post);
 
             likeRepository.save(likeEntity);
-            entityManager.refresh(post);
 
             post.getLikes().add(likeEntity);
 
@@ -207,8 +201,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             assertEquals(0, post.getLikes().size());
 
             assertEquals(0, likeRepository.findAll().size());
-
-            entityManager.flush();
 
             LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).orElse(null);
 

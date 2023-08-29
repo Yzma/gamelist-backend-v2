@@ -49,4 +49,8 @@ public class Comment extends InteractiveEntity {
     public List<LikeEntity> getLikes() {
         return super.getLikes();
     }
+
+    public List<Comment> getComments() {
+        return super.getComments();
+    }
 }
