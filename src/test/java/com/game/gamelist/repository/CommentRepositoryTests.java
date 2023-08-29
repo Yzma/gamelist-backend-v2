@@ -6,9 +6,12 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.model.CommentView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -222,16 +225,60 @@ public class CommentRepositoryTests extends ContainersEnvironment {
         @Test
         @Order(5)
         @Transactional
-        public void whenDelete_Expect_Success() {
-            Comment comment = new Comment();
-            comment.setComment("This is a comment");
-            comment.setPost(postRepository.findById(1L).get());
-            commentRepository.save(comment);
-            List<Comment> commentList = commentRepository.findAll();
-            assertEquals(1, commentList.size());
-            commentRepository.deleteById(1L);
-            List<Comment> commentList1 = commentRepository.findAll();
-            assertEquals(0, commentList1.size());
+        public void when_findProjectedByInteractiveEntityId_expect_listOfCommentView() {
+            assertEquals(0, commentRepository.findAll().size());
+            Post post = postRepository.findAll().get(0);
+            User owner = userRepository.findAll().get(0);
+
+            User commentOnCommentOwner = User.builder().username("commentOnCommentOwner").email("commentowner@gmail.com").password("123456").bannerPicture("banner picture").userPicture("user picture").build();
+            userRepository.save(commentOnCommentOwner);
+
+            Post newPost = Post.builder().text("new post").user(owner).build();
+            postRepository.save(newPost);
+
+            Comment postComment = Comment.builder().interactiveEntity(post).text("post original comment").user(owner).build();
+            commentRepository.save(postComment);
+
+            Comment comment1 = new Comment();
+            comment1.setText("This is a comment1");
+            comment1.setInteractiveEntity(postComment);
+            comment1.setUser(owner);
+
+            Comment comment2 = new Comment();
+            comment2.setText("This is a comment2");
+            comment2.setInteractiveEntity(postComment);
+            comment2.setUser(owner);
+
+            Comment comment3 = new Comment();
+            comment3.setText("This is a comment3");
+            comment3.setInteractiveEntity(postComment);
+            comment3.setUser(owner);
+
+            Comment comment4 = new Comment();
+            comment4.setText("This is a comment4");
+            comment4.setInteractiveEntity(newPost);
+            comment4.setUser(owner);
+
+            commentRepository.save(comment1);
+            commentRepository.save(comment2);
+            commentRepository.save(comment3);
+            commentRepository.save(comment4);
+            entityManager.refresh(post);
+
+            Comment commentOfComment = new Comment();
+            commentOfComment.setText("This is a comment of comment");
+            commentOfComment.setUser(commentOnCommentOwner);
+            commentOfComment.setInteractiveEntity(comment1);
+            commentRepository.save(commentOfComment);
+
+            List<CommentView> commentViewList = commentRepository.findProjectedByInteractiveEntityId(postComment.getId());
+
+            assertEquals(3, commentViewList.size());
+            assertEquals("Banner Picture URL", commentViewList.get(0).getUser().getBannerPicture());
+            assertEquals("User Picture URL", commentViewList.get(0).getUser().getUserPicture());
+            assertThat(commentViewList.get(0).getUser(), not((hasProperty("password", is("123456")))));
+            assertEquals("changli", commentViewList.get(0).getUser().getUsername());
+            assertThat(commentViewList.get(0).getUser(), not((hasProperty("email"))));
         }
     }
 }
