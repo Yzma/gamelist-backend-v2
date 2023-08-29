@@ -218,19 +218,20 @@ public class CommentRepositoryTests extends ContainersEnvironment {
             List<Comment> commentList = commentRepository.findAllByInteractiveEntityId(post.getId());
             assertEquals(3, commentList.size());
         }
-//
-//        @Test
-//        @Transactional
-//        public void whenDelete_Expect_Success() {
-//            Comment comment = new Comment();
-//            comment.setComment("This is a comment");
-//            comment.setPost(postRepository.findById(1L).get());
-//            commentRepository.save(comment);
-//            List<Comment> commentList = commentRepository.findAll();
-//            assertEquals(1, commentList.size());
-//            commentRepository.deleteById(1L);
-//            List<Comment> commentList1 = commentRepository.findAll();
-//            assertEquals(0, commentList1.size());
-//        }
+
+        @Test
+        @Order(5)
+        @Transactional
+        public void whenDelete_Expect_Success() {
+            Comment comment = new Comment();
+            comment.setComment("This is a comment");
+            comment.setPost(postRepository.findById(1L).get());
+            commentRepository.save(comment);
+            List<Comment> commentList = commentRepository.findAll();
+            assertEquals(1, commentList.size());
+            commentRepository.deleteById(1L);
+            List<Comment> commentList1 = commentRepository.findAll();
+            assertEquals(0, commentList1.size());
+        }
     }
 }
