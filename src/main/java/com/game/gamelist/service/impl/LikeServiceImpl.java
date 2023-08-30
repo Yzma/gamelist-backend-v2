@@ -44,7 +44,7 @@ public class LikeServiceImpl implements LikeService {
 
         InteractiveEntity interactiveEntity = interactiveEntityOptional.get();
 
-        if(interactiveEntity instanceof Post || interactiveEntity instanceof GameJournal) {
+        if(interactiveEntity instanceof Post || interactiveEntity instanceof GameJournal || interactiveEntity instanceof Comment || interactiveEntity instanceof StatusUpdate) {
             like.setInteractiveEntity(interactiveEntity);
 
         } else {
