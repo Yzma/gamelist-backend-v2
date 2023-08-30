@@ -3,6 +3,7 @@ package com.game.gamelist.service.impl;
 import com.game.gamelist.entity.Comment;
 import com.game.gamelist.entity.InteractiveEntity;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.model.CommentView;
 import com.game.gamelist.repository.CommentRepository;
@@ -38,8 +39,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteCommentById(User principle, Long interactiveEntityId) {
+    public void deleteCommentById(User principle, Long commentId) {
+        InteractiveEntity comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment was not found"));
 
+        if(((Comment) comment).getUser().getId() != principle.getId()) {
+            throw new InvalidAuthorizationException("You are not authorized to delete this comment");
+        }
+
+        commentRepository.deleteById(commentId);
     }
 
     @Override

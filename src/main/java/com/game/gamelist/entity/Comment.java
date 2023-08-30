@@ -27,6 +27,10 @@ public class Comment extends InteractiveEntity {
     @JoinColumn(name = "interactive_entity_id", referencedColumnName = "id")
     private InteractiveEntity interactiveEntity;
 
+    public User getUser() {
+        return user;
+    }
+
     public Long getId() {
         return super.getId();
     }

@@ -65,7 +65,7 @@ public class LikeServiceImpl implements LikeService {
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
 
         if (!alreadyLiked) {
-            throw new IllegalStateException("The like on this entity does not exist.");
+            throw new ResourceNotFoundException("The like on this entity does not exist.");
         }
 
         likeRepository.deleteByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
