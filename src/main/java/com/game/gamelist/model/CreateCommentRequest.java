@@ -10,4 +10,5 @@ public class CreateCommentRequest {
     private Long interactiveEntityId;
     @NotEmpty(message = "Text is required")
     private String text;
+
 }

@@ -41,4 +41,14 @@ public class CommentController {
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).status(HttpStatus.NO_CONTENT).statusCode(HttpStatus.NO_CONTENT.value()).message("Comment deleted successfully").build()
         );
     }
+
+    @PutMapping("/{requestedId}")
+    @Transactional
+    public ResponseEntity<HttpResponse> updateComment(@AuthenticationPrincipal User principal, @PathVariable Long requestedId, @RequestBody CreateCommentRequest createCommentRequest) {
+        CommentView comment = commentService.updateCommentById(principal, requestedId, createCommentRequest.getText());
+
+        return ResponseEntity.ok(
+                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("comment", comment)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("Comment updated successfully").build()
+        );
+    }
 }

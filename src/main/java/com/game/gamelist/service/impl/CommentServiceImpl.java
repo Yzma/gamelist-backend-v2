@@ -40,9 +40,9 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteCommentById(User principle, Long commentId) {
-        InteractiveEntity comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment was not found"));
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment was not found"));
 
-        if(((Comment) comment).getUser().getId() != principle.getId()) {
+        if(comment.getUser().getId() != principle.getId()) {
             throw new InvalidAuthorizationException("You are not authorized to delete this comment");
         }
 
@@ -50,7 +50,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentView updateCommentById(User principle, Long interactiveEntityId, String text) {
-        return null;
+    public CommentView updateCommentById(User principle, Long commentId, String text) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new ResourceNotFoundException("Comment was not found"));
+
+        if(( comment).getUser().getId() != principle.getId()) {
+            throw new InvalidAuthorizationException("You are not authorized to edit this comment");
+        }
+
+        comment.setText(text);
+        commentRepository.save(comment);
+
+        CommentView commentView = commentRepository.findProjectedById(comment.getId()).orElseThrow(() -> new ResourceNotFoundException("Comment not updated successfully"));
+
+        return commentView;
     }
 }
