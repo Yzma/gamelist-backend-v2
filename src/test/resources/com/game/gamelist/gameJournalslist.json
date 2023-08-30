@@ -5,7 +5,8 @@
     "createdAt": null,
     "updatedAt": null,
     "user": null,
-    "likes": []
+    "likes": [],
+    "comments": []
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "createdAt": null,
     "updatedAt": null,
     "user": null,
-    "likes": []
+    "likes": [],
+    "comments": []
   },
   {
     "id": 3,
@@ -21,6 +23,7 @@
     "createdAt": null,
     "updatedAt": null,
     "user": null,
-    "likes": []
+    "likes": [],
+    "comments": []
   }
 ]

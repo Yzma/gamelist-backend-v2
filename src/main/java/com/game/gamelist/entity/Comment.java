@@ -1,6 +1,5 @@
 package com.game.gamelist.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,25 +8,28 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
-//@DiscriminatorValue("game_journal_type")
-
+//@DiscriminatorValue("comment_type")
 
 @Getter
 @Setter
 @SuperBuilder
-@PrimaryKeyJoinColumn(name = "game_journal_id")
+@PrimaryKeyJoinColumn(name = "comment_id")
 @NoArgsConstructor
-@Entity(name = "game_journals")
-
-public class GameJournal extends InteractiveEntity {
-
-    private String content;
+@Entity(name = "comments")
+public class Comment extends InteractiveEntity {
+    private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("game_journals")
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "interactive_entity_id", referencedColumnName = "id")
+    private InteractiveEntity interactiveEntity;
+
+    public User getUser() {
+        return user;
+    }
 
     public Long getId() {
         return super.getId();
@@ -36,11 +38,6 @@ public class GameJournal extends InteractiveEntity {
     public void setId(Long id) {
         super.setId(id);
     }
-
-    public List<LikeEntity> getLikes() {
-        return super.getLikes();
-    }
-
     public void setUpdatedAt(LocalDateTime updatedAt) {
         super.setUpdatedAt(updatedAt);
     }
@@ -53,8 +50,12 @@ public class GameJournal extends InteractiveEntity {
     public LocalDateTime getUpdatedAt() {
         return super.getUpdatedAt();
     }
+
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
+    }
+
     public List<Comment> getComments() {
         return super.getComments();
     }
 }
-

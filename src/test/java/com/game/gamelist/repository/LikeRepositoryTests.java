@@ -47,7 +47,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
          List<LikeEntity> likeEntityList = likeRepository.findAll();
 
          assertEquals(0, likeEntityList.size());
-
     }
 
     @Nested
@@ -68,7 +67,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             Post post1 = new Post();
             post1.setText("Hello World");
             post1.setUser(user);
-            post1.setId(1L);
             post1.setCreatedAt(LocalDateTime.now());
             post1.setUpdatedAt(LocalDateTime.now());
             postRepository.save(post1);
@@ -78,7 +76,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             post2.setUser(user);
             post2.setCreatedAt(LocalDateTime.now());
             post2.setUpdatedAt(LocalDateTime.now());
-            post2.setId(2L);
             postRepository.save(post2);
         }
 
@@ -90,7 +87,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
             Post post = postRepository.findAll().get(0);
 
-
             assertEquals(0, post.getLikes().size());
 
             assertEquals("Hello World", post.getText());
@@ -100,15 +96,14 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             likeEntity.setInteractiveEntity(post);
             likeEntity.setCreatedAt(LocalDateTime.now());
             likeEntity.setUpdatedAt(LocalDateTime.now());
-            likeEntity.setId(1L);
 
             likeRepository.save(likeEntity);
 
             assertEquals(1, likeRepository.findAll().size());
 
-            LikeEntity likeEntity1 = likeRepository.findById(1L).get();
+            LikeEntity likeEntity1 = likeRepository.findAll().get(0);
 
-            LikeEntityView likeEntityView = likeRepository.findLikeEntityViewById(1L).orElseThrow(() -> new ResourceNotFoundException("Can not find like entity with id: " + 1L));
+            LikeEntityView likeEntityView = likeRepository.findLikeEntityViewById(likeEntity1.getId()).orElseThrow(() -> new ResourceNotFoundException("Can not find like entity with id: " + 1L));
 
             assertEquals("changli", likeEntityView.getUser().getUsername());
             assertEquals("User Picture URL", likeEntityView.getUser().getUserPicture());
@@ -171,9 +166,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
 
             LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).get();
 
-            entityManager.refresh(post);
-            entityManager.refresh(likeEntity);
-
             assertEquals(likeEntityFromDB.getId(), likeEntity.getId());
             assertEquals(likeEntityFromDB.getUser(), likeEntity.getUser());
             assertEquals(likeEntityFromDB.getInteractiveEntity(), likeEntity.getInteractiveEntity());
@@ -192,7 +184,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             likeEntity.setInteractiveEntity(post);
 
             likeRepository.save(likeEntity);
-            entityManager.refresh(post);
 
             post.getLikes().add(likeEntity);
 
@@ -207,8 +198,6 @@ public class LikeRepositoryTests extends ContainersEnvironment {
             assertEquals(0, post.getLikes().size());
 
             assertEquals(0, likeRepository.findAll().size());
-
-            entityManager.flush();
 
             LikeEntity likeEntityFromDB = likeRepository.findByUserIdAndInteractiveEntityId(user.getId(), post.getId()).orElse(null);
 

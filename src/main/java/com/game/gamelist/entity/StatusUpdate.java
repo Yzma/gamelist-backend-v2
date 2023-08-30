@@ -11,12 +11,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//@DiscriminatorValue("status_update_type")
+
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "status_updates")
-@DiscriminatorValue("status_update_type")
+@PrimaryKeyJoinColumn(name = "status_update_id")
 public class StatusUpdate extends InteractiveEntity {
 
     @Column(name = "game_status")
@@ -49,5 +51,8 @@ public class StatusUpdate extends InteractiveEntity {
     }
     public LocalDateTime getUpdatedAt() {
         return super.getUpdatedAt();
+    }
+    public List<Comment> getComments() {
+        return super.getComments();
     }
 }

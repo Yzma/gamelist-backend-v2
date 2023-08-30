@@ -10,11 +10,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "interactive_entities")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
@@ -28,9 +29,15 @@ public abstract class InteractiveEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<LikeEntity> likes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
+    protected List<Comment> getComments() {
+        return comments;
+    }
     protected Long getId() {
         return id;
     }
