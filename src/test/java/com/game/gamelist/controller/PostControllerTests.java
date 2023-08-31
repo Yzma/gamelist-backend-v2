@@ -95,7 +95,7 @@ public class PostControllerTests {
 
         when(postService.createPost(Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(createdPost);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/posts/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/posts")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createdPost)))
                 .andExpect(status().isCreated())
@@ -112,7 +112,7 @@ public class PostControllerTests {
 
         when(postService.findAllPostsByUserId(Mockito.any(User.class))).thenReturn(mockPostsList);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/posts")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.posts[0].id").value(mockPostsList.get(0).getId()))

@@ -67,7 +67,7 @@ public class LikeControllerTests {
 
         when(likeService.createLike(Mockito.any(User.class), Mockito.anyLong())).thenReturn(mockLike);
         // Act
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/likes/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/likes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(123L)))
                 .andExpect(status().isCreated())

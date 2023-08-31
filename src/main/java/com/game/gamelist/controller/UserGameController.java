@@ -26,7 +26,7 @@ public class UserGameController {
     private final UserGameService userGameService;
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<HttpResponse> getAllUserGameByUserId(@AuthenticationPrincipal User principal) {
         Set<UserGame> userGames = userGameService.findAllUserGamesByUserId(principal);
 
@@ -68,7 +68,7 @@ public class UserGameController {
 
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
         UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
