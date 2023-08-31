@@ -81,7 +81,7 @@ public class UserGameControllerTests {
 
         when(userGameService.findAllUserGamesByUserId(principal)).thenReturn(userGameSet);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameSet)))
                 .andExpect(status().isOk())
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
@@ -112,7 +112,7 @@ public class UserGameControllerTests {
         when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
                 .andExpect(status().isCreated())
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
@@ -125,7 +125,7 @@ public class UserGameControllerTests {
 
         when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }

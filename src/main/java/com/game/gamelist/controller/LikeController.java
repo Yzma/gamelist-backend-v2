@@ -22,7 +22,7 @@ import java.util.Map;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/")
+    @PostMapping
     @Transactional
     public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal,@RequestBody Long interactiveEntityId
     ) {

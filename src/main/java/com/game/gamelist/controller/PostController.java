@@ -24,7 +24,7 @@ public class PostController {
 
     private final PostService postService;
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<HttpResponse> getAllPostsByUser(@AuthenticationPrincipal User principal) {
         List<PostView> posts = postService.findAllPostsByUserId(principal);
 
@@ -69,7 +69,7 @@ public class PostController {
         );
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<HttpResponse> createPost(@RequestBody Post post, @AuthenticationPrincipal User principal) {
         Post createdPost = postService.createPost(post, principal);
 
