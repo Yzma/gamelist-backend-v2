@@ -40,24 +40,25 @@ public class GameServiceImpl implements GameService {
         // Ensure a limit is set, we don't want to fetch too many rows
         gameQueryFilters.setLimit(clampLimit(gameQueryFilters.getLimit()));
 
-        List<Game> foundGames = getQuery(gameQueryFilters);
-        return gameMapper.gamesToGameDTOs(foundGames);
-    }
-
-    private List<Game> getQuery(GameQueryFilters gameQueryFilters) {
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Game> query = builder.createQuery(Game.class);
-        Root<Game> root = query.from(Game.class);
-
         Specification<Game> gameSpecification = new GameSpecification(gameQueryFilters);
 
-        query.select(root);
-        query.where(gameSpecification.toPredicate(root, query, builder));
+        TypedQuery<Game> foundGames = getQuery(gameSpecification, Game.class);
+        foundGames.setFirstResult(gameQueryFilters.getOffset());
+        foundGames.setMaxResults(gameQueryFilters.getLimit());
+        return gameMapper.gamesToGameDTOs(foundGames.getResultList());
+    }
 
-        TypedQuery<Game> typedQuery = em.createQuery(query);
-        typedQuery.setMaxResults(gameQueryFilters.getLimit());
-        typedQuery.setFirstResult(gameQueryFilters.getOffset());
-        return typedQuery.getResultList();
+    private <T> TypedQuery<T> getQuery(Specification<T> specification, Class<T> clazz) {
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(clazz);
+        Root<T> root = query.from(clazz);
+
+        query.select(root);
+        if (specification != null) {
+            query.where(specification.toPredicate(root, query, builder));
+        }
+
+        return em.createQuery(query);
     }
 
     private int clampLimit(int limit) {
