@@ -2,7 +2,7 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;

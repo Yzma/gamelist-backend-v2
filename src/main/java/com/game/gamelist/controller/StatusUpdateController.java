@@ -3,7 +3,7 @@ package com.game.gamelist.controller;
 
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.HttpResponse;
-import com.game.gamelist.model.StatusUpdateView;
+import com.game.gamelist.projection.StatusUpdateView;
 import com.game.gamelist.service.StatusUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

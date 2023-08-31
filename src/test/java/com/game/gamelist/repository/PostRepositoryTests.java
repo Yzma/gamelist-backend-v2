@@ -3,7 +3,7 @@ package com.game.gamelist.repository;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

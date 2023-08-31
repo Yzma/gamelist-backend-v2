@@ -6,7 +6,7 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.CommentView;
+import com.game.gamelist.projection.CommentView;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;

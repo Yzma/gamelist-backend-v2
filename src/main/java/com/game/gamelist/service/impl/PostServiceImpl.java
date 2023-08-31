@@ -7,14 +7,13 @@ import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.PostView;
-import com.game.gamelist.model.UserBasicView;
+import com.game.gamelist.projection.PostView;
+import com.game.gamelist.projection.UserBasicView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

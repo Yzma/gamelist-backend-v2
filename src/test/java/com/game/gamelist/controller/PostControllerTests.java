@@ -7,7 +7,7 @@ import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.MockPostView;
 import com.game.gamelist.model.MockUserBasicView;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import com.game.gamelist.service.PostService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

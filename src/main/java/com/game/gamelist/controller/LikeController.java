@@ -1,9 +1,8 @@
 package com.game.gamelist.controller;
 
-import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.HttpResponse;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

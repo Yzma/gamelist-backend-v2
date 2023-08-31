@@ -1,7 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.Post;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

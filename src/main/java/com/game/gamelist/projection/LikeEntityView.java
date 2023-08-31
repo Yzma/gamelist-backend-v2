@@ -1,4 +1,6 @@
-package com.game.gamelist.model;
+package com.game.gamelist.projection;
+
+import com.game.gamelist.projection.UserBasicView;
 
 import java.time.LocalDateTime;
 

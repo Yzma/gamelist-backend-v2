@@ -1,10 +1,9 @@
-package com.game.gamelist.model;
+package com.game.gamelist.projection;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface CommentView {
-
+public interface PostView {
     Long getId();
 
     UserBasicView getUser();
@@ -13,8 +12,9 @@ public interface CommentView {
 
     LocalDateTime getCreatedAt();
 
-    void setText(String text);
-
     List<LikeEntityView> getLikes();
+
     List<CommentView> getComments();
+
+    void setText(String text);
 }

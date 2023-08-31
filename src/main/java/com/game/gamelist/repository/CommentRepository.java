@@ -1,7 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.Comment;
-import com.game.gamelist.model.CommentView;
+import com.game.gamelist.projection.CommentView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

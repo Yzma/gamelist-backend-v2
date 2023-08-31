@@ -1,6 +1,7 @@
 package com.game.gamelist.model;
 
-import com.game.gamelist.entity.User;
+import com.game.gamelist.projection.LikeEntityView;
+import com.game.gamelist.projection.UserBasicView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;

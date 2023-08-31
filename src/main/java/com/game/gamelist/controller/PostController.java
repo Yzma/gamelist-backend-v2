@@ -4,7 +4,7 @@ package com.game.gamelist.controller;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.HttpResponse;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import com.game.gamelist.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

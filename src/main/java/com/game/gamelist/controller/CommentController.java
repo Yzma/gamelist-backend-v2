@@ -1,7 +1,7 @@
 package com.game.gamelist.controller;
 
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.CommentView;
+import com.game.gamelist.projection.CommentView;
 import com.game.gamelist.model.CreateCommentRequest;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.CommentService;
