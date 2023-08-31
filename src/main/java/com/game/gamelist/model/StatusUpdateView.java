@@ -9,7 +9,7 @@ import java.util.List;
 public interface StatusUpdateView {
     Long getId();
 
-    UserGame getUserGame();
+    UserGameBasicView getUserGame();
 
     GameStatus getGameStatus();
 
