@@ -77,7 +77,6 @@ public class GameSpecification implements Specification<Game> {
         Root<Game> subqueryGameRoot = subquery.from(Game.class);
         Join<Game, ?> tableJoin = subqueryGameRoot.join(tableName);
 
-        query.multiselect(root, tableJoin.get("name"));
         subquery.select(subqueryGameRoot.get("id"))
                 .where(tableJoin.get("name").in(toExclude));
 
