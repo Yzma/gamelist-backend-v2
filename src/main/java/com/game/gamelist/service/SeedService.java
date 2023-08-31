@@ -71,7 +71,6 @@ public class SeedService {
                 List<Platform> platforms = objectMapper.readValue(inputStream, new TypeReference<>() {
                 });
 
-                System.out.println("??👹👹👹👹👹👹Platphorms: " + platforms.size() + "👹👹👹👹👹👹");
                 platformRepository.saveAll(platforms);
             } catch (IOException e) {
                 e.printStackTrace();
