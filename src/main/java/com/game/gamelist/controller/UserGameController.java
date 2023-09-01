@@ -4,6 +4,7 @@ package com.game.gamelist.controller;
 import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
@@ -94,16 +95,16 @@ public class UserGameController {
         }
     }
 
-    @PutMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> updateUserGame(@PathVariable("requestedId") Long requestedId, @RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
-        UserGame updatedUserGame = userGameService.updateUserGameById(requestedId, userGame, principal);
+    @PutMapping
+    public ResponseEntity<HttpResponse> updateUserGame(@RequestBody EditUserGameRequest userGame, @AuthenticationPrincipal User principal) {
+        UserGame updatedUserGame = userGameService.updateUserGameById(userGame, principal);
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
                         .data(Map.of("userGame", updatedUserGame))
-                        .status(HttpStatus.NO_CONTENT)
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
                         .message("UserGame updated")
                         .build());
 
