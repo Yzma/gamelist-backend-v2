@@ -20,4 +20,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @EntityGraph(attributePaths = {"followers", "following"})
     Optional<User> findWithFollowersAndFollowingByEmail(String email);
+
+    void deleteByEmail(String email);
 }

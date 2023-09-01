@@ -31,7 +31,6 @@ public class FollowRepositoryTests extends ContainersEnvironment {
     void beforeEachTest() {
 
         User user = User.builder().email("user@gmail.com").username("user").password("password").bannerPicture("user banner").userPicture("user picture").build();
-
         userRepository.save(user);
     }
     @Test
@@ -86,6 +85,46 @@ public class FollowRepositoryTests extends ContainersEnvironment {
         assertEquals(1, follower.getFollowing().size());
         assertEquals(0, follower.getFollowers().size());
         assertEquals("user", userFromDB.getUsername());
+        userRepository.deleteById(userFromDB.getId());
+        userRepository.deleteById(follower.getId());
+    }
 
+    @Test
+    @Order(3)
+    public void when_removeFollower_Expect_FollowerRemoved() {
+
+        assertEquals(1, userRepository.findAll().size());
+        User userFromDB = userRepository.findWithFollowersAndFollowingById(userRepository.findAll().get(0).getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        assertEquals("user", userFromDB.getUsername());
+        assertEquals(0, userFromDB.getFollowers().size());
+        assertEquals(0, userFromDB.getFollowing().size());
+
+        User follower1 = User.builder().email("follower1@gmail.com").username("follower1").password("password").bannerPicture("follower1 banner").userPicture("follower1 picture").build();
+
+        User follower2 = User.builder().email("follower2@gmail.com").username("follower2").password("password").bannerPicture("follower2 banner").userPicture("follower2 picture").build();
+
+        User follower3 = User.builder().email("follower3@gmail.com").username("follower3").password("password").bannerPicture("follower3 banner").userPicture("follower3 picture").build();
+
+        userFromDB.setFollowers(Set.of(follower1, follower2, follower3));
+        follower1.setFollowing(Set.of(userFromDB));
+        follower2.setFollowing(Set.of(userFromDB));
+        follower3.setFollowing(Set.of(userFromDB));
+
+        follower1 = userRepository.save(follower1);
+        userRepository.save(follower2);
+        userRepository.save(follower3);
+        userFromDB = userRepository.save(userFromDB);
+
+        assertEquals(3, userFromDB.getFollowers().size());
+        assertEquals(userFromDB.getEmail(), follower1.getFollowing().iterator().next().getEmail());
+
+        follower1.setFollowing(Set.of());
+        userFromDB.setFollowers(Set.of(follower2, follower3));
+        userFromDB = userRepository.save(userFromDB);
+
+        assertEquals(2, userFromDB.getFollowers().size());
+        assertEquals(0, follower1.getFollowing().size());
+        assertEquals("user", userFromDB.getUsername());
     }
 }
