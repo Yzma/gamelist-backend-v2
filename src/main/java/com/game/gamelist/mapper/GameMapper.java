@@ -20,6 +20,7 @@ public interface GameMapper {
     @Mapping(source = "releaseDate", target = "releaseDate", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(source = "avgScore", target = "avgScore")
     @Mapping(source = "imageURL", target = "imageURL", defaultValue = "")
+    @Mapping(source = "bannerURL", target = "bannerURL", defaultValue = "")
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name", defaultValue = "")
     GameDTO gameToGameDTO(Game game);

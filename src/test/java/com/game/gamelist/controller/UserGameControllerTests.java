@@ -4,6 +4,7 @@ package com.game.gamelist.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
 import com.game.gamelist.entity.*;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.service.UserGameService;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -17,12 +18,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,28 +41,24 @@ public class UserGameControllerTests {
     private ObjectMapper objectMapper;
     @Autowired
     private SecurityTestConfig.Auth0JwtTestUtils auth0JwtTestUtils;
+    private Game game1;
+    private Game game2;
+    private Game game3;
+    private User principal;
+    private Game game4;
 
     @Test
     void contextLoads() {
         Assertions.assertNotNull(userGameController);
     }
 
-    private Game game1;
-    private Game game2;
-    private Game game3;
-    private User principal;
-    private User notPrincipal;
-    private Game game4;
     @BeforeEach
     void beforeEachTest() {
         game1 = Game.builder().name("game1").description("description of game1").build();
         game2 = Game.builder().name("game2").description("description of game2").build();
         game3 = Game.builder().name("game3").description("description of game3").build();
         game4 = Game.builder().name("game4").description("description of game4").build();
-
         principal = User.builder().id(1L).roles(Set.of(Role.ROLE_USER)).username("principal").email("principal@gmail.com").build();
-
-        notPrincipal = User.builder().id(2L).roles(Set.of(Role.ROLE_USER)).username("notPrincipal").email("notprincipal@gmail.com").build();
     }
 
     @Test
@@ -139,9 +136,9 @@ public class UserGameControllerTests {
 
         UserGame userGameBody = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1 Just get updated. ").gameStatus(GameStatus.Paused).rating(5).startDate(LocalDateTime.now()).build();
 
-        when(userGameService.updateUserGameById(Mockito.anyLong(), Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+        when(userGameService.updateUserGameById(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames/1")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
                 .andExpect(jsonPath("$.status").value("NO_CONTENT"))
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))

@@ -7,6 +7,7 @@ import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.mapper.GameMapper;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.repository.UserGameRepository;
@@ -31,22 +32,16 @@ public class UserGameServiceImpl implements UserGameService {
     @Override
     public UserGame findUserGameById(Long requestedId, User principal) {
         if (principal == null) {
-            throw new InvalidTokenException("Invalid token");
+            throw new InvalidTokenException("Invalid principal user");
         }
 
-        Optional<UserGame> userGame = userGameRepository.findById(requestedId);
+        Optional<UserGame> userGame = userGameRepository.findByGameIdAndUserId(requestedId, principal.getId());
 
         if (userGame.isPresent()) {
-            UserGame responseData = userGame.get();
-
-            User user = responseData.getUser();
-
-            if (principal.getId().equals(user.getId())) {
-                return userGame.get();
-            }
-            throw new InvalidAuthorizationException("Invalid authorization");
+            return userGame.get();
         }
-        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
+
+        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId + " and UserID: " + principal.getId());
     }
 
     @Override
@@ -58,7 +53,7 @@ public class UserGameServiceImpl implements UserGameService {
         // Check if the UserGame already exists in the database
         UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
         StatusUpdate statusUpdate = new StatusUpdate();
-        UserGame userGameResponse = new UserGame();
+
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
             existingUserGame.setIsPrivate(userGame.getIsPrivate());
@@ -90,35 +85,28 @@ public class UserGameServiceImpl implements UserGameService {
     }
 
     @Override
-    public UserGame updateUserGameById(Long requestedId, UserGame userGame, User principal) {
+    public UserGame updateUserGameById(EditUserGameRequest userGame, User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
-//        Get the UserGame instance needed to be updated
-        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
+
+        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(userGame.getGameId(), principal.getId());
 
         if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
-            Game game = responseData.getGame();
-            User user = responseData.getUser();
-//            check if user id and game id matches
-            if (!principal.getId().equals(user.getId()) || !game.getId().equals(userGame.getGame().getId())) {
-                throw new InvalidAuthorizationException("Invalid authorization");
-            }
-
-            StatusUpdate statusUpdate = new StatusUpdate();
             responseData.setGameStatus(userGame.getGameStatus());
             responseData.setGameNote(userGame.getGameNote());
             responseData.setIsPrivate(userGame.getIsPrivate());
             responseData.setRating(userGame.getRating());
             responseData.setCompletedDate(userGame.getCompletedDate());
-            responseData.setUpdatedAt(userGame.getUpdatedAt());
+            responseData.setStartDate(userGame.getStartDate());
 
+            StatusUpdate statusUpdate = new StatusUpdate();
             statusUpdate.setUserGame(responseData);
             statusUpdate.setGameStatus(responseData.getGameStatus());
             statusUpdateRepository.save(statusUpdate);
             return userGameRepository.save(responseData);
         }
 
-        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
+        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGameId());
     }
 
     @Override
