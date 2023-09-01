@@ -13,9 +13,9 @@ public class GameDTO {
     private String name;
     private double avgScore;
     private String imageURL;
+    private String bannerURL;
     private LocalDateTime releaseDate;
     private List<String> platforms;
     private List<String> tags;
     private List<String> genres;
-
 }
