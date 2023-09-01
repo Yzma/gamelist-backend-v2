@@ -64,11 +64,13 @@ public class GameRepositoryTest extends ContainersEnvironment {
             Genre genre2FromDB = genreRepository.findByName("genre2");
 
             Platform platform = new Platform();
+            platform.setId(1L);
             platform.setName("platform1");
             platformRepository.save(platform);
             Platform platformFromDB = platformRepository.findByName("platform1");
 
             Platform platform2 = new Platform();
+            platform2.setId(2L);
             platform2.setName("platform2");
             platformRepository.save(platform2);
             Platform platform2FromDB = platformRepository.findByName("platform2");
