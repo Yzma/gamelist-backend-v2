@@ -17,6 +17,9 @@ public class FollowServiceImpl implements FollowService {
     private final UserRepository userRepository;
     @Override
     public UserBasicView createFollow(User principle, Long userId) {
+        if (principle.getId().equals(userId)) {
+            throw new InvalidInputException("You cannot follow yourself.");
+        }
 
         boolean alreadyFollowed = userRepository.existsInFollowingByIdAndFollowersId(userId, principle.getId());
 
@@ -32,14 +35,30 @@ public class FollowServiceImpl implements FollowService {
 
         userRepository.save(user);
 
-        UserBasicView userToFollowView = userRepository.findBasicViewWithFollowersAndFollowingById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        UserBasicView userToFollowView = userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         return userToFollowView;
     }
 
     @Override
     public UserBasicView removeFollow(User principle, Long userId) {
-        return null;
+        if (principle.getId().equals(userId)) {
+            throw new InvalidInputException("You cannot follow or remove yourself.");
+        }
+
+        boolean alreadyFollowed = userRepository.existsInFollowingByIdAndFollowersId(userId, principle.getId());
+        if(!alreadyFollowed) {
+            throw new InvalidInputException("Can not found this user in your following.");
+        }
+
+        User user = userRepository.findWithFollowersAndFollowingById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User userToUnfollow = userRepository.findWithFollowersAndFollowingById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        user.removeFollowing(userToUnfollow);
+        userRepository.save(user);
+
+        UserBasicView userToUnfollowView = userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userToUnfollowView;
     }
 
     @Override
@@ -49,6 +68,7 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public FollowView getAllFollows(User principle) {
-        return null;
+        FollowView followView = userRepository.findFollowViewViewWithFollowersAndFollowingById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return followView;
     }
 }
