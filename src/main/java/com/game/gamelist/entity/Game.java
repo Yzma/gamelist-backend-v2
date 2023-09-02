@@ -5,21 +5,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+//@DiscriminatorValue("game_type")
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity(name = "games")
-public class Game {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Game extends InteractiveEntity {
 
     private String name;
 
@@ -41,12 +41,6 @@ public class Game {
     @Column(name = "total_rating")
     @JsonProperty("total_rating_count")
     private int totalRating;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 
     @Column(name = "`bannerURL`")
     @JsonProperty("screenshots")
@@ -93,5 +87,30 @@ public class Game {
     @JsonIgnoreProperties("game")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
-    
+
+    public List<Comment> getComments() {
+        return super.getComments();
+    }
+    public Long getId() {
+        return super.getId();
+    }
+    public void setId(Long id) {
+        super.setId(id);
+    }
+    public List<LikeEntity> getLikes() {
+        return super.getLikes();
+    }
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        super.setUpdatedAt(updatedAt);
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        super.setCreatedAt(createdAt);
+    }
+    public LocalDateTime getCreatedAt() {
+        return super.getCreatedAt();
+    }
+    public LocalDateTime getUpdatedAt() {
+        return super.getUpdatedAt();
+    }
+
 }

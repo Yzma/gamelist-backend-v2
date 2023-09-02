@@ -22,7 +22,6 @@ public class Platform {
 
     @Id
     @JsonProperty("id")
-    @GeneratedValue
     private Long id;
 
     @Column(unique = true)

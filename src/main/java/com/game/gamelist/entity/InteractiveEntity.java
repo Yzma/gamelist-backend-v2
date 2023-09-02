@@ -1,7 +1,9 @@
 package com.game.gamelist.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,6 +14,8 @@ import java.util.List;
 
 //@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
 
+@Setter
+@Getter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "interactive_entities")
@@ -19,6 +23,7 @@ import java.util.List;
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @CreationTimestamp
