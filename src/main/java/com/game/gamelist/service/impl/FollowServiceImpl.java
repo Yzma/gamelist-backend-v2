@@ -35,9 +35,7 @@ public class FollowServiceImpl implements FollowService {
 
         userRepository.save(user);
 
-        UserBasicView userToFollowView = userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-
-        return userToFollowView;
+        return userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
@@ -57,18 +55,32 @@ public class FollowServiceImpl implements FollowService {
         user.removeFollowing(userToUnfollow);
         userRepository.save(user);
 
-        UserBasicView userToUnfollowView = userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return userToUnfollowView;
+        return userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
     public UserBasicView removeFollower(User principle, Long userId) {
-        return null;
+        if (principle.getId().equals(userId)) {
+            throw new InvalidInputException("You cannot follow or remove yourself.");
+        }
+
+        boolean isFollowerExist = userRepository.existsInFollowersByIdAndFollowersId(principle.getId(), userId);
+
+        if(!isFollowerExist) {
+            throw new InvalidInputException("Can not found this user in your followers.");
+        }
+
+        User user = userRepository.findWithFollowersAndFollowingById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User userToRemoveInFollowers = userRepository.findWithFollowersAndFollowingById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        user.removeFollower(userToRemoveInFollowers);
+        userRepository.save(user);
+
+        return userRepository.findBasicViewById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
     public FollowView getAllFollows(User principle) {
-        FollowView followView = userRepository.findFollowViewViewWithFollowersAndFollowingById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return followView;
+        return userRepository.findFollowViewViewWithFollowersAndFollowingById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

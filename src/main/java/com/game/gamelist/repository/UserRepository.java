@@ -25,6 +25,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsInFollowingByIdAndFollowersId(Long id, Long followerId);
 
+    boolean existsInFollowersByIdAndFollowersId(Long id, Long followerId);
+
     @EntityGraph(attributePaths = {"followers", "following"})
     Optional<FollowView> findFollowViewViewWithFollowersAndFollowingById(Long id);
 
