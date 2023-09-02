@@ -1,6 +1,7 @@
 package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
+import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.repository.*;
@@ -27,7 +28,7 @@ public class LikeServiceImpl implements LikeService {
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
 
         if (alreadyLiked) {
-            throw new IllegalStateException("You have already liked this entity.");
+            throw new InvalidInputException("You have already liked this entity.");
         }
 
         User owner = userRepository.findById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));

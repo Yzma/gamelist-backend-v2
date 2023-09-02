@@ -1,6 +1,8 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.User;
+import com.game.gamelist.projection.FollowView;
+import com.game.gamelist.projection.UserBasicView;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,5 +23,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @EntityGraph(attributePaths = {"followers", "following"})
     Optional<User> findWithFollowersAndFollowingByEmail(String email);
 
-    void deleteByEmail(String email);
+    boolean existsInFollowingByIdAndFollowersId(Long id, Long followerId);
+
+    @EntityGraph(attributePaths = {"followers", "following"})
+    Optional<UserBasicView> findBasicViewWithFollowersAndFollowingById(Long id);
 }
