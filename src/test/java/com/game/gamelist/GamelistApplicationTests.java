@@ -3,7 +3,6 @@ package com.game.gamelist;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.PostView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.repository.UserRepository;
 import jakarta.transaction.Transactional;

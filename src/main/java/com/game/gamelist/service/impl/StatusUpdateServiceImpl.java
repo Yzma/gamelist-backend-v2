@@ -2,11 +2,10 @@ package com.game.gamelist.service.impl;
 
 
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.StatusUpdateView;
+import com.game.gamelist.projection.StatusUpdateView;
 import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.service.StatusUpdateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

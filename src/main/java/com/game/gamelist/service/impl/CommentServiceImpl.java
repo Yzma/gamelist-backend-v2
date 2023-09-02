@@ -5,7 +5,7 @@ import com.game.gamelist.entity.InteractiveEntity;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.CommentView;
+import com.game.gamelist.projection.CommentView;
 import com.game.gamelist.repository.CommentRepository;
 import com.game.gamelist.repository.InteractiveEntityRepository;
 import com.game.gamelist.repository.UserRepository;

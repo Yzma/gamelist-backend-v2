@@ -4,8 +4,8 @@ import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.MockPostView;
 import com.game.gamelist.model.MockUserBasicView;
-import com.game.gamelist.model.PostView;
-import com.game.gamelist.model.UserBasicView;
+import com.game.gamelist.projection.PostView;
+import com.game.gamelist.projection.UserBasicView;
 import com.game.gamelist.repository.PostRepository;
 import com.game.gamelist.service.impl.PostServiceImpl;
 

@@ -1,8 +1,9 @@
 package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
+import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class LikeServiceImpl implements LikeService {
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
 
         if (alreadyLiked) {
-            throw new IllegalStateException("You have already liked this entity.");
+            throw new InvalidInputException("You have already liked this entity.");
         }
 
         User owner = userRepository.findById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -53,9 +54,7 @@ public class LikeServiceImpl implements LikeService {
 
         like = likeRepository.save(like);
 
-        LikeEntityView likeEntityView = likeRepository.findProjectedById(like.getId());
-
-        return likeEntityView;
+        return likeRepository.findProjectedById(like.getId());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.LikeEntity;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

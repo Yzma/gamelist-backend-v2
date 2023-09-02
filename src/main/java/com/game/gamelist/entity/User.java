@@ -14,9 +14,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -83,6 +81,16 @@ public class User implements UserDetails {
     @JsonIgnoreProperties("user")
     private Set<UserGame> userGames;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_followers",
+            joinColumns = @JoinColumn(name = "follower_id"),
+            inverseJoinColumns = @JoinColumn(name = "following_id"))
+    private Set<User> followers = new HashSet<>();
+
+    @ManyToMany(mappedBy = "followers")
+    private Set<User> following = new HashSet<>();
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
@@ -119,4 +127,35 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public void addFollower(User user) {
+        followers.add(user);
+        user.getFollowing().add(this);
+    }
+
+    public void removeFollower(User user) {
+        followers.remove(user);
+        user.getFollowing().remove(this);
+    }
+
+    public void addFollowing(User user) {
+        following.add(user);
+        user.getFollowers().add(this);
+    }
+
+    public void removeFollowing(User user) {
+        following.remove(user);
+        user.getFollowers().remove(this);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User other = (User) o;
+        return id != null && id.equals(other.id);    }
 }

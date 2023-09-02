@@ -1,4 +1,4 @@
-package com.game.gamelist.model;
+package com.game.gamelist.projection;
 
 public interface GameBasicView {
     Long getId();

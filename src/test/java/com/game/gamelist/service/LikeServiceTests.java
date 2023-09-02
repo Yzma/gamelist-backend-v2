@@ -4,6 +4,7 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.model.*;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.repository.InteractiveEntityRepository;
 import com.game.gamelist.repository.LikeRepository;
 import com.game.gamelist.repository.UserRepository;

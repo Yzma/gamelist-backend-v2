@@ -1,7 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.StatusUpdate;
-import com.game.gamelist.model.StatusUpdateView;
+import com.game.gamelist.projection.StatusUpdateView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

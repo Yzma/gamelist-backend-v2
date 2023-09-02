@@ -1,7 +1,6 @@
-package com.game.gamelist.model;
+package com.game.gamelist.projection;
 
 import com.game.gamelist.entity.GameStatus;
-import com.game.gamelist.entity.UserGame;
 
 import java.time.LocalDateTime;
 import java.util.List;
