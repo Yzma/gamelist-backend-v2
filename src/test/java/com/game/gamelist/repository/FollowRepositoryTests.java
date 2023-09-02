@@ -129,9 +129,6 @@ public class FollowRepositoryTests extends ContainersEnvironment {
         userFromDB.addFollowing(follower1);
         userRepository.save(userFromDB);
 
-        System.out.println("👹👹👹👹👹👹👹👹👹👹userFromDB.getFollowing().size() = " + userFromDB.getFollowing().size());
-
-        System.out.println("??👹👹👹👹👹👹👹👹👹follower1.getFollowers().size() = " + follower1.getFollowers().size());
 //        userFromDB = userRepository.findWithFollowersAndFollowingById(userFromDB.getId()).get();
         assertEquals(1, userFromDB.getFollowing().size());
         assertEquals(1, follower1.getFollowers().size());
