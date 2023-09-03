@@ -86,11 +86,6 @@ public class CommentRepositoryTests extends ContainersEnvironment {
             post2.setCreatedAt(LocalDateTime.now());
             post2.setUpdatedAt(LocalDateTime.now());
             postRepository.save(post2);
-
-            LikeEntity like = new LikeEntity();
-            like.setInteractiveEntity(post1);
-            like.setUser(user);
-            likeRepository.save(like);
         }
 
         @Test
@@ -102,12 +97,19 @@ public class CommentRepositoryTests extends ContainersEnvironment {
             assertEquals("changli", user.getUsername());
             assertEquals("changli@gmail.com", user.getEmail());
 
-            Post post = postRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException("Post not found"));
-            entityManager.refresh(post);
+            Post post = postRepository.findAll().get(0);
 
-            assertEquals("Hello World", post.getText());
-            assertEquals("changli", post.getUser().getUsername());
-            assertEquals(1, post.getLikes().size());
+            LikeEntity like = LikeEntity.builder().user(user).interactiveEntity(post).build();
+
+            post.getLikes().add(like);
+            likeRepository.save(like);
+            postRepository.save(post);
+            assertEquals(1, likeRepository.findAll().size());
+            Post postFromDB = postRepository.findAll().get(0);
+
+            assertEquals("Hello World", postFromDB.getText());
+            assertEquals(user.getUsername(), postFromDB.getUser().getUsername());
+            assertEquals(1, postFromDB.getLikes().size());
         }
 
         @Test

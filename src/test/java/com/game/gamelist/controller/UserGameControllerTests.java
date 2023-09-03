@@ -140,7 +140,7 @@ public class UserGameControllerTests {
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
-                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
                 .andExpect(jsonPath("$.data.userGame.gameNote").value("GameNote from usergame of user1 and game1 Just get updated. ")).andExpect(jsonPath("$.data.userGame.rating").value(5));
     }
