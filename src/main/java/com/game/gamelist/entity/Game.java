@@ -9,7 +9,6 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 //@DiscriminatorValue("game_type")
@@ -87,30 +86,5 @@ public class Game extends InteractiveEntity {
     @JsonIgnoreProperties("game")
     @Column(name = "user_games")
     private Set<UserGame> userGames;
-
-    public List<Comment> getComments() {
-        return super.getComments();
-    }
-    public Long getId() {
-        return super.getId();
-    }
-    public void setId(Long id) {
-        super.setId(id);
-    }
-    public List<LikeEntity> getLikes() {
-        return super.getLikes();
-    }
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        super.setUpdatedAt(updatedAt);
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        super.setCreatedAt(createdAt);
-    }
-    public LocalDateTime getCreatedAt() {
-        return super.getCreatedAt();
-    }
-    public LocalDateTime getUpdatedAt() {
-        return super.getUpdatedAt();
-    }
 
 }

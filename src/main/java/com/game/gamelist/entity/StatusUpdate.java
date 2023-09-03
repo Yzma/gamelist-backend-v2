@@ -28,31 +28,4 @@ public class StatusUpdate extends InteractiveEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_game_id", referencedColumnName = "id")
     private UserGame userGame;
-    public Long getId() {
-        return super.getId();
-    }
-
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    public List<LikeEntity> getLikes() {
-        return super.getLikes();
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        super.setUpdatedAt(updatedAt);
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        super.setCreatedAt(createdAt);
-    }
-    public LocalDateTime getCreatedAt() {
-        return super.getCreatedAt();
-    }
-    public LocalDateTime getUpdatedAt() {
-        return super.getUpdatedAt();
-    }
-    public List<Comment> getComments() {
-        return super.getComments();
-    }
 }

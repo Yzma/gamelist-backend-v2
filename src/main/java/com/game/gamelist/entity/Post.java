@@ -26,10 +26,4 @@ public class Post extends InteractiveEntity {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
-    public List<Comment> getComments() {
-        return super.getComments();
-    }
-    public List<LikeEntity> getLikes() {
-        return super.getLikes();
-    }
 }
