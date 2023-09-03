@@ -13,4 +13,6 @@ public interface UserGameRepository extends JpaRepository<UserGame, Long> {
     Optional<Set<UserGame>> findAllByUserId(Long userId);
 
     Optional<UserGame> findByGameIdAndUserId(Long gameId, Long userId);
+
+    boolean existsByGameIdAndUserId(Long gameId, Long userId);
 }

@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDateTime;
-import java.util.List;
 //@DiscriminatorValue("comment_type")
 
 @Getter
@@ -26,6 +24,5 @@ public class Comment extends InteractiveEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interactive_entity_id", referencedColumnName = "id")
     private InteractiveEntity interactiveEntity;
-
 
 }

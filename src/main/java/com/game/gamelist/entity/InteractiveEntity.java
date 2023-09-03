@@ -40,4 +40,21 @@ public abstract class InteractiveEntity {
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
+    public void addLike(LikeEntity likeEntity) {
+        likes.add(likeEntity);
+        likeEntity.setInteractiveEntity(this);
+    }
+    public void removeLike(LikeEntity likeEntity) {
+        likes.remove(likeEntity);
+        likeEntity.setInteractiveEntity(null);
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setInteractiveEntity(this);
+    }
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setInteractiveEntity(null);
+    }
 }
