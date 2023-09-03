@@ -19,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/follows")
+@CrossOrigin(origins = "http://localhost:5173")
 public class FollowController {
     private final FollowService followService;
 
@@ -32,9 +33,9 @@ public class FollowController {
         );
     }
 
-    @PostMapping
+    @PostMapping("/{userId}")
     @Transactional
-    public ResponseEntity<HttpResponse> createFollow(@AuthenticationPrincipal User principal, @RequestBody Long userId) {
+    public ResponseEntity<HttpResponse> createFollow(@AuthenticationPrincipal User principal, @PathVariable Long userId) {
         UserBasicView userToFollow = followService.createFollow(principal, userId);
 
         return ResponseEntity.created(URI.create("")).body(
@@ -42,7 +43,7 @@ public class FollowController {
         );
     }
 
-    @PutMapping("/{requestedId}")
+    @DeleteMapping("/{requestedId}")
     @Transactional
     public ResponseEntity<HttpResponse> removeFollow(@AuthenticationPrincipal User principal, @PathVariable Long requestedId) {
         UserBasicView userToUnfollow = followService.removeFollow(principal, requestedId);
@@ -61,5 +62,4 @@ public class FollowController {
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("user", userToUnfollow)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("Follower removed successfully").build()
         );
     }
-
 }
