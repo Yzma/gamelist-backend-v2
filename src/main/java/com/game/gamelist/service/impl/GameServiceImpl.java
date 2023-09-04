@@ -6,6 +6,7 @@ import com.game.gamelist.entity.User;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
 import com.game.gamelist.repository.GameRepository;
+import com.game.gamelist.repository.LikeRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.GameService;
 import com.game.gamelist.specification.GameSpecification;
@@ -29,7 +30,7 @@ public class GameServiceImpl implements GameService {
     private static final int MIN_QUERY_LIMIT = 1;
     private static final int MAX_QUERY_LIMIT = 35;
     private final UserGameRepository userGameRepository;
-    private final GameRepository gameRepository;
+    private final LikeRepository likeRepository;
     private final GameMapper gameMapper;
     private final EntityManager em;
 
@@ -53,16 +54,8 @@ public class GameServiceImpl implements GameService {
         List<GameDTO> gameDTOs = gameMapper.gamesToGameDTOs(foundGames.getResultList());
 
         for (GameDTO gameDTO : gameDTOs) {
-            System.out.println("??👹👹👹👹👹👹👹👹👹👹is Game added??" + userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
-
-            System.out.println("??👹� game id" + gameDTO.getId());
-            System.out.println("??👹� user id" + principal.getId());
-
             gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
-
-            gameDTO.setGameLiked(gameRepository.existsLikeByUserIdAndGameId(gameDTO.getId(), principal.getId()));
-
-            System.out.println("??👹� is game added in GamteDTO" + gameDTO.isGameAdded() + "??");
+            gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId( principal.getId(), gameDTO.getId()));
         }
 
         return gameDTOs;

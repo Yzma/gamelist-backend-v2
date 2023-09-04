@@ -21,7 +21,4 @@ public interface GameRepository extends JpaRepository<Game, Long>, JpaSpecificat
     @Query("SELECT g FROM user_games ug JOIN ug.game g WHERE ug.user.id = :userId AND ug.gameStatus = :status")
     List<Game> findGamesByUserIdAndStatus(@Param("userId") Long userId, @Param("status") GameStatus status);
 
-    @Query("SELECT CASE WHEN COUNT(l) > 0 THEN true ELSE false END FROM like_entities l WHERE l.user.id = :userId AND l.interactiveEntity.id = :gameId")
-    boolean existsLikeByUserIdAndGameId(@Param("userId") Long userId, @Param("gameId") Long gameId);
-
 }

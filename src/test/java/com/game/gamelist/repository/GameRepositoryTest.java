@@ -42,6 +42,9 @@ public class GameRepositoryTest extends ContainersEnvironment {
     @Autowired
     private UserGameRepository userGameRepository;
 
+    @Autowired
+    private LikeRepository likeRepository;
+
     @Test
     public void whenFindAll_Expect_EmptyList() {
         List<Game> gameList = gameRepository.findAll();
@@ -134,8 +137,8 @@ public class GameRepositoryTest extends ContainersEnvironment {
                 game.setReleaseDate(LocalDateTime.now());
                 game.setUpdatedAt(LocalDateTime.now());
                 game.setCreatedAt(LocalDateTime.now());
-                game.setAvgScore(5+i);
-                game.setTotalRating(55+i);
+                game.setAvgScore(5 + i);
+                game.setTotalRating(55 + i);
                 gameList.add(game);
             }
 
@@ -167,8 +170,8 @@ public class GameRepositoryTest extends ContainersEnvironment {
             game.setReleaseDate(LocalDateTime.now());
             game.setUpdatedAt(LocalDateTime.now());
             game.setCreatedAt(LocalDateTime.now());
-            game.setAvgScore(5+i);
-            game.setTotalRating(55+i);
+            game.setAvgScore(5 + i);
+            game.setTotalRating(55 + i);
             gameList.add(game);
 
             UserGame userGame = new UserGame();
@@ -205,16 +208,33 @@ public class GameRepositoryTest extends ContainersEnvironment {
             Game game = new Game();
             game.setName("game" + i);
             game.setDescription("game" + i + " description");
-            game.setReleaseDate(LocalDateTime.of(2021-i, 1, 1, 1, 1, 1));
+            game.setReleaseDate(LocalDateTime.of(2021 - i, 1, 1, 1, 1, 1));
             game.setUpdatedAt(LocalDateTime.now());
             game.setCreatedAt(LocalDateTime.now());
-            game.setAvgScore(5+i);
-            game.setTotalRating(55+i);
+            game.setAvgScore(5 + i);
+            game.setTotalRating(55 + i);
             gameList.add(game);
         }
 
         gameRepository.saveAll(gameList);
         int furthestYear = gameRepository.getFurthestYear();
         assertEquals(2021, furthestYear);
+    }
+
+    @Test
+    @Order(5)
+    @Transactional
+    public void when_existsByUserIdAndGameId_returnTrue() {
+        User user = User.builder().username("user").password("user").email("user@gmail.com").build();
+        userRepository.save(user);
+        Game game = Game.builder().name("game").description("game description").build();
+        gameRepository.save(game);
+        LikeEntity likeEntity = LikeEntity.builder().user(user).interactiveEntity(game).build();
+        likeRepository.save(likeEntity);
+
+        boolean isGameLiked = likeRepository.existsByUserIdAndInteractiveEntityId(user.getId(), game.getId());
+
+        assertTrue(isGameLiked);
+
     }
 }
