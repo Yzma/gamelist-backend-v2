@@ -1,10 +1,8 @@
 package com.game.gamelist.mapper;
 
 import com.game.gamelist.dto.GameDTO;
-import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Genre;
-import com.game.gamelist.entity.Platform;
-import com.game.gamelist.entity.Tag;
+import com.game.gamelist.entity.*;
+import com.game.gamelist.repository.UserGameRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -47,4 +45,5 @@ public interface GameMapper {
                 .map(Genre::getName)
                 .toList();
     }
+
 }
