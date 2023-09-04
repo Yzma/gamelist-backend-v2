@@ -54,6 +54,12 @@ public class GameServiceImpl implements GameService {
         List<GameDTO> gameDTOs = gameMapper.gamesToGameDTOs(foundGames.getResultList());
 
         for (GameDTO gameDTO : gameDTOs) {
+            if (principal == null) {
+                gameDTO.setGameAdded(false);
+                gameDTO.setGameLiked(false);
+                continue;
+            }
+
             gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
             gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId( principal.getId(), gameDTO.getId()));
         }
