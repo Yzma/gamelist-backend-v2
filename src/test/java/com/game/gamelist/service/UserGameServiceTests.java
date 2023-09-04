@@ -124,7 +124,7 @@ public class UserGameServiceTests {
     void when_findUseGameById_return_userGame() {
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
 
         UserGame userGameFound = userGameService.findUserGameById(999L, userToSave);
 
@@ -141,7 +141,7 @@ public class UserGameServiceTests {
 
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenThrow(new InvalidAuthorizationException("Invalid authorization"));
 
 
         Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, nonOwner))
@@ -152,7 +152,7 @@ public class UserGameServiceTests {
     @Test
     void when_findUserGameById_by_non_existing_userGame_throw_ResourceNotFoundException() {
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenThrow(new ResourceNotFoundException("UserGame not found"));
 
         Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, userToSave))
                 .isInstanceOf(ResourceNotFoundException.class)
