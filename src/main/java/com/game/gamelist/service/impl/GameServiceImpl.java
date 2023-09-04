@@ -2,8 +2,11 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.dto.GameDTO;
 import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.User;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
+import com.game.gamelist.repository.GameRepository;
+import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.GameService;
 import com.game.gamelist.specification.GameSpecification;
 import com.game.gamelist.utils.Utils;
@@ -25,12 +28,13 @@ public class GameServiceImpl implements GameService {
     private static final int DEFAULT_QUERY_LIMIT = 10;
     private static final int MIN_QUERY_LIMIT = 1;
     private static final int MAX_QUERY_LIMIT = 35;
-
+    private final UserGameRepository userGameRepository;
+    private final GameRepository gameRepository;
     private final GameMapper gameMapper;
     private final EntityManager em;
 
     @Override
-    public List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters) {
+    public List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters, User principal) {
         if (gameQueryFilters == null) {
             gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setLimit(DEFAULT_QUERY_LIMIT);
@@ -46,9 +50,22 @@ public class GameServiceImpl implements GameService {
         foundGames.setFirstResult(gameQueryFilters.getOffset());
         foundGames.setMaxResults(gameQueryFilters.getLimit());
 
-        List<GameDTO> gameDTO = gameMapper.gamesToGameDTOs(foundGames.getResultList());
+        List<GameDTO> gameDTOs = gameMapper.gamesToGameDTOs(foundGames.getResultList());
 
-        return gameMapper.gamesToGameDTOs(foundGames.getResultList());
+        for (GameDTO gameDTO : gameDTOs) {
+            System.out.println("??👹👹👹👹👹👹👹👹👹👹is Game added??" + userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
+
+            System.out.println("??👹� game id" + gameDTO.getId());
+            System.out.println("??👹� user id" + principal.getId());
+
+            gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
+
+            gameDTO.setGameLiked(gameRepository.existsLikeByUserIdAndGameId(gameDTO.getId(), principal.getId()));
+
+            System.out.println("??👹� is game added in GamteDTO" + gameDTO.isGameAdded() + "??");
+        }
+
+        return gameDTOs;
     }
 
     private <T> TypedQuery<T> getQuery(Specification<T> specification, Class<T> clazz) {
