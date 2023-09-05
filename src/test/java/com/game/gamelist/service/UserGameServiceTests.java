@@ -152,11 +152,7 @@ public class UserGameServiceTests {
     @Test
     void when_findUserGameById_by_non_existing_userGame_throw_ResourceNotFoundException() {
 
-<<<<<<< HEAD
-        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(Optional.empty());
-=======
         when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenThrow(new ResourceNotFoundException("UserGame not found"));
->>>>>>> 1d344d4825431ddc41ce601a3b1e1b53eb18f008
 
         Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, userToSave))
                 .isInstanceOf(ResourceNotFoundException.class)

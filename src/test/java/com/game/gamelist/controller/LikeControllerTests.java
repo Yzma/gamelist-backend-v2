@@ -6,6 +6,7 @@ import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.Role;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.CreateLikeEntityRequest;
 import com.game.gamelist.model.MockLikeEntitiyView;
 import com.game.gamelist.model.MockPostView;
 import com.game.gamelist.model.MockUserBasicView;
@@ -63,13 +64,17 @@ public class LikeControllerTests {
         MockLikeEntitiyView mockLike = MockLikeEntitiyView.builder().id(1L).user(mockPrincipleBasic).build();
         LikeEntity like = LikeEntity.builder().id(1L).user(principal).interactiveEntity(post).build();
 
+        CreateLikeEntityRequest createLikeEntityRequest = new CreateLikeEntityRequest();
+        createLikeEntityRequest.setInteractiveEntityId(123L);
+
+
         auth0JwtTestUtils.mockAuthentication(principal);
 
         when(likeService.createLike(Mockito.any(User.class), Mockito.anyLong())).thenReturn(mockLike);
         // Act
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/likes")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(123L)))
+                .content(objectMapper.writeValueAsString(createLikeEntityRequest)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.data.like.id").value(1L))
                 .andExpect(jsonPath("$.data.like.user.id").value(10L))
