@@ -1,7 +1,9 @@
 package com.game.gamelist.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -12,6 +14,8 @@ import java.util.List;
 
 //@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
 
+@Setter
+@Getter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "interactive_entities")
@@ -19,6 +23,7 @@ import java.util.List;
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @CreationTimestamp
@@ -35,31 +40,21 @@ public abstract class InteractiveEntity {
     @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
-    protected List<Comment> getComments() {
-        return comments;
+    public void addLike(LikeEntity likeEntity) {
+        likes.add(likeEntity);
+        likeEntity.setInteractiveEntity(this);
     }
-    protected Long getId() {
-        return id;
-    }
-
-     protected void setId(Long id) {
-        this.id = id;
+    public void removeLike(LikeEntity likeEntity) {
+        likes.remove(likeEntity);
+        likeEntity.setInteractiveEntity(null);
     }
 
-    protected List<LikeEntity> getLikes() {
-        return likes;
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setInteractiveEntity(this);
     }
-
-    protected void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    protected LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    protected void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    protected LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setInteractiveEntity(null);
     }
 }

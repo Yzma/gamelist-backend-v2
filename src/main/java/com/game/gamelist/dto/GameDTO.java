@@ -20,4 +20,6 @@ public class GameDTO {
     private List<String> platforms;
     private List<String> tags;
     private List<String> genres;
+    private boolean gameAdded;
+    private boolean gameLiked;
 }

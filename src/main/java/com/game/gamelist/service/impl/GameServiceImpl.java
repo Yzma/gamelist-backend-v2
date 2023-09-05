@@ -2,8 +2,12 @@ package com.game.gamelist.service.impl;
 
 import com.game.gamelist.dto.GameDTO;
 import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.User;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
+import com.game.gamelist.repository.GameRepository;
+import com.game.gamelist.repository.LikeRepository;
+import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.GameService;
 import com.game.gamelist.specification.GameSpecification;
 import com.game.gamelist.utils.Utils;
@@ -25,12 +29,13 @@ public class GameServiceImpl implements GameService {
     private static final int DEFAULT_QUERY_LIMIT = 10;
     private static final int MIN_QUERY_LIMIT = 1;
     private static final int MAX_QUERY_LIMIT = 35;
-
+    private final UserGameRepository userGameRepository;
+    private final LikeRepository likeRepository;
     private final GameMapper gameMapper;
     private final EntityManager em;
 
     @Override
-    public List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters) {
+    public List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters, User principal) {
         if (gameQueryFilters == null) {
             gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setLimit(DEFAULT_QUERY_LIMIT);
@@ -45,7 +50,21 @@ public class GameServiceImpl implements GameService {
         TypedQuery<Game> foundGames = getQuery(gameSpecification, Game.class);
         foundGames.setFirstResult(gameQueryFilters.getOffset());
         foundGames.setMaxResults(gameQueryFilters.getLimit());
-        return gameMapper.gamesToGameDTOs(foundGames.getResultList());
+
+        List<GameDTO> gameDTOs = gameMapper.gamesToGameDTOs(foundGames.getResultList());
+
+        for (GameDTO gameDTO : gameDTOs) {
+            if (principal == null) {
+                gameDTO.setGameAdded(false);
+                gameDTO.setGameLiked(false);
+                continue;
+            }
+
+            gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
+            gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId( principal.getId(), gameDTO.getId()));
+        }
+
+        return gameDTOs;
     }
 
     private <T> TypedQuery<T> getQuery(Specification<T> specification, Class<T> clazz) {

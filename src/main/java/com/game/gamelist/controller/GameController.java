@@ -1,12 +1,14 @@
 package com.game.gamelist.controller;
 
 import com.game.gamelist.dto.GameDTO;
+import com.game.gamelist.entity.User;
 import com.game.gamelist.model.GameQueryFilters;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.impl.GameServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -22,8 +24,8 @@ public class GameController {
     private final GameServiceImpl gameService;
 
     @PostMapping
-    public ResponseEntity<HttpResponse> getGames(@RequestBody(required = false) GameQueryFilters gameQueryFilters) {
-        List<GameDTO> games = gameService.getAllGames(gameQueryFilters);
+    public ResponseEntity<HttpResponse> getGames(@RequestBody(required = false) GameQueryFilters gameQueryFilters, @AuthenticationPrincipal User principal) {
+        List<GameDTO> games = gameService.getAllGames(gameQueryFilters, principal);
         return ResponseEntity.ok(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
