@@ -20,4 +20,8 @@ public interface UserGameService {
     Set<UserGame> findAllUserGamesByUserId(User principal);
 
     UserGamesSummaryDTO findAllUserGamesByUserIdByStatus(User principal);
+
+    UserGame findUserGameByGameId(Long gameId, User principal);
+
+    UserGame deleteUserGameByGameId(Long gameId, User principal);
 }

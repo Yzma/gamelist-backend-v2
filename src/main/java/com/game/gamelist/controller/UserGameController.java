@@ -55,8 +55,8 @@ public class UserGameController {
     }
 
     @GetMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
-        UserGame userGame = userGameService.findUserGameById(requestedId, principal);
+    public ResponseEntity<HttpResponse> findUserGameByGameId(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
+        UserGame userGame = userGameService.findUserGameByGameId(requestedId, principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -64,7 +64,7 @@ public class UserGameController {
                         .data(Map.of("userGame", userGame))
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
-                        .message("UserGame found")
+                        .message("UserGame by Game ID found")
                         .build());
 
     }
