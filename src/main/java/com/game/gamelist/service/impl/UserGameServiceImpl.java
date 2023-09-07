@@ -58,6 +58,12 @@ public class UserGameServiceImpl implements UserGameService {
 
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
+
+            if(existingUserGame.getGameStatus() != userGame.getGameStatus()) {
+                statusUpdate.setUserGame(existingUserGame);
+                statusUpdate.setGameStatus(userGame.getGameStatus());
+                statusUpdateRepository.save(statusUpdate);
+            }
             existingUserGame.setIsPrivate(userGame.getIsPrivate());
             existingUserGame.setRating(userGame.getRating());
             existingUserGame.setStartDate(userGame.getStartDate());
@@ -65,10 +71,6 @@ public class UserGameServiceImpl implements UserGameService {
             existingUserGame.setGameStatus(userGame.getGameStatus());
             existingUserGame.setGameNote(userGame.getGameNote());
             userGameRepository.save(existingUserGame);
-
-            statusUpdate.setUserGame(existingUserGame);
-            statusUpdate.setGameStatus(existingUserGame.getGameStatus());
-            statusUpdateRepository.save(statusUpdate);
 
             return existingUserGame;
         } else {
@@ -94,6 +96,14 @@ public class UserGameServiceImpl implements UserGameService {
 
         if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
+
+            if(userGame.getGameStatus() != responseData.getGameStatus()) {
+                StatusUpdate statusUpdate = new StatusUpdate();
+                statusUpdate.setUserGame(responseData);
+                statusUpdate.setGameStatus(userGame.getGameStatus());
+                statusUpdateRepository.save(statusUpdate);
+            }
+
             responseData.setGameStatus(userGame.getGameStatus());
             responseData.setGameNote(userGame.getGameNote());
             responseData.setIsPrivate(userGame.getIsPrivate());
@@ -101,10 +111,6 @@ public class UserGameServiceImpl implements UserGameService {
             responseData.setCompletedDate(userGame.getCompletedDate());
             responseData.setStartDate(userGame.getStartDate());
 
-            StatusUpdate statusUpdate = new StatusUpdate();
-            statusUpdate.setUserGame(responseData);
-            statusUpdate.setGameStatus(responseData.getGameStatus());
-            statusUpdateRepository.save(statusUpdate);
             return userGameRepository.save(responseData);
         }
 
@@ -183,7 +189,7 @@ public class UserGameServiceImpl implements UserGameService {
     public UserGame findUserGameByGameId(Long gameId, User principal) {
         Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(gameId, principal.getId());
 
-        return userGameOptional.orElseGet(() -> UserGame.builder().gameStatus(GameStatus.Inactive).rating(0).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).user(principal).build());
+        return userGameOptional.orElseGet(() -> UserGame.builder().gameStatus(GameStatus.Inactive).rating(0).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).rating(null).user(principal).build());
     }
 
     @Override
@@ -202,7 +208,7 @@ public class UserGameServiceImpl implements UserGameService {
     private UserGame resetUserGameAndStatusUpdate(UserGame userGame) {
         userGame.setGameStatus(GameStatus.Inactive);
         userGame.setGameNote(null);
-        userGame.setRating(0);
+        userGame.setRating(null);
         userGame.setCompletedDate(null);
         userGame.setStartDate(null);
         userGame.setIsPrivate(false);
