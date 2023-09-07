@@ -5,7 +5,6 @@ import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
-import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.LikeRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.GameService;
@@ -60,7 +59,7 @@ public class GameServiceImpl implements GameService {
                 continue;
             }
 
-            gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserId(gameDTO.getId(), principal.getId()));
+            gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(gameDTO.getId(), principal.getId()));
             gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId( principal.getId(), gameDTO.getId()));
         }
 
