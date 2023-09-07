@@ -27,8 +27,8 @@ public class UserGamesSummaryDTO {
     private List<GameDTO> dropped;
     private int droppedCount;
 
-    private List<GameDTO> inactive;
-    private int inactiveCount;
+    private List<GameDTO> justAdded;
+    private int justAddedCount;
 
     private int totalCount;
 

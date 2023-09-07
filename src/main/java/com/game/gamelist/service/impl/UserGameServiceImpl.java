@@ -161,8 +161,8 @@ public class UserGameServiceImpl implements UserGameService {
         List<GameDTO> planningGameDTOs = gameMapper.gamesToGameDTOs(planningGames);
         List<Game> dropGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Dropped);
         List<GameDTO> dropGameDTOs = gameMapper.gamesToGameDTOs(dropGames);
-        List<Game> inactiveGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Inactive);
-        List<GameDTO> inactiveGameDTOs = gameMapper.gamesToGameDTOs(inactiveGames);
+        List<Game> justAdded = gameRepository.findGamesByUserIdAndStatus(principal.getId(), null);
+        List<GameDTO> justAddedGameDTOs = gameMapper.gamesToGameDTOs(justAdded);
 
         UserGamesSummaryDTO userGamesSummary = new UserGamesSummaryDTO();
         userGamesSummary.setPlaying(playingGameDTOs);
@@ -175,10 +175,10 @@ public class UserGameServiceImpl implements UserGameService {
         userGamesSummary.setPlanningCount(planningGameDTOs.size());
         userGamesSummary.setDropped(dropGameDTOs);
         userGamesSummary.setDroppedCount(dropGameDTOs.size());
-        userGamesSummary.setInactive(inactiveGameDTOs);
-        userGamesSummary.setInactiveCount(inactiveGameDTOs.size());
+        userGamesSummary.setJustAdded(justAddedGameDTOs);
+        userGamesSummary.setJustAddedCount(justAddedGameDTOs.size());
 
-        int totalCount = playingGameDTOs.size() + completedGameDTOs.size() + pausedGameDTOs.size() + planningGameDTOs.size() + dropGameDTOs.size() + inactiveGameDTOs.size();
+        int totalCount = playingGameDTOs.size() + completedGameDTOs.size() + pausedGameDTOs.size() + planningGameDTOs.size() + dropGameDTOs.size() + justAddedGameDTOs.size();
         userGamesSummary.setTotalCount(totalCount);
 
         String listsOrder = userRepository.findListsOrderById(principal.getId());
