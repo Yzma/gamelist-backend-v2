@@ -199,6 +199,7 @@ public class UserGameServiceImpl implements UserGameService {
         }
 
         return UserGame.builder().gameStatus(GameStatus.Inactive).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).rating(null).user(principal).build();
+
     }
 
     @Override
@@ -218,6 +219,7 @@ public class UserGameServiceImpl implements UserGameService {
         userGame.setGameStatus(GameStatus.Inactive);
         userGame.setGameNote(null);
         userGame.setRating(null);
+
         userGame.setCompletedDate(null);
         userGame.setStartDate(null);
         userGame.setIsPrivate(false);
