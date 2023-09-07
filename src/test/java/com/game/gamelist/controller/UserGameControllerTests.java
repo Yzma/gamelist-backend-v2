@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserGameControllerTests {
 
     @InjectMocks
-    private UserGameController userGameController
+    private UserGameController userGameController;
     @MockBean
     private UserGameService userGameService;
     @Autowired
