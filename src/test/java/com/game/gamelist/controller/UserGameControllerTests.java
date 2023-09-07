@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserGameControllerTests {
 
     @InjectMocks
-    private UserGameController userGameController;
+    private UserGameController userGameController
     @MockBean
     private UserGameService userGameService;
     @Autowired
@@ -91,7 +91,8 @@ public class UserGameControllerTests {
     }
 
     @Test
-    void when_send_get_request_to_userGame_status_endpoint_with_id_should_return_userGame_by_status() throws Exception {
+    void when_send_get_request_to_userGame_by_gameId_endpoint_with_id_should_return_userGame() throws Exception {
+
         auth0JwtTestUtils.mockAuthentication(principal);
 
         List<GameDTO> playingList = List.of(GameDTO.builder().id(1L).name("game1").avgScore(9).imageURL("imageURL of game1").bannerURL("bannerURL of game1").releaseDate(LocalDateTime.now()).build());
@@ -112,7 +113,7 @@ public class UserGameControllerTests {
 
         UserGame userGame1 = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(9).build();
 
-        when(userGameService.findUserGameById(1L, principal)).thenReturn(userGame1);
+        when(userGameService.findUserGameByGameId(1L, principal)).thenReturn(userGame1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/1")
                         .contentType(MediaType.APPLICATION_JSON))
