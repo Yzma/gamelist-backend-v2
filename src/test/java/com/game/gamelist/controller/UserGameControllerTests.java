@@ -3,6 +3,8 @@ package com.game.gamelist.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
+import com.game.gamelist.dto.GameDTO;
+import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.service.UserGameService;
@@ -19,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
@@ -32,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserGameControllerTests {
 
     @InjectMocks
-    private UserGameController userGameController;
+    private UserGameController userGameController
     @MockBean
     private UserGameService userGameService;
     @Autowired
@@ -89,6 +92,23 @@ public class UserGameControllerTests {
 
     @Test
     void when_send_get_request_to_userGame_by_gameId_endpoint_with_id_should_return_userGame() throws Exception {
+
+        auth0JwtTestUtils.mockAuthentication(principal);
+
+        List<GameDTO> playingList = List.of(GameDTO.builder().id(1L).name("game1").avgScore(9).imageURL("imageURL of game1").bannerURL("bannerURL of game1").releaseDate(LocalDateTime.now()).build());
+        List<GameDTO> completedList = List.of(GameDTO.builder().id(2L).name("game2").avgScore(9).imageURL("imageURL of game2").bannerURL("bannerURL of game2").releaseDate(LocalDateTime.now()).build());
+
+        UserGamesSummaryDTO userGamesSummaryDTO = UserGamesSummaryDTO.builder().totalCount(2).playingCount(1).completedCount(1).playing(playingList).completed(completedList).build();
+
+        when(userGameService.findAllUserGamesByUserIdByStatus(principal)).thenReturn(userGamesSummaryDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/status")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("imageURL of game1"))).andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("imageURL of game2")));
+    }
+
+    @Test
+    void when_send_get_request_to_userGame_endpoint_with_id_should_return_userGame() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
         UserGame userGame1 = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(9).build();
