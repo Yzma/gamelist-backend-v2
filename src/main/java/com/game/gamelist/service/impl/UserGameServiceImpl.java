@@ -159,7 +159,7 @@ public class UserGameServiceImpl implements UserGameService {
         List<GameDTO> planningGameDTOs = gameMapper.gamesToGameDTOs(planningGames);
         List<Game> dropGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Dropped);
         List<GameDTO> dropGameDTOs = gameMapper.gamesToGameDTOs(dropGames);
-        List<Game> justAdded = gameRepository.findGamesByUserIdAndStatus(principal.getId(), null);
+        List<Game> justAdded = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.JustAdded);
         List<GameDTO> justAddedGameDTOs = gameMapper.gamesToGameDTOs(justAdded);
 
         UserGamesSummaryDTO userGamesSummary = new UserGamesSummaryDTO();
@@ -189,7 +189,16 @@ public class UserGameServiceImpl implements UserGameService {
     public UserGame findUserGameByGameId(Long gameId, User principal) {
         Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(gameId, principal.getId());
 
-        return userGameOptional.orElseGet(() -> UserGame.builder().gameStatus(GameStatus.Inactive).rating(0).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).rating(null).user(principal).build());
+        if (userGameOptional.isPresent()) {
+            UserGame responseData = userGameOptional.get();
+
+            if (responseData.getGameStatus() == GameStatus.JustAdded) {
+                responseData.setGameStatus(null);
+            }
+            return userGameOptional.get();
+        }
+
+        return UserGame.builder().gameStatus(GameStatus.Inactive).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).rating(null).user(principal).build();
     }
 
     @Override

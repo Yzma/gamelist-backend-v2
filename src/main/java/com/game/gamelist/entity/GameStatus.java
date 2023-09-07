@@ -6,5 +6,6 @@ public enum GameStatus {
     Paused,
     Planning,
     Dropped,
-    Inactive
+    Inactive,
+    JustAdded
 }
