@@ -169,14 +169,14 @@ public class UserGameControllerTests {
     void when_send_delete_request_with_id_should_return_no_content() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(0).completedDate(null).startDate(null).build();
+        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(null).completedDate(null).startDate(null).build();
 
-        when(userGameService.deleteUserGameById(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
+        when(userGameService.deleteUserGameByGameId(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/usergames/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("NO_CONTENT"))
                 .andExpect(jsonPath("$.message").value("UserGame deleted"))
-                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.rating").value(0));
+                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.gameNote").isEmpty()).andExpect(jsonPath("$.data.userGame.rating").isEmpty()).andExpect(jsonPath("$.data.userGame.completedDate").isEmpty()).andExpect(jsonPath("$.data.userGame.startDate").isEmpty());
     }
 }
