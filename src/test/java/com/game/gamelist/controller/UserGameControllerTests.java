@@ -126,7 +126,7 @@ public class UserGameControllerTests {
 
         UserGame userGameBody = UserGame.builder().user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(3).startDate(LocalDateTime.now()).build();
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
@@ -140,7 +140,7 @@ public class UserGameControllerTests {
     void when_send_post_request_with_null_body_should_return_exception() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(null);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON))

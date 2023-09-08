@@ -11,7 +11,7 @@ import java.util.Set;
 public interface UserGameService {
     UserGame findUserGameById(Long requestedId, User principal);
 
-    UserGame createUserGame(UserGame userGame, User principal);
+    UserGame createUserGame(EditUserGameRequest userGame, User principal);
 
     UserGame updateUserGameById(EditUserGameRequest userGame, User principal);
 

@@ -70,7 +70,7 @@ public class UserGameController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
+    public ResponseEntity<HttpResponse> createUserGame(@RequestBody EditUserGameRequest userGame, @AuthenticationPrincipal User principal) {
         UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
         if (createdUserGame != null) {
