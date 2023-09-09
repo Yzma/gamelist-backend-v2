@@ -53,7 +53,7 @@ public class UserGameServiceImpl implements UserGameService {
         }
 
         // Check if the UserGame already exists in the database
-        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
+        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGameId());
         StatusUpdate statusUpdate = new StatusUpdate();
 
         if (existingUserGame != null) {
@@ -75,7 +75,7 @@ public class UserGameServiceImpl implements UserGameService {
             return existingUserGame;
         } else {
             // If the UserGame does not exist, create a new instance
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
+            Game game = gameRepository.findById(userGame.getGameId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGameId()));
 
             UserGame newUserGame = UserGame.builder().game(game).user(principal).gameStatus(userGame.getGameStatus()).isPrivate(userGame.getIsPrivate()).rating(userGame.getRating()).startDate(userGame.getStartDate()).completedDate(userGame.getCompletedDate()).gameNote(userGame.getGameNote()).build();
 
@@ -91,7 +91,7 @@ public class UserGameServiceImpl implements UserGameService {
     public UserGame updateUserGameById(EditUserGameRequest userGame, User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
 
-        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(userGame.getGame().getId(), principal.getId());
+        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(userGame.getGameId(), principal.getId());
 
         if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
@@ -113,7 +113,7 @@ public class UserGameServiceImpl implements UserGameService {
             return userGameRepository.save(responseData);
         }
 
-        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGame().getId() + " and UserID: " + principal.getId());
+        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGameId() + " and UserID: " + principal.getId());
     }
 
     @Override

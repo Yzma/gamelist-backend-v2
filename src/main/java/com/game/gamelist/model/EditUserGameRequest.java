@@ -13,22 +13,12 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class EditUserGameRequest {
-    private GameRequestBody game;
+    private Long gameId;
     private GameStatus gameStatus;
     private String gameNote;
     private Boolean isPrivate;
     private Integer rating;
     private LocalDateTime completedDate;
     private LocalDateTime startDate;
-
-    @Getter
-    public static class GameRequestBody {
-        private Long id;
-
-        @JsonCreator
-        public GameRequestBody(@JsonProperty("id") Long id) {
-            this.id = id;
-        }
-    }
 }
 
