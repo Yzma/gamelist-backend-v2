@@ -113,7 +113,7 @@ public class UserGameServiceTests {
     void when_createUserGame_with_nullGame_should_throw_ResourceNotFoundException() {
 
         final var userGamePassed = EditUserGameRequest.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).game(new EditUserGameRequest.GameRequestBody(gameToSave.getId())).build();
-        
+
         when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
 
         when(gameRepository.findById(Mockito.anyLong())).thenThrow(new ResourceNotFoundException("Game not found"));

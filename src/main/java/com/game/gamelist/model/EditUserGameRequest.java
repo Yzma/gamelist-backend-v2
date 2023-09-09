@@ -30,7 +30,5 @@ public class EditUserGameRequest {
             this.id = id;
         }
     }
-
-
 }
 
