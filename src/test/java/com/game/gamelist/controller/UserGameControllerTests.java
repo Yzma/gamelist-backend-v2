@@ -126,7 +126,7 @@ public class UserGameControllerTests {
 
         UserGame userGameBody = UserGame.builder().user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(3).startDate(LocalDateTime.now()).build();
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
@@ -140,7 +140,7 @@ public class UserGameControllerTests {
     void when_send_post_request_with_null_body_should_return_exception() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(null);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(null);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -169,14 +169,14 @@ public class UserGameControllerTests {
     void when_send_delete_request_with_id_should_return_no_content() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(0).completedDate(null).startDate(null).build();
+        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(null).completedDate(null).startDate(null).build();
 
-        when(userGameService.deleteUserGameById(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
+        when(userGameService.deleteUserGameByGameId(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/usergames/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("NO_CONTENT"))
                 .andExpect(jsonPath("$.message").value("UserGame deleted"))
-                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.rating").value(0));
+                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.gameNote").isEmpty()).andExpect(jsonPath("$.data.userGame.rating").isEmpty()).andExpect(jsonPath("$.data.userGame.completedDate").isEmpty()).andExpect(jsonPath("$.data.userGame.startDate").isEmpty());
     }
 }

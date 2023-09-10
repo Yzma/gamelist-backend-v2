@@ -70,7 +70,7 @@ public class UserGameController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
+    public ResponseEntity<HttpResponse> createUserGame(@RequestBody EditUserGameRequest userGame, @AuthenticationPrincipal User principal) {
         UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
         if (createdUserGame != null) {
@@ -112,8 +112,8 @@ public class UserGameController {
     }
 
     @DeleteMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> deleteUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
-        UserGame deletedUserGame = userGameService.deleteUserGameById(requestedId, principal);
+    public ResponseEntity<HttpResponse> deleteUserGameByGameId(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
+        UserGame deletedUserGame = userGameService.deleteUserGameByGameId(requestedId, principal);
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder()

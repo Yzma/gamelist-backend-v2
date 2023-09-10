@@ -47,13 +47,13 @@ public class UserGameServiceImpl implements UserGameService {
 
 
     @Override
-    public UserGame createUserGame(UserGame userGame, User principal) {
+    public UserGame createUserGame(EditUserGameRequest userGame, User principal) {
         if (principal == null) {
             throw new InvalidTokenException("Invalid token");
         }
 
         // Check if the UserGame already exists in the database
-        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
+        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGameId());
         StatusUpdate statusUpdate = new StatusUpdate();
 
         if (existingUserGame != null) {
@@ -75,16 +75,15 @@ public class UserGameServiceImpl implements UserGameService {
             return existingUserGame;
         } else {
             // If the UserGame does not exist, create a new instance
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
+            Game game = gameRepository.findById(userGame.getGameId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGameId()));
 
-            userGame.setUser(principal);
-            userGame.setGame(game);
+            UserGame newUserGame = UserGame.builder().game(game).user(principal).gameStatus(userGame.getGameStatus()).isPrivate(userGame.getIsPrivate()).rating(userGame.getRating()).startDate(userGame.getStartDate()).completedDate(userGame.getCompletedDate()).gameNote(userGame.getGameNote()).build();
 
-            statusUpdate.setUserGame(userGame);
-            statusUpdate.setGameStatus(userGame.getGameStatus());
-            userGameRepository.save(userGame);
+            statusUpdate.setUserGame(newUserGame);
+            statusUpdate.setGameStatus(newUserGame.getGameStatus());
+            userGameRepository.save(newUserGame);
             statusUpdateRepository.save(statusUpdate);
-            return userGame;
+            return newUserGame;
         }
     }
 
@@ -114,7 +113,7 @@ public class UserGameServiceImpl implements UserGameService {
             return userGameRepository.save(responseData);
         }
 
-        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGameId());
+        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGameId() + " and UserID: " + principal.getId());
     }
 
     @Override
