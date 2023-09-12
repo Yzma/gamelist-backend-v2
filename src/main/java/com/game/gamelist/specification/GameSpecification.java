@@ -1,7 +1,6 @@
 package com.game.gamelist.specification;
 
 import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Genre;
 import com.game.gamelist.model.GameQueryFilters;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
@@ -22,15 +21,15 @@ public class GameSpecification implements Specification<Game> {
 
         // Inclusion
         if (gameQueryFilters.getGenres() != null && !gameQueryFilters.getGenres().isEmpty()) {
-            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getGenres(), "genres"));
+            predicates.add(createInclusionFilter(root, query, cb, gameQueryFilters.getGenres(), "genres"));
         }
 
         if (gameQueryFilters.getPlatforms() != null && !gameQueryFilters.getPlatforms().isEmpty()) {
-            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getPlatforms(), "platforms"));
+            predicates.add(createInclusionFilter(root, query, cb, gameQueryFilters.getPlatforms(), "platforms"));
         }
 
         if (gameQueryFilters.getTags() != null && !gameQueryFilters.getTags().isEmpty()) {
-            predicates.add(createInclusionFilter(root, query, gameQueryFilters.getTags(), "tags"));
+            predicates.add(createInclusionFilter(root, query, cb, gameQueryFilters.getTags(), "tags"));
         }
 
         // Exclusion
@@ -47,7 +46,7 @@ public class GameSpecification implements Specification<Game> {
         }
 
         if (gameQueryFilters.getSearch() != null) {
-            predicates.add(cb.like(root.get("name"), "%" + gameQueryFilters.getSearch() + "%"));
+            predicates.add(cb.like(cb.lower(root.get("name")), "%" + gameQueryFilters.getSearch().toLowerCase() + "%"));
         }
 
         if (gameQueryFilters.getYear() != 0) {
@@ -58,26 +57,37 @@ public class GameSpecification implements Specification<Game> {
         if (gameQueryFilters.getSortBy() != null) {
             switch (gameQueryFilters.getSortBy()) {
                 case "name" -> query.orderBy(cb.asc(root.get("name")));
+                case "name_desc" -> query.orderBy(cb.desc(root.get("name")));
                 case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")));
                 case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")));
                 case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")));
+                case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")));
                 case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")));
+                case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")));
             }
         }
         return cb.and(predicates.toArray(Predicate[]::new));
     }
 
-    private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, List<String> toInclude, String tableName) {
-        Join<Game, Genre> tableJoin = root.join(tableName);
-        return tableJoin.get("name").in(toInclude);
+    private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toInclude, String tableName) {
+        Subquery<Long> subquery = query.subquery(Long.class);
+        Root<Game> subqueryRoot = subquery.from(Game.class);
+
+        Join<Game, ?> tableJoin = subqueryRoot.join(tableName);
+        subquery.select(subqueryRoot.get("id"))
+                .where(tableJoin.get("name").in(toInclude))
+                .groupBy(subqueryRoot.get("id"))
+                .having(cb.equal(cb.count(tableJoin.get("name")), toInclude.size()));
+
+        return cb.and(root.get("id").in(subquery));
     }
 
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
-        Root<Game> subqueryGameRoot = subquery.from(Game.class);
-        Join<Game, ?> tableJoin = subqueryGameRoot.join(tableName);
+        Root<Game> subqueryRoot = subquery.from(Game.class);
 
-        subquery.select(subqueryGameRoot.get("id"))
+        Join<Game, ?> tableJoin = subqueryRoot.join(tableName);
+        subquery.select(subqueryRoot.get("id"))
                 .where(tableJoin.get("name").in(toExclude));
 
         return cb.not(root.get("id").in(subquery));
