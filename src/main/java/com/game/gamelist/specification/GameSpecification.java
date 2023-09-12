@@ -1,7 +1,6 @@
 package com.game.gamelist.specification;
 
 import com.game.gamelist.entity.Game;
-import com.game.gamelist.entity.Genre;
 import com.game.gamelist.model.GameQueryFilters;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
@@ -74,11 +73,11 @@ public class GameSpecification implements Specification<Game> {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
 
-        Join<Game, ?> genreJoin = subqueryRoot.join(tableName);
+        Join<Game, ?> tableJoin = subqueryRoot.join(tableName);
         subquery.select(subqueryRoot.get("id"))
-                .where(genreJoin.get("name").in(toInclude))
+                .where(tableJoin.get("name").in(toInclude))
                 .groupBy(subqueryRoot.get("id"))
-                .having(cb.equal(cb.count(genreJoin.get("name")), toInclude.size()));
+                .having(cb.equal(cb.count(tableJoin.get("name")), toInclude.size()));
 
         return cb.and(root.get("id").in(subquery));
     }
@@ -87,9 +86,9 @@ public class GameSpecification implements Specification<Game> {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
 
-        Join<Game, Genre> genreJoin = subqueryRoot.join(tableName);
+        Join<Game, ?> tableJoin = subqueryRoot.join(tableName);
         subquery.select(subqueryRoot.get("id"))
-                .where(genreJoin.get("name").in(toExclude));
+                .where(tableJoin.get("name").in(toExclude));
 
         return cb.not(root.get("id").in(subquery));
     }
