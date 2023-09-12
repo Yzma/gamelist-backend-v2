@@ -58,10 +58,13 @@ public class GameSpecification implements Specification<Game> {
         if (gameQueryFilters.getSortBy() != null) {
             switch (gameQueryFilters.getSortBy()) {
                 case "name" -> query.orderBy(cb.asc(root.get("name")));
+                case "name_desc" -> query.orderBy(cb.desc(root.get("name")));
                 case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")));
                 case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")));
                 case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")));
+                case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")));
                 case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")));
+                case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")));
             }
         }
         return cb.and(predicates.toArray(Predicate[]::new));

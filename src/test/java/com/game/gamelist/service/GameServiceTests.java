@@ -198,7 +198,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns the first game in the database when no filters are provided")
-        @Order(1)
         public void oneGameWithNoFilters() {
             List<GameDTO> foundGames = gameService.getAllGames(new GameQueryFilters());
             Assertions.assertEquals(1, foundGames.size());
@@ -207,7 +206,6 @@ public class GameServiceTests extends ContainersEnvironment {
 
         @Test
         @Description("Returns all games with limit set")
-        @Order(2)
         @Transactional
         public void returnsAllGamesWithLimit() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
@@ -220,7 +218,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 genre")
-        @Order(3)
         void returnsAllGamesWithOneGenre() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action"));
@@ -234,7 +231,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple genres")
-        @Order(4)
         void returnsAllGamesWithMultipleGenres() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action", "Role-playing"));
@@ -249,7 +245,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 tag")
-        @Order(5)
         void returnsAllGamesWithOneTag() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setTags(List.of("Multiplayer"));
@@ -264,7 +259,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple tags")
-        @Order(6)
         void returnsAllGamesWithMultipleTags() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setTags(List.of("Singleplayer", "3D"));
@@ -279,7 +273,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 platform")
-        @Order(7)
         void returnsAllGamesWithOnePlatform() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setPlatforms(List.of("Playstation 5"));
@@ -293,7 +286,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple platforms")
-        @Order(8)
         void returnsAllGamesWithMultiplePlatforms() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setPlatforms(List.of("Playstation 5", "Xbox One"));
@@ -307,7 +299,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns 0 games when provided invalid tag")
-        @Order(9)
         void returnsAllGamesWithInvalidFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setPlatforms(List.of("Not-A-Platform"));
@@ -320,7 +311,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns 0 games when no games match the provided filters")
-        @Order(10)
         void returnsAllGamesWithTooManyFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action", "Sports", "Turn-based strategy"));
@@ -335,7 +325,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 2 genres, platforms and tags")
-        @Order(11)
         void returnsCorrectGamesWithManyFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action", "Role-playing"));
@@ -354,7 +343,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 genres")
-        @Order(12)
         void returnsCorrectGamesWith3Genres() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action", "Stealth", "Role-playing"));
@@ -368,7 +356,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 platforms")
-        @Order(13)
         void returnsCorrectGamesWith3Platforms() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setPlatforms(List.of("Playstation 5", "Xbox One", "Windows"));
@@ -387,7 +374,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 Tags")
-        @Order(14)
         void returnsCorrectGamesWith3Tags() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setTags(List.of("Singleplayer", "3D", "Fantasy"));
@@ -405,7 +391,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 2 genres, 3 platforms and 2 tags")
-        @Order(15)
         void returnsCorrectGamesWithComplexFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setGenres(List.of("Action", "Role-playing"));
@@ -424,7 +409,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 exclusion genre")
-        @Order(16)
         void returnsAllGamesWithOneExclusionGenre() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Action"));
@@ -438,7 +422,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple exclusion genres")
-        @Order(17)
         void returnsAllGamesWithMultipleExclusionGenres() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Action", "Role-playing"));
@@ -452,7 +435,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 exclusion platform")
-        @Order(18)
         void returnsAllGamesWithOneExclusionPlatform() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5"));
@@ -466,7 +448,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple exclusion platforms")
-        @Order(19)
         void returnsAllGamesWithMultipleExclusionPlatforms() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5", "Xbox One"));
@@ -480,7 +461,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with 1 exclusion tag")
-        @Order(20)
         void returnsAllGamesWithOneExclusionTag() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedTags(List.of("Multiplayer"));
@@ -495,7 +475,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games with multiple exclusion tags")
-        @Order(21)
         void returnsAllGamesWithMultipleExclusionTags() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedTags(List.of("Singleplayer", "3D"));
@@ -508,7 +487,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns all games when provided invalid exclusion tag")
-        @Order(22)
         void returnsAllGamesWithInvalidExclusionFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedPlatforms(List.of("Not-A-Platform"));
@@ -521,7 +499,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns 0 games when no games match the provided exclusion filters")
-        @Order(23)
         void returnsAllGamesWithTooManyExclusionFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Action", "Sports", "Turn-based strategy"));
@@ -536,7 +513,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 exclusion genres, 4 exclusion platforms and 2 exclusion tags")
-        @Order(24)
         void returnsCorrectGamesWithManyExclusionFilters() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Sports", "Turn-based strategy", "Stealth"));
@@ -552,7 +528,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 1 exclusion genre, 1 exclusion platform and 1 exclusion tag")
-        @Order(25)
         void returnsCorrectGamesWithManyExclusionFilters2() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Action"));
@@ -568,7 +543,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 exclusion genres")
-        @Order(26)
         void returnsCorrectGamesWith3ExclusionGenres() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedGenres(List.of("Sports", "Stealth", "Turn-based strategy"));
@@ -584,7 +558,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 exclusion platforms")
-        @Order(27)
         void returnsCorrectGamesWith3ExclusionPlatforms() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5", "Xbox One", "Windows"));
@@ -598,7 +571,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Transactional
         @Description("Returns correct amount of games when provided 3 exclusion tags")
-        @Order(28)
         void returnsCorrectGamesWith3ExclusionTags() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setExcludedTags(List.of("Sandbox", "Fantasy", "Singleplayer"));
@@ -613,7 +585,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games by name through searching")
         @Transactional
-        @Order(29)
         void returnsAllGamesSortedBySearch() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSearch("Persona 5");
@@ -627,7 +598,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games by name through searching and returning multiple games")
         @Transactional
-        @Order(30)
         void returnsAllGamesSortedBySearches() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSearch("souls");
@@ -640,7 +610,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games with a specified year")
         @Transactional
-        @Order(31)
         void returnsGamesWithSpecificYear() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setYear(2014);
@@ -653,7 +622,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns one games with a specified year")
         @Transactional
-        @Order(32)
         void returnsOneGameWithSpecificYear() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setYear(2021);
@@ -666,7 +634,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games sorted by name")
         @Transactional
-        @Order(32)
         void returnsAllGamesSortedByName() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSortBy("name");
@@ -684,9 +651,28 @@ public class GameServiceTests extends ContainersEnvironment {
         }
 
         @Test
+        @Description("Returns all games sorted by name_desc")
+        @Transactional
+        void returnsAllGamesSortedByNameDesc() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setSortBy("name_desc");
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            foundGames.forEach(gameDTO -> System.out.println(gameDTO.getName()));
+            Assertions.assertEquals(7, foundGames.size());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(2).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(3).getName());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(5).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(6).getName());
+        }
+
+        @Test
         @Description("Returns all games sorted by newest_releases")
         @Transactional
-        @Order(33)
         void returnsAllGamesSortedByNewestRelease() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSortBy("newest_releases");
@@ -706,7 +692,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games sorted by oldest_releases")
         @Transactional
-        @Order(34)
         void returnsAllGamesSortedByOldestRelease() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSortBy("oldest_releases");
@@ -726,7 +711,6 @@ public class GameServiceTests extends ContainersEnvironment {
         @Test
         @Description("Returns all games sorted by avg_score")
         @Transactional
-        @Order(35)
         void returnsAllGamesSortedByAvgScore() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSortBy("avg_score");
@@ -744,9 +728,27 @@ public class GameServiceTests extends ContainersEnvironment {
         }
 
         @Test
+        @Description("Returns all games sorted by lowest_avg_score")
+        @Transactional
+        void returnsAllGamesSortedByLowestAvgScore() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setSortBy("lowest_avg_score");
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            Assertions.assertEquals(7, foundGames.size());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(1).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(2).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(3).getName());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(5).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(6).getName());
+        }
+
+        @Test
         @Description("Returns all games sorted by total_rating")
         @Transactional
-        @Order(36)
         void returnsAllGamesSortedByTotalRating() {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setSortBy("total_rating");
@@ -761,6 +763,25 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(4).getName());
             Assertions.assertEquals("Rocket League", foundGames.get(5).getName());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(6).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by lowest_total_rating")
+        @Transactional
+        void returnsAllGamesSortedByLowestTotalRating() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setSortBy("lowest_total_rating");
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            Assertions.assertEquals(7, foundGames.size());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(2).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(3).getName());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(5).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(6).getName());
         }
     }
 }
