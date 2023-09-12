@@ -80,17 +80,6 @@ public class GameSpecification implements Specification<Game> {
         return cb.and(root.get("id").in(subquery));
     }
 
-//    private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
-//        Subquery<Long> subquery = query.subquery(Long.class);
-//        Root<Game> subqueryRoot = subquery.from(Game.class);
-//
-//        Join<Game, Genre> genreJoin = subqueryRoot.join(tableName);
-//        subquery.select(subqueryRoot.get("id"))
-//                .where(cb.not(genreJoin.get("name").in(toExclude)));
-//
-//        return cb.and(root.get("id").in(subquery));
-//    }
-
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
