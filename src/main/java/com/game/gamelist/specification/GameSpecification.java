@@ -1,6 +1,7 @@
 package com.game.gamelist.specification;
 
 import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.Genre;
 import com.game.gamelist.model.GameQueryFilters;
 import jakarta.persistence.criteria.*;
 import lombok.NonNull;
@@ -67,7 +68,6 @@ public class GameSpecification implements Specification<Game> {
     }
 
     private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toInclude, String tableName) {
-
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
 
@@ -80,13 +80,24 @@ public class GameSpecification implements Specification<Game> {
         return cb.and(root.get("id").in(subquery));
     }
 
+//    private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
+//        Subquery<Long> subquery = query.subquery(Long.class);
+//        Root<Game> subqueryRoot = subquery.from(Game.class);
+//
+//        Join<Game, Genre> genreJoin = subqueryRoot.join(tableName);
+//        subquery.select(subqueryRoot.get("id"))
+//                .where(cb.not(genreJoin.get("name").in(toExclude)));
+//
+//        return cb.and(root.get("id").in(subquery));
+//    }
+
     private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
-        Root<Game> subqueryGameRoot = subquery.from(Game.class);
-        Join<Game, ?> tableJoin = subqueryGameRoot.join(tableName);
+        Root<Game> subqueryRoot = subquery.from(Game.class);
 
-        subquery.select(subqueryGameRoot.get("id"))
-                .where(tableJoin.get("name").in(toExclude));
+        Join<Game, Genre> genreJoin = subqueryRoot.join(tableName);
+        subquery.select(subqueryRoot.get("id"))
+                .where(genreJoin.get("name").in(toExclude));
 
         return cb.not(root.get("id").in(subquery));
     }
