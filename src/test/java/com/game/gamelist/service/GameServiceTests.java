@@ -605,6 +605,8 @@ public class GameServiceTests extends ContainersEnvironment {
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
             Assertions.assertEquals(2, foundGames.size());
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
         }
 
         @Test
@@ -617,6 +619,8 @@ public class GameServiceTests extends ContainersEnvironment {
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
             Assertions.assertEquals(2, foundGames.size());
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Persona 5")));
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
         }
 
         @Test
@@ -629,6 +633,7 @@ public class GameServiceTests extends ContainersEnvironment {
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
             Assertions.assertEquals(1, foundGames.size());
+            Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
         }
 
         @Test
@@ -682,7 +687,6 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(2).getName());
-            Assertions.assertEquals("Persona 5", foundGames.get(3).getName());
             Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
             Assertions.assertEquals("FIFA 11", foundGames.get(5).getName());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(6).getName());
