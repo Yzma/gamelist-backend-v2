@@ -431,9 +431,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
         }
@@ -448,10 +445,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
         }
@@ -494,9 +487,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(5, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
@@ -525,9 +515,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(7, foundGames.size());
         }
 
@@ -588,9 +575,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(3, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("The Legend of Zelda: Breath of the Wild")));
@@ -621,9 +605,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
@@ -656,7 +637,6 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals(2, foundGames.size());
         }
 
-        // TODO: Change order once other tests are written
         @Test
         @Description("Returns all games with a specified year")
         @Transactional
@@ -713,9 +693,6 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
-            foundGames.forEach((game) ->
-                    System.out.println(game.getName())
-            );
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
