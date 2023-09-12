@@ -1,8 +1,9 @@
 package com.game.gamelist.service.impl;
 
 import com.game.gamelist.entity.*;
+import com.game.gamelist.exception.InvalidInputException;
 import com.game.gamelist.exception.ResourceNotFoundException;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.repository.*;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class LikeServiceImpl implements LikeService {
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
 
         if (alreadyLiked) {
-            throw new IllegalStateException("You have already liked this entity.");
+            throw new InvalidInputException("You have already liked this entity.");
         }
 
         User owner = userRepository.findById(principle.getId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
@@ -44,7 +45,7 @@ public class LikeServiceImpl implements LikeService {
 
         InteractiveEntity interactiveEntity = interactiveEntityOptional.get();
 
-        if(interactiveEntity instanceof Post || interactiveEntity instanceof GameJournal) {
+        if(interactiveEntity instanceof Post || interactiveEntity instanceof GameJournal || interactiveEntity instanceof Comment || interactiveEntity instanceof StatusUpdate || interactiveEntity instanceof Game) {
             like.setInteractiveEntity(interactiveEntity);
 
         } else {
@@ -53,9 +54,7 @@ public class LikeServiceImpl implements LikeService {
 
         like = likeRepository.save(like);
 
-        LikeEntityView likeEntityView = likeRepository.findProjectedById(like.getId());
-
-        return likeEntityView;
+        return likeRepository.findProjectedById(like.getId());
     }
 
     @Override
@@ -65,7 +64,7 @@ public class LikeServiceImpl implements LikeService {
         boolean alreadyLiked = likeRepository.existsByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);
 
         if (!alreadyLiked) {
-            throw new IllegalStateException("The like on this entity does not exist.");
+            throw new ResourceNotFoundException("The like on this entity does not exist.");
         }
 
         likeRepository.deleteByUserIdAndInteractiveEntityId(principle.getId(), interactiveEntityId);

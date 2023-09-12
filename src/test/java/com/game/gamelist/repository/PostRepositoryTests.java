@@ -3,7 +3,7 @@ package com.game.gamelist.repository;
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,21 +96,21 @@ public class PostRepositoryTests extends ContainersEnvironment {
 
             assertEquals(2, postRepository.findAll().size());
 
-            Optional<Post> optionalPost = postRepository.findById(1L);
+            Optional<Post> optionalPost = postRepository.findById(allPosts.get(0).getId());
             Post post = optionalPost.get();
 
             assertEquals("Hello World", post.getText());
-            assertEquals(1L, post.getId());
+            assertEquals(allPosts.get(0).getId(), post.getId());
 
-            Post post2 = postRepository.findById(2L).get();
-            PostView postView = postRepository.findProjectedById(1L).get();
+            Post post2 = postRepository.findById(allPosts.get(1).getId()).get();
+            PostView postView = postRepository.findProjectedById(allPosts.get(0).getId()).get();
 
             assertNotEquals(post2.getText(), post.getText());
             assertNotEquals(4L, post.getId());
             assertEquals(post2.getUser(), post.getUser());
 
             assertEquals(postView.getText(), "Hello World");
-            assertEquals(postView.getId(), 1L);
+            assertEquals(postView.getId(), allPosts.get(0).getId());
             assertEquals(postView.getUser().getId(), post.getUser().getId());
         }
 

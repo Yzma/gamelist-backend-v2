@@ -4,12 +4,16 @@ import com.game.gamelist.entity.*;
 import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.impl.UserGameServiceImpl;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -48,14 +52,16 @@ public class UserGameServiceTests {
     @Test
     void when_createUserGame_with_anExistingUserGame_should_return_one_userGame() {
         // Arrange
-        final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        final var userGamePassed = EditUserGameRequest.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).gameId(gameToSave.getId()).build();
+
+        final var userGameReturned = UserGame.builder().gameNote(userGamePassed.getGameNote()).gameStatus(userGamePassed.getGameStatus()).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         StatusUpdate statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Completed).userGame(userGameExisting).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(userGameExisting);
-        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
+        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGameReturned);
         when(statusUpdateRepository.save(Mockito.any(StatusUpdate.class))).thenReturn(statusUpdate);
 
         // Act
@@ -70,14 +76,17 @@ public class UserGameServiceTests {
 
     @Test
     void when_createUserGame_with_aNewUserGame_should_return_one_userGame() {
-        // Arrange
-        final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        final var statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Completed).userGame(userGamePassed).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        // Arrange
+
+        final var userGamePassed = EditUserGameRequest.builder().gameStatus(GameStatus.Completed).gameNote("GameNote from userGameUpdated").gameId(gameToSave.getId()).build();
+        final var userGameReturn = UserGame.builder().gameNote(userGamePassed.getGameNote()).gameStatus(userGamePassed.getGameStatus()).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+
+        final var statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Completed).userGame(userGameReturn).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
         when(gameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(gameToSave));
-        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
+        when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGameReturn);
         when(statusUpdateRepository.save(Mockito.any(StatusUpdate.class))).thenReturn(statusUpdate);
 
         // Act
@@ -91,8 +100,8 @@ public class UserGameServiceTests {
     }
 
     @Test
-    void when_createUserGame_with_nullPrincipal_should_throw_InvalidTokenException () {
-        final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+    void when_createUserGame_with_nullPrincipal_should_throw_InvalidTokenException() {
+        final var userGamePassed = EditUserGameRequest.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).build();
 
         // Act & Assert
         Assertions.assertThatThrownBy(() -> userGameService.createUserGame(userGamePassed, null))
@@ -103,7 +112,7 @@ public class UserGameServiceTests {
     @Test
     void when_createUserGame_with_nullGame_should_throw_ResourceNotFoundException() {
 
-        final var userGamePassed = UserGame.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).user(userToSave).game(gameToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        final var userGamePassed = EditUserGameRequest.builder().gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).gameId(gameToSave.getId()).build();
 
         when(userGameRepository.findFirstByUserIdAndGameId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(null);
 
@@ -120,7 +129,7 @@ public class UserGameServiceTests {
     void when_findUseGameById_return_userGame() {
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
 
         UserGame userGameFound = userGameService.findUserGameById(999L, userToSave);
 
@@ -137,7 +146,7 @@ public class UserGameServiceTests {
 
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenThrow(new InvalidAuthorizationException("Invalid authorization"));
 
 
         Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, nonOwner))
@@ -148,7 +157,7 @@ public class UserGameServiceTests {
     @Test
     void when_findUserGameById_by_non_existing_userGame_throw_ResourceNotFoundException() {
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenThrow(new ResourceNotFoundException("UserGame not found"));
 
         Assertions.assertThatThrownBy(() -> userGameService.findUserGameById(999L, userToSave))
                 .isInstanceOf(ResourceNotFoundException.class)
@@ -158,13 +167,13 @@ public class UserGameServiceTests {
     @Test
     void when_updateUserGameById_should_return_updatedUserGame() {
         final var userGameExisting = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameExisting").gameStatus(GameStatus.Paused).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
-
         final var userGamePassed = UserGame.builder().id(999L).game(gameToSave).user(userToSave).gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).updatedAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        final var userGameRequest = EditUserGameRequest.builder().gameId(999L).gameNote("GameNote from userGameUpdated").gameStatus(GameStatus.Completed).startDate(LocalDateTime.now()).build();
 
-        when(userGameRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
+        when(userGameRepository.findByGameIdAndUserId(Mockito.anyLong(), Mockito.anyLong())).thenReturn(Optional.of(userGameExisting));
         when(userGameRepository.save(Mockito.any(UserGame.class))).thenReturn(userGamePassed);
 
-        UserGame updatedUserGame = userGameService.updateUserGameById(999L, userGamePassed, userToSave);
+        UserGame updatedUserGame = userGameService.updateUserGameById(userGameRequest, userToSave);
 
         Assertions.assertThat(updatedUserGame.getId()).isNotNull();
         Assertions.assertThat(updatedUserGame.getId()).isEqualTo(999L);

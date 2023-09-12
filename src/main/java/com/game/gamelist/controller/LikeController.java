@@ -1,9 +1,9 @@
 package com.game.gamelist.controller;
 
-import com.game.gamelist.entity.LikeEntity;
 import com.game.gamelist.entity.User;
+import com.game.gamelist.model.CreateLikeEntityRequest;
 import com.game.gamelist.model.HttpResponse;
-import com.game.gamelist.model.LikeEntityView;
+import com.game.gamelist.projection.LikeEntityView;
 import com.game.gamelist.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,10 @@ import java.util.Map;
 public class LikeController {
     private final LikeService likeService;
 
-    @PostMapping("/")
+    @PostMapping
     @Transactional
-    public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal,@RequestBody Long interactiveEntityId
-    ) {
-        LikeEntityView like = likeService.createLike(principal, interactiveEntityId);
+    public ResponseEntity<HttpResponse> createLike(@AuthenticationPrincipal User principal, @RequestBody CreateLikeEntityRequest createLikeEntityRequest) {
+        LikeEntityView like = likeService.createLike(principal, createLikeEntityRequest.getInteractiveEntityId());
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("like", like)).status(HttpStatus.CREATED).statusCode(HttpStatus.CREATED.value()).message("Like created successfully").build()

@@ -12,8 +12,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -42,7 +44,7 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
     @Transactional
     public void when_findAll_ShouldReturn_EmptyList() {
         List<UserGame> userGameList = userGameRepository.findAll();
-        Assertions.assertEquals(0, userGameList.size());
+        assertEquals(0, userGameList.size());
     }
 
     @Nested
@@ -83,7 +85,7 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
         @Order(1)
         public void when_findAll_ShouldReturn_ListWithOneElement() {
             List<UserGame> userGameList = userGameRepository.findAll();
-            Assertions.assertEquals(1, userGameList.size());
+            assertEquals(1, userGameList.size());
         }
 
         @Test
@@ -96,11 +98,11 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
 
             UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
 
-            Assertions.assertEquals("testNote", onlyUserGame.getGameNote());
+            assertEquals("testNote", onlyUserGame.getGameNote());
 
             UserGame userGame = userGameRepository.findById(onlyUserGame.getId()).get();
-            Assertions.assertEquals(onlyUserGame.getUser().getId(), userGame.getUser().getId());
-            Assertions.assertEquals(GameStatus.Paused, userGame.getGameStatus());
+            assertEquals(onlyUserGame.getUser().getId(), userGame.getUser().getId());
+            assertEquals(GameStatus.Paused, userGame.getGameStatus());
         }
 
         @Test
@@ -109,11 +111,11 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
         public void when_deleteById_ShouldReturn_EmptyList() {                  Set<UserGame> userGamesSet = (userGameRepository.findAllByUserId(owner.getId()).get());
             UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
 
-            Assertions.assertEquals("testNote", onlyUserGame.getGameNote());
+            assertEquals("testNote", onlyUserGame.getGameNote());
 
             userGameRepository.deleteById(onlyUserGame.getId());
             List<UserGame> userGameList = userGameRepository.findAll();
-            Assertions.assertEquals(0, userGameList.size());
+            assertEquals(0, userGameList.size());
         }
 
         @Test
@@ -122,7 +124,7 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
         public void when_deleteAll_ShouldReturn_EmptyList() {
             userGameRepository.deleteAll();
             List<UserGame> userGameList = userGameRepository.findAll();
-            Assertions.assertEquals(0, userGameList.size());
+            assertEquals(0, userGameList.size());
         }
 
         @Test
@@ -132,7 +134,7 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
             Set<UserGame> userGamesSet = (userGameRepository.findAllByUserId(owner.getId()).get());
             UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
 
-            Assertions.assertEquals("testNote", onlyUserGame.getGameNote());
+            assertEquals("testNote", onlyUserGame.getGameNote());
 
             onlyUserGame.setGameStatus(GameStatus.Completed);
             onlyUserGame.setRating(4);
@@ -142,9 +144,79 @@ public class UserGameRepositoryTests extends ContainersEnvironment {
 
             UserGame updatedUserGame = userGameRepository.findById(onlyUserGame.getId()).get();
 
-            Assertions.assertEquals(GameStatus.Completed, updatedUserGame.getGameStatus());
-            Assertions.assertEquals(4, updatedUserGame.getRating());
-            Assertions.assertEquals("updatedNote", updatedUserGame.getGameNote());
+            assertEquals(GameStatus.Completed, updatedUserGame.getGameStatus());
+            assertEquals(4, updatedUserGame.getRating());
+            assertEquals("updatedNote", updatedUserGame.getGameNote());
+        }
+
+        @Test
+        @Transactional
+        @Order(6)
+        public void when_existsByGameIdAndUserId_ShouldReturn_True() {
+            Set<UserGame> userGamesSet = (userGameRepository.findAllByUserId(owner.getId()).get());
+            UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
+
+            assertEquals("testNote", onlyUserGame.getGameNote());
+
+            boolean exists = userGameRepository.existsByGameIdAndUserId(game1.getId(), owner.getId());
+
+            Assertions.assertTrue(exists);
+
+            Optional<UserGame> userGame = userGameRepository.findByGameIdAndUserId(game1.getId(), owner.getId());
+
+            assertEquals(onlyUserGame.getId(), userGame.get().getId());
+            assertEquals(onlyUserGame.getGame().getId(), userGame.get().getGame().getId());
+            assertEquals("testNote", userGame.get().getGameNote());
+            assertEquals("testgame", onlyUserGame.getGame().getName());
+        }
+
+        @Test
+        @Transactional
+        @Order(7)
+        public void when_existsByGameIdAndUserIdAndGameStatusNotInactive_ShouldReturn_True() {
+            Set<UserGame> userGamesSet = userGameRepository.findAllByUserId(owner.getId()).orElseThrow(() -> new RuntimeException("UserGame not found"));
+
+            UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
+
+            assert onlyUserGame != null;
+            assertEquals("testNote", onlyUserGame.getGameNote());
+
+            boolean exists = userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(game1.getId(), owner.getId());
+
+            Assertions.assertTrue(exists);
+
+            Optional<UserGame> userGame = userGameRepository.findByGameIdAndUserId(game1.getId(), owner.getId());
+
+            assertEquals(onlyUserGame.getId(), userGame.get().getId());
+            assertEquals(onlyUserGame.getGame().getId(), userGame.get().getGame().getId());
+            assertEquals("testNote", userGame.get().getGameNote());
+            assertEquals("testgame", onlyUserGame.getGame().getName());
+        }
+
+        @Test
+        @Transactional
+        @Order(8)
+        public void when_existsByGameIdAndUserIdAndGameStatusNotInactive_expect_false() {
+            Set<UserGame> userGamesSet = userGameRepository.findAllByUserId(owner.getId()).orElseThrow(() -> new RuntimeException("UserGame not found"));
+            UserGame onlyUserGame = userGamesSet.stream().findFirst().orElse(null);
+
+            assert onlyUserGame != null;
+            assertEquals("testNote", onlyUserGame.getGameNote());
+
+            boolean exists = userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(game2.getId(), owner.getId());
+
+            Assertions.assertFalse(exists);
+
+            Optional<UserGame> userGame = userGameRepository.findByGameIdAndUserId(game2.getId(), owner.getId());
+
+            Assertions.assertFalse(userGame.isPresent());
+
+            Assertions.assertTrue(userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(game1.getId(), owner.getId()));
+
+            onlyUserGame.setGameStatus(GameStatus.Inactive);
+            userGameRepository.save(onlyUserGame);
+
+            Assertions.assertFalse(userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(game1.getId(), owner.getId()));
         }
     }
 

@@ -4,5 +4,6 @@
   "createdAt": null,
   "updatedAt": null,
   "user": null,
-  "likes": []
+  "likes": [],
+  "comments": []
 }

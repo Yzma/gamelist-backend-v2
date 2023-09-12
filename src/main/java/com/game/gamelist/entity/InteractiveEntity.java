@@ -1,7 +1,9 @@
 package com.game.gamelist.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -10,14 +12,18 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+
+@Setter
+@Getter
 @SuperBuilder
 @NoArgsConstructor
 @Entity(name = "interactive_entities")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "entity_type", discriminatorType = DiscriminatorType.STRING)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InteractiveEntity {
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
     @CreationTimestamp
@@ -28,31 +34,27 @@ public abstract class InteractiveEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<LikeEntity> likes = new ArrayList<>();
 
-    protected Long getId() {
-        return id;
+    @OneToMany(mappedBy = "interactiveEntity", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
+
+    public void addLike(LikeEntity likeEntity) {
+        likes.add(likeEntity);
+        likeEntity.setInteractiveEntity(this);
+    }
+    public void removeLike(LikeEntity likeEntity) {
+        likes.remove(likeEntity);
+        likeEntity.setInteractiveEntity(null);
     }
 
-     protected void setId(Long id) {
-        this.id = id;
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setInteractiveEntity(this);
     }
-
-    protected List<LikeEntity> getLikes() {
-        return likes;
-    }
-
-    protected void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    protected LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-    protected void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-    protected LocalDateTime getCreatedAt() {
-        return createdAt;
+    public void removeComment(Comment comment) {
+        comments.remove(comment);
+        comment.setInteractiveEntity(null);
     }
 }

@@ -1,5 +1,9 @@
 package com.game.gamelist.model;
 
+import com.game.gamelist.projection.CommentView;
+import com.game.gamelist.projection.LikeEntityView;
+import com.game.gamelist.projection.PostView;
+import com.game.gamelist.projection.UserBasicView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -16,6 +20,7 @@ public class MockPostView implements PostView {
     private UserBasicView user;
     private String text;
     private List<LikeEntityView> likes;
+    private List<CommentView> comments;
     private LocalDateTime createdAt;
 
     // Constructor
@@ -47,6 +52,11 @@ public class MockPostView implements PostView {
     }
 
     @Override
+    public List<CommentView> getComments() {
+        return comments;
+    }
+
+    @Override
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -55,4 +65,6 @@ public class MockPostView implements PostView {
     public void setText(String text) {
         this.text = text;
     }
+
+
 }

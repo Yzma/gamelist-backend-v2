@@ -18,9 +18,8 @@ import java.time.LocalDateTime;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/user")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173/"})
 public class UserController {
-    private final GameServiceImpl gameServiceImpl;
     private final UserServiceImpl userServiceImpl;
 
     @GetMapping("/userinfo")

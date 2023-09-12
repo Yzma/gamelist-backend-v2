@@ -1,5 +1,6 @@
 package com.game.gamelist.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +21,7 @@ import java.util.Set;
 public class Platform {
 
     @Id
-    @GeneratedValue
+    @JsonProperty("id")
     private Long id;
 
     @Column(unique = true)

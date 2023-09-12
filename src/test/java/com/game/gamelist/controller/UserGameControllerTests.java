@@ -3,7 +3,10 @@ package com.game.gamelist.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.game.gamelist.config.SecurityTestConfig;
+import com.game.gamelist.dto.GameDTO;
+import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.*;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.service.UserGameService;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -17,12 +20,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,28 +44,24 @@ public class UserGameControllerTests {
     private ObjectMapper objectMapper;
     @Autowired
     private SecurityTestConfig.Auth0JwtTestUtils auth0JwtTestUtils;
+    private Game game1;
+    private Game game2;
+    private Game game3;
+    private User principal;
+    private Game game4;
 
     @Test
     void contextLoads() {
         Assertions.assertNotNull(userGameController);
     }
 
-    private Game game1;
-    private Game game2;
-    private Game game3;
-    private User principal;
-    private User notPrincipal;
-    private Game game4;
     @BeforeEach
     void beforeEachTest() {
         game1 = Game.builder().name("game1").description("description of game1").build();
         game2 = Game.builder().name("game2").description("description of game2").build();
         game3 = Game.builder().name("game3").description("description of game3").build();
         game4 = Game.builder().name("game4").description("description of game4").build();
-
         principal = User.builder().id(1L).roles(Set.of(Role.ROLE_USER)).username("principal").email("principal@gmail.com").build();
-
-        notPrincipal = User.builder().id(2L).roles(Set.of(Role.ROLE_USER)).username("notPrincipal").email("notprincipal@gmail.com").build();
     }
 
     @Test
@@ -81,7 +81,7 @@ public class UserGameControllerTests {
 
         when(userGameService.findAllUserGamesByUserId(principal)).thenReturn(userGameSet);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameSet)))
                 .andExpect(status().isOk())
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
@@ -91,12 +91,29 @@ public class UserGameControllerTests {
     }
 
     @Test
+    void when_send_get_request_to_userGame_by_gameId_endpoint_with_id_should_return_userGame() throws Exception {
+
+        auth0JwtTestUtils.mockAuthentication(principal);
+
+        List<GameDTO> playingList = List.of(GameDTO.builder().id(1L).name("game1").avgScore(9).imageURL("imageURL of game1").bannerURL("bannerURL of game1").releaseDate(LocalDateTime.now()).build());
+        List<GameDTO> completedList = List.of(GameDTO.builder().id(2L).name("game2").avgScore(9).imageURL("imageURL of game2").bannerURL("bannerURL of game2").releaseDate(LocalDateTime.now()).build());
+
+        UserGamesSummaryDTO userGamesSummaryDTO = UserGamesSummaryDTO.builder().totalCount(2).playingCount(1).completedCount(1).playing(playingList).completed(completedList).build();
+
+        when(userGameService.findAllUserGamesByUserIdByStatus(principal)).thenReturn(userGamesSummaryDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/status")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("imageURL of game1"))).andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("imageURL of game2")));
+    }
+
+    @Test
     void when_send_get_request_to_userGame_endpoint_with_id_should_return_userGame() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
         UserGame userGame1 = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(9).build();
 
-        when(userGameService.findUserGameById(1L, principal)).thenReturn(userGame1);
+        when(userGameService.findUserGameByGameId(1L, principal)).thenReturn(userGame1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/usergames/1")
                         .contentType(MediaType.APPLICATION_JSON))
@@ -109,10 +126,10 @@ public class UserGameControllerTests {
 
         UserGame userGameBody = UserGame.builder().user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1").gameStatus(GameStatus.Completed).rating(3).startDate(LocalDateTime.now()).build();
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
                 .andExpect(status().isCreated())
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
@@ -123,9 +140,9 @@ public class UserGameControllerTests {
     void when_send_post_request_with_null_body_should_return_exception() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        when(userGameService.createUserGame(Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(null);
+        when(userGameService.createUserGame(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(null);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames/")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
@@ -139,11 +156,11 @@ public class UserGameControllerTests {
 
         UserGame userGameBody = UserGame.builder().id(1L).user(principal).game(game1).gameNote("GameNote from usergame of user1 and game1 Just get updated. ").gameStatus(GameStatus.Paused).rating(5).startDate(LocalDateTime.now()).build();
 
-        when(userGameService.updateUserGameById(Mockito.anyLong(), Mockito.any(UserGame.class), Mockito.any(User.class))).thenReturn(userGameBody);
+        when(userGameService.updateUserGameById(Mockito.any(EditUserGameRequest.class), Mockito.any(User.class))).thenReturn(userGameBody);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames/1")
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/usergames")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(userGameBody)))
-                .andExpect(jsonPath("$.status").value("NO_CONTENT"))
+                .andExpect(jsonPath("$.status").value("OK"))
                 .andExpect(result -> Assertions.assertTrue(result.getResponse().getContentAsString().contains("game1")))
                 .andExpect(jsonPath("$.data.userGame.gameNote").value("GameNote from usergame of user1 and game1 Just get updated. ")).andExpect(jsonPath("$.data.userGame.rating").value(5));
     }
@@ -152,14 +169,14 @@ public class UserGameControllerTests {
     void when_send_delete_request_with_id_should_return_no_content() throws Exception {
         auth0JwtTestUtils.mockAuthentication(principal);
 
-        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(0).completedDate(null).startDate(null).build();
+        UserGame userGameDelete = UserGame.builder().id(1L).user(principal).game(game1).gameNote(null).gameStatus(GameStatus.Inactive).rating(null).completedDate(null).startDate(null).build();
 
-        when(userGameService.deleteUserGameById(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
+        when(userGameService.deleteUserGameByGameId(Mockito.anyLong(), Mockito.any(User.class))).thenReturn(userGameDelete);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/usergames/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.status").value("NO_CONTENT"))
                 .andExpect(jsonPath("$.message").value("UserGame deleted"))
-                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.rating").value(0));
+                .andExpect(jsonPath("$.data.userGame.gameStatus").value(GameStatus.Inactive.toString())).andExpect(jsonPath("$.data.userGame.gameNote").isEmpty()).andExpect(jsonPath("$.data.userGame.rating").isEmpty()).andExpect(jsonPath("$.data.userGame.completedDate").isEmpty()).andExpect(jsonPath("$.data.userGame.startDate").isEmpty());
     }
 }

@@ -2,11 +2,10 @@ package com.game.gamelist.service;
 
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
-import com.game.gamelist.model.PostView;
+import com.game.gamelist.projection.PostView;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public interface PostService {

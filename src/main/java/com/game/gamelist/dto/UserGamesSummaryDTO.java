@@ -3,11 +3,13 @@ package com.game.gamelist.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 public class UserGamesSummaryDTO {
     private List<GameDTO> playing;
@@ -25,8 +27,8 @@ public class UserGamesSummaryDTO {
     private List<GameDTO> dropped;
     private int droppedCount;
 
-    private List<GameDTO> inactive;
-    private int inactiveCount;
+    private List<GameDTO> justAdded;
+    private int justAddedCount;
 
     private int totalCount;
 

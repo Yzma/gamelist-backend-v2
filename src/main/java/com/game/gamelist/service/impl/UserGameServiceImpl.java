@@ -7,6 +7,7 @@ import com.game.gamelist.exception.InvalidAuthorizationException;
 import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.mapper.GameMapper;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.StatusUpdateRepository;
 import com.game.gamelist.repository.UserGameRepository;
@@ -31,36 +32,38 @@ public class UserGameServiceImpl implements UserGameService {
     @Override
     public UserGame findUserGameById(Long requestedId, User principal) {
         if (principal == null) {
-            throw new InvalidTokenException("Invalid token");
+            throw new InvalidTokenException("Invalid principal user");
         }
 
-        Optional<UserGame> userGame = userGameRepository.findById(requestedId);
+        Optional<UserGame> userGame = userGameRepository.findByGameIdAndUserId(requestedId, principal.getId());
 
         if (userGame.isPresent()) {
-            UserGame responseData = userGame.get();
-
-            User user = responseData.getUser();
-
-            if (principal.getId().equals(user.getId())) {
-                return userGame.get();
-            }
-            throw new InvalidAuthorizationException("Invalid authorization");
+            return userGame.get();
         }
-        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
+
+        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId + " and UserID: " + principal.getId());
     }
 
+
+
     @Override
-    public UserGame createUserGame(UserGame userGame, User principal) {
+    public UserGame createUserGame(EditUserGameRequest userGame, User principal) {
         if (principal == null) {
             throw new InvalidTokenException("Invalid token");
         }
 
         // Check if the UserGame already exists in the database
-        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGame().getId());
+        UserGame existingUserGame = userGameRepository.findFirstByUserIdAndGameId(principal.getId(), userGame.getGameId());
         StatusUpdate statusUpdate = new StatusUpdate();
-        UserGame userGameResponse = new UserGame();
+
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
+
+            if(existingUserGame.getGameStatus() != userGame.getGameStatus()) {
+                statusUpdate.setUserGame(existingUserGame);
+                statusUpdate.setGameStatus(userGame.getGameStatus());
+                statusUpdateRepository.save(statusUpdate);
+            }
             existingUserGame.setIsPrivate(userGame.getIsPrivate());
             existingUserGame.setRating(userGame.getRating());
             existingUserGame.setStartDate(userGame.getStartDate());
@@ -69,56 +72,48 @@ public class UserGameServiceImpl implements UserGameService {
             existingUserGame.setGameNote(userGame.getGameNote());
             userGameRepository.save(existingUserGame);
 
-            statusUpdate.setUserGame(existingUserGame);
-            statusUpdate.setGameStatus(existingUserGame.getGameStatus());
-            statusUpdateRepository.save(statusUpdate);
-
             return existingUserGame;
         } else {
             // If the UserGame does not exist, create a new instance
-            Game game = gameRepository.findById(userGame.getGame().getId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGame().getId()));
+            Game game = gameRepository.findById(userGame.getGameId()).orElseThrow(() -> new ResourceNotFoundException("Game not found with ID: " + userGame.getGameId()));
 
-            userGame.setUser(principal);
-            userGame.setGame(game);
+            UserGame newUserGame = UserGame.builder().game(game).user(principal).gameStatus(userGame.getGameStatus()).isPrivate(userGame.getIsPrivate()).rating(userGame.getRating()).startDate(userGame.getStartDate()).completedDate(userGame.getCompletedDate()).gameNote(userGame.getGameNote()).build();
 
-            statusUpdate.setUserGame(userGame);
-            statusUpdate.setGameStatus(userGame.getGameStatus());
-            userGameRepository.save(userGame);
+            statusUpdate.setUserGame(newUserGame);
+            statusUpdate.setGameStatus(newUserGame.getGameStatus());
+            userGameRepository.save(newUserGame);
             statusUpdateRepository.save(statusUpdate);
-            return userGame;
+            return newUserGame;
         }
     }
 
     @Override
-    public UserGame updateUserGameById(Long requestedId, UserGame userGame, User principal) {
+    public UserGame updateUserGameById(EditUserGameRequest userGame, User principal) {
         if (principal == null) throw new InvalidTokenException("Invalid token");
-//        Get the UserGame instance needed to be updated
-        Optional<UserGame> userGameOptional = userGameRepository.findById(requestedId);
+
+        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(userGame.getGameId(), principal.getId());
 
         if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
-            Game game = responseData.getGame();
-            User user = responseData.getUser();
-//            check if user id and game id matches
-            if (!principal.getId().equals(user.getId()) || !game.getId().equals(userGame.getGame().getId())) {
-                throw new InvalidAuthorizationException("Invalid authorization");
+
+            if(userGame.getGameStatus() != responseData.getGameStatus()) {
+                StatusUpdate statusUpdate = new StatusUpdate();
+                statusUpdate.setUserGame(responseData);
+                statusUpdate.setGameStatus(userGame.getGameStatus());
+                statusUpdateRepository.save(statusUpdate);
             }
 
-            StatusUpdate statusUpdate = new StatusUpdate();
             responseData.setGameStatus(userGame.getGameStatus());
             responseData.setGameNote(userGame.getGameNote());
             responseData.setIsPrivate(userGame.getIsPrivate());
             responseData.setRating(userGame.getRating());
             responseData.setCompletedDate(userGame.getCompletedDate());
-            responseData.setUpdatedAt(userGame.getUpdatedAt());
+            responseData.setStartDate(userGame.getStartDate());
 
-            statusUpdate.setUserGame(responseData);
-            statusUpdate.setGameStatus(responseData.getGameStatus());
-            statusUpdateRepository.save(statusUpdate);
             return userGameRepository.save(responseData);
         }
 
-        throw new ResourceNotFoundException("UserGame not found with ID: " + requestedId);
+        throw new ResourceNotFoundException("UserGame not found with ID: " + userGame.getGameId() + " and UserID: " + principal.getId());
     }
 
     @Override
@@ -132,17 +127,7 @@ public class UserGameServiceImpl implements UserGameService {
             User user = responseData.getUser();
 
             if (principal.getId().equals(user.getId())) {
-                responseData.setGameStatus(GameStatus.Inactive);
-                responseData.setGameNote(null);
-                responseData.setRating(0);
-                responseData.setCompletedDate(null);
-                responseData.setStartDate(null);
-
-                StatusUpdate statusUpdate = new StatusUpdate();
-                statusUpdate.setUserGame(responseData);
-                statusUpdate.setGameStatus(responseData.getGameStatus());
-                statusUpdateRepository.save(statusUpdate);
-                return userGameRepository.save(responseData);
+                return resetUserGameAndStatusUpdate(responseData);
             }
             throw new InvalidAuthorizationException("Invalid authorization");
         }
@@ -173,8 +158,8 @@ public class UserGameServiceImpl implements UserGameService {
         List<GameDTO> planningGameDTOs = gameMapper.gamesToGameDTOs(planningGames);
         List<Game> dropGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Dropped);
         List<GameDTO> dropGameDTOs = gameMapper.gamesToGameDTOs(dropGames);
-        List<Game> inactiveGames = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.Inactive);
-        List<GameDTO> inactiveGameDTOs = gameMapper.gamesToGameDTOs(inactiveGames);
+        List<Game> justAdded = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.JustAdded);
+        List<GameDTO> justAddedGameDTOs = gameMapper.gamesToGameDTOs(justAdded);
 
         UserGamesSummaryDTO userGamesSummary = new UserGamesSummaryDTO();
         userGamesSummary.setPlaying(playingGameDTOs);
@@ -187,15 +172,61 @@ public class UserGameServiceImpl implements UserGameService {
         userGamesSummary.setPlanningCount(planningGameDTOs.size());
         userGamesSummary.setDropped(dropGameDTOs);
         userGamesSummary.setDroppedCount(dropGameDTOs.size());
-        userGamesSummary.setInactive(inactiveGameDTOs);
-        userGamesSummary.setInactiveCount(inactiveGameDTOs.size());
+        userGamesSummary.setJustAdded(justAddedGameDTOs);
+        userGamesSummary.setJustAddedCount(justAddedGameDTOs.size());
 
-        int totalCount = playingGameDTOs.size() + completedGameDTOs.size() + pausedGameDTOs.size() + planningGameDTOs.size() + dropGameDTOs.size() + inactiveGameDTOs.size();
+        int totalCount = playingGameDTOs.size() + completedGameDTOs.size() + pausedGameDTOs.size() + planningGameDTOs.size() + dropGameDTOs.size() + justAddedGameDTOs.size();
         userGamesSummary.setTotalCount(totalCount);
 
         String listsOrder = userRepository.findListsOrderById(principal.getId());
         userGamesSummary.setListsOrder(listsOrder);
 
         return userGamesSummary;
+    }
+
+    @Override
+    public UserGame findUserGameByGameId(Long gameId, User principal) {
+        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(gameId, principal.getId());
+
+        if (userGameOptional.isPresent()) {
+            UserGame responseData = userGameOptional.get();
+
+            if (responseData.getGameStatus() == GameStatus.JustAdded) {
+                responseData.setGameStatus(null);
+            }
+            return userGameOptional.get();
+        }
+
+        return UserGame.builder().gameStatus(GameStatus.Inactive).gameNote("").isPrivate(false).gameNote("").game(gameRepository.findById(gameId).orElseThrow(() -> new ResourceNotFoundException("Game can not find by ID: " + gameId))).rating(null).user(principal).build();
+
+    }
+
+    @Override
+    public UserGame deleteUserGameByGameId(Long gameId, User principal) {
+        if (principal == null) throw new InvalidTokenException("Invalid token");
+
+        Optional<UserGame> userGameOptional = userGameRepository.findByGameIdAndUserId(gameId, principal.getId());
+
+        if (userGameOptional.isPresent()) {
+            UserGame responseData = userGameOptional.get();
+            return resetUserGameAndStatusUpdate(responseData);
+        }
+        throw new ResourceNotFoundException("UserGame not found with Game ID: " + gameId + " and User ID: " + principal.getId());
+    }
+
+    private UserGame resetUserGameAndStatusUpdate(UserGame userGame) {
+        userGame.setGameStatus(GameStatus.Inactive);
+        userGame.setGameNote(null);
+        userGame.setRating(null);
+
+        userGame.setCompletedDate(null);
+        userGame.setStartDate(null);
+        userGame.setIsPrivate(false);
+
+        StatusUpdate statusUpdate = new StatusUpdate();
+        statusUpdate.setUserGame(userGame);
+        statusUpdate.setGameStatus(userGame.getGameStatus());
+        statusUpdateRepository.save(statusUpdate);
+        return userGameRepository.save(userGame);
     }
 }

@@ -1,4 +1,4 @@
-package com.game.gamelist.model;
+package com.game.gamelist.projection;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +13,8 @@ public interface PostView {
     LocalDateTime getCreatedAt();
 
     List<LikeEntityView> getLikes();
+
+    List<CommentView> getComments();
 
     void setText(String text);
 }

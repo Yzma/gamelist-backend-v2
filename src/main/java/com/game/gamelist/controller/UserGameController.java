@@ -4,6 +4,7 @@ package com.game.gamelist.controller;
 import com.game.gamelist.dto.UserGamesSummaryDTO;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.entity.UserGame;
+import com.game.gamelist.model.EditUserGameRequest;
 import com.game.gamelist.model.HttpResponse;
 import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,13 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/usergames")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173/"})
 public class UserGameController {
 
     private final UserGameService userGameService;
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<HttpResponse> getAllUserGameByUserId(@AuthenticationPrincipal User principal) {
         Set<UserGame> userGames = userGameService.findAllUserGamesByUserId(principal);
 
@@ -54,8 +55,8 @@ public class UserGameController {
     }
 
     @GetMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> findUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
-        UserGame userGame = userGameService.findUserGameById(requestedId, principal);
+    public ResponseEntity<HttpResponse> findUserGameByGameId(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
+        UserGame userGame = userGameService.findUserGameByGameId(requestedId, principal);
 
         return ResponseEntity.ok(
                 HttpResponse.builder()
@@ -63,13 +64,13 @@ public class UserGameController {
                         .data(Map.of("userGame", userGame))
                         .status(HttpStatus.OK)
                         .statusCode(HttpStatus.OK.value())
-                        .message("UserGame found")
+                        .message("UserGame by Game ID found")
                         .build());
 
     }
 
-    @PostMapping("/")
-    public ResponseEntity<HttpResponse> createUserGame(@RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
+    @PostMapping
+    public ResponseEntity<HttpResponse> createUserGame(@RequestBody EditUserGameRequest userGame, @AuthenticationPrincipal User principal) {
         UserGame createdUserGame = userGameService.createUserGame(userGame, principal);
 
         if (createdUserGame != null) {
@@ -94,16 +95,16 @@ public class UserGameController {
         }
     }
 
-    @PutMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> updateUserGame(@PathVariable("requestedId") Long requestedId, @RequestBody UserGame userGame, @AuthenticationPrincipal User principal) {
-        UserGame updatedUserGame = userGameService.updateUserGameById(requestedId, userGame, principal);
+    @PutMapping
+    public ResponseEntity<HttpResponse> updateUserGame(@RequestBody EditUserGameRequest userGame, @AuthenticationPrincipal User principal) {
+        UserGame updatedUserGame = userGameService.updateUserGameById(userGame, principal);
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder()
                         .timeStamp(LocalDateTime.now().toString())
                         .data(Map.of("userGame", updatedUserGame))
-                        .status(HttpStatus.NO_CONTENT)
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
                         .message("UserGame updated")
                         .build());
 
@@ -111,8 +112,8 @@ public class UserGameController {
     }
 
     @DeleteMapping("/{requestedId}")
-    public ResponseEntity<HttpResponse> deleteUserGameById(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
-        UserGame deletedUserGame = userGameService.deleteUserGameById(requestedId, principal);
+    public ResponseEntity<HttpResponse> deleteUserGameByGameId(@PathVariable("requestedId") Long requestedId, @AuthenticationPrincipal User principal) {
+        UserGame deletedUserGame = userGameService.deleteUserGameByGameId(requestedId, principal);
 
         return ResponseEntity.created(URI.create("")).body(
                 HttpResponse.builder()
