@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface GameService {
     List<GameDTO> getAllGames(GameQueryFilters gameQueryFilters, User principal);
+
+    GameDTO getAGame(Long gameId);
 }

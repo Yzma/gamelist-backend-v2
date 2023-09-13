@@ -5,6 +5,7 @@ import com.game.gamelist.entity.Game;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.GameQueryFilters;
+import com.game.gamelist.repository.GameRepository;
 import com.game.gamelist.repository.LikeRepository;
 import com.game.gamelist.repository.UserGameRepository;
 import com.game.gamelist.service.GameService;
@@ -28,6 +29,7 @@ public class GameServiceImpl implements GameService {
     private static final int DEFAULT_QUERY_LIMIT = 10;
     private static final int MIN_QUERY_LIMIT = 1;
     private static final int MAX_QUERY_LIMIT = 35;
+    private final GameRepository gameRepository;
     private final UserGameRepository userGameRepository;
     private final LikeRepository likeRepository;
     private final GameMapper gameMapper;
@@ -60,10 +62,15 @@ public class GameServiceImpl implements GameService {
             }
 
             gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(gameDTO.getId(), principal.getId()));
-            gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId( principal.getId(), gameDTO.getId()));
+            gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId(principal.getId(), gameDTO.getId()));
         }
 
         return gameDTOs;
+    }
+
+    @Override
+    public GameDTO getAGame(Long gameId) {
+        return gameMapper.gameToGameDTO(gameRepository.findById(gameId).orElseThrow());
     }
 
     private <T> TypedQuery<T> getQuery(Specification<T> specification, Class<T> clazz) {

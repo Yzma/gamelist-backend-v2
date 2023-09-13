@@ -1,8 +1,10 @@
 package com.game.gamelist.mapper;
 
 import com.game.gamelist.dto.GameDTO;
-import com.game.gamelist.entity.*;
-import com.game.gamelist.repository.UserGameRepository;
+import com.game.gamelist.entity.Game;
+import com.game.gamelist.entity.Genre;
+import com.game.gamelist.entity.Platform;
+import com.game.gamelist.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -19,6 +21,7 @@ public interface GameMapper {
     @Mapping(source = "avgScore", target = "avgScore")
     @Mapping(source = "imageURL", target = "imageURL", defaultValue = "")
     @Mapping(source = "bannerURL", target = "bannerURL", defaultValue = "")
+    @Mapping(source = "description", target = "description")
     @Mapping(source = "id", target = "id")
     @Mapping(source = "name", target = "name", defaultValue = "")
     GameDTO gameToGameDTO(Game game);

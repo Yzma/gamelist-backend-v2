@@ -35,4 +35,17 @@ public class GameController {
                         .build()
         );
     }
+
+    @GetMapping("/{gameId}")
+    public ResponseEntity<HttpResponse> getGameById(@PathVariable Long gameId) {
+        GameDTO game = gameService.getAGame(gameId);
+        return ResponseEntity.ok(
+                HttpResponse.builder()
+                        .timeStamp(LocalDateTime.now().toString())
+                        .data(Map.of("getGameById", game))
+                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.OK.value())
+                        .build()
+        );
+    }
 }

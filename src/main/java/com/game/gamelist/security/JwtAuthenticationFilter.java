@@ -1,6 +1,5 @@
 package com.game.gamelist.security;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,14 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         extractTokenFromRequest(request)
-                .map(token -> {
-                    try {
-                        return jwtDecoder.decode(token);
-                    } catch (JWTDecodeException e) {
-                        // when jwt invalid return principle as null
-                        return null;
-                    }
-                })
+                .map(jwtDecoder::decode)
                 .map(jwtToPrincipalConverter::convert)
                 .map(UserPrincipleAuthenticationToken::new)
                 .ifPresent(auth -> SecurityContextHolder.getContext().setAuthentication(auth));
