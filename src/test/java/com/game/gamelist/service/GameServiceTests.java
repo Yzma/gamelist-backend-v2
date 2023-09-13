@@ -199,7 +199,7 @@ public class GameServiceTests extends ContainersEnvironment {
         @Transactional
         @Description("Returns the first game in the database when no filters are provided")
         public void oneGameWithNoFilters() {
-            List<GameDTO> foundGames = gameService.getAllGames(new GameQueryFilters());
+            List<GameDTO> foundGames = gameService.getAllGames(new GameQueryFilters(), null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("Persona 5", foundGames.get(0).getName());
         }
@@ -211,7 +211,7 @@ public class GameServiceTests extends ContainersEnvironment {
             GameQueryFilters gameQueryFilters = new GameQueryFilters();
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
         }
 
@@ -223,7 +223,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setGenres(List.of("Action"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(6, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
         }
@@ -236,7 +236,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setGenres(List.of("Action", "Role-playing"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(5, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
@@ -250,7 +250,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Multiplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
@@ -264,7 +264,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Singleplayer", "3D"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(5, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
@@ -278,7 +278,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setPlatforms(List.of("Playstation 5"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(6, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("The Legend of Zelda: Breath of the Wild")));
         }
@@ -291,7 +291,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setPlatforms(List.of("Playstation 5", "Xbox One"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(6, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("The Legend of Zelda: Breath of the Wild")));
         }
@@ -304,7 +304,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setPlatforms(List.of("Not-A-Platform"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(0, foundGames.size());
         }
 
@@ -318,7 +318,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Multiplayer", "Singleplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(0, foundGames.size());
         }
 
@@ -332,7 +332,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Singleplayer", "3D"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(4, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
@@ -348,7 +348,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setGenres(List.of("Action", "Stealth", "Role-playing"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
         }
@@ -361,7 +361,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setPlatforms(List.of("Playstation 5", "Xbox One", "Windows"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(6, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
@@ -379,7 +379,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Singleplayer", "3D", "Fantasy"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(5, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
@@ -398,7 +398,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setTags(List.of("Singleplayer", "3D"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(4, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
@@ -414,7 +414,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedGenres(List.of("Action"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
         }
@@ -427,7 +427,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedGenres(List.of("Action", "Role-playing"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
         }
@@ -440,7 +440,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
@@ -453,7 +453,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5", "Xbox One"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
@@ -466,7 +466,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Multiplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(5, foundGames.size());
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
             Assertions.assertTrue(foundGames.stream().noneMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
@@ -480,7 +480,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Singleplayer", "3D"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(0, foundGames.size());
         }
 
@@ -492,7 +492,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedPlatforms(List.of("Not-A-Platform"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
         }
 
@@ -506,7 +506,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Multiplayer", "Singleplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(0, foundGames.size());
         }
 
@@ -520,7 +520,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Multiplayer", "Sandbox"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
@@ -535,7 +535,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Singleplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("FIFA 11", foundGames.get(0).getName());
         }
@@ -548,7 +548,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedGenres(List.of("Sports", "Stealth", "Turn-based strategy"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(3, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("The Legend of Zelda: Breath of the Wild")));
@@ -563,7 +563,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5", "Xbox One", "Windows"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
@@ -576,7 +576,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setExcludedTags(List.of("Sandbox", "Fantasy", "Singleplayer"));
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("FIFA 11")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
@@ -590,7 +590,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSearch("Persona 5");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("Persona 5", foundGames.get(0).getName());
         }
@@ -603,7 +603,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSearch("souls");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
@@ -617,7 +617,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setYear(2014);
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Persona 5")));
             Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
@@ -631,7 +631,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setYear(2021);
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertTrue(foundGames.stream().allMatch(gameDTO -> gameDTO.getName().equals("Rocket League")));
         }
@@ -644,7 +644,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("name");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(1).getName());
@@ -663,7 +663,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("name_desc");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
             Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
@@ -682,7 +682,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("newest_releases");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
@@ -700,7 +700,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("oldest_releases");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
             Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
@@ -719,7 +719,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("avg_score");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(1).getName());
@@ -738,7 +738,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("lowest_avg_score");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
             Assertions.assertEquals("Persona 5", foundGames.get(1).getName());
@@ -757,7 +757,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("total_rating");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
             Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
@@ -776,7 +776,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setSortBy("lowest_total_rating");
             gameQueryFilters.setLimit(10);
 
-            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters);
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
             Assertions.assertEquals(7, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
             Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
@@ -785,6 +785,50 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
             Assertions.assertEquals("FIFA 11", foundGames.get(5).getName());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(6).getName());
+        }
+
+        @Test
+        @Description("Returns all games containing included and excluded filters")
+        @Transactional
+        void returnsAllGamesSortedByInclusionAndExclusionFilters() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setExcludedGenres(List.of("Sports"));
+            gameQueryFilters.setGenres(List.of("Stealth"));
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(1, foundGames.size());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
+        }
+
+        @Test
+        @Description("Returns all games containing included and excluded filters")
+        @Transactional
+        void returnsAllGamesSortedByInclusionAndExclusionFilters2() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setExcludedPlatforms(List.of("Nintendo Switch"));
+            gameQueryFilters.setGenres(List.of("Action", "Role-playing"));
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Assassin's Creed")));
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls: Remastered")));
+            Assertions.assertTrue(foundGames.stream().anyMatch(gameDTO -> gameDTO.getName().equals("Dark Souls II Scholar of the First Sin")));
+        }
+
+        @Test
+        @Description("Returns all games containing included and excluded filters")
+        @Transactional
+        void returnsAllGamesSortedByInclusionAndExclusionFilters3() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setExcludedPlatforms(List.of("Playstation 5", "Xbox One", "Windows"));
+            gameQueryFilters.setPlatforms(List.of("Nintendo Switch"));
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(1, foundGames.size());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
     }
 }
