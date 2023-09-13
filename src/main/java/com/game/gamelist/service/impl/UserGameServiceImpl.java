@@ -8,10 +8,7 @@ import com.game.gamelist.exception.InvalidTokenException;
 import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.mapper.GameMapper;
 import com.game.gamelist.model.EditUserGameRequest;
-import com.game.gamelist.repository.GameRepository;
-import com.game.gamelist.repository.StatusUpdateRepository;
-import com.game.gamelist.repository.UserGameRepository;
-import com.game.gamelist.repository.UserRepository;
+import com.game.gamelist.repository.*;
 import com.game.gamelist.service.UserGameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,6 +23,7 @@ public class UserGameServiceImpl implements UserGameService {
     private final UserRepository userRepository;
     private final UserGameRepository userGameRepository;
     private final GameRepository gameRepository;
+    private final LikeRepository likeRepository;
     private final StatusUpdateRepository statusUpdateRepository;
     private final GameMapper gameMapper;
 
@@ -45,7 +43,6 @@ public class UserGameServiceImpl implements UserGameService {
     }
 
 
-
     @Override
     public UserGame createUserGame(EditUserGameRequest userGame, User principal) {
         if (principal == null) {
@@ -59,7 +56,7 @@ public class UserGameServiceImpl implements UserGameService {
         if (existingUserGame != null) {
             // If the UserGame already exists, update the existing instance
 
-            if(existingUserGame.getGameStatus() != userGame.getGameStatus()) {
+            if (existingUserGame.getGameStatus() != userGame.getGameStatus()) {
                 statusUpdate.setUserGame(existingUserGame);
                 statusUpdate.setGameStatus(userGame.getGameStatus());
                 statusUpdateRepository.save(statusUpdate);
@@ -96,7 +93,7 @@ public class UserGameServiceImpl implements UserGameService {
         if (userGameOptional.isPresent()) {
             UserGame responseData = userGameOptional.get();
 
-            if(userGame.getGameStatus() != responseData.getGameStatus()) {
+            if (userGame.getGameStatus() != responseData.getGameStatus()) {
                 StatusUpdate statusUpdate = new StatusUpdate();
                 statusUpdate.setUserGame(responseData);
                 statusUpdate.setGameStatus(userGame.getGameStatus());
@@ -160,6 +157,13 @@ public class UserGameServiceImpl implements UserGameService {
         List<GameDTO> dropGameDTOs = gameMapper.gamesToGameDTOs(dropGames);
         List<Game> justAdded = gameRepository.findGamesByUserIdAndStatus(principal.getId(), GameStatus.JustAdded);
         List<GameDTO> justAddedGameDTOs = gameMapper.gamesToGameDTOs(justAdded);
+
+        applyGameAddedAndLikeToGameDTOs(playingGameDTOs, principal);
+        applyGameAddedAndLikeToGameDTOs(completedGameDTOs, principal);
+        applyGameAddedAndLikeToGameDTOs(pausedGameDTOs, principal);
+        applyGameAddedAndLikeToGameDTOs(planningGameDTOs, principal);
+        applyGameAddedAndLikeToGameDTOs(dropGameDTOs, principal);
+        applyGameAddedAndLikeToGameDTOs(justAddedGameDTOs, principal);
 
         UserGamesSummaryDTO userGamesSummary = new UserGamesSummaryDTO();
         userGamesSummary.setPlaying(playingGameDTOs);
@@ -228,5 +232,18 @@ public class UserGameServiceImpl implements UserGameService {
         statusUpdate.setGameStatus(userGame.getGameStatus());
         statusUpdateRepository.save(statusUpdate);
         return userGameRepository.save(userGame);
+    }
+
+    private void applyGameAddedAndLikeToGameDTOs(List<GameDTO> gameDTOs, User principal) {
+        for (GameDTO gameDTO : gameDTOs) {
+            if (principal == null) {
+                gameDTO.setGameAdded(false);
+                gameDTO.setGameLiked(false);
+                continue;
+            }
+
+            gameDTO.setGameAdded(userGameRepository.existsByGameIdAndUserIdAndGameStatusNotInactive(gameDTO.getId(), principal.getId()));
+            gameDTO.setGameLiked(likeRepository.existsByUserIdAndInteractiveEntityId(principal.getId(), gameDTO.getId()));
+        }
     }
 }

@@ -14,6 +14,7 @@ public class GameDTO {
     private Long id;
     private String name;
     private double avgScore;
+    private String description;
     private String imageURL;
     private String bannerURL;
     private LocalDateTime releaseDate;
