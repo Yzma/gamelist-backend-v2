@@ -23,4 +23,9 @@ public class GameQueryFilters {
 
     private int limit;
     private int offset;
+
+    private int lastId;
+    private String lastName;
+    private double lastAverageScore;
+    private int lastTotalRating;
 }

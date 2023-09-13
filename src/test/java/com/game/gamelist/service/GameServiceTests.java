@@ -109,6 +109,8 @@ public class GameServiceTests extends ContainersEnvironment {
 
             // Games
             Game persona5 = new Game();
+            //persona5.setId(1L);
+            persona5.setId(7L);
             persona5.setName("Persona 5");
             persona5.setDescription("Inside a casino, during one of their heists, the group known as Phantom Thieves of Hearts is cornered by the police. Unable to escape, the leader of the group (the game's protagonist) is put under arrest, and goes into interrogation.");
             persona5.setImageURL("https://www.mobygames.com/game/86408/persona-5/");
@@ -120,7 +122,10 @@ public class GameServiceTests extends ContainersEnvironment {
             persona5.setPlatforms(Set.of(playstation5Platform, xboxOnePlatform, windowsPlatform, nintendoSwitchPlatform));
             persona5.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
+            //gameRepository.save(persona5);
             Game fifa11 = new Game();
+            // fifa11.setId(2L);
+            fifa11.setId(6L);
             fifa11.setName("FIFA 11");
             fifa11.setDescription("FIFA Soccer 11 is a licensed soccer game which allows the player to directly control his athletes. He has various playing modes to his disposal, e.g. single matches, multiplayer or leagues to prove his skill.");
             fifa11.setImageURL("https://www.mobygames.com/game/51960/fifa-soccer-11/");
@@ -133,6 +138,8 @@ public class GameServiceTests extends ContainersEnvironment {
             fifa11.setTags(Set.of(multiplayerTag, threeDTag));
 
             Game assassinsCreed = new Game();
+            //assassinsCreed.setId(3L);
+            assassinsCreed.setId(5L);
             assassinsCreed.setName("Assassin's Creed");
             assassinsCreed.setDescription("Assassin's Creed is a non-linear action-adventure video game, during which the player controls a 12th-century Levantine Assassin named Ibn-La'Ahad during the Third Crusade, whose life is experienced through the Animus by his 21st century descendant, Desmond Miles.");
             assassinsCreed.setImageURL("https://www.igdb.com/games/assassin-s-creed/");
@@ -145,6 +152,8 @@ public class GameServiceTests extends ContainersEnvironment {
             assassinsCreed.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game darkSouls1 = new Game();
+            //darkSouls1.setId(4L);
+            darkSouls1.setId(4L);
             darkSouls1.setName("Dark Souls: Remastered");
             darkSouls1.setDescription("");
             darkSouls1.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co2uro.png");
@@ -157,6 +166,8 @@ public class GameServiceTests extends ContainersEnvironment {
             darkSouls1.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game legendOfZelda = new Game();
+            //legendOfZelda.setId(5L);
+            legendOfZelda.setId(3L);
             legendOfZelda.setName("The Legend of Zelda: Breath of the Wild");
             legendOfZelda.setDescription("");
             legendOfZelda.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2d.png");
@@ -169,6 +180,8 @@ public class GameServiceTests extends ContainersEnvironment {
             legendOfZelda.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game darkSouls2 = new Game();
+            //darkSouls2.setId(6L);
+            darkSouls2.setId(2L);
             darkSouls2.setName("Dark Souls II Scholar of the First Sin");
             darkSouls2.setDescription("");
             darkSouls2.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co20um.png");
@@ -181,6 +194,8 @@ public class GameServiceTests extends ContainersEnvironment {
             darkSouls2.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game rocketLeague = new Game();
+//            rocketLeague.setId(7L);
+            rocketLeague.setId(1L);
             rocketLeague.setName("Rocket League");
             rocketLeague.setDescription("Rocket League is a high-powered hybrid of arcade-style soccer and vehicular mayhem with easy-to-understand controls and fluid, physics-driven competition. Rocket League includes casual and competitive Online Matches, a fully-featured offline Season Mode, special 'Mutators' that let you change the rules entirely, hockey and basketball-inspired Extra Modes, and more than 500 trillion possible cosmetic customization combinations.");
             rocketLeague.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co5w0w.png");
@@ -830,5 +845,96 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
+
+        @Test
+        @Description("Returns all games sorted by name ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNameAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+
+            // ASC
+            gameQueryFilters.setSortBy("name");
+            gameQueryFilters.setLastId(7);
+            gameQueryFilters.setLastName("Persona 5");
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            foundGames.forEach(gameDTO -> {
+                System.out.println(gameDTO.getId() + " - " + gameDTO.getName());
+            });
+            Assertions.assertEquals(2, foundGames.size());
+            Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by name DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNameDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            gameQueryFilters.setSortBy("name_desc");
+            gameQueryFilters.setLastId(6);
+            gameQueryFilters.setLastName("FIFA 11");
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            foundGames.forEach(gameDTO -> {
+                System.out.println(gameDTO.getId() + " - " + gameDTO.getName());
+            });
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
     }
 }
+
+// 5 - Assassin's Creed
+// 2 - Dark Souls II Scholar of the First Sin
+// 4 - Dark Souls: Remastered
+// 6 - FIFA 11
+// 7 - Persona 5
+// 1 - Rocket League
+// 3 - The Legend of Zelda: Breath of the Wild
+
+// After persona 5: (ASC)
+// 1 - Rocket League
+// 3 - The Legend of Zelda: Breath of the Wild
+
+// Before persona 5: (DESC)
+// 6 - FIFA 11
+// 4 - Dark Souls: Remastered
+// 2 - Dark Souls II Scholar of the First Sin
+// 5 - Assassin's Creed
+
+//2152
+//        Persona 5
+//        2153
+//        FIFA 11
+//        2154
+//        Assassin's Creed
+//        2155
+//        Dark Souls: Remastered
+//        2156
+//        The Legend of Zelda: Breath of the Wild
+//        2157
+//        Dark Souls II Scholar of the First Sin
+//        2158
+//        Rocket League
+
+
+//2352
+//        Persona 5
+//        2353
+//        FIFA 11
+//        2354
+//        Assassin's Creed
+//        2355
+//        Dark Souls: Remastered
+//        2356
+//        The Legend of Zelda: Breath of the Wild
+//        2357
+//        Dark Souls II Scholar of the First Sin
+//        2358
+//        Rocket League
+

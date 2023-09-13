@@ -22,7 +22,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InteractiveEntity {
     @Id
-    @GeneratedValue
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
@@ -44,6 +44,7 @@ public abstract class InteractiveEntity {
         likes.add(likeEntity);
         likeEntity.setInteractiveEntity(this);
     }
+
     public void removeLike(LikeEntity likeEntity) {
         likes.remove(likeEntity);
         likeEntity.setInteractiveEntity(null);
@@ -53,6 +54,7 @@ public abstract class InteractiveEntity {
         comments.add(comment);
         comment.setInteractiveEntity(this);
     }
+
     public void removeComment(Comment comment) {
         comments.remove(comment);
         comment.setInteractiveEntity(null);

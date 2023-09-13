@@ -56,16 +56,67 @@ public class GameSpecification implements Specification<Game> {
 
         if (gameQueryFilters.getSortBy() != null) {
             switch (gameQueryFilters.getSortBy()) {
-                case "name" -> query.orderBy(cb.asc(root.get("name")));
-                case "name_desc" -> query.orderBy(cb.desc(root.get("name")));
-                case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")));
-                case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")));
-                case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")));
-                case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")));
-                case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")));
-                case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")));
+                case "name" -> {
+                    if (gameQueryFilters.getLastId() != 0) {
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(root.get("name"), gameQueryFilters.getLastName()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+                                        ),
+                                        cb.greaterThan(root.get("name"), gameQueryFilters.getLastName())
+                                )
+
+                        );
+                    }
+                    query.orderBy(cb.asc(root.get("name")), cb.asc(root.get("id")));
+                }
+                case "name_desc" -> {
+                    if (gameQueryFilters.getLastId() != 0) {
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(root.get("name"), gameQueryFilters.getLastName()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+                                        ),
+                                        cb.lessThan(root.get("name"), gameQueryFilters.getLastName())
+                                )
+
+                        );
+                    }
+                    query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
+                }
+
+                // TODO: Release dates pagination
+                case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
+                case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
+
+                case "avg_score" -> {
+                    if (gameQueryFilters.getLastId() != 0) {
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(root.get("avg_score"), gameQueryFilters.getLastAverageScore()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+                                        ),
+                                        cb.lessThan(root.get("avg_score"), gameQueryFilters.getLastAverageScore())
+                                )
+
+                        );
+                    }
+                    query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
+                }
+                case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
+                case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
+                case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
             }
+        } else {
+            query.orderBy(cb.asc(root.get("id")));
         }
+
+        System.out.println(gameQueryFilters);
+
+
         return cb.and(predicates.toArray(Predicate[]::new));
     }
 
