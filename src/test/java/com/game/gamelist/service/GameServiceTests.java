@@ -859,12 +859,9 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryFilters.setLimit(10);
 
             List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
-            foundGames.forEach(gameDTO -> {
-                System.out.println(gameDTO.getId() + " - " + gameDTO.getName());
-            });
             Assertions.assertEquals(2, foundGames.size());
             Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
-            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
         }
 
         @Test
