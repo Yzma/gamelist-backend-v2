@@ -883,55 +883,47 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(1).getName());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
         }
+
+        @Test
+        @Description("Returns all games sorted by avg_score ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithAvgScoreAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+
+            // ASC
+            gameQueryFilters.setSortBy("avg_score");
+            gameQueryFilters.setLastId(1);
+            gameQueryFilters.setLastAverageScore(7.1);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("FIFA 11", foundGames.get(0).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by avg_score DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithAvgScoreDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+
+            // DESC
+            gameQueryFilters.setSortBy("avg_score");
+            gameQueryFilters.setLastId(2);
+            gameQueryFilters.setLastAverageScore(8.5);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            //foundGames.forEach(gameDTO -> System.out.println(gameDTO.getId() + " - " + gameDTO.getName() + " - " + gameDTO.getAvgScore()));
+            Assertions.assertEquals(5, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(2).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(3).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(4).getName());
+        }
     }
 }
-
-// 5 - Assassin's Creed
-// 2 - Dark Souls II Scholar of the First Sin
-// 4 - Dark Souls: Remastered
-// 6 - FIFA 11
-// 7 - Persona 5
-// 1 - Rocket League
-// 3 - The Legend of Zelda: Breath of the Wild
-
-// After persona 5: (ASC)
-// 1 - Rocket League
-// 3 - The Legend of Zelda: Breath of the Wild
-
-// Before persona 5: (DESC)
-// 6 - FIFA 11
-// 4 - Dark Souls: Remastered
-// 2 - Dark Souls II Scholar of the First Sin
-// 5 - Assassin's Creed
-
-//2152
-//        Persona 5
-//        2153
-//        FIFA 11
-//        2154
-//        Assassin's Creed
-//        2155
-//        Dark Souls: Remastered
-//        2156
-//        The Legend of Zelda: Breath of the Wild
-//        2157
-//        Dark Souls II Scholar of the First Sin
-//        2158
-//        Rocket League
-
-
-//2352
-//        Persona 5
-//        2353
-//        FIFA 11
-//        2354
-//        Assassin's Creed
-//        2355
-//        Dark Souls: Remastered
-//        2356
-//        The Legend of Zelda: Breath of the Wild
-//        2357
-//        Dark Souls II Scholar of the First Sin
-//        2358
-//        Rocket League
 
