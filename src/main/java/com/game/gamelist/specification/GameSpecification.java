@@ -69,7 +69,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.greaterThan(root.get("name"), gameQueryFilters.getLastName())
                                 )
-
                         );
                     }
                     query.orderBy(cb.asc(root.get("name")), cb.asc(root.get("id")));
@@ -84,7 +83,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.lessThan(root.get("name"), gameQueryFilters.getLastName())
                                 )
-
                         );
                     }
                     query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
@@ -104,7 +102,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.lessThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
                                 )
-
                         );
                     }
                     query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
@@ -120,7 +117,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.greaterThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
                                 )
-
                         );
                     }
                     query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
@@ -136,7 +132,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
                                 )
-
                         );
                     }
                     query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
@@ -152,7 +147,6 @@ public class GameSpecification implements Specification<Game> {
                                         ),
                                         cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
                                 )
-
                         );
                     }
                     query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
