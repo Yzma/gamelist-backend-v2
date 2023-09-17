@@ -23,7 +23,7 @@ import java.util.Set;
         @Index(name = "releaseDateIndex", columnList = "releaseDate"),
         @Index(name = "avgScoreIndex", columnList = "avg_score"),
         @Index(name = "totalRatingIndex", columnList = "total_rating"),
-//        @Index(name = "fn_index", columnList = "firstName"),
+
         @Index(name = "mulitIndexNameIdAsc", columnList = "name ASC, id"),
         @Index(name = "mulitIndexNameIdDesc", columnList = "name DESC, id"),
 
@@ -32,23 +32,11 @@ import java.util.Set;
 
         @Index(name = "mulitIndexAvgScoreIdAsc", columnList = "avg_score ASC, id"),
         @Index(name = "mulitIndexAvgScoreIdDesc", columnList = "avg_score DESC, id"),
-//        @Index(name = "mulitIndex2", columnList = "lastName, firstName"),
-//        @Index(name = "mulitSortIndex", columnList = "firstName, lastName DESC"),
-//        @Index(name = "uniqueIndex", columnList = "firstName", unique = true),
-//        @Index(name = "uniqueMulitIndex", columnList = "firstName, lastName", unique = true)
+
+        @Index(name = "mulitIndexTotalRatingIdAsc", columnList = "total_rating ASC, id"),
+        @Index(name = "mulitIndexTotalRatingIdDesc", columnList = "total_rating DESC, id"),
 })
 public class Game extends InteractiveEntity {
-
-    /*
-        case "name" -> {
-        case "name_desc" -> query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
-        case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
-        case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
-        case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
-        case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
-        case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
-        case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
-    */
 
     private String name;
 
