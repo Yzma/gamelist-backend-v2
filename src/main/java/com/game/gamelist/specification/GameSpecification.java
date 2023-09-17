@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 public class GameSpecification implements Specification<Game> {
@@ -60,104 +61,149 @@ public class GameSpecification implements Specification<Game> {
         if (gameQueryFilters.getSortBy() != null) {
             switch (gameQueryFilters.getSortBy()) {
                 case "name" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
+
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != 0 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastName() != null) {
                         predicates.add(
                                 cb.or(
                                         cb.and(
-                                                cb.equal(root.get("name"), gameQueryFilters.getLastName()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+                                                cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
                                         ),
-                                        cb.greaterThan(root.get("name"), gameQueryFilters.getLastName())
+                                        cb.greaterThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
                                 )
                         );
                     }
                     query.orderBy(cb.asc(root.get("name")), cb.asc(root.get("id")));
                 }
                 case "name_desc" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
+
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastName() != null) {
                         predicates.add(
                                 cb.or(
                                         cb.and(
-                                                cb.equal(root.get("name"), gameQueryFilters.getLastName()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+                                                cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
                                         ),
-                                        cb.lessThan(root.get("name"), gameQueryFilters.getLastName())
+                                        cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
                                 )
                         );
                     }
                     query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
                 }
 
-                // TODO: Release dates pagination
-                case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
-                case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
+//                case "newest_releases" -> {
+//
+//                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+//                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+//                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
+//                        Long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
+//
+//                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
+//                        System.out.println("epochMillis " + epochMillis);
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(epoch, epochMillis),
+//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+//                                        ),
+//                                        cb.greaterThan(epoch, epochMillis)
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
+//                }
+//                case "oldest_releases" -> {
+//                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+//                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+//                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
+//                        long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
+//
+//                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
+//                        System.out.println("epochMillis " + epochMillis);
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(epoch, epochMillis),
+//                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+//                                        ),
+//                                        cb.lessThan(epoch, epochMillis)
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
+//                }
 
-                case "avg_score" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
-                        predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("avgScore"), gameQueryFilters.getLastAverageScore()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-                                        ),
-                                        cb.lessThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
-                                )
-                        );
-                    }
-                    query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
-                }
-
-                case "lowest_avg_score" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
-                        predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("avgScore"), gameQueryFilters.getLastAverageScore()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
-                                )
-                        );
-                    }
-                    query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
-                }
-
-                case "total_rating" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
-                        predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
-                                )
-                        );
-                    }
-                    query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
-                }
-
-                case "lowest_total_rating" -> {
-                    if (gameQueryFilters.getLastId() != 0) {
-                        predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
-                                )
-                        );
-                    }
-                    query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
-                }
+//                case "avg_score" -> {
+//                    if (gameQueryFilters.getLastId() != 0) {
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(root.get("avgScore"), gameQueryFilters.getLastAverageScore()),
+//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+//                                        ),
+//                                        cb.lessThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
+//                }
+//
+//                case "lowest_avg_score" -> {
+//                    if (gameQueryFilters.getLastId() != 0) {
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(root.get("avgScore"), gameQueryFilters.getLastAverageScore()),
+//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+//                                        ),
+//                                        cb.greaterThan(root.get("avgScore"), gameQueryFilters.getLastAverageScore())
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
+//                }
+//
+//                case "total_rating" -> {
+//                    if (gameQueryFilters.getLastId() != 0) {
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
+//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+//                                        ),
+//                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
+//                }
+//
+//                case "lowest_total_rating" -> {
+//                    if (gameQueryFilters.getLastId() != 0) {
+//                        predicates.add(
+//                                cb.or(
+//                                        cb.and(
+//                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
+//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
+//                                        ),
+//                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
+//                                )
+//                        );
+//                    }
+//                    query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
+//                }
                 default -> query.orderBy(cb.asc(root.get("name")));
             }
         }
         return cb.and(predicates.toArray(Predicate[]::new));
     }
 
-    private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toInclude, String tableName) {
+    private Predicate createInclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb,
+                                            List<String> toInclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
 
@@ -170,7 +216,8 @@ public class GameSpecification implements Specification<Game> {
         return cb.and(root.get("id").in(subquery));
     }
 
-    private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb, List<String> toExclude, String tableName) {
+    private Predicate createExclusionFilter(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb,
+                                            List<String> toExclude, String tableName) {
         Subquery<Long> subquery = query.subquery(Long.class);
         Root<Game> subqueryRoot = subquery.from(Game.class);
 
@@ -180,4 +227,22 @@ public class GameSpecification implements Specification<Game> {
 
         return cb.not(root.get("id").in(subquery));
     }
+
+    //<Y extends Comparable<? super Y>>
+    private Predicate createPagination(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb,
+                                       long id, Comparable<?> comparable, Supplier<Comparable<?>> optionsSupplier) {
+
+//        cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
+//
+//                cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName());
+        return null;
+    }
+//             predicates.add(
+//                              cb.or(
+//                                  cb.and(
+//                                    cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
+//                                    cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+//                                  ),
+//                                   cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()))
+//            );
 }
