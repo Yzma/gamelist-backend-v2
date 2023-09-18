@@ -47,7 +47,7 @@ public class GameSpecification implements Specification<Game> {
         }
 
         // Search
-        if (gameQueryFilters.getSearch() != null) {
+        if (gameQueryFilters.getSearch() != null && !gameQueryFilters.getSearch().isEmpty()) {
             predicates.add(cb.like(cb.lower(root.get("name")), "%" + gameQueryFilters.getSearch().toLowerCase() + "%"));
         }
 
