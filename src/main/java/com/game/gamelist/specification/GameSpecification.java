@@ -170,36 +170,41 @@ public class GameSpecification implements Specification<Game> {
                     }
                     query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
                 }
-//
-//                case "total_rating" -> {
-//                    if (gameQueryFilters.getLastId() != 0) {
-//                        predicates.add(
-//                                cb.or(
-//                                        cb.and(
-//                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
-//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-//                                        ),
-//                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
-//                                )
-//                        );
-//                    }
-//                    query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
-//                }
-//
-//                case "lowest_total_rating" -> {
-//                    if (gameQueryFilters.getLastId() != 0) {
-//                        predicates.add(
-//                                cb.or(
-//                                        cb.and(
-//                                                cb.equal(root.get("totalRating"), gameQueryFilters.getLastTotalRating()),
-//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getLastId())
-//                                        ),
-//                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getLastTotalRating())
-//                                )
-//                        );
-//                    }
-//                    query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
-//                }
+
+                case "total_rating" -> {
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating() != -1) {
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating()),
+                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+                                        ),
+                                        cb.lessThan(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating())
+                                )
+                        );
+                    }
+                    query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
+                }
+
+                case "lowest_total_rating" -> {
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating() != -1) {
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating()),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+                                        ),
+                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating())
+                                )
+                        );
+                    }
+                    query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
+                }
+
                 default -> query.orderBy(cb.asc(root.get("name")));
             }
         }

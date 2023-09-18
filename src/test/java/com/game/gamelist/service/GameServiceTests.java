@@ -849,20 +849,6 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
 
-        /*
-            case "name" -> {
-            case "name_desc" -> query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
-
-            case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
-            case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
-
-            case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
-            case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
-
-            case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
-            case "lowest_total_rating" -> query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
-        */
-
         @Test
         @Description("Returns all games sorted by name ASC with pagination")
         @Transactional
@@ -999,45 +985,47 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(4).getName());
         }
 
+        @Test
+        @Description("Returns all games sorted by total_rating DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithTotalScoreDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastTotalRating(900);
 
-//
-//        @Test
-//        @Description("Returns all games sorted by total_rating ASC with pagination")
-//        @Transactional
-//        void returnsAllGamesSortedWithTotalScoreAscPagination() {
-//            GameQueryFilters gameQueryFilters = new GameQueryFilters();
-//
-//            // ASC
-//            gameQueryFilters.setSortBy("total_rating");
-//            gameQueryFilters.setLastId(7);
-//            gameQueryFilters.setLastTotalRating(900);
-//            gameQueryFilters.setLimit(10);
-//
-//            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
-//            Assertions.assertEquals(3, foundGames.size());
-//            Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
-//            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
-//            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(2).getName());
-//        }
-//
-//        @Test
-//        @Description("Returns all games sorted by lowest_total_rating DESC with pagination")
-//        @Transactional
-//        void returnsAllGamesSortedWithTotalScoreDescPagination() {
-//            GameQueryFilters gameQueryFilters = new GameQueryFilters();
-//
-//            // DESC
-//            gameQueryFilters.setSortBy("lowest_total_rating");
-//            gameQueryFilters.setLastId(7);
-//            gameQueryFilters.setLastTotalRating(900);
-//            gameQueryFilters.setLimit(10);
-//
-//            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
-//            Assertions.assertEquals(3, foundGames.size());
-//            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
-//            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
-//            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
-//        }
+            // DESC
+            gameQueryFilters.setSortBy("total_rating");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by lowest_total_rating ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithTotalScoreAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastTotalRating(900);
+
+            // DESC
+            gameQueryFilters.setSortBy("lowest_total_rating");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
     }
 }
 
