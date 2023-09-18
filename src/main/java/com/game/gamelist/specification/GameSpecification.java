@@ -77,6 +77,7 @@ public class GameSpecification implements Specification<Game> {
                     }
                     query.orderBy(cb.asc(root.get("name")), cb.asc(root.get("id")));
                 }
+
                 case "name_desc" -> {
 
                     if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
@@ -95,47 +96,47 @@ public class GameSpecification implements Specification<Game> {
                     query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
                 }
 
-//                case "newest_releases" -> {
-//
-//                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
-//                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
-//                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
-//                        Long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
-//
-//                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
-//                        System.out.println("epochMillis " + epochMillis);
-//                        predicates.add(
-//                                cb.or(
-//                                        cb.and(
-//                                                cb.equal(epoch, epochMillis),
-//                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-//                                        ),
-//                                        cb.greaterThan(epoch, epochMillis)
-//                                )
-//                        );
-//                    }
-//                    query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
-//                }
-//                case "oldest_releases" -> {
-//                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
-//                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
-//                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
-//                        long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
-//
-//                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
-//                        System.out.println("epochMillis " + epochMillis);
-//                        predicates.add(
-//                                cb.or(
-//                                        cb.and(
-//                                                cb.equal(epoch, epochMillis),
-//                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-//                                        ),
-//                                        cb.lessThan(epoch, epochMillis)
-//                                )
-//                        );
-//                    }
-//                    query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
-//                }
+                case "newest_releases" -> {
+
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
+                        long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
+                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
+
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(epoch, epochMillis),
+                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+                                        ),
+                                        cb.lessThan(epoch, epochMillis)
+                                )
+                        );
+                    }
+                    query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
+                }
+
+                case "oldest_releases" -> {
+                    if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
+                            gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch() != -1) {
+                        long epochMillis = gameQueryFilters.getGameQueryPaginationOptions().getLastReleaseDateEpoch();
+
+                        Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
+                        System.out.println("epochMillis " + epochMillis);
+                        predicates.add(
+                                cb.or(
+                                        cb.and(
+                                                cb.equal(epoch, epochMillis),
+                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
+                                        ),
+                                        cb.greaterThan(epoch, epochMillis)
+                                )
+                        );
+                    }
+                    query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
+                }
 
 //                case "avg_score" -> {
 //                    if (gameQueryFilters.getLastId() != 0) {

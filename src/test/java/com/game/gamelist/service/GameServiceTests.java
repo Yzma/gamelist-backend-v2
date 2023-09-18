@@ -22,6 +22,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -850,8 +852,10 @@ public class GameServiceTests extends ContainersEnvironment {
         /*
             case "name" -> {
             case "name_desc" -> query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
+
             case "newest_releases" -> query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
             case "oldest_releases" -> query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
+
             case "avg_score" -> query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
             case "lowest_avg_score" -> query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
             case "total_rating" -> query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
@@ -887,6 +891,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryPaginationOptions.setLastId(7);
             gameQueryPaginationOptions.setLastName("Persona 5");
 
+            // DESC
             gameQueryFilters.setSortBy("name_desc");
             gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
             gameQueryFilters.setLimit(10);
@@ -899,52 +904,57 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Assassin's Creed", foundGames.get(3).getName());
         }
 
-//        @Test
-//        @Description("Returns all games sorted by newest_releases DESC with pagination")
-//        @Transactional
-//        void returnsAllGamesSortedWithNewestReleaseDescPagination() {
-//            GameQueryFilters gameQueryFilters = new GameQueryFilters();
-//            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
-//            gameQueryPaginationOptions.setLastId(7);
-//
-//            LocalDateTime dateTime = LocalDateTime.of(2014, 9, 23, 0, 0);
-//            ZonedDateTime zdt = dateTime.atZone(ZoneId.of("UTC"));
-//            long millis = zdt.toInstant().getEpochSecond();
-//
-//            gameQueryPaginationOptions.setLastReleaseDateEpoch(millis);
-//
-//            // DESC
-//            gameQueryFilters.setSortBy("newest_releases");
-//            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
-//            gameQueryFilters.setLimit(10);
-//
-//            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
-//            foundGames.forEach(gameDTO -> System.out.println(gameDTO.getId() + " - " + gameDTO.getName() + " - " + gameDTO.getReleaseDate()));
-//            System.out.println("Epoch:: " + millis);
-//            Assertions.assertEquals(3, foundGames.size());
-//            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
-//            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
-//            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
-//        }
+        @Test
+        @Description("Returns all games sorted by newest_releases DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNewestReleaseDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
 
-        // TODO: Do this 1
-//        @Test
-//        @Description("Returns all games sorted by newest_releases ASC with pagination")
-//        @Transactional
-//        void returnsAllGamesSortedWithNewestReleaseAscPagination() {
-//            GameQueryFilters gameQueryFilters = new GameQueryFilters();
-//            gameQueryFilters.setSortBy("name_desc");
-////            gameQueryFilters.setLastId(6);
-////            gameQueryFilters.setLastName("FIFA 11");
-////            gameQueryFilters.setLimit(10);
-//
-//            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
-//            Assertions.assertEquals(3, foundGames.size());
-//            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
-//            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(1).getName());
-//            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
-//        }
+            LocalDateTime dateTime = LocalDateTime.of(2014, 9, 23, 0, 0);
+            ZonedDateTime zdt = dateTime.atZone(ZoneId.of("UTC"));
+            long millis = zdt.toInstant().getEpochSecond();
 
+            gameQueryPaginationOptions.setLastReleaseDateEpoch(millis);
+
+            // DESC
+            gameQueryFilters.setSortBy("newest_releases");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by oldest_releases ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithOldestReleaseAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+
+            LocalDateTime dateTime = LocalDateTime.of(2014, 9, 23, 0, 0);
+            ZonedDateTime zdt = dateTime.atZone(ZoneId.of("UTC"));
+            long millis = zdt.toInstant().getEpochSecond();
+
+            gameQueryPaginationOptions.setLastReleaseDateEpoch(millis);
+
+            // ASC
+            gameQueryFilters.setSortBy("oldest_releases");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(0).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(2).getName());
+        }
 
 //        @Test
 //        @Description("Returns all games sorted by avg_score ASC with pagination")
