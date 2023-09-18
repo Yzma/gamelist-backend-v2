@@ -30,7 +30,6 @@ public class GameQueryFilters {
     private String search;
 
     private int limit;
-    private int offset;
 
     private GameQueryPaginationOptions gameQueryPaginationOptions;
 }
