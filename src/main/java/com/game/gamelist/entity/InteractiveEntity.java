@@ -22,7 +22,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class InteractiveEntity {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
