@@ -1015,7 +1015,7 @@ public class GameServiceTests extends ContainersEnvironment {
             gameQueryPaginationOptions.setLastId(7);
             gameQueryPaginationOptions.setLastTotalRating(900);
 
-            // DESC
+            // ASC
             gameQueryFilters.setSortBy("lowest_total_rating");
             gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
             gameQueryFilters.setLimit(10);
