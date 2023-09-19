@@ -40,7 +40,7 @@ public class Game extends InteractiveEntity {
 
     private String name;
 
-    @Column(length = 2000)
+    @Column(columnDefinition = "text")
     @JsonProperty("summary")
     private String description;
 
