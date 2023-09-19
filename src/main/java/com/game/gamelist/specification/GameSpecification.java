@@ -9,10 +9,13 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 @RequiredArgsConstructor
 public class GameSpecification implements Specification<Game> {
+
+    private enum SortType {
+        ASC, DESC
+    }
 
     private final GameQueryFilters gameQueryFilters;
 
@@ -66,13 +69,7 @@ public class GameSpecification implements Specification<Game> {
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != 0 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastName() != null) {
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName(), SortType.ASC)
                         );
                     }
                     query.orderBy(cb.asc(root.get("name")), cb.asc(root.get("id")));
@@ -83,14 +80,9 @@ public class GameSpecification implements Specification<Game> {
                     if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastName() != null) {
+
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName(), SortType.DESC)
                         );
                     }
                     query.orderBy(cb.desc(root.get("name")), cb.asc(root.get("id")));
@@ -105,13 +97,7 @@ public class GameSpecification implements Specification<Game> {
                         Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
 
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(epoch, epochMillis),
-                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.lessThan(epoch, epochMillis)
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), epoch, epochMillis, SortType.DESC)
                         );
                     }
                     query.orderBy(cb.desc(root.get("releaseDate")), cb.asc(root.get("id")));
@@ -125,13 +111,7 @@ public class GameSpecification implements Specification<Game> {
                         Expression<Long> epoch = cb.function("DATE_PART", Long.class, cb.literal("epoch"), root.get("releaseDate"));
 
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(epoch, epochMillis),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.greaterThan(epoch, epochMillis)
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), epoch, epochMillis, SortType.ASC)
                         );
                     }
                     query.orderBy(cb.asc(root.get("releaseDate")), cb.asc(root.get("id")));
@@ -141,14 +121,9 @@ public class GameSpecification implements Specification<Game> {
                     if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore() != -1) {
+
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore()),
-                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.lessThan(root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore(), SortType.DESC)
                         );
                     }
                     query.orderBy(cb.desc(root.get("avgScore")), cb.asc(root.get("id")));
@@ -158,14 +133,9 @@ public class GameSpecification implements Specification<Game> {
                     if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore() != -1) {
+
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("avgScore"), gameQueryFilters.getGameQueryPaginationOptions().getLastAverageScore(), SortType.ASC)
                         );
                     }
                     query.orderBy(cb.asc(root.get("avgScore")), cb.asc(root.get("id")));
@@ -176,13 +146,7 @@ public class GameSpecification implements Specification<Game> {
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating() != -1) {
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating()),
-                                                cb.lessThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.lessThan(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating(), SortType.DESC)
                         );
                     }
                     query.orderBy(cb.desc(root.get("totalRating")), cb.asc(root.get("id")));
@@ -192,14 +156,9 @@ public class GameSpecification implements Specification<Game> {
                     if (gameQueryFilters.getGameQueryPaginationOptions() != null &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastId() != -1 &&
                             gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating() != -1) {
+
                         predicates.add(
-                                cb.or(
-                                        cb.and(
-                                                cb.equal(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating()),
-                                                cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-                                        ),
-                                        cb.greaterThan(root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating())
-                                )
+                                createPagination(root, cb, gameQueryFilters.getGameQueryPaginationOptions().getLastId(), root.get("totalRating"), gameQueryFilters.getGameQueryPaginationOptions().getLastTotalRating(), SortType.ASC)
                         );
                     }
                     query.orderBy(cb.asc(root.get("totalRating")), cb.asc(root.get("id")));
@@ -237,21 +196,13 @@ public class GameSpecification implements Specification<Game> {
         return cb.not(root.get("id").in(subquery));
     }
 
-    //<Y extends Comparable<? super Y>>
-    private Predicate createPagination(Root<Game> root, CriteriaQuery<?> query, CriteriaBuilder cb,
-                                       long id, Comparable<?> comparable, Supplier<Comparable<?>> optionsSupplier) {
-
-//        cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName())
-//
-//                cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName());
-        return null;
+    private <Y extends Comparable<? super Y>> Predicate createPagination(Root<Game> root, CriteriaBuilder cb,
+                                                                         long id, Expression<? extends Y> x, Y obj, SortType sortType) {
+        return cb.or(
+                cb.and(
+                        cb.equal(x, obj),
+                        cb.greaterThan(root.get("id"), id)
+                ),
+                sortType == SortType.ASC ? cb.greaterThan(x, obj) : cb.lessThan(x, obj));
     }
-//             predicates.add(
-//                              cb.or(
-//                                  cb.and(
-//                                    cb.equal(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()),
-//                                    cb.greaterThan(root.get("id"), gameQueryFilters.getGameQueryPaginationOptions().getLastId())
-//                                  ),
-//                                   cb.lessThan(root.get("name"), gameQueryFilters.getGameQueryPaginationOptions().getLastName()))
-//            );
 }
