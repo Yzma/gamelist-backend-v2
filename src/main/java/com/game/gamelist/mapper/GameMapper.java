@@ -19,6 +19,7 @@ public interface GameMapper {
     @Mapping(source = "genres", target = "genres", qualifiedByName = "genreSetToStringList")
     @Mapping(source = "releaseDate", target = "releaseDate", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(source = "avgScore", target = "avgScore")
+    @Mapping(source = "totalRating", target = "totalRating")
     @Mapping(source = "imageURL", target = "imageURL", defaultValue = "")
     @Mapping(source = "bannerURL", target = "bannerURL", defaultValue = "")
     @Mapping(source = "description", target = "description")

@@ -22,6 +22,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -109,6 +111,8 @@ public class GameServiceTests extends ContainersEnvironment {
 
             // Games
             Game persona5 = new Game();
+            //persona5.setId(1L);
+            persona5.setId(7L);
             persona5.setName("Persona 5");
             persona5.setDescription("Inside a casino, during one of their heists, the group known as Phantom Thieves of Hearts is cornered by the police. Unable to escape, the leader of the group (the game's protagonist) is put under arrest, and goes into interrogation.");
             persona5.setImageURL("https://www.mobygames.com/game/86408/persona-5/");
@@ -120,7 +124,10 @@ public class GameServiceTests extends ContainersEnvironment {
             persona5.setPlatforms(Set.of(playstation5Platform, xboxOnePlatform, windowsPlatform, nintendoSwitchPlatform));
             persona5.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
+            //gameRepository.save(persona5);
             Game fifa11 = new Game();
+            // fifa11.setId(2L);
+            fifa11.setId(6L);
             fifa11.setName("FIFA 11");
             fifa11.setDescription("FIFA Soccer 11 is a licensed soccer game which allows the player to directly control his athletes. He has various playing modes to his disposal, e.g. single matches, multiplayer or leagues to prove his skill.");
             fifa11.setImageURL("https://www.mobygames.com/game/51960/fifa-soccer-11/");
@@ -133,6 +140,8 @@ public class GameServiceTests extends ContainersEnvironment {
             fifa11.setTags(Set.of(multiplayerTag, threeDTag));
 
             Game assassinsCreed = new Game();
+            //assassinsCreed.setId(3L);
+            assassinsCreed.setId(5L);
             assassinsCreed.setName("Assassin's Creed");
             assassinsCreed.setDescription("Assassin's Creed is a non-linear action-adventure video game, during which the player controls a 12th-century Levantine Assassin named Ibn-La'Ahad during the Third Crusade, whose life is experienced through the Animus by his 21st century descendant, Desmond Miles.");
             assassinsCreed.setImageURL("https://www.igdb.com/games/assassin-s-creed/");
@@ -145,6 +154,8 @@ public class GameServiceTests extends ContainersEnvironment {
             assassinsCreed.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game darkSouls1 = new Game();
+            //darkSouls1.setId(4L);
+            darkSouls1.setId(4L);
             darkSouls1.setName("Dark Souls: Remastered");
             darkSouls1.setDescription("");
             darkSouls1.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co2uro.png");
@@ -157,6 +168,8 @@ public class GameServiceTests extends ContainersEnvironment {
             darkSouls1.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game legendOfZelda = new Game();
+            //legendOfZelda.setId(5L);
+            legendOfZelda.setId(3L);
             legendOfZelda.setName("The Legend of Zelda: Breath of the Wild");
             legendOfZelda.setDescription("");
             legendOfZelda.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co3p2d.png");
@@ -169,6 +182,8 @@ public class GameServiceTests extends ContainersEnvironment {
             legendOfZelda.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game darkSouls2 = new Game();
+            //darkSouls2.setId(6L);
+            darkSouls2.setId(2L);
             darkSouls2.setName("Dark Souls II Scholar of the First Sin");
             darkSouls2.setDescription("");
             darkSouls2.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co20um.png");
@@ -181,6 +196,8 @@ public class GameServiceTests extends ContainersEnvironment {
             darkSouls2.setTags(Set.of(singleplayerTag, threeDTag, fantasyTag));
 
             Game rocketLeague = new Game();
+//            rocketLeague.setId(7L);
+            rocketLeague.setId(1L);
             rocketLeague.setName("Rocket League");
             rocketLeague.setDescription("Rocket League is a high-powered hybrid of arcade-style soccer and vehicular mayhem with easy-to-understand controls and fluid, physics-driven competition. Rocket League includes casual and competitive Online Matches, a fully-featured offline Season Mode, special 'Mutators' that let you change the rules entirely, hockey and basketball-inspired Extra Modes, and more than 500 trillion possible cosmetic customization combinations.");
             rocketLeague.setImageURL("https://images.igdb.com/igdb/image/upload/t_cover_big/co5w0w.png");
@@ -687,6 +704,7 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
             Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(2).getName());
+            Assertions.assertEquals("Persona 5", foundGames.get(3).getName());
             Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(4).getName());
             Assertions.assertEquals("FIFA 11", foundGames.get(5).getName());
             Assertions.assertEquals("Assassin's Creed", foundGames.get(6).getName());
@@ -830,5 +848,184 @@ public class GameServiceTests extends ContainersEnvironment {
             Assertions.assertEquals(1, foundGames.size());
             Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(0).getName());
         }
+
+        @Test
+        @Description("Returns all games sorted by name ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNameAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastName("Persona 5");
+
+            // ASC
+            gameQueryFilters.setSortBy("name");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(2, foundGames.size());
+            Assertions.assertEquals("Rocket League", foundGames.get(0).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by name DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNameDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastName("Persona 5");
+
+            // DESC
+            gameQueryFilters.setSortBy("name_desc");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(4, foundGames.size());
+            Assertions.assertEquals("FIFA 11", foundGames.get(0).getName());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(1).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(2).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(3).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by newest_releases DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithNewestReleaseDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+
+            LocalDateTime dateTime = LocalDateTime.of(2014, 9, 23, 0, 0);
+            ZonedDateTime zdt = dateTime.atZone(ZoneId.of("UTC"));
+            long millis = zdt.toInstant().getEpochSecond();
+
+            gameQueryPaginationOptions.setLastReleaseDateEpoch(millis);
+
+            // DESC
+            gameQueryFilters.setSortBy("newest_releases");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by oldest_releases ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithOldestReleaseAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+
+            LocalDateTime dateTime = LocalDateTime.of(2014, 9, 23, 0, 0);
+            ZonedDateTime zdt = dateTime.atZone(ZoneId.of("UTC"));
+            long millis = zdt.toInstant().getEpochSecond();
+
+            gameQueryPaginationOptions.setLastReleaseDateEpoch(millis);
+
+            // ASC
+            gameQueryFilters.setSortBy("oldest_releases");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(0).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(1).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by avg_score DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithAvgScoreDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastAverageScore(4.5);
+
+            // DESC
+            gameQueryFilters.setSortBy("avg_score");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(1, foundGames.size());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(0).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by lowest_avg_score ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithLowestAvgScoreAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastAverageScore(4.5);
+
+            // ASC
+            gameQueryFilters.setSortBy("lowest_avg_score");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(5, foundGames.size());
+            Assertions.assertEquals("FIFA 11", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(2).getName());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(3).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(4).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by total_rating DESC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithTotalScoreDescPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastTotalRating(900);
+
+            // DESC
+            gameQueryFilters.setSortBy("total_rating");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls II Scholar of the First Sin", foundGames.get(0).getName());
+            Assertions.assertEquals("Rocket League", foundGames.get(1).getName());
+            Assertions.assertEquals("The Legend of Zelda: Breath of the Wild", foundGames.get(2).getName());
+        }
+
+        @Test
+        @Description("Returns all games sorted by lowest_total_rating ASC with pagination")
+        @Transactional
+        void returnsAllGamesSortedWithTotalScoreAscPagination() {
+            GameQueryFilters gameQueryFilters = new GameQueryFilters();
+            GameQueryFilters.GameQueryPaginationOptions gameQueryPaginationOptions = new GameQueryFilters.GameQueryPaginationOptions();
+            gameQueryPaginationOptions.setLastId(7);
+            gameQueryPaginationOptions.setLastTotalRating(900);
+
+            // ASC
+            gameQueryFilters.setSortBy("lowest_total_rating");
+            gameQueryFilters.setGameQueryPaginationOptions(gameQueryPaginationOptions);
+            gameQueryFilters.setLimit(10);
+
+            List<GameDTO> foundGames = gameService.getAllGames(gameQueryFilters, null);
+            Assertions.assertEquals(3, foundGames.size());
+            Assertions.assertEquals("Dark Souls: Remastered", foundGames.get(0).getName());
+            Assertions.assertEquals("FIFA 11", foundGames.get(1).getName());
+            Assertions.assertEquals("Assassin's Creed", foundGames.get(2).getName());
+        }
     }
 }
+

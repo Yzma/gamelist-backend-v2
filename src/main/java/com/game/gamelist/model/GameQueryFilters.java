@@ -2,14 +2,22 @@ package com.game.gamelist.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
-@ToString
 public class GameQueryFilters {
+
+    @Data
+    @NoArgsConstructor
+    public static class GameQueryPaginationOptions {
+        private int lastId = -1;
+        private String lastName = null;
+        private long lastReleaseDateEpoch = -1;
+        private double lastAverageScore = -1;
+        private int lastTotalRating = -1;
+    }
 
     private List<String> genres;
     private List<String> excludedGenres;
@@ -22,5 +30,6 @@ public class GameQueryFilters {
     private String search;
 
     private int limit;
-    private int offset;
+
+    private GameQueryPaginationOptions gameQueryPaginationOptions;
 }
