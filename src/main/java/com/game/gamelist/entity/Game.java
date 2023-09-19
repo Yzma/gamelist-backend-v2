@@ -73,8 +73,8 @@ public class Game extends InteractiveEntity {
                     name = "genre_id", referencedColumnName = "id"
             ),
             indexes = {
-                    @Index(name = "gameId", columnList = "game_id"),
-                    @Index(name = "genreId", columnList = "genre_id")
+                    @Index(name = "game_genres_gameId", columnList = "game_id"),
+                    @Index(name = "game_genres_genreId", columnList = "genre_id")
             }
     )
     private Set<Genre> genres = new HashSet<>();
@@ -89,8 +89,8 @@ public class Game extends InteractiveEntity {
                     name = "platform_id", referencedColumnName = "id"
             ),
             indexes = {
-                    @Index(name = "gameId", columnList = "game_id"),
-                    @Index(name = "platformId", columnList = "platform_id")
+                    @Index(name = "game_platforms_gameId", columnList = "game_id"),
+                    @Index(name = "game_platforms_platformId", columnList = "platform_id")
             }
     )
     private Set<Platform> platforms = new HashSet<>();
@@ -105,8 +105,8 @@ public class Game extends InteractiveEntity {
                     name = "tag_id", referencedColumnName = "id"
             ),
             indexes = {
-                    @Index(name = "gameId", columnList = "game_id"),
-                    @Index(name = "tagId", columnList = "tag_id")
+                    @Index(name = "game_tags_gameId", columnList = "game_id"),
+                    @Index(name = "game_tags_tagId", columnList = "tag_id")
             }
     )
     private Set<Tag> tags = new HashSet<>();
