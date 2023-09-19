@@ -49,7 +49,6 @@ public class GameServiceImpl implements GameService {
         Specification<Game> gameSpecification = new GameSpecification(gameQueryFilters);
 
         TypedQuery<Game> foundGames = getQuery(gameSpecification, Game.class);
-        foundGames.setFirstResult(gameQueryFilters.getOffset());
         foundGames.setMaxResults(gameQueryFilters.getLimit());
 
         List<GameDTO> gameDTOs = gameMapper.gamesToGameDTOs(foundGames.getResultList());
