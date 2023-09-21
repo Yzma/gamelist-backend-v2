@@ -11,11 +11,17 @@ import java.util.Optional;
 
 public interface InteractiveEntityRepository extends JpaRepository<InteractiveEntity, Long> {
 
-        @Query(value = "SELECT ie.* " +
-                "FROM interactive_entities ie " +
-                "JOIN posts p ON ie.id = p.post_id " +
-                "JOIN status_updates su ON ie.id = su.status_update_id " +
-                "WHERE (p.user_id = :userId OR su.user_id = :userId)" +
-                "ORDER BY ie.created_at DESC", nativeQuery = true)
+        @Query("SELECT i FROM interactive_entities i WHERE " +
+                "i.id IN (SELECT p.id FROM posts p WHERE p.user.id = :userId) OR " +
+                "i.id IN (SELECT su.id FROM status_updates su JOIN su.userGame ug WHERE ug.user.id = :userId) " +
+                "ORDER BY i.createdAt DESC")
         List<InteractiveEntity> findAllPostsAndStatusUpdatesByUserId(Long userId);
 }
+
+//
+// "UNION " +
+//         "SELECT i.* " +
+//         "FROM interactive_entities i " +
+//         "JOIN status_updates su ON i.id = su.status_update_id " +
+//         "JOIN user_games ug ON su.user_game_id = ug.id " +
+//         "WHERE ug.user_id = :userId " +
