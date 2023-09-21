@@ -85,7 +85,10 @@ public class User implements UserDetails {
     @JoinTable(
             name = "user_followers",
             joinColumns = @JoinColumn(name = "follower_id"),
-            inverseJoinColumns = @JoinColumn(name = "following_id"))
+            inverseJoinColumns = @JoinColumn(name = "following_id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"follower_id", "following_id"}),
+            indexes = @Index(columnList = "follower_id, following_id", unique = true)
+    )
     private Set<User> followers = new HashSet<>();
 
     @ManyToMany(mappedBy = "followers")
