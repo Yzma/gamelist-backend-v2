@@ -2,9 +2,10 @@ package com.game.gamelist.repository;
 
 import com.game.gamelist.config.ContainersEnvironment;
 import com.game.gamelist.dto.PostDTO;
+import com.game.gamelist.dto.StatusUpdateDTO;
 import com.game.gamelist.entity.*;
 import com.game.gamelist.mapper.PostMapper;
-import lombok.RequiredArgsConstructor;
+import com.game.gamelist.mapper.StatusUpdateMapper;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,11 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
     private LikeRepository likeRepository;
 
     private final PostMapper postMapper;
-
+    private final StatusUpdateMapper statusUpdateMapper;
     @Autowired
-    public InteractiveEntityRepositoryTests(PostMapper postMapper) {
+    public InteractiveEntityRepositoryTests(PostMapper postMapper, StatusUpdateMapper statusUpdateMapper) {
         this.postMapper = postMapper;
+        this.statusUpdateMapper = statusUpdateMapper;
     }
 
     @Test
@@ -82,7 +84,6 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
             StatusUpdate statusUpdate = StatusUpdate.builder().gameStatus(GameStatus.Playing).userGame(userGame).likes(new ArrayList<>()).build();
 
             LikeEntity likeEntity = LikeEntity.builder().interactiveEntity(statusUpdate).user(user).build();
-            System.out.println("👹");
 
             statusUpdate.addLike(likeEntity);
 
@@ -104,7 +105,6 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
             LikeEntity likeOnPost1 = LikeEntity.builder().interactiveEntity(post1).user(user).build();
             post1.addLike(likeOnPost1);
-            System.out.println("👹👹");
             postRepository.save(post1);
             likeRepository.save(likeOnPost1);
 
@@ -117,14 +117,12 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
             LikeEntity likeOnPost2 = LikeEntity.builder().interactiveEntity(post2).user(user).build();
             post2.addLike(likeOnPost2);
-            System.out.println("👹👹👹");
             postRepository.save(post2);
             likeRepository.save(likeOnPost2);
 
             Post post3 = Post.builder().text("Post from changli2").user(user2).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).updatedAt(LocalDateTime.now()).build();
             LikeEntity likeOnPost3 = LikeEntity.builder().interactiveEntity(post3).user(user2).build();
             post3.addLike(likeOnPost3);
-            System.out.println("👹👹👹👹");
             postRepository.save(post3);
             likeRepository.save(likeOnPost3);
         }
@@ -138,25 +136,19 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
             List<InteractiveEntity> interactiveEntityList = interactiveEntityRepository.findAllPostsAndStatusUpdatesByUserId(user.getId());
 
+            List<PostDTO> postDTOList = new ArrayList<>();
+            List<StatusUpdateDTO> statusUpdateDTOList = new ArrayList<>();
+
             for (InteractiveEntity interactiveEntity : interactiveEntityList) {
                 if (interactiveEntity instanceof Post) {
-                    System.out.println("Post: " + ((Post) interactiveEntity).getText());
-
-                    PostDTO postDTO = postMapper.postToPostDTO((Post) interactiveEntity);
-
-                    System.out.println("PostDTO: " + postDTO.getText());
-                    System.out.println("Likes: " + postDTO.getLikes());
-
-                    System.out.println("Likes: " + postDTO.getLikes().get(0).getUser().getUsername());
-                    System.out.println("Comments: " + postDTO.getComments());
-                    System.out.println("User: " + postDTO.getUser());
-
+                    postDTOList.add(postMapper.postToPostDTO((Post) interactiveEntity));
                 } else if (interactiveEntity instanceof StatusUpdate) {
-                    System.out.println("StatusUpdate: " + ((StatusUpdate)interactiveEntity).getGameStatus());
-                    System.out.println("Likes: " + (interactiveEntity).getLikes());
+                    statusUpdateDTOList.add(statusUpdateMapper.statusUpdateToStatusUpdateDTO((StatusUpdate) interactiveEntity));
                 }
 
             }
+
+            assertEquals(GameStatus.Playing, statusUpdateDTOList.get(0).getGameStatus());
 
             assertEquals(3, interactiveEntityRepository.findAllPostsAndStatusUpdatesByUserId(user.getId()).size());
         }

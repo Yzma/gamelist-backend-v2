@@ -16,5 +16,5 @@ public class CommentDTO {
     private String createdAt;
     private String updatedAt;
     private List<LikeEntityDTO> likes;
-//    private List<CommentDTO> comments;
+    private List<CommentDTO> comments;
 }
