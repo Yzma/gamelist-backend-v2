@@ -1,6 +1,7 @@
 package com.game.gamelist.repository;
 
 import com.game.gamelist.entity.InteractiveEntity;
+import com.game.gamelist.entity.StatusUpdate;
 import com.game.gamelist.projection.PostView;
 import com.game.gamelist.projection.StatusUpdateView;
 import org.springframework.data.jpa.repository.JpaRepository;
