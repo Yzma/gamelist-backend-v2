@@ -29,8 +29,6 @@ public class InteractiveEntityController {
     @Transactional
     public ResponseEntity<HttpResponse> getPostAndStatusUpdateByUserId(@AuthenticationPrincipal User principle) {
 
-        System.out.println("🐶🐶🐶🐶🐶🐶🐶");
-
         PostAndStatusUpdateResponse postAndStatusUpdateResponse = interactiveEntityService.getPostAndStatusUpdateByUserId(principle);
 
         return ResponseEntity.ok(
