@@ -78,7 +78,7 @@ public class User implements UserDetails {
     private List<GameJournal> gameJournals;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
+    @JsonIgnore
     private Set<UserGame> userGames;
 
     @ManyToMany
