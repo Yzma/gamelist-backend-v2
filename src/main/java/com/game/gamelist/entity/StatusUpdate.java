@@ -28,4 +28,6 @@ public class StatusUpdate extends InteractiveEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_game_id", referencedColumnName = "id")
     private UserGame userGame;
+
+
 }

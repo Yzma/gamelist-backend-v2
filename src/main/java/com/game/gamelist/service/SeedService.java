@@ -209,7 +209,7 @@ public class SeedService {
             for (int i = 1; i < 4; i++) {
                 User user = userRepository.findById((long) i).get();
                 List<Post> posts = new ArrayList<>();
-                for (int j = 1; j < 6; j++) {
+                for (int j = 1; j < 101; j++) {
                     try {
 
                         Post post = new Post();
@@ -234,7 +234,7 @@ public class SeedService {
                 User user = userRepository.findById((long) i).get();
                 List<UserGame> userGames = new ArrayList<>();
                 List<StatusUpdate> statusUpdates = new ArrayList<>();
-                for (int j = 1; j < 6; j++) {
+                for (int j = 1; j < 76; j++) {
                     try {
 
                         UserGame userGame = new UserGame();
