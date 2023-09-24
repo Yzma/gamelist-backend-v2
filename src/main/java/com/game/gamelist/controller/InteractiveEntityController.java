@@ -32,7 +32,7 @@ public class InteractiveEntityController {
         PostAndStatusUpdateResponse postAndStatusUpdateResponse = interactiveEntityService.getPostAndStatusUpdateByUserId(principle);
 
         return ResponseEntity.ok(
-                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("PostsAndStatusUpdates", postAndStatusUpdateResponse)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("Posts And StatusUpdates retrieved successfully. ").build()
+                HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("postsAndStatusUpdates", postAndStatusUpdateResponse)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("Posts And StatusUpdates retrieved successfully. ").build()
         );
     }
 }

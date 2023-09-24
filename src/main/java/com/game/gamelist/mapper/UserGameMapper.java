@@ -10,5 +10,6 @@ import org.mapstruct.Mapping;
 public interface UserGameMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "game", target = "game")
+    @Mapping(source = "user", target = "user")
     UserGameDTO userGameToUserGameDTO(UserGame userGame);
 }
