@@ -32,6 +32,32 @@ public class InteractiveEntityServiceImpl implements InteractiveEntityService {
 
         List<InteractiveEntity> postsAndStatusUpdates = interactiveEntityRepository.findAllPostsAndStatusUpdatesByUserId(principle.getId());
 
+        return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
+    }
+
+    @Override
+    public PostAndStatusUpdateResponse getPostAndStatusUpdateByUserIdAndStartingId(User principle, Long startingId, Integer limit) {
+        List<PostDTO> posts = new ArrayList<>();
+        List<StatusUpdateDTO> statusUpdates = new ArrayList<>();
+
+        List<InteractiveEntity> postsAndStatusUpdates = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdAndStartingWithIdDesc(principle.getId(), startingId, limit);
+
+        return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
+    }
+
+
+
+    @Override
+    public PostAndStatusUpdateResponse getPostAndStatusUpdateByUserIdFirstPage(User principle, Integer limit) {
+        List<PostDTO> posts = new ArrayList<>();
+        List<StatusUpdateDTO> statusUpdates = new ArrayList<>();
+
+        List<InteractiveEntity> postsAndStatusUpdates = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdFirstPage(principle.getId(), limit);
+
+        return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
+    }
+
+    private PostAndStatusUpdateResponse handleGetPostAndStatusUpdateResponse(List<PostDTO> posts, List<StatusUpdateDTO> statusUpdates, List<InteractiveEntity> postsAndStatusUpdates) {
         for (InteractiveEntity postOrStatusUpdate : postsAndStatusUpdates) {
             if(postOrStatusUpdate instanceof Post) {
                 posts.add(postMapper.postToPostDTO((Post) postOrStatusUpdate));
@@ -40,8 +66,8 @@ public class InteractiveEntityServiceImpl implements InteractiveEntityService {
             }
         }
 
-        PostAndStatusUpdateResponse response = PostAndStatusUpdateResponse.builder().statusUpdates(statusUpdates).posts(posts).build();
+        Long lastPostOrStatusUpdateId = postsAndStatusUpdates.get(postsAndStatusUpdates.size() - 1).getId();
 
-        return response;
+        return PostAndStatusUpdateResponse.builder().statusUpdates(statusUpdates).posts(posts).lastPostOrStatusUpdateId(lastPostOrStatusUpdateId).build();
     }
 }
