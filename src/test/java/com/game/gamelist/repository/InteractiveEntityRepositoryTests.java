@@ -41,6 +41,9 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
     private CommentRepository commentRepository;
 
     @Autowired
+    private GameJournalRepository gameJournalRepository;
+
+    @Autowired
     private UserGameRepository userGameRepository;
 
     @Autowired
@@ -78,6 +81,12 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
             Game game = Game.builder().name("Game1").build();
             gameRepository.save(game);
+
+            GameJournal gameJournal = GameJournal.builder().user(user).content("about the game 1").createdAt(LocalDateTime.now()).build();
+            Comment gameJournalComment = Comment.builder().user(user).text("comment on game journal").interactiveEntity(gameJournal).createdAt(LocalDateTime.now()).build();
+            gameJournalRepository.save(gameJournal);
+            commentRepository.save(gameJournalComment);
+
 
             UserGame userGame = UserGame.builder().user(user).game(game).gameStatus(GameStatus.Playing).build();
 
@@ -239,6 +248,39 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
             assertEquals(interactiveEntity3.getId() - 4, interactiveEntityList4.get(1).getId());
             assertEquals(2, interactiveEntityList4.size());
         }
+
+        @Order(4)
+        @Test
+        @Transactional
+        public void when_findAllPostsAndStatusUpdatesFirstPage_Expect_InteractiveEntityList() {
+            User user = userRepository.findByEmail("changli@gmail.com").get();
+
+            Post post1 = Post.builder().user(user).text("Post1").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post2 = Post.builder().user(user).text("Post2").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post3 = Post.builder().user(user).text("Post3").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            postRepository.save(post1);
+            postRepository.save(post2);
+            postRepository.save(post3);
+
+            List<InteractiveEntity> allInteractiveEntities = interactiveEntityRepository.findAll();
+
+            assertEquals(10, allInteractiveEntities.size());
+
+            List<InteractiveEntity> interactiveEntityListLimitTwo = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(2);
+
+            assertEquals(2, interactiveEntityListLimitTwo.size());
+
+            List<InteractiveEntity> interactiveEntityListLimitFive = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(5);
+
+            assertEquals(5, interactiveEntityListLimitFive.size());
+
+            List<InteractiveEntity> interactiveEntityListPostAndStatusUpdatesOnly = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(20);
+
+            assertEquals(7, interactiveEntityListPostAndStatusUpdatesOnly.size());
+
+        }
+
     }
+
 
 }
