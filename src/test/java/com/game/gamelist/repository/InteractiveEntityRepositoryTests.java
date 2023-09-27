@@ -280,7 +280,37 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
         }
 
+        @Order(5)
+        @Test
+        @Transactional
+        public void when_findAllPostsAndStatusUpdatesStartingWithIdDesc_Expect_InteractiveEntityList() {
+            User user = userRepository.findByEmail("changli@gmail.com").get();
+
+            Post post1 = Post.builder().user(user).text("Post1").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post2 = Post.builder().user(user).text("Post2").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post3 = Post.builder().user(user).text("Post3").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            postRepository.save(post1);
+            postRepository.save(post2);
+            postRepository.save(post3);
+
+            List<InteractiveEntity> allInteractiveEntities = interactiveEntityRepository.findAll();
+
+            assertEquals(10, allInteractiveEntities.size());
+
+            List<InteractiveEntity> allPostsAndStatusUpdates = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(20);
+
+            List<InteractiveEntity> allPostsAndStatusUpdatesWithStartingId1 = interactiveEntityRepository.findAllPostsAndStatusUpdatesStartingWithIdDesc(allPostsAndStatusUpdates.get(0).getId(), 2);
+
+            assertEquals(2, allPostsAndStatusUpdatesWithStartingId1.size());
+            assertEquals(allPostsAndStatusUpdates.get(1).getId(), allPostsAndStatusUpdatesWithStartingId1.get(0).getId());
+            assertEquals(allPostsAndStatusUpdates.get(2).getId(), allPostsAndStatusUpdatesWithStartingId1.get(1).getId());
+
+            List<InteractiveEntity> allPostsAndStatusUpdatesWithStartingId2 = interactiveEntityRepository.findAllPostsAndStatusUpdatesStartingWithIdDesc(allPostsAndStatusUpdatesWithStartingId1.get(1).getId(), 2);
+
+            assertEquals(2, allPostsAndStatusUpdatesWithStartingId2.size());
+            assertEquals(allPostsAndStatusUpdates.get(3).getId(), allPostsAndStatusUpdatesWithStartingId2.get(0).getId());
+            assertEquals(allPostsAndStatusUpdates.get(4).getId(), allPostsAndStatusUpdatesWithStartingId2.get(1).getId());
+        }
+
     }
-
-
 }

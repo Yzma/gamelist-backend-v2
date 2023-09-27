@@ -43,6 +43,7 @@ public class InteractiveEntityController {
                 HttpResponse.builder().timeStamp(LocalDateTime.now().toString()).data(Map.of("postsAndStatusUpdates", postAndStatusUpdateResponse)).status(HttpStatus.OK).statusCode(HttpStatus.OK.value()).message("Posts And StatusUpdates retrieved successfully. ").build()
         );
     }
+    
 
     @GetMapping("/user-social")
     @Transactional
