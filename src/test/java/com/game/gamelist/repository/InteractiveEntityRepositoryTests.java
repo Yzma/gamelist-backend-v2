@@ -181,21 +181,12 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
             InteractiveEntity interactiveEntity2 = interactiveEntityList.get(1);
             InteractiveEntity interactiveEntity3 = interactiveEntityList.get(2);
 
-            System.out.println("interactiveEntity1.getId() = " + interactiveEntity1.getId());
-            System.out.println("interactiveEntity2.getId() = " + interactiveEntity2.getId());
-            System.out.println("interactiveEntity3.getId() = " + interactiveEntity3.getId());
-            System.out.println("interactiveEntityList.get(3) = " + interactiveEntityList.get(3).getId());
-            System.out.println("interactiveEntityList.get(4) = " + interactiveEntityList.get(4).getId());
-            System.out.println("interactiveEntityList.get(5) = " + interactiveEntityList.get(5).getId());
-
             List<InteractiveEntity> interactiveEntityList2 = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdAndStartingWithIdDesc(user.getId(), interactiveEntity1.getId(), 1);
 
 
             assertEquals(interactiveEntity2.getId(), interactiveEntityList2.get(0).getId());
 
             List<InteractiveEntity> interactiveEntityList3 = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdAndStartingWithIdDesc(user.getId(), interactiveEntity2.getId(), 2);
-
-            System.out.println("interactiveEntityList3.get(0).getId() = " + interactiveEntityList3.get(0).getId());
 
             assertEquals(interactiveEntity3.getId(), interactiveEntityList3.get(0).getId());
             assertEquals(interactiveEntity3.getId() - 2, interactiveEntityList3.get(1).getId());
