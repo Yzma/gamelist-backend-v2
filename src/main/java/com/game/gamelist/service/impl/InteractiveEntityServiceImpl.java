@@ -57,6 +57,26 @@ public class InteractiveEntityServiceImpl implements InteractiveEntityService {
         return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
     }
 
+    @Override
+    public PostAndStatusUpdateResponse getAllPostAndStatusUpdatesFirstPage(Integer limit) {
+        List<PostDTO> posts = new ArrayList<>();
+        List<StatusUpdateDTO> statusUpdates = new ArrayList<>();
+
+        List<InteractiveEntity> postsAndStatusUpdates = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(limit);
+
+        return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
+    }
+
+    @Override
+    public PostAndStatusUpdateResponse getAllPostAndStatusUpdatesByStartingId(Long startingId, Integer limit) {
+        List<PostDTO> posts = new ArrayList<>();
+        List<StatusUpdateDTO> statusUpdates = new ArrayList<>();
+
+        List<InteractiveEntity> postsAndStatusUpdates = interactiveEntityRepository.findAllPostsAndStatusUpdatesStartingWithIdDesc(startingId, limit);
+
+        return handleGetPostAndStatusUpdateResponse(posts, statusUpdates, postsAndStatusUpdates);
+    }
+
     private PostAndStatusUpdateResponse handleGetPostAndStatusUpdateResponse(List<PostDTO> posts, List<StatusUpdateDTO> statusUpdates, List<InteractiveEntity> postsAndStatusUpdates) {
         for (InteractiveEntity postOrStatusUpdate : postsAndStatusUpdates) {
             if(postOrStatusUpdate instanceof Post) {

@@ -41,4 +41,23 @@ public interface InteractiveEntityRepository extends JpaRepository<InteractiveEn
                 @Param("limit") int limit
         );
 
+        @Query("SELECT i FROM interactive_entities i WHERE " +
+                "i.id IN (SELECT p.id FROM posts p) OR " +
+                "i.id IN (SELECT su.id FROM status_updates su) " +
+                "ORDER BY i.createdAt DESC " +
+                "LIMIT :limit")
+        List<InteractiveEntity>findAllPostsAndStatusUpdatesFirstPage(
+                @Param("limit") int limit
+        );
+
+        @Query("SELECT i FROM interactive_entities i WHERE " +
+                "(i.id IN (SELECT p.id FROM posts p) OR " +
+                "i.id IN (SELECT su.id FROM status_updates su)) " +
+                "AND i.id < :id " +
+                "ORDER BY i.createdAt DESC " +
+                "LIMIT :limit")
+        List<InteractiveEntity>findAllPostsAndStatusUpdatesStartingWithIdDesc(
+                @Param("id") Long id,
+                @Param("limit") int limit
+        );
 }

@@ -12,4 +12,8 @@ public interface InteractiveEntityService {
     PostAndStatusUpdateResponse getPostAndStatusUpdateByUserIdAndStartingId(User principle, Long startingId, Integer limit);
 
     PostAndStatusUpdateResponse getPostAndStatusUpdateByUserIdFirstPage(User principle, Integer limit);
+
+    PostAndStatusUpdateResponse getAllPostAndStatusUpdatesFirstPage(Integer limit);
+
+    PostAndStatusUpdateResponse getAllPostAndStatusUpdatesByStartingId(Long startingId, Integer limit);
 }

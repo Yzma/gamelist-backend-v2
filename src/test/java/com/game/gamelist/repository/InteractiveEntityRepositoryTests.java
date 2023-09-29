@@ -41,6 +41,9 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
     private CommentRepository commentRepository;
 
     @Autowired
+    private GameJournalRepository gameJournalRepository;
+
+    @Autowired
     private UserGameRepository userGameRepository;
 
     @Autowired
@@ -78,6 +81,12 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
 
             Game game = Game.builder().name("Game1").build();
             gameRepository.save(game);
+
+            GameJournal gameJournal = GameJournal.builder().user(user).content("about the game 1").createdAt(LocalDateTime.now()).build();
+            Comment gameJournalComment = Comment.builder().user(user).text("comment on game journal").interactiveEntity(gameJournal).createdAt(LocalDateTime.now()).build();
+            gameJournalRepository.save(gameJournal);
+            commentRepository.save(gameJournalComment);
+
 
             UserGame userGame = UserGame.builder().user(user).game(game).gameStatus(GameStatus.Playing).build();
 
@@ -172,21 +181,12 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
             InteractiveEntity interactiveEntity2 = interactiveEntityList.get(1);
             InteractiveEntity interactiveEntity3 = interactiveEntityList.get(2);
 
-            System.out.println("interactiveEntity1.getId() = " + interactiveEntity1.getId());
-            System.out.println("interactiveEntity2.getId() = " + interactiveEntity2.getId());
-            System.out.println("interactiveEntity3.getId() = " + interactiveEntity3.getId());
-            System.out.println("interactiveEntityList.get(3) = " + interactiveEntityList.get(3).getId());
-            System.out.println("interactiveEntityList.get(4) = " + interactiveEntityList.get(4).getId());
-            System.out.println("interactiveEntityList.get(5) = " + interactiveEntityList.get(5).getId());
-
             List<InteractiveEntity> interactiveEntityList2 = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdAndStartingWithIdDesc(user.getId(), interactiveEntity1.getId(), 1);
 
 
             assertEquals(interactiveEntity2.getId(), interactiveEntityList2.get(0).getId());
 
             List<InteractiveEntity> interactiveEntityList3 = interactiveEntityRepository.findPostsAndStatusUpdatesByUserIdAndStartingWithIdDesc(user.getId(), interactiveEntity2.getId(), 2);
-
-            System.out.println("interactiveEntityList3.get(0).getId() = " + interactiveEntityList3.get(0).getId());
 
             assertEquals(interactiveEntity3.getId(), interactiveEntityList3.get(0).getId());
             assertEquals(interactiveEntity3.getId() - 2, interactiveEntityList3.get(1).getId());
@@ -239,6 +239,69 @@ public class InteractiveEntityRepositoryTests extends ContainersEnvironment {
             assertEquals(interactiveEntity3.getId() - 4, interactiveEntityList4.get(1).getId());
             assertEquals(2, interactiveEntityList4.size());
         }
-    }
 
+        @Order(4)
+        @Test
+        @Transactional
+        public void when_findAllPostsAndStatusUpdatesFirstPage_Expect_InteractiveEntityList() {
+            User user = userRepository.findByEmail("changli@gmail.com").get();
+
+            Post post1 = Post.builder().user(user).text("Post1").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post2 = Post.builder().user(user).text("Post2").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post3 = Post.builder().user(user).text("Post3").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            postRepository.save(post1);
+            postRepository.save(post2);
+            postRepository.save(post3);
+
+            List<InteractiveEntity> allInteractiveEntities = interactiveEntityRepository.findAll();
+
+            assertEquals(10, allInteractiveEntities.size());
+
+            List<InteractiveEntity> interactiveEntityListLimitTwo = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(2);
+
+            assertEquals(2, interactiveEntityListLimitTwo.size());
+
+            List<InteractiveEntity> interactiveEntityListLimitFive = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(5);
+
+            assertEquals(5, interactiveEntityListLimitFive.size());
+
+            List<InteractiveEntity> interactiveEntityListPostAndStatusUpdatesOnly = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(20);
+
+            assertEquals(7, interactiveEntityListPostAndStatusUpdatesOnly.size());
+
+        }
+
+        @Order(5)
+        @Test
+        @Transactional
+        public void when_findAllPostsAndStatusUpdatesStartingWithIdDesc_Expect_InteractiveEntityList() {
+            User user = userRepository.findByEmail("changli@gmail.com").get();
+
+            Post post1 = Post.builder().user(user).text("Post1").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post2 = Post.builder().user(user).text("Post2").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            Post post3 = Post.builder().user(user).text("Post3").likes(new ArrayList<>()).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+            postRepository.save(post1);
+            postRepository.save(post2);
+            postRepository.save(post3);
+
+            List<InteractiveEntity> allInteractiveEntities = interactiveEntityRepository.findAll();
+
+            assertEquals(10, allInteractiveEntities.size());
+
+            List<InteractiveEntity> allPostsAndStatusUpdates = interactiveEntityRepository.findAllPostsAndStatusUpdatesFirstPage(20);
+
+            List<InteractiveEntity> allPostsAndStatusUpdatesWithStartingId1 = interactiveEntityRepository.findAllPostsAndStatusUpdatesStartingWithIdDesc(allPostsAndStatusUpdates.get(0).getId(), 2);
+
+            assertEquals(2, allPostsAndStatusUpdatesWithStartingId1.size());
+            assertEquals(allPostsAndStatusUpdates.get(1).getId(), allPostsAndStatusUpdatesWithStartingId1.get(0).getId());
+            assertEquals(allPostsAndStatusUpdates.get(2).getId(), allPostsAndStatusUpdatesWithStartingId1.get(1).getId());
+
+            List<InteractiveEntity> allPostsAndStatusUpdatesWithStartingId2 = interactiveEntityRepository.findAllPostsAndStatusUpdatesStartingWithIdDesc(allPostsAndStatusUpdatesWithStartingId1.get(1).getId(), 2);
+
+            assertEquals(2, allPostsAndStatusUpdatesWithStartingId2.size());
+            assertEquals(allPostsAndStatusUpdates.get(3).getId(), allPostsAndStatusUpdatesWithStartingId2.get(0).getId());
+            assertEquals(allPostsAndStatusUpdates.get(4).getId(), allPostsAndStatusUpdatesWithStartingId2.get(1).getId());
+        }
+
+    }
 }
