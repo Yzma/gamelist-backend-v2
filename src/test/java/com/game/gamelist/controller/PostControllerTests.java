@@ -91,7 +91,7 @@ public class PostControllerTests {
     @Test
     void shouldReturn_NewPost_When_sendPostRequest() throws Exception {
 
-        Post createdPost = Post.builder().id(69L).text("New Created Post").user(principal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
+        MockPostView createdPost = MockPostView.builder().id(69L).text("New Created Post").user(mockPrincipal).createdAt(LocalDateTime.now()).likes(new ArrayList<>()).build();
 
         when(postService.createPost(Mockito.any(Post.class), Mockito.any(User.class))).thenReturn(createdPost);
 

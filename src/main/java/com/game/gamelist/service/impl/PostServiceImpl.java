@@ -1,6 +1,7 @@
 package com.game.gamelist.service.impl;
 
 
+import com.game.gamelist.dto.PostDTO;
 import com.game.gamelist.entity.Post;
 import com.game.gamelist.entity.User;
 import com.game.gamelist.exception.InvalidAuthorizationException;
@@ -10,7 +11,9 @@ import com.game.gamelist.exception.ResourceNotFoundException;
 import com.game.gamelist.projection.PostView;
 import com.game.gamelist.projection.UserBasicView;
 import com.game.gamelist.repository.PostRepository;
+import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.service.PostService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +24,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
-
+    private final UserRepository userRepository;
     @Override
     public PostView updatePostById(Long requestedId, Post post, User principal) {
         if(principal == null) throw new InvalidTokenException("Invalid token");
@@ -78,14 +81,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(Post post, User principal) {
+    public PostView createPost(Post post, User principal) {
         if(principal == null) throw new InvalidTokenException("Invalid token");
 
         if(post.getText() == null || post.getText().isEmpty()) {
             throw new InvalidInputException("Text input value is invalid");
         }
-            post.setUser(principal);
-            return postRepository.save(post);
+        User userFromDB = userRepository.findById(principal.getId()).get();
+        post.setUser(userFromDB);
+        postRepository.save(post);
+
+        Optional<PostView> postOptional = postRepository.findProjectedById(post.getId());
+
+        if(postOptional.isEmpty()) {
+            throw new ResourceNotFoundException("Post not found with ID: " + post.getId());
+        }
+
+        return postOptional.get();
 
     }
 

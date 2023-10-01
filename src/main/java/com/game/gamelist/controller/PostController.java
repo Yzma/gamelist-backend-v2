@@ -72,7 +72,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<HttpResponse> createPost(@RequestBody Post post, @AuthenticationPrincipal User principal) {
-        Post createdPost = postService.createPost(post, principal);
+        PostView createdPost = postService.createPost(post, principal);
 
         return ResponseEntity.created(URI.create(""))
                 .body(

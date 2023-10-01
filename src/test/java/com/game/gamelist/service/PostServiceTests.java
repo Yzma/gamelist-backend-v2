@@ -7,6 +7,7 @@ import com.game.gamelist.model.MockUserBasicView;
 import com.game.gamelist.projection.PostView;
 import com.game.gamelist.projection.UserBasicView;
 import com.game.gamelist.repository.PostRepository;
+import com.game.gamelist.repository.UserRepository;
 import com.game.gamelist.service.impl.PostServiceImpl;
 
 import org.assertj.core.api.Assertions;
@@ -33,6 +34,8 @@ public class PostServiceTests {
     private PostServiceImpl postService;
 
     @Mock
+    private UserRepository userRepository;
+    @Mock
     private PostRepository postRepository;
 
     @Test
@@ -41,15 +44,17 @@ public class PostServiceTests {
         final var userToSave = User.builder().email("changli@gmail.com").username("changli").password("123456").createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
 
         final var postToSave = Post.builder().text("Hello World!").user(userToSave).createdAt(LocalDateTime.now()).updatedAt(LocalDateTime.now()).build();
+        when(userRepository.findById(userToSave.getId())).thenReturn(java.util.Optional.of(userToSave));
         when(postRepository.save(Mockito.any(Post.class))).thenReturn(postToSave);
+        when(postRepository.findProjectedById(userToSave.getId())).thenReturn(java.util.Optional.of(MockPostView.builder().id(999L).text("Hello World!").user(MockUserBasicView.builder().id(123L).username("changli").build()).createdAt(LocalDateTime.now()).build()));
 
         // Act
-        Post createdPost = postService.createPost(postToSave, userToSave);
+        PostView createdPost = postService.createPost(postToSave, userToSave);
 
         // Assert
         Assertions.assertThat(createdPost).isNotNull();
         Assertions.assertThat(createdPost.getText()).isEqualTo("Hello World!");
-        Assertions.assertThat(createdPost.getUser()).isEqualTo(userToSave);
+        Assertions.assertThat(createdPost.getUser().getUsername()).isEqualTo(userToSave.getUsername());
     }
 
     @Test
