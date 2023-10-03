@@ -11,9 +11,6 @@ import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-//    Optional<Set<Post>> findAllByUserId(Long userId);
-
-//    TODO: Change type
     Optional<List<PostView>> findAllProjectedByUserId(Long userId);
 
     Optional<PostView> findProjectedById(Long postId);

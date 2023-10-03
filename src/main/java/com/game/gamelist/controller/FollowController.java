@@ -53,7 +53,7 @@ public class FollowController {
         );
     }
 
-    @PutMapping("/followers/{requestedId}")
+    @DeleteMapping("/followers/{requestedId}")
     @Transactional
     public ResponseEntity<HttpResponse> removeFollower(@AuthenticationPrincipal User principal, @PathVariable Long requestedId) {
         UserBasicView userToUnfollow = followService.removeFollower(principal, requestedId);

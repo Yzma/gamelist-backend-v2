@@ -14,7 +14,7 @@ public interface PostService {
 
     PostView findPostById(Long requestedId, User principal);
 
-    Post createPost(Post post, User principal);
+    PostView createPost(Post post, User principal);
 
     PostView updatePostById(Long requestedId, Post post, User principal);
 
