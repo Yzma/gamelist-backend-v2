@@ -5,6 +5,9 @@ spring:
     password: postgres
     url: jdbc:postgresql://localhost:5332/game_list_dev
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
   jpa:
     hibernate:
       ddl-auto: update
@@ -22,6 +25,7 @@ spring:
 logging:
   level:
     org.hibernate.sql: DEBUG
-
+    flyway: DEBUG
 server:
   port: 8080
+

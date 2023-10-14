@@ -4,7 +4,7 @@ application:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/test_db
+    url: jdbc:postgresql://localhost:5333/game_list_test
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
