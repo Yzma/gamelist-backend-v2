@@ -59,12 +59,11 @@ gem install
 4. Fill out all variables in .env file.
 
 ```yaml
-PORT=3000
-DATABASE_USERNAME=
-DATABASE_PASSWORD=
-DATABASE_DEVELOPMENT_DATABASE=
-DATABASE_TEST_DATABASE=
-SECRET_KEY_BASE=
+DOCKER_POSTGRES_USER=
+DOCKER_POSTGRES_PASSWORD=
+DOCKER_POSTGRES_DB_DEV=
+DOCKER_POSTGRES_DB_TEST=
+DOCKER_POSTGRES_NAME=
 ```
 
 5. Make sure to fill out all 3 application yaml files from demo: applicatoin.yml, application-development.yml, and application-test.yml. Setup database urls that avoid conflicts with other applications. Also fill application.yml file with jwt token secret key.
