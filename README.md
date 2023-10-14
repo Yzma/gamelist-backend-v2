@@ -56,15 +56,9 @@ cd game_list
 gem install
 ```
 
-4. Fill out docker-compose.yml file.
+4. Fill out all variables in .env file.
 
-```sh
-
-```
-
-5. Fill out all variables in .env file.
-
-```sh
+```yaml
 PORT=3000
 DATABASE_USERNAME=
 DATABASE_PASSWORD=
@@ -73,14 +67,129 @@ DATABASE_TEST_DATABASE=
 SECRET_KEY_BASE=
 ```
 
+5. Make sure to fill out all 3 application yaml files from demo: applicatoin.yml, application-development.yml, and application-test.yml. Setup database urls that avoid conflicts with other applications. Also fill application.yml file with jwt token secret key.
+```yaml
+#application-dev.yml
+spring:
+  datasource:
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://localhost:5332/game_list_dev
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    database: postgresql
+  sql:
+    init:
+      mode: never
 
-6. Seed the database (TODO)
+logging:
+  level:
+    org.hibernate.sql: DEBUG
+    flyway: DEBUG
+server:
+  port: 8080
+
+
+```
+```yaml
+#application-test.yml
+application:
+  title: GameList
+  version: 1.0.0
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5333/game_list_test
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      active: test
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    database: postgresql
+  sql:
+    init:
+      mode: never
+
+```
+```yaml
+#application.yml
+application:
+  title: GameList
+  version: 1.0.0
+
+security:
+  jwt:
+    secret-key: [JWT_SECRET_HERE]
+spring:
+  profiles:
+    active: dev
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+```
+6. Check docker-compose.yml file to make sure ports are not conflicting with other applications, and also make sure to fill out all variables in .env file.
+
+```yaml
+version: '3.8'
+
+services:
+  dev_db:
+    image: postgres:15-alpine
+    ports:
+      - "5332:5432"
+    environment:
+      - POSTGRES_USER=${DOCKER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOCKER_POSTGRES_DB_DEV}
+
+  test_db:
+    image: postgres:15-alpine
+    ports:
+      - "5333:5432"
+    environment:
+      - POSTGRES_USER=${DOCKER_POSTGRES_USER}
+      - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
+      - POSTGRES_DB=${DOCKER_POSTGRES_DB_TEST}
+```
+7. Download Docker Desktop App from official website: https://www.docker.com/products/docker-desktop/. Run docker compose in terminal to start up the database
+
+```sh
+docker-compose up
+```
+
+
+
+
+8. Seed the database (TODO)
 
 ```sh
 rails db:seed
 ```
 
-7. Run the application
+9. Run the application
 
 ```sh
 rails start
