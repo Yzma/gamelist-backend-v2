@@ -1,62 +1,52 @@
-# gamelist-spring
-
 <h1 align="center">
-  Game List V1 (Ruby on Rails Backend)
+  Game List V2 (Java Spring Backend)
   <br>
 </h1>
 
-<h4 align="center">Game List is a social game-tracking app that allows users to easily search, filter, and track their video game collections, enabling them to share their gaming status and interact with others through comments, likes, and following. The V1 frontend made in React.js can be accessed <a href="https://github.com/Yzma/game_list_client">here.</a></h4>
+<h4 align="center">Game List is a social game-tracking app that allows users to easily search, filter, and track their video game collections, enabling them to share their gaming status and interact with others through comments, likes, and following. The V2 frontend made in React.js can be accessed <a href="https://github.com/Yzma/game-list-frontend-v2">here.</a></h4>
 <br>
 
 <p align="center">
   <a href="#tech-stack">Tech Stack</a> •
-  <a href="#screenshots">Screenshots</a> •
-  <a href="#how-to-use">Getting Started</a> •
-  <a href="#authors">Authors</a>
+  <a href="#database-erd">Database ERD</a> •
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#authors">Authors</a> 
 </p>
 
-<h3 align="center">Live Demo: <a href="https://gamelistapp.netlify.app/home/">https://gamelistapp.netlify.app/home</a></h3>
-<br>
+## Tech Stack
 
-## Tech Stack & Features
-
-- [Ruby on Rails](https://rubyonrails.org/)
-- [GraphQL](https://graphql.org/)
-- [BCrypt](https://github.com/bcrypt-ruby/bcrypt-ruby)
-- [RSpec](https://rspec.info/)
+- [Java](https://www.java.com/en/)
+- [Spring Framework](https://spring.io/projects/spring-framework)
+- [MapStruct](https://mapstruct.org/)
+- [Java JWT](https://github.com/auth0/java-jwt)
+- [JUnit](https://junit.org/junit5/)
 - [Postgres SQL](https://www.postgresql.org/)
 
 ## Database ERD
 
-![alt text](http://url/to/img.png)
+![Database ERD](/Database%20ERD.png)
 
 ## Getting Started
 
 **Prerequisites:**
 
-- [Ruby](https://www.ruby-lang.org/en/)
+- [Java](https://www.java.com/en/)
 - [Git](https://git-scm.com)
-- [psql](https://www.postgresql.org/docs/current/app-psql.html)
+- [Docker](https://www.docker.com/)
 
 1. Clone the repository
 
 ```sh
-git clone https://github.com/Yzma/game_list.git
+git clone https://github.com/Yzma/gamelist-backend-v2.git
 ```
 
 2. Navigate to the project directory
 
 ```sh
-cd game_list
+cd gamelist-backend-v2
 ```
 
-3. Install dependencies
-
-```sh
-gem install
-```
-
-4. Fill out all variables in .env file.
+3. Fill out all variables in .env file.
 
 ```yaml
 DOCKER_POSTGRES_USER=
@@ -66,9 +56,9 @@ DOCKER_POSTGRES_DB_TEST=
 DOCKER_POSTGRES_NAME=
 ```
 
-5. Make sure to fill out all 3 application yaml files from demo: applicatoin.yml, application-development.yml, and application-test.yml. Setup database urls that avoid conflicts with other applications. Also fill application.yml file with jwt token secret key.
+4. Make sure to fill out all 3 application yaml files in src/main/resources: application.yml, application-development.yml, and application-test.yml. Setup database urls that avoid conflicts with other applications. Also fill application.yml file with jwt token secret key.
 ```yaml
-#application-dev.yml
+# src/main/resources/application-dev.yml
 spring:
   datasource:
     username: postgres
@@ -99,10 +89,10 @@ logging:
 server:
   port: 8080
 
-
 ```
+
 ```yaml
-#application-test.yml
+# src/main/resources/application-test.yml
 application:
   title: GameList
   version: 1.0.0
@@ -129,8 +119,9 @@ spring:
       mode: never
 
 ```
+
 ```yaml
-#application.yml
+# src/main/resources/application.yml
 application:
   title: GameList
   version: 1.0.0
@@ -149,7 +140,8 @@ management:
         include: "*"
 
 ```
-6. Check docker-compose.yml file to make sure ports are not conflicting with other applications, and also make sure to fill out all variables in .env file.
+
+6. Fill out the docker-compose.yml file, it should look something like this:
 
 ```yaml
 version: '3.8'
@@ -173,26 +165,13 @@ services:
       - POSTGRES_PASSWORD=${DOCKER_POSTGRES_PASSWORD}
       - POSTGRES_DB=${DOCKER_POSTGRES_DB_TEST}
 ```
-7. Download Docker Desktop App from official website: https://www.docker.com/products/docker-desktop/. Run docker compose in terminal to start up the database
+7. Download Docker Desktop App from the official website: https://www.docker.com/products/docker-desktop/. And run the following command in your terminal
 
 ```sh
 docker-compose up
 ```
 
-
-
-
-8. Seed the database (TODO)
-
-```sh
-rails db:seed
-```
-
-9. Run the application
-
-```sh
-rails start
-```
+8. Now open your favorite IDE and run the application. We used [IntelliJ](https://www.jetbrains.com/idea/)
 
 ## Authors
 
